@@ -1,0 +1,43 @@
+= dcs-prototype-6
+
+WARNING: Very much a work-in-progress!
+
+
+---
+
+== Use
+
+=== Setting up the tools, environment, etc.
+
+Prerequisites:
+
+* Git 2.24.0 (_-ish_)
+* npm
+* shadow-cljs
+
+Building and running:
+
+[bash]
+----
+# Install any npm controlled libs
+npm install
+
+# Compile a build once and exit
+shadow-cljs compile app
+
+# Compile and watch
+shadow-cljs watch app
+
+# Connect to REPL for the build (available while watch is running)
+shadow-cljs cljs-repl app
+
+# Running a release build optimized for production use
+shadow-cljs release app
+----
+
+=== Get the software
+
+[bash]
+----
+git clone https://github.com/data-commons-scotland/dcs-prototype-6.git
+----

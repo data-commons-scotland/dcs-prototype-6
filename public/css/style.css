@@ -1,0 +1,52 @@
+:root {
+    --navbar-height: 55px;
+}
+
+.main-container {
+    height: 100vh;
+    width: 100vw;
+}
+
+.navbar {
+    height: var(--navbar-height);
+}
+
+#map-ui {
+    height: calc(100vh - var(--navbar-height));
+    width: 100%;
+}
+
+.settings-container {
+    margin-top: 5%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-form {
+    width: 40%;
+}
+
+.search-btn {
+    width: 75px;
+}
+
+.token-btn {
+    width: 75px;
+}
+
+.navbar-inputs {
+    display: flex;
+    justify-content: center;
+}
+
+.leaflet-popup-content-wrapper {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.leaflet-popup-tip-container {
+    display: none !important;
+}
