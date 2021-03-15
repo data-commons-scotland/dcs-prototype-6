@@ -12,7 +12,7 @@
 }
 
 #map-ui {
-    height: calc(100vh - var(--navbar-height));
+    height: calc((100vh * (2/3)) - var(--navbar-height));
     width: 100%;
 }
 
@@ -49,4 +49,31 @@
 
 .leaflet-popup-tip-container {
     display: none !important;
+}
+
+
+.floats-right-column {
+  float: right;
+}
+
+.floats-right-column.one-third-width {
+  width: 33.33%;
+}
+
+.floats-right-column.two-thirds-width {
+  width: 66.66%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+/* Responsive layout - makes the columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .floats-right-column.one-third-width, .floats-right-column.two-thirds-width {
+    width: 100%;
+  }
 }

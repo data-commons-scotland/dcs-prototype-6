@@ -1,29 +1,11 @@
 (ns dcs.prototype-6.browser
       (:require [reagent.core :as r]
-                [dcs.prototype-6.views :as views]))
-
-
-(def URL-OSM "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
-
-(defn create-map []
-      (let [m (-> js/L
-                  (.map "map-ui")
-                  (.setView (array 56.12 -3.87) 7))       ;; Polmaise
-            tile1 (-> js/L (.tileLayer URL-OSM
-                                       #js{:maxZoom     18
-                                           :attribution "OOGIS RL, OpenStreetMap &copy;"}))
-            base (clj->js {"OpenStreetMap" tile1})
-            ctrl (-> js/L (.control.layers base nil))]
-           (.addTo tile1 m)
-           (.addTo ctrl m)))
-
+                [dcs.prototype-6.ui-root :as ui-root]))
 
 ;; start is called by init and after code reloading finishes
 (defn ^:dev/after-load start []
       (js/console.log "start")
-      (r/render-component [views/app]
-                          (.getElementById js/document "app"))
-      (create-map))
+      (r/render [ui-root/app] (.getElementById js/document "app")))
 
 (defn ^:export init []
       ;; init is called ONCE when the page loads
