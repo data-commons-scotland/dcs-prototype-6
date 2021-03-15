@@ -1,0 +1,24 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src"]
+
+ :dependencies
+ [[reagent "0.8.1"]
+  [arttuka/reagent-material-ui "4.11.3-0"]
+  [cljsjs/leaflet "0.7.7-4"]]
+
+ :builds
+ {:app
+  {:target :browser
+   :output-dir "public/js"
+   :asset-path "/js"
+
+   :modules
+   {:main ;; <- becomes public/js/main.js
+    {:entries [dcs.prototype-6.browser]}}
+
+   ;; start a development http server on http://localhost:8020
+   :devtools
+   {:http-root "public"
+    :http-port 3000}
+   }}}
