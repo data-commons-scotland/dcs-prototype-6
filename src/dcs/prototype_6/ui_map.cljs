@@ -13,25 +13,43 @@
 (def component-holder (r/atom nil))
 (def geojson-layer-holder (r/atom nil))
 
-(defn style [feature]
-      #js{
-          ;; :fillColor getColor(feature.properties.density)
-          :weight       1
-          :opacity      0.7
-          :color        "gray"
-          "fillOpacity" 0.2})
+
+(def x-for-region-holder (atom nil))
+
+(def style-neutral #js{;; :fillColor getColor(feature.properties.density)
+                       :weight       1
+                       :opacity      0.7
+                       :color        "gray"
+                       "fillOpacity" 0.2})
+
+(def style-selected #js{:weight       1
+                        :color        "blue"
+                        "dashArray"   ""
+                        "fillOpacity" 0.2})
+
+(def style-highlighted #js{:weight       2
+                           :color        "#666"
+                           "dashArray"   ""
+                           "fillOpacity" 0.4})
+
+(defn style [^js feature]
+      (let [properties-map (js->clj (.. feature -properties))
+            region (get properties-map "LAD13NM")]
+           (do
+             #_(js/console.log (str "styling " region))
+             (if (and (some? @state/region-holder)
+                      (= @state/region-holder region))
+               style-selected
+               style-neutral))))
 
 (defn highlight-feature [e]
       (let [^js x (.. e -target)
             properties-map (js->clj (.. x -feature -properties))
             region (get properties-map "LAD13NM")]
            (do
-             (.setStyle x #js{:weight       2
-                              :color        "#666"
-                              "dashArray"   ""
-                              "fillOpacity" 0.4})
+             (.setStyle x style-highlighted)
              (.bringToFront x)
-             (js/console.log (str "entered " region)))))
+             #_(js/console.log (str "entered " region)))))
 
 (defn reset-highlight [e]
       (let [x (.. e -target)
@@ -39,21 +57,23 @@
            (do
              (.resetStyle geojson-layer x))))
 
+(defn style-neutral-the-previously-selected []
+      (when-let [x-for-region @x-for-region-holder]
+                (.setStyle x-for-region style-neutral)))
+
 (defn zoom-to-feature [e]
       (let [^js x (.. e -target)
             component @component-holder
-
             properties-map (js->clj (.. x -feature -properties))
             region (get properties-map "LAD13NM")]
            (do
-             (.fitBounds component (.getBounds x))
-             (.setStyle x #js{:weight       1
-                              :color        "blue"
-                              "dashArray"   ""
-                              "fillOpacity" 0.2})
-             (.bringToFront x)
-             (reset! state/region-holder region)
-             (js/console.log (str "selected " region)))))
+             (when (not= @state/region-holder region)
+                   (do
+                     (style-neutral-the-previously-selected) ;; Hack! There will be a more elegant way to achieve this
+                     (.fitBounds component (.getBounds x))
+                     (reset! state/region-holder region)
+                     (reset! x-for-region-holder x)))
+             #_(js/console.log (str "selected " region)))))
 
 (defn on-each-feature [feature layer]
       (.on layer #js{:mouseover highlight-feature
