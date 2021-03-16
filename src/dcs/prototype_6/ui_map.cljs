@@ -47,6 +47,11 @@
             region (get properties-map "LAD13NM")]
            (do
              (.fitBounds component (.getBounds x))
+             (.setStyle x #js{:weight       1
+                              :color        "blue"
+                              "dashArray"   ""
+                              "fillOpacity" 0.2})
+             (.bringToFront x)
              (reset! state/region-holder region)
              (js/console.log (str "selected " region)))))
 
@@ -68,7 +73,7 @@
 
 (defn did-update [this prev-props]
       (let [geojson (:data (r/props this))
-            geojson-layer (.geoJson js/L @state/geojson
+            geojson-layer (.geoJson js/L @state/geojson-holder
                                     #js{:style          style
                                         "onEachFeature" on-each-feature})
             component @component-holder]
@@ -85,5 +90,5 @@
                        :component-did-update did-update}))
 
 (defn create []
-      [component {:data @state/geojson}])
+      [component {:data @state/geojson-holder}])
 

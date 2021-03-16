@@ -1,7 +1,8 @@
 (ns dcs.prototype-6.ui-root
   (:require [dcs.prototype-6.state :as state]
             [dcs.prototype-6.events :refer [increment decrement]]
-            [dcs.prototype-6.ui-map :as ui-map]))
+            [dcs.prototype-6.ui-map :as ui-map]
+            [dcs.prototype-6.ui-region-info :as ui-region-info]))
 
 (defn navbar []
       [:div.navbar
@@ -22,6 +23,6 @@
        ;[counter]
        [:div.row
         [:div.floats-right-column.one-third-width [ui-map/create]]
-        [:div.floats-right-column.two-thirds-width [:div.region-title [:h1 @state/region-holder]] [:p "Top waste facts about Region-xxx"]]]
-       [:div.row [:p "Other waste facts (including infographics) about region-xxx"]]])
+        [:div.floats-right-column.two-thirds-width [ui-region-info/create-panel-a]]]
+       [:div.row [ui-region-info/create-panel-b]]])
 

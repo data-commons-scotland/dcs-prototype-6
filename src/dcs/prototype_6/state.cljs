@@ -6,16 +6,14 @@
 
 (defonce app-state (r/atom {:count 0}))
 
-(defonce geojson (r/atom nil))
+(defonce geojson-holder (r/atom nil))
 
-(defonce region-holder (r/atom "please select a region..."))
+(defonce region-holder (r/atom "Please select a region..."))
 
 
-;; request
+(js/console.log (str "loading GeoJSON data"))
 (go (let [response (<! (http/get "regions.json"))]
          (do
-           (js/console.log (str "state status:" (:status response)))
-           (js/console.log (str "state success:" (:success response)))
-           (reset! geojson (clj->js (:body response)))
-           (js/console.log (str "state @geojson type:" (type @geojson)))
-           )))
+           (js/console.log (str "GeoJSON data, status:" (:status response)))
+           (js/console.log (str "GeoJSON data, success:" (:success response)))
+           (reset! geojson-holder (clj->js (:body response))))))
