@@ -71,6 +71,7 @@
                    (do
                      (style-neutral-the-previously-selected) ;; Hack! There will be a more elegant way to achieve this
                      (.fitBounds component (.getBounds x))
+                     (.setStyle x style-selected)
                      (reset! state/region-holder region)
                      (reset! x-for-region-holder x)))
              #_(js/console.log (str "selected " region)))))
