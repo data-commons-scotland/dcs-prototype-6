@@ -13,6 +13,7 @@
   {:target :browser
    :output-dir "public/js"
    :asset-path "/js"
+   :compiler-options {:externs ["externs.js"]}
 
    :modules
    {:main ;; <- becomes public/js/main.js

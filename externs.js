@@ -1,0 +1,23 @@
+var L = {
+    "map": {
+        "setView": function(){},
+        "on": function(){},
+        "getZoom": function(){},
+        "getBounds": function(){},
+        "hasLayer": function(){},
+        "removeLayer": function(){},
+        "fitBounds": function(){}
+    },
+    "tileLayer": {
+        "addTo": function(){}
+    },
+    "geoJSON": {
+        "addTo": function(){},
+        "bindPopup": function(){},
+        "bringToFront": function(){},
+        "setStyle": function(){},
+        "resetStyle": function(){}
+    },
+    "circleMarker": {
+    }
+};
