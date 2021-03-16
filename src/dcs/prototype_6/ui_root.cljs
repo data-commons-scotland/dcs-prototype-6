@@ -4,8 +4,10 @@
             [dcs.prototype-6.ui-map :as ui-map]))
 
 (defn navbar []
-      [:div
-       [:h1 "Waste Matters Scotland"]])
+      [:div.navbar
+       [:a {:href "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/index.html"}
+        [:img {:src "/img/dcs-circle.png"}]
+        "Waste Matters Scotland"]])
 
 (defn counter []
       [:div
@@ -16,7 +18,8 @@
 (defn app []
       [:div.main-container
        [navbar]
-       [counter]
+       [:div.page-title [:h1 "Regional facts about waste"]]
+       ;[counter]
        [:div.row
         [:div.floats-right-column.one-third-width [ui-map/create]]
         [:div.floats-right-column.two-thirds-width [:h1 "Region-xxx name"] [:p "Top waste facts about Region-xxx"]]]
