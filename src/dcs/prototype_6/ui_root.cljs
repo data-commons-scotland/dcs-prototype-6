@@ -3,7 +3,7 @@
             [dcs.prototype-6.events :refer [increment decrement]]
             [dcs.prototype-6.ui-map :as ui-map]
             [dcs.prototype-6.ui-region-info :as ui-region-info]
-            [dcs.prototype-6.ui-household-waste :as ui-household-waste]
+            [dcs.prototype-6.ui-household-waste-3dim :as ui-household-waste-3dim]
             [dcs.prototype-6.ui-household-co2e :as ui-household-co2e]))
 
 (defn navbar []
@@ -27,7 +27,7 @@
         [:div.floats-right-column.one-third-width [ui-map/create]]
         [:div.floats-right-column.two-thirds-width [ui-region-info/create-panel-a]]]
        [:div.row
-        [:div.floats-left-column.one-third-width [ui-household-waste/create]]
+        [:div.floats-left-column.one-third-width [ui-household-waste-3dim/create]]
         [:div.floats-left-column.one-third-width [ui-household-co2e/create]]
         [:div.floats-left-column.one-third-width [:p "WIP"]]]])
 

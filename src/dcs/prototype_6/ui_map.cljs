@@ -23,7 +23,7 @@
                        "fillOpacity" 0.2})
 
 (def style-selected #js{:weight       1
-                        :color        "blue"
+                        :color        "#fdae6b"
                         "dashArray"   ""
                         "fillOpacity" 0.2})
 
@@ -72,7 +72,7 @@
              (when (not= @state/region-holder region)
                    (do
                      (style-neutral-the-previously-selected) ;; Hack! There will be a more elegant way to achieve this
-                     (.fitBounds component (.getBounds x))
+                     ;(.fitBounds component (.getBounds x))
                      (.setStyle x style-selected)
                      (reset! state/region-holder region)
                      (reset! x-for-region-holder x)))
