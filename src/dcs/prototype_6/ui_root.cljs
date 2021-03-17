@@ -2,7 +2,8 @@
   (:require [dcs.prototype-6.state :as state]
             [dcs.prototype-6.events :refer [increment decrement]]
             [dcs.prototype-6.ui-map :as ui-map]
-            [dcs.prototype-6.ui-region-info :as ui-region-info]))
+            [dcs.prototype-6.ui-region-info :as ui-region-info]
+            [dcs.prototype-6.ui-chart :as ui-chart]))
 
 (defn navbar []
       [:div.navbar
@@ -19,10 +20,10 @@
 (defn app []
       [:div.main-container
        [navbar]
-       [:div.page-title.rounded-corners [:h1 "Regional facts"]]
+       [:div.page-title.rounded-corners [:h2 "Regional facts"]]
        ;[counter]
        [:div.row
         [:div.floats-right-column.one-third-width [ui-map/create]]
         [:div.floats-right-column.two-thirds-width [ui-region-info/create-panel-a]]]
-       [:div.row [ui-region-info/create-panel-b]]])
+       [:div.row [ui-chart/create]]])
 

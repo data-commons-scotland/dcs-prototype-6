@@ -6,7 +6,9 @@
  [[reagent "0.8.1"]
   [arttuka/reagent-material-ui "4.11.3-0"]
   [cljsjs/leaflet "0.7.7-4"]
-  [cljs-http "0.1.39"]]
+  [cljs-http "0.1.39"]
+  [metasoarous/oz "1.6.0-alpha34"]
+  [cljsjs/vega-lite "4.0.2-0"]]
 
  :builds
  {:app
