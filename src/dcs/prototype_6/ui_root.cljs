@@ -19,7 +19,7 @@
 (defn app []
       [:div.main-container
        [navbar]
-       [:div.page-title [:h2 "Regional facts about waste"]]
+       [:div.page-title.rounded-corners [:h1 "Regional facts"]]
        ;[counter]
        [:div.row
         [:div.floats-right-column.one-third-width [ui-map/create]]

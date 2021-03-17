@@ -14,6 +14,9 @@ var L = {
     "geoJSON": {
         "addTo": function(){},
         "bindPopup": function(){},
+        "bindTooltip": function(){},
+        "closeTooltip": function(){},
+        "openTooltip": function(){},
         "bringToFront": function(){},
         "setStyle": function(){},
         "resetStyle": function(){}

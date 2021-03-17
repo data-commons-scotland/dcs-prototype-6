@@ -14,7 +14,7 @@
 (def geojson-layer-holder (r/atom nil))
 
 
-(def x-for-region-holder (atom nil))
+(def x-for-region-holder (atom nil)) ;; A hack. Replace the nedd for this with a function that find this in the geojson-layer using the name of the region.
 
 (def style-neutral #js{;; :fillColor getColor(feature.properties.density)
                        :weight       1
@@ -47,6 +47,7 @@
             properties-map (js->clj (.. x -feature -properties))
             region (get properties-map "LAD13NM")]
            (do
+             (.openTooltip x)
              (.setStyle x style-highlighted)
              (.bringToFront x)
              #_(js/console.log (str "entered " region)))))
@@ -55,6 +56,7 @@
       (let [x (.. e -target)
             geojson-layer @geojson-layer-holder]
            (do
+             (.closeTooltip x)
              (.resetStyle geojson-layer x))))
 
 (defn style-neutral-the-previously-selected []
@@ -76,10 +78,14 @@
                      (reset! x-for-region-holder x)))
              #_(js/console.log (str "selected " region)))))
 
-(defn on-each-feature [feature layer]
-      (.on layer #js{:mouseover highlight-feature
-                     :mouseout  reset-highlight
-                     :click     zoom-to-feature}))
+(defn on-each-feature [^js feature layer]
+      (let [properties-map (js->clj (.. feature -properties))
+            region (get properties-map "LAD13NM")]
+           (do
+             (.bindTooltip layer region)
+             (.on layer #js{:mouseover highlight-feature
+                            :mouseout  reset-highlight
+                            :click     zoom-to-feature}))))
 
 (defn did-mount []
       (let [component (.map js/L dom-id)
