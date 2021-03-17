@@ -99,16 +99,19 @@
 }
 
 
+.floats-left-column {
+  float: left;
+}
 
 .floats-right-column {
   float: right;
 }
 
-.floats-right-column.one-third-width {
+.one-third-width {
   width: 33.33%;
 }
 
-.floats-right-column.two-thirds-width {
+.two-thirds-width {
   width: 66.66%;
 }
 
