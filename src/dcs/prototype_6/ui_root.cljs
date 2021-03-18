@@ -3,9 +3,10 @@
             [dcs.prototype-6.events :refer [increment decrement]]
             [dcs.prototype-6.ui-map :as ui-map]
             [dcs.prototype-6.ui-region-info :as ui-region-info]
-            [dcs.prototype-6.ui-household-waste-3dim :as ui-household-waste-3dim]
-            [dcs.prototype-6.ui-household-waste-4dim :as ui-household-waste-4dim]
-            [dcs.prototype-6.ui-household-co2e-3dim :as ui-household-co2e-3dim]))
+            [dcs.prototype-6.ui-household-waste-derivation-generation :as ui-household-waste-derivation-generation]
+            [dcs.prototype-6.ui-household-waste-derivation-percent-recycled :as ui-household-waste-derivation-percent-recycled]
+            [dcs.prototype-6.ui-household-waste-derivation-management :as ui-household-waste-derivation-management]
+            [dcs.prototype-6.ui-household-co2e-derivation :as ui-household-co2e-derivation]))
 
 (defn navbar []
       [:div.navbar
@@ -31,11 +32,11 @@
           [ui-region-info/create-panel-a]]
          [:div.row
           [:h3 "Household waste per citizen"]
-          [:div.floats-left-column.half-width [ui-household-waste-3dim/create]]
-          [:div.floats-left-column.half-width [:p "TODO % recycled"]]]
+          [:div.floats-left-column.half-width [ui-household-waste-derivation-generation/create]]
+          [:div.floats-left-column.half-width [ui-household-waste-derivation-percent-recycled/create]]]
          [:div.row
-          [:div.floats-left-column.half-width [ui-household-waste-4dim/create]]
-          [:div.floats-left-column.half-width [ui-household-co2e-3dim/create]]]]]
+          [:div.floats-left-column.half-width [ui-household-waste-derivation-management/create]]
+          [:div.floats-left-column.half-width [ui-household-co2e-derivation/create]]]]]
        [:div.row
         [:h3 "Business and household for the region"]
         [:div.floats-left-column.one-third-width [:p "TODO h vs b"]]

@@ -53,3 +53,18 @@
                                                                         (map :tonnes)
                                                                         (apply +))}))))
 
+;; Calculate the percentage recycled values for (region, year) pairs
+(defn calc-household-waste-percentage-recycled [household-waste]
+      (->> household-waste
+           (group-by (juxt :region :year))
+           (map (fn [[[region year] coll]] {:region     region
+                                            :year       year
+                                            :percentage (let [total-tonnes (->> coll
+                                                                                (map :tonnes)
+                                                                                (apply +))
+                                                              recycled-tonnes (->> coll
+                                                                                   (filter #(= "Recycled" (:management %)))
+                                                                                   (map :tonnes)
+                                                                                   (apply +))]
+                                                             (double (* 100 (/ recycled-tonnes total-tonnes))))}))))
+

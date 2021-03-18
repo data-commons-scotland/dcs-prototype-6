@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-household-waste-4dim
+(ns dcs.prototype-6.ui-household-waste-derivation-management
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
@@ -34,8 +34,8 @@
             :height     100
             :background "floralwhite"
             :data       {:values data}
-            :mark       {:type "bar"
-                         :cornerRadiusTopLeft 3
+            :mark       {:type                 "bar"
+                         :cornerRadiusTopLeft  3
                          :cornerRadiusTopRight 3}
             :selection  {:my {:type   "multi"
                               :fields ["region"]
@@ -49,16 +49,16 @@
                                    {:field "year" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
 
-(defn chart [region household-waste-4dim]
+(defn chart [region household-waste-derivation-management]
       (let [;; filter
-            household-waste-4dim' (filter #(= region (:region %)) household-waste-4dim)
+            household-waste-derivation-management' (filter #(= region (:region %)) household-waste-derivation-management)
 
             ;; stringify the year for Vega
-            household-waste-4dim'' (map #(assoc % :year (str (:year %)))
-                                        household-waste-4dim')]
+            household-waste-derivation-management'' (map #(assoc % :year (str (:year %)))
+                                                         household-waste-derivation-management')]
            [:div
-            [oz/vega-lite (chart-spec "Management" region household-waste-4dim'')
+            [oz/vega-lite (chart-spec "Management" region household-waste-derivation-management'')
              {:actions false}]]))
 
 (defn create []
-      [chart @state/region-holder @state/household-waste-4dim-holder])
+      [chart @state/region-holder @state/household-waste-derivation-management-holder])
