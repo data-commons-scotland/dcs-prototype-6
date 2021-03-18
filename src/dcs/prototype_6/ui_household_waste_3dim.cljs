@@ -34,7 +34,7 @@
             household-waste-3dim'' (map #(assoc % :year (str (:year %)))
                                         household-waste-3dim')]
            [:div
-            [oz/vega-lite (chart-spec "Household waste generated per citizen" region household-waste-3dim'')
+            [oz/vega-lite (chart-spec "Generation" region household-waste-3dim'')
              {:actions false}]]))
 
 (defn create []

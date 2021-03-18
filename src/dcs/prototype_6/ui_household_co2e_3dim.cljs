@@ -34,7 +34,7 @@
             household-co2e-3dim'' (map #(assoc % :year (str (:year %)))
                                        household-co2e-3dim')]
            [:div
-            [oz/vega-lite (chart-spec "Household CO2e per citizen" region household-co2e-3dim'')
+            [oz/vega-lite (chart-spec "Carbon impact" region household-co2e-3dim'')
              {:actions false}]]))
 
 (defn create []

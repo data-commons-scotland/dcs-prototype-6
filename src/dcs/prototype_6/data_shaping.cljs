@@ -42,3 +42,14 @@
                                                          (map :tonnes)
                                                          (apply +))}))))
 
+;; Roll-up to get values for (region, year, management) triples
+(defn rollup-household-waste-materials [household-waste]
+      (->> household-waste
+           (group-by (juxt :region :year :management))
+           (map (fn [[[region year management] coll]] {:region     region
+                                                       :year       year
+                                                       :management management
+                                                       :tonnes     (->> coll
+                                                                        (map :tonnes)
+                                                                        (apply +))}))))
+

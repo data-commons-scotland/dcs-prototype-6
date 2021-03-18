@@ -13,6 +13,8 @@
 
 (defonce household-waste-3dim-holder (r/atom nil))
 
+(defonce household-waste-4dim-holder (r/atom nil))
+
 (defonce household-co2e-3dim-holder (r/atom nil))
 
 ;; -----------------
@@ -49,7 +51,7 @@
            (js/console.log (str "household-waste, status=" (:status response) ", success=" (:success response)))
            (let [household-waste0 (:body response)
                  household-waste (concat household-waste0 (data-shaping/rollup-household-waste-regions household-waste0))]
-                 (reset! household-waste-holder household-waste)))))
+                (reset! household-waste-holder household-waste)))))
 
 
 (js/console.log (str "load household-co2e"))
@@ -58,21 +60,24 @@
            (js/console.log (str "household-co2e, status=" (:status response) ", success=" (:success response)))
            (let [household-co2e0 (:body response)
                  household-co2e (concat household-co2e0 (data-shaping/rollup-household-co2e-regions household-co2e0))]
-              (reset! household-co2e-holder household-co2e)))))
+                (reset! household-co2e-holder household-co2e)))))
 
 
 ;; ----------------------
 
 ;; Calc derived data
 
-(defn maybe-calc-household-waste-3dim []
+(defn maybe-calc-household-waste-3dim-and-4dim []
       (let [household-waste @household-waste-holder
             population @population-holder]
            (when (and (some? household-waste)
                       (some? population))
-                 (js/console.log "calculating household-waste-3dim")
+                 (js/console.log "calculating household-waste-3dim and household-waste-4dim")
                  (let [;; Roll-up to get values for (region, year) pairs
                        household-waste-3dim0 (data-shaping/rollup-household-waste-materials-and-management household-waste)
+
+                       ;; Roll-up to get values for (region, year, management) triples
+                       household-waste-4dim0 (data-shaping/rollup-household-waste-materials household-waste)
 
                        ;; Prep for the per citizen calculation
                        population-for-lookup (group-by (juxt :region :year) population)
@@ -82,8 +87,14 @@
                        household-waste-3dim (map (fn [{:keys [region year tonnes]}] {:region region
                                                                                      :year   year
                                                                                      :tonnes (double (/ tonnes (lookup-population region year)))})
-                                                 household-waste-3dim0)]
-                      (reset! household-waste-3dim-holder household-waste-3dim)))))
+                                                 household-waste-3dim0)
+                       household-waste-4dim (map (fn [{:keys [region year management tonnes]}] {:region     region
+                                                                                                :year       year
+                                                                                                :management management
+                                                                                                :tonnes     (double (/ tonnes (lookup-population region year)))})
+                                                 household-waste-4dim0)]
+                      (reset! household-waste-3dim-holder household-waste-3dim)
+                      (reset! household-waste-4dim-holder household-waste-4dim)))))
 
 (defn maybe-calc-household-co2e-3dim []
       (let [household-co2e @household-co2e-holder
@@ -106,20 +117,20 @@
 
 ;; Watch for data updates
 
-(add-watch population-holder :household-waste-3dim-dependency
+(add-watch population-holder :household-waste-3dim-and-4dim-dependency
            (fn [_key _atom old-state new-state]
                (when new-state
-                     (maybe-calc-household-waste-3dim))))
+                     (maybe-calc-household-waste-3dim-and-4dim))))
 
-(add-watch population-holder :household-co2e-3dim-dependency
+(add-watch population-holder :household-waste-3dim-dependency
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-household-co2e-3dim))))
 
-(add-watch household-waste-holder :household-waste-3dim-dependency
+(add-watch household-waste-holder :household-waste-3dim-and-4dim-dependency
            (fn [_key _atom old-state new-state]
                (when new-state
-                     (maybe-calc-household-waste-3dim))))
+                     (maybe-calc-household-waste-3dim-and-4dim))))
 
 (add-watch household-co2e-holder :household-co2e-3dim-dependency
            (fn [_key _atom old-state new-state]

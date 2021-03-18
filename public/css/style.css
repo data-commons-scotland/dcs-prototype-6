@@ -115,6 +115,10 @@
   width: 66.66%;
 }
 
+.half-width {
+  width: 50.00%;
+}
+
 .row:after {
   content: "";
   display: table;
@@ -124,7 +128,7 @@
 
 /* Responsive layout - makes the columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-  .one-third-width, .two-thirds-width {
+  .one-third-width, .two-thirds-width, .half-width {
     width: 100%;
   }
 }
