@@ -14,7 +14,7 @@
 (defn navbar []
       [:div.navbar
        [:a {:href "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/index.html"}
-        [:img {:src "/img/dcs-circle.png"}]
+        [:img {:src "img/dcs-circle.png"}]
         "Waste Matters Scotland"]])
 
 (defn counter []
