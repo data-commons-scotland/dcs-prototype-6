@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-household-co2e
+(ns dcs.prototype-6.ui-household-co2e-3dim
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
@@ -26,25 +26,16 @@
                                    {:field "year" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
 
-(defn chart [region household-co2e population]
+(defn chart [region household-co2e-3dim]
       (let [;; filter
-            household-co2e (filter #(contains? #{"Scotland" region} (:region %)) household-co2e)
-
-            ;; calculate the per citizen values
-            population-for-lookup (group-by (juxt :region :year) population)
-            lookup-population (fn [region year] (-> population-for-lookup (get [region year]) first :population))
-
-            household-co2e (map (fn [{:keys [region year tonnes]}] {:region region
-                                                                    :year   year
-                                                                    :tonnes (double (/ tonnes (lookup-population region year)))})
-                                household-co2e)
+            household-co2e-3dim' (filter #(contains? #{"Scotland" region} (:region %)) household-co2e-3dim)
 
             ;; stringify the year for Vega
-            household-co2e (map #(assoc % :year (str (:year %)))
-                                household-co2e)]
+            household-co2e-3dim'' (map #(assoc % :year (str (:year %)))
+                                       household-co2e-3dim')]
            [:div
-            [oz/vega-lite (chart-spec "Household CO2e per citizen" region household-co2e)
+            [oz/vega-lite (chart-spec "Household CO2e per citizen" region household-co2e-3dim'')
              {:actions false}]]))
 
 (defn create []
-      [chart @state/region-holder @state/household-co2e-holder @state/population-holder])
+      [chart @state/region-holder @state/household-co2e-3dim-holder])

@@ -26,25 +26,16 @@
                                    {:field "year" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
 
-(defn chart [region household-waste-3dim population]
+(defn chart [region household-waste-3dim]
       (let [;; filter
-            household-waste-3dim (filter #(contains? #{"Scotland" region} (:region %)) household-waste-3dim)
-
-            ;; calculate the per citizen values
-            population-for-lookup (group-by (juxt :region :year) population)
-            lookup-population (fn [region year] (-> population-for-lookup (get [region year]) first :population))
-
-            household-waste-3dim (map (fn [{:keys [region year tonnes]}] {:region region
-                                                                          :year   year
-                                                                          :tonnes (double (/ tonnes (lookup-population region year)))})
-                                      household-waste-3dim)
+            household-waste-3dim' (filter #(contains? #{"Scotland" region} (:region %)) household-waste-3dim)
 
             ;; stringify the year for Vega
-            household-waste-3dim (map #(assoc % :year (str (:year %)))
-                                      household-waste-3dim)]
+            household-waste-3dim'' (map #(assoc % :year (str (:year %)))
+                                        household-waste-3dim')]
            [:div
-            [oz/vega-lite (chart-spec "Household waste per citizen" region household-waste-3dim)
+            [oz/vega-lite (chart-spec "Household waste generated per citizen" region household-waste-3dim'')
              {:actions false}]]))
 
 (defn create []
-      [chart @state/region-holder @state/household-waste-3dim-holder @state/population-holder])
+      [chart @state/region-holder @state/household-waste-3dim-holder])
