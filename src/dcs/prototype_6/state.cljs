@@ -17,7 +17,13 @@
 
 (defonce household-waste-derivation-management-holder (r/atom nil))
 
+(defonce household-waste-derivation-composition-holder (r/atom nil))
+
 (defonce household-co2e-derivation-holder (r/atom nil))
+
+(defonce business-waste-by-region-derivation-generation-holder (atom nil))
+
+(defonce business-waste-by-region-derivation-composition-holder (atom nil))
 
 ;; -----------------
 
@@ -26,6 +32,8 @@
 (defonce household-waste-holder (atom nil))
 
 (defonce household-co2e-holder (atom nil))
+
+(defonce business-waste-by-region-holder (atom nil))
 
 ;; -----------------
 
@@ -65,6 +73,15 @@
                 (reset! household-co2e-holder household-co2e)))))
 
 
+(js/console.log (str "load business-waste-by-region"))
+(go (let [response (<! (http/get "business-waste-by-region.json"))]
+         (do
+           (js/console.log (str "business-waste-by-region, status=" (:status response) ", success=" (:success response)))
+           (let [business-waste-by-region0 (:body response)
+                 business-waste-by-region (concat business-waste-by-region0 (data-shaping/rollup-business-waste-by-region-regions business-waste-by-region0))]
+                (reset! business-waste-by-region-holder business-waste-by-region)))))
+
+
 ;; ----------------------
 
 ;; Calc derived data
@@ -83,6 +100,9 @@
                        ;; Roll-up to get values for (region, year, management) triples
                        household-waste-derivation-management0 (data-shaping/rollup-household-waste-materials household-waste)
 
+                       ;; Roll-up to get values for (region, year, material) triples
+                       household-waste-derivation-composition0 (data-shaping/rollup-household-waste-managements household-waste)
+
                        ;; Prep for the per citizen calculation
                        population-for-lookup (group-by (juxt :region :year) population)
                        lookup-population (fn [region year] (-> population-for-lookup (get [region year]) first :population))
@@ -97,13 +117,19 @@
                                                                                                                  :management management
                                                                                                                  :tonnes     (double (/ tonnes (lookup-population region year)))})
                                                                   household-waste-derivation-management0)
+                       household-waste-derivation-composition (map (fn [{:keys [region year material tonnes]}] {:region   region
+                                                                                                                :year     year
+                                                                                                                :material material
+                                                                                                                :tonnes   (double (/ tonnes (lookup-population region year)))})
+                                                                   household-waste-derivation-composition0)
 
                        ;; Calculate the percentage recycled values
                        household-waste-derivation-percent-recycled (data-shaping/calc-household-waste-percentage-recycled household-waste)]
 
                       (reset! household-waste-derivation-generation-holder household-waste-derivation-generation)
                       (reset! household-waste-derivation-percent-recycled-holder household-waste-derivation-percent-recycled)
-                      (reset! household-waste-derivation-management-holder household-waste-derivation-management)))))
+                      (reset! household-waste-derivation-management-holder household-waste-derivation-management)
+                      (reset! household-waste-derivation-composition-holder household-waste-derivation-composition)))))
 
 
 (defn maybe-calc-household-co2e-derivation []
@@ -125,6 +151,35 @@
                                                       household-co2e)]
 
                       (reset! household-co2e-derivation-holder household-co2e-derivation)))))
+
+
+(defn maybe-calc-business-waste-by-region-derivations []
+      (let [business-waste-by-region @business-waste-by-region-holder]
+
+           (when (some? business-waste-by-region))
+           (js/console.log "calculating business-waste-by-region-derivations")
+
+           (let [region-count (->> business-waste-by-region
+                                   (map :region)
+                                   distinct
+                                   count)
+
+                 ;; Roll-up to get values for (region, year) pairs
+                 business-waste-by-region-derivation-generation0 (data-shaping/rollup-business-waste-by-region-materials business-waste-by-region)
+
+                 ;; Scotland (total) -> Scotland average
+                 business-waste-by-region-derivation-generation (map (fn [{:keys [region year tonnes] :as original}] (if (= "Scotland" region)
+                                                                                                                       {:region "Scotland average"
+                                                                                                                        :year   year
+                                                                                                                        :tonnes (double (/ tonnes region-count))}
+                                                                                                                       original))
+                                                                     business-waste-by-region-derivation-generation0)
+
+                 ;; No actual deriving needed for the composition
+                 business-waste-by-region-derivation-composition business-waste-by-region]
+
+                (reset! business-waste-by-region-derivation-generation-holder business-waste-by-region-derivation-generation)
+                (reset! business-waste-by-region-derivation-composition-holder business-waste-by-region-derivation-composition))))
 
 ;; -------------------
 
@@ -149,3 +204,8 @@
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-household-co2e-derivation))))
+
+(add-watch business-waste-by-region-holder :business-waste-by-region-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-business-waste-by-region-derivations))))

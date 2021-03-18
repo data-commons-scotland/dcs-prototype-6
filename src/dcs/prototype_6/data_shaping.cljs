@@ -32,6 +32,17 @@
                                                                           (map :tonnes)
                                                                           (apply +))}))))
 
+;; Roll-up to get values for Scotland as a whole
+(defn rollup-business-waste-by-region-regions [business-waste-by-region]
+      (->> business-waste-by-region
+           (group-by (juxt :year :material))
+           (map (fn [[[year material] coll]] {:region   "Scotland"
+                                              :year     year
+                                              :material material
+                                              :tonnes   (->> coll
+                                                             (map :tonnes)
+                                                             (apply +))}))))
+
 ;; Roll-up to get values for (region, year) pairs
 (defn rollup-household-waste-materials-and-management [household-waste]
       (->> household-waste
@@ -53,6 +64,17 @@
                                                                         (map :tonnes)
                                                                         (apply +))}))))
 
+;; Roll-up to get values for (region, year, material) triples
+(defn rollup-household-waste-managements [household-waste]
+      (->> household-waste
+           (group-by (juxt :region :year :material))
+           (map (fn [[[region year material] coll]] {:region     region
+                                                       :year       year
+                                                       :material   material
+                                                       :tonnes     (->> coll
+                                                                        (map :tonnes)
+                                                                        (apply +))}))))
+
 ;; Calculate the percentage recycled values for (region, year) pairs
 (defn calc-household-waste-percentage-recycled [household-waste]
       (->> household-waste
@@ -68,3 +90,12 @@
                                                                                    (apply +))]
                                                              (double (* 100 (/ recycled-tonnes total-tonnes))))}))))
 
+;; Roll-up to get values for (region, year) pairs
+(defn rollup-business-waste-by-region-materials [business-waste-by-region]
+      (->> business-waste-by-region
+           (group-by (juxt :region :year))
+           (map (fn [[[region year] coll]] {:region region
+                                            :year   year
+                                            :tonnes (->> coll
+                                                         (map :tonnes)
+                                                         (apply +))}))))

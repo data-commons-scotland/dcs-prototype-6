@@ -1,8 +1,9 @@
-(ns dcs.prototype-6.ui-household-co2e-derivation
+(ns dcs.prototype-6.ui-household-waste-derivation-composition
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
     [dcs.prototype-6.state :as state]))
+
 
 
 (defn chart-spec [title region data]
@@ -13,29 +14,31 @@
             :height     100
             :background "floralwhite"
             :data       {:values data}
-            :mark       {:type "line" :point false #_{:filled false :fill "floralwhite" }}
+            :mark       {:type                 "bar"
+                         :cornerRadiusTopLeft  3
+                         :cornerRadiusTopRight 3}
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}
             :encoding   {:x       {:field "year" :type "temporal" :timeUnit "year" :axis {:tickCount year-count :title "year"}}
                          :y       {:field "tonnes" :type "quantitative" :scale {:zero false} :axis {:title "tonnes"}}
-                         :color   {:field "region" :type "nominal" :scale {:domain ["Scotland" region] :range ["#1f77b4" "#fdae6b"]} :legend nil #_{:orient "bottom" :columns 3}}
+                         :color   {:field "material" :type "nominal" :scale {:scheme "tableau20"} :legend nil #_{:orient "bottom" :columns 3}}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}
-                         :tooltip [{:field "region" :type "nominal"}
+                         :tooltip [{:field "material" :type "nominal"}
                                    {:field "year" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
 
-(defn chart [region household-co2e-derivation]
+(defn chart [region household-waste-derivation-composition]
       (let [;; filter
-            household-co2e-derivation' (filter #(contains? #{"Scotland" region} (:region %)) household-co2e-derivation)
+            household-waste-derivation-composition' (filter #(= region (:region %)) household-waste-derivation-composition)
 
             ;; stringify the year for Vega
-            household-co2e-derivation'' (map #(assoc % :year (str (:year %)))
-                                             household-co2e-derivation')]
+            household-waste-derivation-composition'' (map #(assoc % :year (str (:year %)))
+                                                          household-waste-derivation-composition')]
            [:div
-            [oz/vega-lite (chart-spec "Carbon impact" region household-co2e-derivation'')
+            [oz/vega-lite (chart-spec "Composition" region household-waste-derivation-composition'')
              {:actions false}]]))
 
 (defn create []
-      [chart @state/region-holder @state/household-co2e-derivation-holder])
+      [chart @state/region-holder @state/household-waste-derivation-composition-holder])
