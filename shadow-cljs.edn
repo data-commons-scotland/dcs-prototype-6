@@ -8,7 +8,8 @@
   [cljsjs/leaflet "0.7.7-4"]
   [cljs-http "0.1.39"]
   [metasoarous/oz "1.6.0-alpha34"]
-  [cljsjs/vega-lite "4.0.2-0"]]
+  [cljsjs/vega-lite "4.0.2-0"]
+  [kixi/stats "0.5.4"]]
 
  :builds
  {:app

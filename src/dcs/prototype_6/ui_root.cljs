@@ -45,13 +45,15 @@
           [:div.floats-left-column.two-fiths-width [ui-household-waste-derivation-percent-recycled/create]]
           [:div.floats-left-column.three-fiths-width [ui-household-co2e-derivation-generation/create]]]]]
        [:div.row
-        [:div.floats-left-column.one-third-width
-         [:h3 "Business waste for the region"]
-         [ui-business-waste-by-region-derivation-composition/create]]
-        [:div.floats-left-column.one-third-width
-         [:h3 {:dangerouslySetInnerHTML {:__html "&nbsp;"}}]
-         [ui-business-waste-by-region-derivation-generation/create]]
-        [:div.floats-left-column.one-third-width
-         [:h3 "About waste sites"]
-         [:p "TODO: more info about business waste"]]]])
+        [:div.floats-left-column.two-thirds-width
+         [:div.floats-left-column.two-fiths-width
+          [:h3 "Business waste for the region"]
+          [ui-business-waste-by-region-derivation-composition/create]]
+         [:div.floats-left-column.thrww-fiths-width
+          [:h3 {:dangerouslySetInnerHTML {:__html "&nbsp;"}}]
+          [ui-business-waste-by-region-derivation-generation/create]]]
+         [:div.floats-left-column.one-third-width
+          [:br]
+          [:h3 "Waste sites in the region"]
+          [:p "TODO: more info about business waste"]]]])
 

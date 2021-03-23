@@ -2,6 +2,8 @@
   (:require [reagent.core :as r]
             [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]
+            [cljs.pprint :as pp]
+            [kixi.stats.core :as stats]
             [dcs.prototype-6.data-shaping :as data-shaping])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
@@ -82,6 +84,14 @@
 
 ;; Calc derived data
 
+; Compute 'the trend of y'.
+; (Returns the gradient of a linear approximation to the curve decribed by xy-pairs.)
+(defn trend [xy-pairs]
+      (let [rf (stats/simple-linear-regression first second)
+            jsobj (transduce identity rf xy-pairs)]
+           (. jsobj -slope)))
+
+
 (defn maybe-calc-household-waste-derivations []
       (let [household-waste @household-waste-holder
             population @population-holder]
@@ -127,20 +137,43 @@
                                         (map :year)
                                         (apply max))
                        household-waste-derivation-generation-positions {:latest-positions (->> household-waste-derivation-generation
+                                                                                               (remove #(= "Scotland" (:region %)))
                                                                                                (filter #(= latest-year (:year %)))
                                                                                                (sort-by :tonnes)
                                                                                                (map-indexed (fn [ix m] {:region   (:region m)
                                                                                                                         :position (inc ix)
                                                                                                                         :year     latest-year})))
-                                                                        :trend-positions  nil}
+                                                                        :trend-positions  (->> household-waste-derivation-generation
+                                                                                               (remove #(= "Scotland" (:region %)))
+                                                                                               (group-by :region)
+                                                                                               (map (fn [[region coll]] {:region region
+                                                                                                                         :trend  (->> coll
+                                                                                                                                      (map #(vector (double (:year %)) (:tonnes %)))
+                                                                                                                                      trend)}))
+                                                                                               (sort-by :trend)
+                                                                                               (map-indexed (fn [ix m] {:region   (:region m)
+                                                                                                                        :position (inc ix)
+                                                                                                                        :trend    (:trend trend)})))}
+
                        household-waste-derivation-percent-recycled-positions {:latest-positions (->> household-waste-derivation-percent-recycled
+                                                                                                     (remove #(= "Scotland" (:region %)))
                                                                                                      (filter #(= latest-year (:year %)))
                                                                                                      (sort-by :tonnes)
                                                                                                      reverse
                                                                                                      (map-indexed (fn [ix m] {:region   (:region m)
                                                                                                                               :position (inc ix)
                                                                                                                               :year     latest-year})))
-                                                                              :trend-positions  nil}]
+                                                                              :trend-positions  (->> household-waste-derivation-percent-recycled
+                                                                                                     (group-by :region)
+                                                                                                     (map (fn [[region coll]] {:region region
+                                                                                                                               :trend  (->> coll
+                                                                                                                                            (map #(vector (double (:year %)) (:percentage %)))
+                                                                                                                                            trend)}))
+                                                                                                     (sort-by :trend)
+                                                                                                     reverse
+                                                                                                     (map-indexed (fn [ix m] {:region   (:region m)
+                                                                                                                              :position (inc ix)
+                                                                                                                              :trend    (:trend trend)})))}]
 
                       (reset! household-waste-derivation-generation-holder household-waste-derivation-generation)
                       (reset! household-waste-derivation-percent-recycled-holder household-waste-derivation-percent-recycled)
@@ -173,12 +206,23 @@
                                         (map :year)
                                         (apply max))
                        household-co2e-derivation-generation-positions {:latest-positions (->> household-co2e-derivation-generation
+                                                                                              (remove #(= "Scotland" (:region %)))
                                                                                               (filter #(= latest-year (:year %)))
                                                                                               (sort-by :tonnes)
                                                                                               (map-indexed (fn [ix m] {:region   (:region m)
                                                                                                                        :position (inc ix)
                                                                                                                        :year     latest-year})))
-                                                                       :trend-positions  nil}]
+                                                                       :trend-positions  (->> household-co2e-derivation-generation
+                                                                                              (remove #(= "Scotland" (:region %)))
+                                                                                              (group-by :region)
+                                                                                              (map (fn [[region coll]] {:region region
+                                                                                                                        :trend  (->> coll
+                                                                                                                                     (map #(vector (double (:year %)) (:tonnes %)))
+                                                                                                                                     trend)}))
+                                                                                              (sort-by :trend)
+                                                                                              (map-indexed (fn [ix m] {:region   (:region m)
+                                                                                                                       :position (inc ix)
+                                                                                                                       :trend    (:trend trend)})))}]
 
                       (reset! household-co2e-derivation-generation-holder household-co2e-derivation-generation)
                       (reset! household-co2e-derivation-generation-positions-holder household-co2e-derivation-generation-positions)))))
