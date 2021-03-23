@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-household-co2e-derivation
+(ns dcs.prototype-6.ui-household-co2e-derivation-generation
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
@@ -26,16 +26,16 @@
                                    {:field "year" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
 
-(defn chart [region household-co2e-derivation]
+(defn chart [region household-co2e-derivation-generation]
       (let [;; filter
-            household-co2e-derivation' (filter #(contains? #{"Scotland" region} (:region %)) household-co2e-derivation)
+            household-co2e-derivation-generation' (filter #(contains? #{"Scotland" region} (:region %)) household-co2e-derivation-generation)
 
             ;; stringify the year for Vega
-            household-co2e-derivation'' (map #(assoc % :year (str (:year %)))
-                                             household-co2e-derivation')]
+            household-co2e-derivation-generation'' (map #(assoc % :year (str (:year %)))
+                                             household-co2e-derivation-generation')]
            [:div
-            [oz/vega-lite (chart-spec "Carbon impact" region household-co2e-derivation'')
+            [oz/vega-lite (chart-spec "Carbon impact" region household-co2e-derivation-generation'')
              {:actions false}]]))
 
 (defn create []
-      [chart @state/region-holder @state/household-co2e-derivation-holder])
+      [chart @state/region-holder @state/household-co2e-derivation-generation-holder])

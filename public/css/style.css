@@ -99,6 +99,25 @@
 }
 
 
+#centre {
+    text-align: center;
+}
+.positions th {
+    text-align: left;
+    color: gray;
+}
+.positions th, td {
+    font-size: smaller;
+}
+.position {
+    text-align: right;
+}
+.bottom-border {
+    border-bottom-style: solid;
+    border-width: 1px;
+}
+
+
 .floats-left-column {
   float: left;
 }
@@ -115,6 +134,14 @@
   width: 66.66%;
 }
 
+.two-fiths-width {
+  width: 40.00%;
+}
+
+.three-fiths-width {
+  width: 60.00%;
+}
+
 .half-width {
   width: 50.00%;
 }
@@ -128,7 +155,7 @@
 
 /* Responsive layout - makes the columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-  .one-third-width, .two-thirds-width, .half-width {
+  .one-third-width, .two-thirds-width, .two-fiths-width, .three-fiths-width, .half-width {
     width: 100%;
   }
 }

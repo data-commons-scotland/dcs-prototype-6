@@ -12,27 +12,23 @@
 (defonce geojson-holder (r/atom nil))
 
 (defonce household-waste-derivation-generation-holder (r/atom nil))
-
 (defonce household-waste-derivation-percent-recycled-holder (r/atom nil))
-
 (defonce household-waste-derivation-management-holder (r/atom nil))
-
 (defonce household-waste-derivation-composition-holder (r/atom nil))
+(defonce household-waste-derivation-generation-positions-holder (r/atom nil))
+(defonce household-waste-derivation-percent-recycled-positions-holder (r/atom nil))
 
-(defonce household-co2e-derivation-holder (r/atom nil))
+(defonce household-co2e-derivation-generation-holder (r/atom nil))
+(defonce household-co2e-derivation-generation-positions-holder (r/atom nil))
 
 (defonce business-waste-by-region-derivation-generation-holder (atom nil))
-
 (defonce business-waste-by-region-derivation-composition-holder (atom nil))
 
 ;; -----------------
 
 (defonce population-holder (atom nil))
-
 (defonce household-waste-holder (atom nil))
-
 (defonce household-co2e-holder (atom nil))
-
 (defonce business-waste-by-region-holder (atom nil))
 
 ;; -----------------
@@ -124,33 +120,68 @@
                                                                    household-waste-derivation-composition0)
 
                        ;; Calculate the percentage recycled values
-                       household-waste-derivation-percent-recycled (data-shaping/calc-household-waste-percentage-recycled household-waste)]
+                       household-waste-derivation-percent-recycled (data-shaping/calc-household-waste-percentage-recycled household-waste)
+
+                       ;; Calculate positions
+                       latest-year (->> household-waste
+                                        (map :year)
+                                        (apply max))
+                       household-waste-derivation-generation-positions {:latest-positions (->> household-waste-derivation-generation
+                                                                                               (filter #(= latest-year (:year %)))
+                                                                                               (sort-by :tonnes)
+                                                                                               (map-indexed (fn [ix m] {:region   (:region m)
+                                                                                                                        :position (inc ix)
+                                                                                                                        :year     latest-year})))
+                                                                        :trend-positions  nil}
+                       household-waste-derivation-percent-recycled-positions {:latest-positions (->> household-waste-derivation-percent-recycled
+                                                                                                     (filter #(= latest-year (:year %)))
+                                                                                                     (sort-by :tonnes)
+                                                                                                     reverse
+                                                                                                     (map-indexed (fn [ix m] {:region   (:region m)
+                                                                                                                              :position (inc ix)
+                                                                                                                              :year     latest-year})))
+                                                                              :trend-positions  nil}]
 
                       (reset! household-waste-derivation-generation-holder household-waste-derivation-generation)
                       (reset! household-waste-derivation-percent-recycled-holder household-waste-derivation-percent-recycled)
                       (reset! household-waste-derivation-management-holder household-waste-derivation-management)
-                      (reset! household-waste-derivation-composition-holder household-waste-derivation-composition)))))
+                      (reset! household-waste-derivation-composition-holder household-waste-derivation-composition)
+                      (reset! household-waste-derivation-generation-positions-holder household-waste-derivation-generation-positions)
+                      (reset! household-waste-derivation-percent-recycled-positions-holder household-waste-derivation-percent-recycled-positions)))))
 
 
-(defn maybe-calc-household-co2e-derivation []
+(defn maybe-calc-household-co2e-derivations []
       (let [household-co2e @household-co2e-holder
             population @population-holder]
 
            (when (and (some? household-co2e)
                       (some? population))
-                 (js/console.log "calculating household-co2e-derivation")
+                 (js/console.log "calculating household-co2e-derivations")
 
                  (let [;; Prep for the per citizen calculation
                        population-for-lookup (group-by (juxt :region :year) population)
                        lookup-population (fn [region year] (-> population-for-lookup (get [region year]) first :population))
 
                        ;; Calculate the per citizen values
-                       household-co2e-derivation (map (fn [{:keys [region year tonnes]}] {:region region
-                                                                                          :year   year
-                                                                                          :tonnes (double (/ tonnes (lookup-population region year)))})
-                                                      household-co2e)]
+                       household-co2e-derivation-generation (map (fn [{:keys [region year tonnes]}] {:region region
+                                                                                                     :year   year
+                                                                                                     :tonnes (double (/ tonnes (lookup-population region year)))})
+                                                                 household-co2e)
 
-                      (reset! household-co2e-derivation-holder household-co2e-derivation)))))
+                       ;; Calculate positions
+                       latest-year (->> household-co2e
+                                        (map :year)
+                                        (apply max))
+                       household-co2e-derivation-generation-positions {:latest-positions (->> household-co2e-derivation-generation
+                                                                                              (filter #(= latest-year (:year %)))
+                                                                                              (sort-by :tonnes)
+                                                                                              (map-indexed (fn [ix m] {:region   (:region m)
+                                                                                                                       :position (inc ix)
+                                                                                                                       :year     latest-year})))
+                                                                       :trend-positions  nil}]
+
+                      (reset! household-co2e-derivation-generation-holder household-co2e-derivation-generation)
+                      (reset! household-co2e-derivation-generation-positions-holder household-co2e-derivation-generation-positions)))))
 
 
 (defn maybe-calc-business-waste-by-region-derivations []
@@ -190,22 +221,24 @@
                (when new-state
                      (maybe-calc-household-waste-derivations))))
 
-(add-watch population-holder :household-co2e-derivation-dependency
+(add-watch population-holder :household-co2e-derivations-dependency
            (fn [_key _atom old-state new-state]
                (when new-state
-                     (maybe-calc-household-co2e-derivation))))
+                     (maybe-calc-household-co2e-derivations))))
 
 (add-watch household-waste-holder :household-waste-derivations-dependency
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-household-waste-derivations))))
 
-(add-watch household-co2e-holder :household-co2e-derivation-dependency
+(add-watch household-co2e-holder :household-co2e-derivations-dependency
            (fn [_key _atom old-state new-state]
                (when new-state
-                     (maybe-calc-household-co2e-derivation))))
+                     (maybe-calc-household-co2e-derivations))))
 
 (add-watch business-waste-by-region-holder :business-waste-by-region-derivations-dependency
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-business-waste-by-region-derivations))))
+
+
