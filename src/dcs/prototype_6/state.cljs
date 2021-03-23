@@ -98,7 +98,7 @@
 ; (Returns the gradient of a linear approximation to the curve decribed by xy-pairs.)
 (defn trend [xy-pairs]
       (let [rf (stats/simple-linear-regression first second)
-            jsobj (transduce identity rf xy-pairs)]
+            ^js jsobj (transduce identity rf xy-pairs)]
            (. jsobj -slope)))
 
 
@@ -168,7 +168,7 @@
                        household-waste-derivation-percent-recycled-positions {:latest-positions (->> household-waste-derivation-percent-recycled
                                                                                                      (remove #(= "Scotland" (:region %)))
                                                                                                      (filter #(= latest-year (:year %)))
-                                                                                                     (sort-by :tonnes)
+                                                                                                     (sort-by :percentage)
                                                                                                      reverse
                                                                                                      (map-indexed (fn [ix m] {:region   (:region m)
                                                                                                                               :position (inc ix)
