@@ -4,6 +4,7 @@
             [dcs.prototype-6.ui-map :as ui-map]
             [dcs.prototype-6.ui-region-title :as ui-region-title]
             [dcs.prototype-6.ui-region-position :as ui-region-position]
+            [dcs.prototype-6.ui-waste-site-derivation :as ui-waste-site-derivation]
             [dcs.prototype-6.ui-household-waste-derivation-generation :as ui-household-waste-derivation-generation]
             [dcs.prototype-6.ui-household-waste-derivation-percent-recycled :as ui-household-waste-derivation-percent-recycled]
             [dcs.prototype-6.ui-household-waste-derivation-management :as ui-household-waste-derivation-management]
@@ -54,6 +55,6 @@
           [ui-business-waste-by-region-derivation-generation/create]]]
          [:div.floats-left-column.one-third-width
           [:br]
-          [:h3 "Waste sites in the region"]
-          [:p "TODO: more info about business waste"]]]])
+          [:h3 "Operational waste sites in the region"]
+          [ui-waste-site-derivation/create]]]])
 

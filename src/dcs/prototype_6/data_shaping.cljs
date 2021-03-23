@@ -99,3 +99,17 @@
                                             :tonnes (->> coll
                                                          (map :tonnes)
                                                          (apply +))}))))
+
+;; Count the waste sites per category in each region
+(defn count-waste-sites-per-category-per-region [waste-site]
+      (->> waste-site
+           (remove #(= "Not operational" (:status %)))
+           (group-by :region)
+           (map (fn [[region coll]] (let [all (count coll)
+                                          household (->> coll
+                                                         (filter #(contains? (set (:accepts %)) "Household"))
+                                                         count)
+                                          non-household (- all household)]
+                                         {:region        region
+                                          :household     household
+                                          :non-household non-household})))))

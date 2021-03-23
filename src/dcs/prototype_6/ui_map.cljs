@@ -8,7 +8,7 @@
 (def init-zoom 6)
 (def basemap-url "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
 (def basemap-maxzoom 18)
-(def basemap-attribution "TODO")
+(def basemap-attribution "<a href='https://data-commons-scotland.github.io/dcs-wcs-prototype-3/pages-output/data/about/'>Data</a>")
 
 (def component-holder (r/atom nil))
 (def geojson-layer-holder (r/atom nil))

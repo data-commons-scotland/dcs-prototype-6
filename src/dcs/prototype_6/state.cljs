@@ -26,12 +26,15 @@
 (defonce business-waste-by-region-derivation-generation-holder (atom nil))
 (defonce business-waste-by-region-derivation-composition-holder (atom nil))
 
+(defonce waste-site-derivation-holder (atom nil))
+
 ;; -----------------
 
 (defonce population-holder (atom nil))
 (defonce household-waste-holder (atom nil))
 (defonce household-co2e-holder (atom nil))
 (defonce business-waste-by-region-holder (atom nil))
+(defonce waste-site-holder (atom nil))
 
 ;; -----------------
 
@@ -79,6 +82,13 @@
                  business-waste-by-region (concat business-waste-by-region0 (data-shaping/rollup-business-waste-by-region-regions business-waste-by-region0))]
                 (reset! business-waste-by-region-holder business-waste-by-region)))))
 
+
+(js/console.log (str "load waste-site"))
+(go (let [response (<! (http/get "waste-site.json"))]
+         (do
+           (js/console.log (str "waste-site, status=" (:status response) ", success=" (:success response)))
+           (let [waste-site (:body response)]
+                (reset! waste-site-holder waste-site)))))
 
 ;; ----------------------
 
@@ -256,6 +266,17 @@
                 (reset! business-waste-by-region-derivation-generation-holder business-waste-by-region-derivation-generation)
                 (reset! business-waste-by-region-derivation-composition-holder business-waste-by-region-derivation-composition))))
 
+
+(defn maybe-calc-waste-site-derivations []
+      (let [waste-site @waste-site-holder]
+
+           (when (some? waste-site))
+           (js/console.log "calculating waste-site-derivations")
+
+           (let [waste-site-derivation (data-shaping/count-waste-sites-per-category-per-region waste-site)]
+
+                (reset! waste-site-derivation-holder waste-site-derivation))))
+
 ;; -------------------
 
 ;; Watch for data updates
@@ -284,5 +305,10 @@
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-business-waste-by-region-derivations))))
+
+(add-watch waste-site-holder :waste-site-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-waste-site-derivations))))
 
 
