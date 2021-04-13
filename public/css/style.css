@@ -10,7 +10,7 @@
     width: 100vw;
     max-width: 1000px;
     color: #333;
-    background-color: floralwhite; /* #f2f2f2; */
+    background-color: floralwhite; /* was:   floralwhite; */ /* #f2f2f2; */
     padding: 5px;
 }
 
@@ -176,4 +176,13 @@
  width: 32px;
  height: 32px;
  margin-right: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .navbar-dropdown .is-active {
+      display: block;
+    }
+    .navbar-dropdown:not(.is-active) {
+      display: none;
+    }
 }

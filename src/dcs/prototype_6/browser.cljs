@@ -4,6 +4,7 @@
             [reitit.coercion.spec :as rss]
             [reitit.frontend.easy :as rfe]
             [dcs.prototype-6.state :as state]
+            [dcs.prototype-6.ui-nav :as ui-nav]
             [dcs.prototype-6.ui-root :as ui-root]))
 
 
@@ -24,10 +25,15 @@
         [:li [:a {:href (rfe/href ::home-page)} "Home page"]]
         [:li [:a {:href (rfe/href ::dashboard-page)} "Dashboard page"]]]])
 
-(defn current-page
+(defn todo
       []
       [:div
-       [:a {:href (rfe/href ::home-page)} "Home page"]
+       [:h1 "TODO"]])
+
+(defn current-page
+      []
+      [:div.main-container
+       [ui-nav/navbar]
         (let [view (:view (:data @state/route-match))]
            [view @state/route-match])])
 
@@ -41,7 +47,10 @@
      :view   ui-root/app}]
    ["/route1"
     {:name ::route1-page
-     :view   view1}]])
+     :view   view1}]
+   ["/todo"
+    {:name ::todo-page
+     :view   todo}]])
 
 ;; called by init and after code reloading finishes
 (defn ^:dev/after-load start
