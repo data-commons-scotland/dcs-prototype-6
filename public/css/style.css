@@ -178,11 +178,53 @@
  margin-right: 10px;
 }
 
-@media screen and (max-width: 600px) {
-    .navbar-dropdown .is-active {
-      display: block;
-    }
-    .navbar-dropdown:not(.is-active) {
-      display: none;
-    }
+
+/* -------- For the dynamics of the navbar burger ----------- */
+
+/* We don't need checkbox to be displayed in order for it to work */
+.toggler {
+  display: none;
+}
+
+/* Below are all the functionalities */
+
+/* Hamburger changes to X when toggler is checked */
+.navbar .toggler:checked + .navbar-brand .burger span:nth-child(1) {
+  -webkit-transform: translateY(5px) rotate(45deg);
+  transform: translateY(5px) rotate(45deg);
+}
+.navbar .toggler:checked + .navbar-brand .burger span:nth-child(2) {
+  opacity: 0;
+}
+.navbar .toggler:checked + .navbar-brand .burger span:nth-child(3) {
+  -webkit-transform: translateY(-5px) rotate(-45deg);
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/*  Displays menu when toggler is checked only on mobile/tablet */
+@media screen and (max-width: 1024px) {
+  .navbar .toggler:checked ~ .navbar-menu {
+    display: block;
+  }
+  /* We don't want menu to be displayed on mobile by default */
+  .navbar-menu {
+    display: none;
+  }
+}
+
+/* For dropdown functionality */
+
+/* Same reason as for checkbox */
+.has-dropdown input[type=checkbox] {
+  display: none;
+}
+/* Hide by default */
+.navbar-dropdown {
+  display: none;
+}
+/* The functionality */
+#explore-checkbox:checked ~ #explore-dropdown,
+#datasets-checkbox:checked ~ #datasets-dropdown,
+#about-checkbox:checked ~ #about-dropdown {
+    display: block;
 }

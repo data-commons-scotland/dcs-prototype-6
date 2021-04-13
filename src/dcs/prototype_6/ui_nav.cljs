@@ -15,47 +15,34 @@
             [dcs.prototype-6.ui-business-waste-by-region-derivation-generation :as ui-business-waste-by-region-derivation-generation]
             [dcs.prototype-6.ui-business-waste-by-region-derivation-composition :as ui-business-waste-by-region-derivation-composition]))
 
-(defn toggle-class [id toggled-class]
-      (let [el-classList (.-classList (.getElementById js/document id))]
-           (if (.contains el-classList toggled-class)
-             (.remove el-classList toggled-class)
-             (.add el-classList toggled-class))))
 
-(def open-burger? (r/atom false))
-
-(defn toggle-burger [& _]
-      (swap! open-burger? not))
-
-(defn close-burger [& _]
-      (reset! open-burger? false))
-
-(defn burger []
-      [:a.navbar-burger {:on-click toggle-burger
-                         :class (when @open-burger? "is-active")}
-       [:span]
-       [:span]
-       [:span]])
-
-(def x? (r/atom false))
-
-(defn toggle [& _]
-      (swap! x? not))
+(defn close-burger
+      "Close-up the burger's dropdowns and the burger itself"
+      [& _]
+      (doseq [id ["explore-checkbox" "datasets-checkbox" "about-checkbox" "toggler" ]]
+             (set! (.-checked (.getElementById js/document id)) false)))
 
 
 (defn navbar []
       [:nav.navbar.is-fixed-top.is-link {:role "navigation"}
+       [:input#toggler.toggler {:type "checkbox"}]
        [:div.navbar-brand
         [:a.navbar-item {:href "#"}
          [:img.brand-logo {:src "img/dcs-circle.png" :alt "Waste Matters Scotland logo"}]
          "Waste Matters Scotland"]
-        [burger]]
-       [:div#topnavbar.navbar-menu {:class (when @open-burger? "is-active")}
+        [:a.navbar-item]
+        [:label.navbar-burger.burger {:data-target "topnavbar" :for "toggler" :role "button"}
+         [:span]
+         [:span]
+         [:span]]]
+       [:div#topnavbar.navbar-menu
         [:div.navbar-start
          #_[:a.navbar-item {:href "#"} "Left side items beside the brand logo"]]
         [:div.navbar-end
          [:div.navbar-item.has-dropdown.is-hoverable.is-right
-          [:a.navbar-link {:on-click toggle} "Explore"]
-          [:div#explore-dropdown.navbar-dropdown {:class (when @x? "is-active")}
+          [:input#explore-checkbox {:type "checkbox"}]
+          [:label.navbar-link {:for "explore-checkbox"} "Explore"]
+          [:div#explore-dropdown.navbar-dropdown
            [:a.navbar-item {:href (rfe/href :dcs.prototype-6.browser/dashboard-page) :on-click close-burger}
             [:div.navbar-content
              [:p [:strong "Waste by region"]]
@@ -69,7 +56,8 @@
              [:p [:strong "Dimensions overview"]]
              [:p [:small "The list of our datasets' dimensions"]]]]]]
          [:div.navbar-item.has-dropdown.is-hoverable
-          [:a.navbar-link "Datasets"]
+          [:input#datasets-checkbox {:type "checkbox"}]
+          [:label.navbar-link {:for "datasets-checkbox"} "Datasets"]
           [:div#datasets-dropdown.navbar-dropdown
            [:a.navbar-item {:href (rfe/href :dcs.prototype-6.browser/todo-page) :on-click close-burger}
             [:div.navbar-content
@@ -91,7 +79,8 @@
               "Route 1"]
              [:p "Take route 1"]]]]]
          [:div.navbar-item.has-dropdown.is-hoverable
-          [:a.navbar-link "About"]
+          [:input#about-checkbox {:type "checkbox"}]
+          [:label.navbar-link {:for "about-checkbox"} "About"]
           [:div#about-dropdown.navbar-dropdown
            [:a.navbar-item {:href (rfe/href :dcs.prototype-6.browser/home-page) :on-click close-burger}
             [:div.navbar-content
