@@ -9,6 +9,8 @@
 
 (defonce app-state (r/atom {:count 0}))
 
+(defonce route-match (r/atom nil))
+
 (defonce region-holder (r/atom "Please select a region..."))
 
 (defonce geojson-holder (r/atom nil))
@@ -40,55 +42,50 @@
 
 ;; Fetch data into holders
 
-(js/console.log (str "load geojson"))
-(go (let [response (<! (http/get "geojson.json"))]
-         (do
-           (js/console.log (str "geojson, status=" (:status response) ", success=" (:success response)))
-           (reset! geojson-holder (clj->js (:body response))))))
+(defn fetch
+      [url body-handler]
+      (js/console.log (str "Fetching " url))
+      (go (let [response (<! (http/get url))]
+               (do
+                 (js/console.log (str "Response from " url ": status=" (:status response) " success=" (:success response)))
+                 (body-handler (:body response))))))
 
+(defn load-data
+      []
+      (js/console.log "Loading data files")
 
-(js/console.log (str "load population"))
-(go (let [response (<! (http/get "population.json"))]
-         (do
-           (js/console.log (str "population, status=" (:status response) ", success=" (:success response)))
-           (let [population0 (:body response)
-                 population (concat population0 (data-shaping/rollup-population-regions population0))]
-                (reset! population-holder population)))))
+      (fetch "geojson.json"
+             (fn [geojson] (->> geojson
+                                clj->js
+                                (reset! geojson-holder))))
 
+      (fetch "population.json"
+             (fn [population] (->> population
+                                   data-shaping/rollup-population-regions
+                                   (concat population)
+                                   (reset! population-holder))))
 
-(js/console.log (str "load household-waste"))
-(go (let [response (<! (http/get "household-waste.json"))]
-         (do
-           (js/console.log (str "household-waste, status=" (:status response) ", success=" (:success response)))
-           (let [household-waste0 (:body response)
-                 household-waste (concat household-waste0 (data-shaping/rollup-household-waste-regions household-waste0))]
-                (reset! household-waste-holder household-waste)))))
+      (fetch "household-waste.json"
+             (fn [household-waste] (->> household-waste
+                                        data-shaping/rollup-household-waste-regions
+                                        (concat household-waste)
+                                        (reset! household-waste-holder))))
 
+      (fetch "household-co2e.json"
+             (fn [household-co2e] (->> household-co2e
+                                       data-shaping/rollup-household-co2e-regions
+                                       (concat household-co2e)
+                                       (reset! household-co2e-holder))))
 
-(js/console.log (str "load household-co2e"))
-(go (let [response (<! (http/get "household-co2e.json"))]
-         (do
-           (js/console.log (str "household-co2e, status=" (:status response) ", success=" (:success response)))
-           (let [household-co2e0 (:body response)
-                 household-co2e (concat household-co2e0 (data-shaping/rollup-household-co2e-regions household-co2e0))]
-                (reset! household-co2e-holder household-co2e)))))
+      (fetch "business-waste-by-region.json"
+             (fn [business-waste-by-region] (->> business-waste-by-region
+                                                 data-shaping/rollup-business-waste-by-region-materials
+                                                 (concat business-waste-by-region)
+                                                 (reset! business-waste-by-region-holder))))
 
-
-(js/console.log (str "load business-waste-by-region"))
-(go (let [response (<! (http/get "business-waste-by-region.json"))]
-         (do
-           (js/console.log (str "business-waste-by-region, status=" (:status response) ", success=" (:success response)))
-           (let [business-waste-by-region0 (:body response)
-                 business-waste-by-region (concat business-waste-by-region0 (data-shaping/rollup-business-waste-by-region-regions business-waste-by-region0))]
-                (reset! business-waste-by-region-holder business-waste-by-region)))))
-
-
-(js/console.log (str "load waste-site"))
-(go (let [response (<! (http/get "waste-site.json"))]
-         (do
-           (js/console.log (str "waste-site, status=" (:status response) ", success=" (:success response)))
-           (let [waste-site (:body response)]
-                (reset! waste-site-holder waste-site)))))
+      (fetch "waste-site.json"
+             (fn [waste-site] (->> waste-site
+                                   (reset! waste-site-holder)))))
 
 ;; ----------------------
 

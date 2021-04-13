@@ -24,7 +24,7 @@
         [:thead
          [:tr
           [:th ""]
-          [:th#centre {:colspan 2} "Position"]]
+          [:th#centre {:colSpan 2} "Position"]]
          [:tr
           [:th.bottom-border "Aim"]
           [:th.bottom-border "Latest"]

@@ -9,7 +9,9 @@
   [cljs-http "0.1.39"]
   [metasoarous/oz "1.6.0-alpha34"]
   [cljsjs/vega-lite "4.0.2-0"]
-  [kixi/stats "0.5.4"]]
+  [kixi/stats "0.5.4"]
+  [metosin/reitit-frontend "0.5.12"]
+  [metosin/reitit-spec "0.5.12"]]
 
  :builds
  {:app

@@ -96,6 +96,16 @@
              (reset! component-holder component)
              (.setView component (array init-lat init-lng) init-zoom)
              (.addTo basemap-layer component)
+
+             ;; If we have the geojson already then add it to the map
+             (when-let [geojson @state/geojson-holder]
+                       (let [geojson-layer (.geoJson js/L @state/geojson-holder
+                                                     #js{:style          style
+                                                         "onEachFeature" on-each-feature})
+                             component @component-holder]
+                            (do
+                              (reset! geojson-layer-holder geojson-layer)
+                              (.addTo geojson-layer component))))
              )))
 
 (defn did-update [this prev-props]

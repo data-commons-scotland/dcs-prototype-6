@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.ui-root
-  (:require [dcs.prototype-6.state :as state]
+  (:require [reitit.frontend.easy :as rfe]
+            [dcs.prototype-6.state :as state]
             [dcs.prototype-6.events :refer [increment decrement]]
             [dcs.prototype-6.ui-map :as ui-map]
             [dcs.prototype-6.ui-region-title :as ui-region-title]
@@ -13,11 +14,53 @@
             [dcs.prototype-6.ui-business-waste-by-region-derivation-generation :as ui-business-waste-by-region-derivation-generation]
             [dcs.prototype-6.ui-business-waste-by-region-derivation-composition :as ui-business-waste-by-region-derivation-composition]))
 
+(defn toggle-class [id toggled-class]
+      (let [el-classList (.-classList (.getElementById js/document id))]
+           (if (.contains el-classList toggled-class)
+             (.remove el-classList toggled-class)
+             (.add el-classList toggled-class))))
+
 (defn navbar []
-      [:div.navbar
-       [:a {:href "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/index.html"}
-        [:img {:src "img/dcs-circle.png"}]
-        "Waste Matters Scotland"]])
+      [:nav.navbar.is-fixed-top.is-link {:role "navigation"}
+       [:div.navbar-brand
+        [:a.navbar-item {:href "#"}
+         [:img.brand-logo {:src "img/dcs-circle.png" :alt "Waste Matters Scotland logo"}]
+         "Waste Matters Scotland"]
+        [:div.navbar-burger.burger {:data-target "topnavbar" :on-click #(toggle-class "topnavbar" "is-active")}
+         [:span]
+         [:span]
+         [:span]]]
+       [:div#topnavbar.navbar-menu
+        [:div.navbar-start
+         #_[:a.navbar-item {:href "#"} "Left side items beside the brand logo"]]
+        [:div.navbar-end
+         [:a.navbar-item {:href "#"} "Xyz"]
+         [:div.navbar-item.has-dropdown.is-hoverable.is-right
+          [:a.navbar-link {:href "datasets"} "Datasets"]
+          [:div#datasets-dropdown.navbar-dropdown {:data-style "width: 18rem;"}
+           [:a.navbar-item {:href "CO2e"}
+            [:div.navbar-content
+             [:p [:strong "CO2e"]]
+             [:p [:small "What does this look like?"]]]]
+           [:br.navbar-divider]
+           [:a.navbar-item {:href (rfe/href :dcs.prototype-6.browser/route1-page)}
+            [:div.navbar-content
+             [:p
+              "Route 1"]
+             [:p "Take route 1"]]]]]
+         [:div.navbar-item.has-dropdown.is-hoverable.is-right
+          [:a.navbar-link "This site"]
+          [:div#datasets-dropdown.navbar-dropdown {:data-style "width: 18rem;"}
+           [:a.navbar-item {:href (rfe/href :dcs.prototype-6.browser/home-page)}
+            [:div.navbar-content
+             [:p [:strong "Home page"]]
+             [:p [:small "Go to the splash page"]]]]
+           [:br.navbar-divider]
+           [:a.navbar-item {:href (rfe/href :dcs.prototype-6.browser/route1-page)}
+            [:div.navbar-content
+             [:p
+              "Route 1"]
+             [:p "Take route 1"]]]]]]]])
 
 (defn counter []
       [:div
