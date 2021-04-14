@@ -2,6 +2,10 @@
   (:require [clojure.string :as str]
             [dcs.prototype-6.state :as state]))
 
+(defn colour [n]
+      (if (< n 17)
+        "has-text-success-dark"
+        "has-text-danger-dark"))
 
 (defn suffix [n]
       (let [s (str n)]
@@ -42,8 +46,8 @@
                                    first
                                    :position)]
               [:tr [:td "Reduce waste generation"]
-               [:td (str latest-position (suffix latest-position))]
-               [:td (str trend-position (suffix trend-position))]])
+               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
+               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])
 
          (let [latest-position (->> household-waste-derivation-percent-recycled-positions
                                     :latest-positions
@@ -56,8 +60,8 @@
                                    first
                                    :position)]
               [:tr [:td "Increase percentage recycled"]
-               [:td (str latest-position (suffix latest-position))]
-               [:td (str trend-position (suffix trend-position))]])
+               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
+               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])
 
          (let [latest-position (->> household-co2e-derivation-generation-positions
                                     :latest-positions
@@ -71,8 +75,8 @@
                                    first
                                    :position)]
               [:tr [:td "Reduce carbon impact"]
-               [:td (str latest-position (suffix latest-position))]
-               [:td (str trend-position (suffix trend-position))]])]]])
+               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
+               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])]]])
 
 
 (defn create []
