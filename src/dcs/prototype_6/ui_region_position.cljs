@@ -20,15 +20,15 @@
            household-co2e-derivation-generation-positions]
 
       [:div
-       [:table.positions
+       [:table#league-table.table.is-hoverable
         [:thead
          [:tr
           [:th ""]
-          [:th#centre {:colSpan 2} "Position"]]
+          [:th {:colSpan 2} "Position"]]
          [:tr
-          [:th.bottom-border "Aim"]
-          [:th.bottom-border "Latest"]
-          [:th.bottom-border "Trend"]]]
+          [:th "Aim"]
+          [:th "Latest"]
+          [:th "Trend"]]]
 
         [:tbody
 
@@ -43,8 +43,8 @@
                                    first
                                    :position)]
               [:tr [:td "Reduce waste generation"]
-               [:td.position (str latest-position (suffix latest-position))]
-               [:td.position (str trend-position (suffix trend-position))]])
+               [:td (str latest-position (suffix latest-position))]
+               [:td (str trend-position (suffix trend-position))]])
 
          (let [latest-position (->> household-waste-derivation-percent-recycled-positions
                                     :latest-positions
@@ -57,8 +57,8 @@
                                    first
                                    :position)]
               [:tr [:td "Increase percentage recycled"]
-               [:td.position (str latest-position (suffix latest-position))]
-               [:td.position (str trend-position (suffix trend-position))]])
+               [:td (str latest-position (suffix latest-position))]
+               [:td (str trend-position (suffix trend-position))]])
 
          (let [latest-position (->> household-co2e-derivation-generation-positions
                                     :latest-positions
@@ -72,8 +72,8 @@
                                    first
                                    :position)]
               [:tr [:td "Reduce carbon impact"]
-               [:td.position (str latest-position (suffix latest-position))]
-               [:td.position (str trend-position (suffix trend-position))]])]]])
+               [:td (str latest-position (suffix latest-position))]
+               [:td (str trend-position (suffix trend-position))]])]]])
 
 
 (defn create []

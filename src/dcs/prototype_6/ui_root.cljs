@@ -24,7 +24,7 @@
 
 (defn app []
       [:div
-       [:div.page-title.rounded-corners [:h2 "Regional dashboard"]]
+       [:div.has-text-centered [:h1.title.is-5 "Regional dashboard"]]
        ;[counter]
        [:div.row
         [:div.floats-right-column.one-third-width [ui-map/create]]
@@ -32,7 +32,7 @@
          [:div.row
           [ui-region-title/create]]
          [:div.row
-          [:h3 "Household waste per citizen"]
+          [:h1.subtitle "Household waste per citizen"]
           [:div.floats-left-column.two-fiths-width [ui-region-position/create]]
           [:div.floats-left-column.three-fiths-width [ui-household-waste-derivation-generation/create]]]
          [:div.row
@@ -44,13 +44,13 @@
        [:div.row
         [:div.floats-left-column.two-thirds-width
          [:div.floats-left-column.two-fiths-width
-          [:h3 "Business waste for the region"]
+          [:h1.subtitle "Business waste for the region"]
           [ui-business-waste-by-region-derivation-composition/create]]
          [:div.floats-left-column.thrww-fiths-width
-          [:h3 {:dangerouslySetInnerHTML {:__html "&nbsp;"}}]
+          [:h1.subtitle {:dangerouslySetInnerHTML {:__html "&nbsp;"}}]
           [ui-business-waste-by-region-derivation-generation/create]]]
          [:div.floats-left-column.one-third-width
           [:br]
-          [:h3 "Operational waste sites in the region"]
+          [:h1.subtitle "Operational waste sites in the region"]
           [ui-waste-site-derivation/create]]]])
 

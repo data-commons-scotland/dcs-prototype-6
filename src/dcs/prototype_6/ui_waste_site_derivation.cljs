@@ -11,14 +11,14 @@
                    first)]
 
            [:div
-            [:table.positions
+            [:table#league-table.table.is-hoverable
              [:tbody
               [:tr
                [:td "Sites accepting household waste"]
-               [:td.position (:household m)]]
+               [:td (:household m)]]
               [:tr
                [:td "Other waste sites"]
-               [:td.position (:non-household m)]]]]]))
+               [:td (:non-household m)]]]]]))
 
 
 (defn create []

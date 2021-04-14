@@ -2,7 +2,7 @@
   (:require [dcs.prototype-6.state :as state]))
 
 (defn ele [region]
-      [:div.region-title [:h1 region]])
+      [:div.has-text-centered [:h1.title region]])
 
 (defn create []
       [ele @state/region-holder])
