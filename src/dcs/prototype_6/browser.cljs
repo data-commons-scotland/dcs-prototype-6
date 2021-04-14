@@ -32,10 +32,13 @@
 
 (defn current-page
       []
-      [:div.main-container
+      [:div
        [ui-nav/navbar]
-        (let [view (:view (:data @state/route-match))]
-           [view @state/route-match])])
+       (let [view (:view (:data @state/route-match))]
+            [view @state/route-match])
+       [:footer.footer
+        [:div.content.has-text-centered
+         [:p "By the " [:strong "Data Commons Scotland"] " project."]]]])
 
 (def routes
   [["/"
