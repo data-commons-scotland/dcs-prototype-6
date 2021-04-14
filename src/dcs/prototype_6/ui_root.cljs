@@ -16,41 +16,48 @@
             [dcs.prototype-6.ui-business-waste-by-region-derivation-composition :as ui-business-waste-by-region-derivation-composition]))
 
 
-(defn counter []
-      [:div
-       [:button.btn {:on-click #(decrement %)} "-"]
-       [:button {:disabled true} (get @state/app-state :count)]
-       [:button.btn {:on-click #(increment %)} "+"]])
-
 (defn app []
       [:div
        [:div.has-text-centered [:h1.title.is-5 "Regional dashboard"]]
-       ;[counter]
-       [:div.row
-        [:div.floats-right-column.one-third-width [ui-map/create]]
-        [:div.floats-right-column.two-thirds-width
-         [:div.row
-          [ui-region-title/create]]
-         [:div.row
-          [:h1.subtitle "Household waste per citizen"]
-          [:div.floats-left-column.two-fiths-width [ui-region-position/create]]
-          [:div.floats-left-column.three-fiths-width [ui-household-waste-derivation-generation/create]]]
-         [:div.row
-          [:div.floats-left-column.two-fiths-width [ui-household-waste-derivation-composition/create]]
-          [:div.floats-left-column.three-fiths-width [ui-household-waste-derivation-management/create]]]
-         [:div.row
-          [:div.floats-left-column.two-fiths-width [ui-household-waste-derivation-percent-recycled/create]]
-          [:div.floats-left-column.three-fiths-width [ui-household-co2e-derivation-generation/create]]]]]
-       [:div.row
-        [:div.floats-left-column.two-thirds-width
-         [:div.floats-left-column.two-fiths-width
-          [:h1.subtitle "Business waste for the region"]
-          [ui-business-waste-by-region-derivation-composition/create]]
-         [:div.floats-left-column.thrww-fiths-width
-          [:h1.subtitle {:dangerouslySetInnerHTML {:__html "&nbsp;"}}]
-          [ui-business-waste-by-region-derivation-generation/create]]]
-         [:div.floats-left-column.one-third-width
-          [:br]
-          [:h1.subtitle "Operational waste sites in the region"]
-          [ui-waste-site-derivation/create]]]])
+
+       ;; Map column & household column, reversed-in
+       [:div.columns.is-vcentered.is-flex-direction-row-reverse
+        [:div.column.is-one-third
+         [ui-map/create]]
+        [:div.column
+         [:div.columns
+          [:div.column.is-full
+           [ui-region-title/create]]]
+         [:div.columns
+          [:div.column.is-two-fifths
+           [:h1.subtitle "Household waste per citizen"]
+           [ui-region-position/create]]
+          [:div.column
+           [:h1.subtitle {:dangerouslySetInnerHTML {:__html "&nbsp;"}}]
+           [ui-household-waste-derivation-generation/create]]]
+         [:div.columns
+          [:div.column.is-two-fifths
+           [ui-household-waste-derivation-composition/create]]
+          [:div.column
+           [ui-household-waste-derivation-management/create]]]
+         [:div.columns
+          [:div.column.is-two-fifths
+           [ui-household-waste-derivation-percent-recycled/create]]
+          [:div.column
+           [ui-household-co2e-derivation-generation/create]]]]]
+
+       ;; Business column
+       [:div.columns
+        [:div.column.is-two-thirds
+         [:div.columns
+          [:div.column.is-two-fifths
+           [:h1.subtitle "Business waste for the region"]
+           [ui-business-waste-by-region-derivation-composition/create]]
+          [:div.column
+           [:h1.subtitle {:dangerouslySetInnerHTML {:__html "&nbsp;"}}]
+           [ui-business-waste-by-region-derivation-generation/create]]]]
+        [:div.column
+         [:br]
+         [:h1.subtitle "Operational waste sites in the region"]
+         [ui-waste-site-derivation/create]]]])
 

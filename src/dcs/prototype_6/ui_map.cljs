@@ -119,7 +119,7 @@
              (.addTo geojson-layer component))))
 
 (defn render []
-      [:div#map-ui.map-container])
+      [:div#map-ui])
 
 (defn component []
       (r/create-class {:reagent-render       render

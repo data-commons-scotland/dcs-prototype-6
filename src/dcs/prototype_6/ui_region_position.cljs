@@ -13,7 +13,6 @@
              (str/ends-with? s "2") "nd"
              :else "th")))
 
-
 (defn ele [region
            household-waste-derivation-generation-positions
            household-waste-derivation-percent-recycled-positions
