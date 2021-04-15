@@ -87,5 +87,10 @@
 }
 
 
+/* Navbar sundry ------------------------------ */
 
+/* Specify this using sass instead? */
+.navbar-divider {
+    background-color: #4D4637; /* 'richbrown' */
+}
 

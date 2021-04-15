@@ -5,7 +5,8 @@
             [reitit.frontend.easy :as rfe]
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.ui-nav :as ui-nav]
-            [dcs.prototype-6.ui-root :as ui-root]))
+            [dcs.prototype-6.ui-root :as ui-root]
+            [dcs.prototype-6.datasets-page :as datasets-page]))
 
 
 (defn view0
@@ -52,7 +53,10 @@
      :view   view1}]
    ["/todo"
     {:name ::todo-page
-     :view   todo}]])
+     :view   todo}]
+   ["/datasets"
+    {:name ::datasets-page
+     :view datasets-page/create}]])
 
 ;; called by init and after code reloading finishes
 (defn ^:dev/after-load start
