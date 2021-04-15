@@ -24,7 +24,7 @@
 
 
 (defn navbar []
-      [:nav.navbar.is-fixed-top.is-dark {:role "navigation"}
+      [:nav.navbar.is-fixed-top.is-primary {:role "navigation"}
        [:input#toggler.toggler {:type "checkbox"}]
        [:div.navbar-brand
         [:a.navbar-item {:href "#"}

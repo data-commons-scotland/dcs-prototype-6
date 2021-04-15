@@ -1,21 +1,10 @@
 
-
-.section-notUsed {
-    /*height: 90vh; */ /* was:  100vh; */
-    /* width: 100vw; */
-    /* was:   max-width: 1000px; */
-    color: #333;
-    background-color: #fff1e5; /* was:   floralwhite; */ /* #f2f2f2; */
-    /* padding: 5px; */
-    padding-top: 55px;
-}
+/* Leaflet ------------------------------ */
 
 .leaflet-container {
     z-index:0;
     min-height: 600px;
 }
-
-
 
 .leaflet-popup-content-wrapper {
     background-color: transparent !important;
@@ -27,15 +16,14 @@
 }
 
 
+/* The "league table" ------------------------------ */
 
 #league-table {
     font-size: x-small;
 }
 
 
-
-
-/* -------- Below here are directives that have been _added_ after introducing Bulma -------- */
+/* Brand logo ------------------------------ */
 
 .brand-logo {
  width: 32px;
@@ -43,15 +31,20 @@
  margin-right: 10px;
 }
 
+/* Footer ------------------------------ */
 
-/* -------- For the dynamics of the navbar burger ----------- */
+.footer {
+    text-align: center;
+    font-size: x-small;
+}
+
+
+/* Navbar dynamics ------------------------------ */
 
 /* We don't need checkbox to be displayed in order for it to work */
 .toggler {
   display: none;
 }
-
-/* Below are all the functionalities */
 
 /* Hamburger changes to X when toggler is checked */
 .navbar .toggler:checked + .navbar-brand .burger span:nth-child(1) {
