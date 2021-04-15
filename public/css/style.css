@@ -27,7 +27,6 @@
 
 .brand-logo {
  width: 32px;
- height: 32px;
  margin-right: 10px;
 }
 
@@ -82,7 +81,11 @@
 }
 /* The functionality */
 #explore-checkbox:checked ~ #explore-dropdown,
-#datasets-checkbox:checked ~ #datasets-dropdown,
+#data-checkbox:checked ~ #data-dropdown,
 #about-checkbox:checked ~ #about-dropdown {
     display: block;
 }
+
+
+
+
