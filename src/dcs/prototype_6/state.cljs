@@ -79,7 +79,7 @@
 
       (fetch "business-waste-by-region.json"
              (fn [business-waste-by-region] (->> business-waste-by-region
-                                                 data-shaping/rollup-business-waste-by-region-materials
+                                                 data-shaping/rollup-business-waste-by-region-regions
                                                  (concat business-waste-by-region)
                                                  (reset! business-waste-by-region-holder))))
 
