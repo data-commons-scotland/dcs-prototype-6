@@ -90,25 +90,25 @@
            [:hr.navbar-divider]
            [:div.navbar-item
             [:p.has-text-link.has-text-weight-bold "Directly access the datasets"]]
-           (navbar-clickable [:span "Household waste " [:content.has-text-info "(19,008 records)"]]
+           (navbar-clickable [:span "Household waste " [:span.has-text-info "(19,008 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/household-waste.csv")
-           (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:content.has-text-info "(208 records)"]]
+           (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info "(208 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/household-co2e.csv")
-           (navbar-clickable [:span "Business waste by region " [:content.has-text-info "(8,976 records)"]]
+           (navbar-clickable [:span "Business waste by region " [:span.has-text-info "(8,976 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/business-waste-by-region.csv")
-           (navbar-clickable [:span "Business waste by sector " [:content.has-text-info "(2,640 records)"]]
+           (navbar-clickable [:span "Business waste by sector " [:span.has-text-info "(2,640 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/business-waste-by-sector.csv")
-           (navbar-clickable [:span "Waste site " [:content.has-text-info "(1254 records)"]]
+           (navbar-clickable [:span "Waste site " [:span.has-text-info "(1254 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/waste-site.csv")
-           (navbar-clickable [:span "Waste site ins " [:amp] " outs " [:content.has-text-info "(2,667,914 records)"]]
+           (navbar-clickable [:span "Waste site ins & outs " [:span.has-text-info "(2,667,914 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/waste-site-io.csv")
-           (navbar-clickable [:span "Material coding " [:content.has-text-info "(557 records)"]]
+           (navbar-clickable [:span "Material coding " [:span.has-text-info "(557 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/material-coding.csv")
-           (navbar-clickable [:span "EWC coding " [:content.has-text-info "(973 records)"]]
+           (navbar-clickable [:span "EWC coding " [:span.has-text-info "(973 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/ewc-coding.csv")
-           (navbar-clickable [:span "Households " [:content.has-text-info "(288 records)"]]
+           (navbar-clickable [:span "Households " [:span.has-text-info "(288 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/households.csv")
-           (navbar-clickable [:span "Population " [:content.has-text-info "(288 records)"]]
+           (navbar-clickable [:span "Population " [:span.has-text-info "(288 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/population.csv")]]
 
          ;; About
