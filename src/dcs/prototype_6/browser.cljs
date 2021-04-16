@@ -6,7 +6,7 @@
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.ui-nav :as ui-nav]
             [dcs.prototype-6.ui-root :as ui-root]
-            [dcs.prototype-6.datasets-page :as datasets-page]))
+            [dcs.prototype-6.home-page :as home-page]))
 
 
 (defn view0
@@ -38,12 +38,12 @@
        (let [view (:view (:data @state/route-match))]
             [view @state/route-match])
        [:footer.footer
-        [:p "By the " [:strong "Data Commons Scotland"] " project."]]])
+        [:p "Built by the " [:strong "Data Commons Scotland"] " project."]]])
 
 (def routes
   [["/"
     {:name ::home-page
-     :view   view0}]
+     :view   home-page/create}]
    ["/dashboard"
     {:name ::dashboard-page
      ;;:parameters {:path {:region string?}}
@@ -53,10 +53,7 @@
      :view   view1}]
    ["/todo"
     {:name ::todo-page
-     :view   todo}]
-   ["/datasets"
-    {:name ::datasets-page
-     :view datasets-page/create}]])
+     :view   todo}]])
 
 ;; called by init and after code reloading finishes
 (defn ^:dev/after-load start
