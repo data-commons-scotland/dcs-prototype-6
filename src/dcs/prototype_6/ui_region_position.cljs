@@ -30,8 +30,8 @@
           [:th {:colSpan 2} "Position"]]
          [:tr
           [:th "Aim"]
-          [:th "Latest"]
-          [:th "Trend"]]]
+          [:th "Trend"]
+          [:th "Latest"]]]
 
         [:tbody
 
@@ -49,20 +49,6 @@
                [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
                [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])
 
-         (let [latest-position (->> household-waste-derivation-percent-recycled-positions
-                                    :latest-positions
-                                    (filter #(= region (:region %)))
-                                    first
-                                    :position)
-               trend-position (->> household-waste-derivation-percent-recycled-positions
-                                   :trend-positions
-                                   (filter #(= region (:region %)))
-                                   first
-                                   :position)]
-              [:tr [:td "Increase percentage recycled"]
-               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
-               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])
-
          (let [latest-position (->> household-co2e-derivation-generation-positions
                                     :latest-positions
                                     (filter #(= region (:region %)))
@@ -75,6 +61,20 @@
                                    first
                                    :position)]
               [:tr [:td "Reduce carbon impact"]
+               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
+               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])
+
+         (let [latest-position (->> household-waste-derivation-percent-recycled-positions
+                                    :latest-positions
+                                    (filter #(= region (:region %)))
+                                    first
+                                    :position)
+               trend-position (->> household-waste-derivation-percent-recycled-positions
+                                   :trend-positions
+                                   (filter #(= region (:region %)))
+                                   first
+                                   :position)]
+              [:tr [:td "Increase percentage recycled"]
                [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
                [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])]]])
 

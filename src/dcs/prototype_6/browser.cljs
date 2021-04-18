@@ -35,7 +35,11 @@
       []
       [:div
        [ui-nav/navbar]
-       (let [view (:view (:data @state/route-match))]
+       (let [route @state/route-match
+             _ (js/console.log "route = " route)
+             view (or (:view (:data route))
+                      home-page/create)]
+            (js/console.log "view = " view)
             [view @state/route-match])
        [:footer.footer
         [:p "Built by the " [:strong "Data Commons Scotland"] " project."]]])
@@ -62,7 +66,7 @@
       (rfe/start!
         (rf/router routes {:data {:coercion rss/coercion}})
         (fn [m] (reset! state/route-match m))
-        {:use-fragment false})                              ;; So normal looking URLs
+        {:use-fragment true})  ;; So URLs looking like  base-path/#/other/paths
       (js/console.log "Starting render")
       (r/render [current-page] (.getElementById js/document "app")))
 
