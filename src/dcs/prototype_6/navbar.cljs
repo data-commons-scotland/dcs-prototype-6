@@ -1,19 +1,6 @@
-(ns dcs.prototype-6.ui-nav
+(ns dcs.prototype-6.navbar
   (:require [reagent.core :as r]
-            [reitit.frontend.easy :as rfe]
-            [dcs.prototype-6.state :as state]
-            [dcs.prototype-6.events :refer [increment decrement]]
-            [dcs.prototype-6.ui-map :as ui-map]
-            [dcs.prototype-6.ui-region-title :as ui-region-title]
-            [dcs.prototype-6.ui-region-position :as ui-region-position]
-            [dcs.prototype-6.ui-waste-site-derivation :as ui-waste-site-derivation]
-            [dcs.prototype-6.ui-household-waste-derivation-generation :as ui-household-waste-derivation-generation]
-            [dcs.prototype-6.ui-household-waste-derivation-percent-recycled :as ui-household-waste-derivation-percent-recycled]
-            [dcs.prototype-6.ui-household-waste-derivation-management :as ui-household-waste-derivation-management]
-            [dcs.prototype-6.ui-household-waste-derivation-composition :as ui-household-waste-derivation-composition]
-            [dcs.prototype-6.ui-household-co2e-derivation-generation :as ui-household-co2e-derivation-generation]
-            [dcs.prototype-6.ui-business-waste-by-region-derivation-generation :as ui-business-waste-by-region-derivation-generation]
-            [dcs.prototype-6.ui-business-waste-by-region-derivation-composition :as ui-business-waste-by-region-derivation-composition]))
+            [reitit.frontend.easy :as rfe]))
 
 
 (defn close-burger
@@ -35,12 +22,12 @@
        (-> (navbar-clickable title href)
            (assoc-in [2 2] [:p.is-size-7.has-text-info subtitle])))) ;; Append a vector that contains the subtitle
 
-(defn navbar []
+(defn root []
       [:nav.navbar.is-fixed-top.is-primary {:role "navigation"}
 
        [:input#toggler.toggler {:type "checkbox"}]
        [:div.navbar-brand
-        [:a.navbar-item {:href (rfe/href :dcs.prototype-6.browser/home-page)}
+        [:a.navbar-item {:href (rfe/href :dcs.prototype-6.main/home-view)}
          [:img.brand-logo {:src "img/dcs-circle.png" :alt "Waste Matters Scotland logo"}]
          "Waste Matters Scotland"]
         [:a.navbar-item]
@@ -64,7 +51,7 @@
           [:div#explore-dropdown.navbar-dropdown.is-right
            (navbar-clickable "Waste by region"
                              "Discover and compare regional waste figures"
-                             (rfe/href :dcs.prototype-6.browser/dashboard-page))
+                             (rfe/href :dcs.prototype-6.main/dashboard-view))
            (navbar-clickable "Waste sites and the quantities of incoming materials"
                              "https://data-commons-scotland.github.io/cluster-map-of-materials-incoming/")
            (navbar-clickable "Household quanitites through time"

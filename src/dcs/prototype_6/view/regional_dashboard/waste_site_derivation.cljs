@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-waste-site-derivation
+(ns dcs.prototype-6.view.regional-dashboard.waste-site-derivation
   (:require [clojure.string :as str]
             [dcs.prototype-6.state :as state]))
 
@@ -21,7 +21,7 @@
                [:td (:non-household m)]]]]]))
 
 
-(defn create []
+(defn root []
       [ele
        @state/region-holder
        @state/waste-site-derivation-holder])

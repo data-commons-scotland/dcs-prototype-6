@@ -21,8 +21,8 @@
    :compiler-options {:externs ["externs.js"]}
 
    :modules
-   {:main ;; <- becomes public/js/main.js
-    {:entries [dcs.prototype-6.browser]}}
+   {:dcs-prototype-6 ;; <- becomes public/js/dcs-prototype-6.js
+    {:entries [dcs.prototype-6.main]}}
 
    ;; start a development http server on http://localhost:8020
    :devtools

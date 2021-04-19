@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-household-waste-derivation-generation
+(ns dcs.prototype-6.view.regional-dashboard.business-waste-by-region-derivation-generation
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
@@ -19,23 +19,23 @@
                               :bind   "legend"}}
             :encoding   {:x       {:field "year" :type "temporal" :timeUnit "year" :axis {:tickCount year-count :title "year"}}
                          :y       {:field "tonnes" :type "quantitative" :scale {:zero false} :axis {:title "tonnes"}}
-                         :color   {:field "region" :type "nominal" :scale {:domain ["Scotland" region] :range ["#1f77b4" "#fdae6b"]}}
+                         :color   {:field "region" :type "nominal" :scale {:domain ["Scotland average" region] :range ["#1f77b4" "#fdae6b"]}}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}
                          :tooltip [{:field "region" :type "nominal"}
                                    {:field "year" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
 
-(defn chart [region household-waste-derivation-generation]
+(defn chart [region business-waste-by-region-derivation-generation]
       (let [;; filter
-            household-waste-derivation-generation' (filter #(contains? #{"Scotland" region} (:region %)) household-waste-derivation-generation)
+            business-waste-by-region-derivation-generation' (filter #(contains? #{"Scotland average" region} (:region %)) business-waste-by-region-derivation-generation)
 
             ;; stringify the year for Vega
-            household-waste-derivation-generation'' (map #(assoc % :year (str (:year %)))
-                                                         household-waste-derivation-generation')]
+            business-waste-by-region-derivation-generation'' (map #(assoc % :year (str (:year %)))
+                                                                  business-waste-by-region-derivation-generation')]
            [:div
-            [oz/vega-lite (chart-spec "Generation" region household-waste-derivation-generation'')
+            [oz/vega-lite (chart-spec "Generation" region business-waste-by-region-derivation-generation'')
              {:actions false}]]))
 
-(defn create []
-      [chart @state/region-holder @state/household-waste-derivation-generation-holder])
+(defn root []
+      [chart @state/region-holder @state/business-waste-by-region-derivation-generation-holder])

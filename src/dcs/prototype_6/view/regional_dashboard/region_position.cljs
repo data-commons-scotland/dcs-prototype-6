@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-region-position
+(ns dcs.prototype-6.view.regional-dashboard.region-position
   (:require [clojure.string :as str]
             [dcs.prototype-6.state :as state]))
 
@@ -79,7 +79,7 @@
                [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])]]])
 
 
-(defn create []
+(defn root []
       [ele
        @state/region-holder
        @state/household-waste-derivation-generation-positions-holder

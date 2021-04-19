@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-map
+(ns dcs.prototype-6.view.regional-dashboard.map
   (:require [reagent.core :as r]
             [dcs.prototype-6.state :as state]))
 
@@ -126,6 +126,6 @@
                        :component-did-mount  did-mount
                        :component-did-update did-update}))
 
-(defn create []
+(defn root []
       [component {:data @state/geojson-holder}])
 

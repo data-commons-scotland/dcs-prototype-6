@@ -1,8 +1,9 @@
-(ns dcs.prototype-6.ui-business-waste-by-region-derivation-composition
+(ns dcs.prototype-6.view.regional-dashboard.household-waste-derivation-composition
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
     [dcs.prototype-6.state :as state]))
+
 
 
 (defn chart-spec [title region data]
@@ -28,16 +29,16 @@
                                    {:field "year" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
 
-(defn chart [region business-waste-by-region-derivation-composition]
+(defn chart [region household-waste-derivation-composition]
       (let [;; filter
-            business-waste-by-region-derivation-composition' (filter #(= region (:region %)) business-waste-by-region-derivation-composition)
+            household-waste-derivation-composition' (filter #(= region (:region %)) household-waste-derivation-composition)
 
             ;; stringify the year for Vega
-            business-waste-by-region-derivation-composition'' (map #(assoc % :year (str (:year %)))
-                                                                   business-waste-by-region-derivation-composition')]
+            household-waste-derivation-composition'' (map #(assoc % :year (str (:year %)))
+                                                          household-waste-derivation-composition')]
            [:div
-            [oz/vega-lite (chart-spec "Composition" region business-waste-by-region-derivation-composition'')
+            [oz/vega-lite (chart-spec "Composition" region household-waste-derivation-composition'')
              {:actions false}]]))
 
-(defn create []
-      [chart @state/region-holder @state/business-waste-by-region-derivation-composition-holder])
+(defn root []
+      [chart @state/region-holder @state/household-waste-derivation-composition-holder])

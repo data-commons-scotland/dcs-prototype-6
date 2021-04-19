@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-household-waste-derivation-management
+(ns dcs.prototype-6.view.regional-dashboard.household-waste-derivation-management
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
@@ -60,5 +60,5 @@
             [oz/vega-lite (chart-spec "Management" region household-waste-derivation-management'')
              {:actions false}]]))
 
-(defn create []
+(defn root []
       [chart @state/region-holder @state/household-waste-derivation-management-holder])

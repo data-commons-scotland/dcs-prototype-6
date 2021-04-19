@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-household-co2e-derivation-generation
+(ns dcs.prototype-6.view.regional-dashboard.household-co2e-derivation-generation
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
@@ -37,5 +37,5 @@
             [oz/vega-lite (chart-spec "Carbon impact" region household-co2e-derivation-generation'')
              {:actions false}]]))
 
-(defn create []
+(defn root []
       [chart @state/region-holder @state/household-co2e-derivation-generation-holder])

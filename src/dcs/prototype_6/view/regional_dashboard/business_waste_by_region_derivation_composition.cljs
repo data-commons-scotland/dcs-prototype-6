@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-business-waste-by-region-derivation-generation
+(ns dcs.prototype-6.view.regional-dashboard.business-waste-by-region-derivation-composition
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
@@ -13,29 +13,31 @@
             :height     100
             :background "floralwhite"
             :data       {:values data}
-            :mark       {:type "line" :point false #_{:filled false :fill "floralwhite" }}
+            :mark       {:type                 "bar"
+                         :cornerRadiusTopLeft  3
+                         :cornerRadiusTopRight 3}
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}
             :encoding   {:x       {:field "year" :type "temporal" :timeUnit "year" :axis {:tickCount year-count :title "year"}}
                          :y       {:field "tonnes" :type "quantitative" :scale {:zero false} :axis {:title "tonnes"}}
-                         :color   {:field "region" :type "nominal" :scale {:domain ["Scotland average" region] :range ["#1f77b4" "#fdae6b"]}}
+                         :color   {:field "material" :type "nominal" :scale {:scheme "tableau20"} :legend nil #_{:orient "bottom" :columns 3}}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}
-                         :tooltip [{:field "region" :type "nominal"}
+                         :tooltip [{:field "material" :type "nominal"}
                                    {:field "year" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
 
-(defn chart [region business-waste-by-region-derivation-generation]
+(defn chart [region business-waste-by-region-derivation-composition]
       (let [;; filter
-            business-waste-by-region-derivation-generation' (filter #(contains? #{"Scotland average" region} (:region %)) business-waste-by-region-derivation-generation)
+            business-waste-by-region-derivation-composition' (filter #(= region (:region %)) business-waste-by-region-derivation-composition)
 
             ;; stringify the year for Vega
-            business-waste-by-region-derivation-generation'' (map #(assoc % :year (str (:year %)))
-                                                                  business-waste-by-region-derivation-generation')]
+            business-waste-by-region-derivation-composition'' (map #(assoc % :year (str (:year %)))
+                                                                   business-waste-by-region-derivation-composition')]
            [:div
-            [oz/vega-lite (chart-spec "Generation" region business-waste-by-region-derivation-generation'')
+            [oz/vega-lite (chart-spec "Composition" region business-waste-by-region-derivation-composition'')
              {:actions false}]]))
 
-(defn create []
-      [chart @state/region-holder @state/business-waste-by-region-derivation-generation-holder])
+(defn root []
+      [chart @state/region-holder @state/business-waste-by-region-derivation-composition-holder])

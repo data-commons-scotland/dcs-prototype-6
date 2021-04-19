@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.ui-household-waste-derivation-percent-recycled
+(ns dcs.prototype-6.view.regional-dashboard.household-waste-derivation-percent-recycled
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
@@ -37,5 +37,5 @@
             [oz/vega-lite (chart-spec "% recycled" region household-waste-derivation-percent-recycled'')
              {:actions false}]]))
 
-(defn create []
+(defn root []
       [chart @state/region-holder @state/household-waste-derivation-percent-recycled-holder])

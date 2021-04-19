@@ -42,12 +42,22 @@
 
 ;; Fetch data into holders
 
+(defn now
+  "Milliseconds since epoch"
+  []
+  (.now js/Date))
+
+(defn secs-to-now
+      [start-time]
+      (double (/ (- (now) start-time) 1000)))
+
 (defn fetch
       [url body-handler]
       (js/console.log (str "Fetching " url))
-      (go (let [response (<! (http/get url))]
+      (go (let [start-time (now)
+                response (<! (http/get url))]
                (do
-                 (js/console.log (str "Response from " url ": status=" (:status response) " success=" (:success response)))
+                 (js/console.log (str "Response from " url ": status=" (:status response) " success=" (:success response) " secs-taken=" (secs-to-now start-time)))
                  (body-handler (:body response))))))
 
 (defn load-data
@@ -105,9 +115,11 @@
 
            (when (and (some? household-waste)
                       (some? population))
-                 (js/console.log "calculating household-waste-derivations")
+                 (js/console.log "Calculating household-waste-derivations")
 
-                 (let [;; Roll-up to get values for (region, year) pairs
+                 (let [start-time (now)
+
+                       ;; Roll-up to get values for (region, year) pairs
                        household-waste-derivation-generation0 (data-shaping/rollup-household-waste-materials-and-management household-waste)
 
                        ;; Roll-up to get values for (region, year, management) triples
@@ -187,7 +199,8 @@
                       (reset! household-waste-derivation-management-holder household-waste-derivation-management)
                       (reset! household-waste-derivation-composition-holder household-waste-derivation-composition)
                       (reset! household-waste-derivation-generation-positions-holder household-waste-derivation-generation-positions)
-                      (reset! household-waste-derivation-percent-recycled-positions-holder household-waste-derivation-percent-recycled-positions)))))
+                      (reset! household-waste-derivation-percent-recycled-positions-holder household-waste-derivation-percent-recycled-positions)
+                      (js/console.log (str "Calculating household-waste-derivations: secs-taken=" (secs-to-now start-time)))))))
 
 
 (defn maybe-calc-household-co2e-derivations []
@@ -196,9 +209,11 @@
 
            (when (and (some? household-co2e)
                       (some? population))
-                 (js/console.log "calculating household-co2e-derivations")
+                 (js/console.log "Calculating household-co2e-derivations")
 
-                 (let [;; Prep for the per citizen calculation
+                 (let [start-time (now)
+
+                       ;; Prep for the per citizen calculation
                        population-for-lookup (group-by (juxt :region :year) population)
                        lookup-population (fn [region year] (-> population-for-lookup (get [region year]) first :population))
 
@@ -232,16 +247,19 @@
                                                                                                                        :trend    (:trend trend)})))}]
 
                       (reset! household-co2e-derivation-generation-holder household-co2e-derivation-generation)
-                      (reset! household-co2e-derivation-generation-positions-holder household-co2e-derivation-generation-positions)))))
+                      (reset! household-co2e-derivation-generation-positions-holder household-co2e-derivation-generation-positions)
+                      (js/console.log (str "Calculating household-co2e-derivations: secs-taken=" (secs-to-now start-time)))))))
 
 
 (defn maybe-calc-business-waste-by-region-derivations []
       (let [business-waste-by-region @business-waste-by-region-holder]
 
            (when (some? business-waste-by-region))
-           (js/console.log "calculating business-waste-by-region-derivations")
+           (js/console.log "Calculating business-waste-by-region-derivations")
 
-           (let [region-count (->> business-waste-by-region
+           (let [start-time (now)
+
+                 region-count (->> business-waste-by-region
                                    (map :region)
                                    distinct
                                    count)
@@ -261,18 +279,22 @@
                  business-waste-by-region-derivation-composition business-waste-by-region]
 
                 (reset! business-waste-by-region-derivation-generation-holder business-waste-by-region-derivation-generation)
-                (reset! business-waste-by-region-derivation-composition-holder business-waste-by-region-derivation-composition))))
+                (reset! business-waste-by-region-derivation-composition-holder business-waste-by-region-derivation-composition)
+                (js/console.log (str "Calculating business-waste-by-region-derivations: secs-taken=" (secs-to-now start-time))))))
 
 
 (defn maybe-calc-waste-site-derivations []
       (let [waste-site @waste-site-holder]
 
            (when (some? waste-site))
-           (js/console.log "calculating waste-site-derivations")
+           (js/console.log "Calculating waste-site-derivations")
 
-           (let [waste-site-derivation (data-shaping/count-waste-sites-per-category-per-region waste-site)]
+           (let [start-time (now)
 
-                (reset! waste-site-derivation-holder waste-site-derivation))))
+                 waste-site-derivation (data-shaping/count-waste-sites-per-category-per-region waste-site)]
+
+                (reset! waste-site-derivation-holder waste-site-derivation)
+                (js/console.log (str "Calculating waste-site-derivations: secs-taken=" (secs-to-now start-time))))))
 
 ;; -------------------
 
