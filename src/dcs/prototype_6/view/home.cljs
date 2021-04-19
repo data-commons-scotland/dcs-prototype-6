@@ -20,25 +20,25 @@
          (leaf-tile "Who generates waste?"
                     "Origins? Households, shops, hospitals, industry."
                     "has-text-primary"
-                    (rfe/href :dcs.prototype-6.main/todo-view)
+                    (rfe/href :dcs.prototype-6.router/todo-view)
                     "img/cartoon-waste-generation.svg")
          (leaf-tile "Waste by region"
                     [:span [:em "How is waste"] " in my area? Where can i dispose of " [:em "xyz?"] "?"]
                     "has-text-link"
-                    (rfe/href :dcs.prototype-6.main/dashboard-view)
+                    (rfe/href :dcs.prototype-6.router/dashboard-view)
                     "img/cartoon-by-location.svg")]
 
         [:div.tile.is-vertical.is-parent.is-4
          (leaf-tile "What enters the waste stream?"
                     "Materials? Food stuffs, plastics, cardboard, clothing, etc.?"
                     "has-text-info"
-                    (rfe/href :dcs.prototype-6.main/todo-view)
+                    (rfe/href :dcs.prototype-6.router/todo-view)
                     "img/cartoon-waste-materials.svg")
 
          (leaf-tile "Understanding this site"
                     "Where does the data come from? Reliability indicator? Missing data?"
                     "has-text-success"
-                    (rfe/href :dcs.prototype-6.main/todo-view)
+                    (rfe/href :dcs.prototype-6.router/todo-view)
                     "img/cartoon-blackboard.svg")]
 
         [:div.tile.is-vertical.is-parent.is-4

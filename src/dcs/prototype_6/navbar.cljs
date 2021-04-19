@@ -27,7 +27,7 @@
 
        [:input#toggler.toggler {:type "checkbox"}]
        [:div.navbar-brand
-        [:a.navbar-item {:href (rfe/href :dcs.prototype-6.main/home-view)}
+        [:a.navbar-item {:href (rfe/href :dcs.prototype-6.router/home-view)}
          [:img.brand-logo {:src "img/dcs-circle.png" :alt "Waste Matters Scotland logo"}]
          "Waste Matters Scotland"]
         [:a.navbar-item]
@@ -51,7 +51,7 @@
           [:div#explore-dropdown.navbar-dropdown.is-right
            (navbar-clickable "Waste by region"
                              "Discover and compare regional waste figures"
-                             (rfe/href :dcs.prototype-6.main/dashboard-view))
+                             (rfe/href :dcs.prototype-6.router/dashboard-view))
            (navbar-clickable "Waste sites and the quantities of incoming materials"
                              "https://data-commons-scotland.github.io/cluster-map-of-materials-incoming/")
            (navbar-clickable "Household quanitites through time"
