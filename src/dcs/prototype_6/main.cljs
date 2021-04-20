@@ -2,16 +2,18 @@
   (:require [reagent.core :as r]
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.router :as router]
-            [dcs.prototype-6.navbar :as navbar]))
+            [dcs.prototype-6.navbar :as navbar]
+            [dcs.prototype-6.status :as status]))
 
 (defn page
       []
       [:div
        [navbar/root]
+       [status/root]
        (let [route @state/route-match
              view (-> route :data :view)]
             (js/console.log "page route=" route)
-            [view route])
+            [view])
        [:footer.footer
         [:p "Built by the " [:strong "Data Commons Scotland"] " project."]]])
 

@@ -25,10 +25,10 @@
 (defonce household-co2e-derivation-generation-holder (r/atom nil))
 (defonce household-co2e-derivation-generation-positions-holder (r/atom nil))
 
-(defonce business-waste-by-region-derivation-generation-holder (atom nil))
-(defonce business-waste-by-region-derivation-composition-holder (atom nil))
+(defonce business-waste-by-region-derivation-generation-holder (r/atom nil))
+(defonce business-waste-by-region-derivation-composition-holder (r/atom nil))
 
-(defonce waste-site-derivation-holder (atom nil))
+(defonce waste-site-derivation-holder (r/atom nil))
 
 ;; -----------------
 
