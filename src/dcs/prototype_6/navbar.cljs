@@ -52,6 +52,9 @@
            (navbar-clickable "Waste by region"
                              "Discover and compare regional waste figures"
                              (rfe/href :dcs.prototype-6.router/dashboard-view))
+           (navbar-clickable "Stirling's bin collection"
+                             "Data about Stirling's bin collection"
+                             (rfe/href :dcs.prototype-6.router/stirling-bin-collection-view))
            (navbar-clickable "Waste sites and the quantities of incoming materials"
                              "https://data-commons-scotland.github.io/cluster-map-of-materials-incoming/")
            (navbar-clickable "Household quanitites through time"

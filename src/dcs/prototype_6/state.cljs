@@ -30,6 +30,8 @@
 
 (defonce waste-site-derivation-holder (r/atom nil))
 
+(defonce stirling-bin-collection-derivation-missed-holder (r/atom nil))
+
 ;; -----------------
 
 (defonce population-holder (atom nil))
@@ -37,6 +39,7 @@
 (defonce household-co2e-holder (atom nil))
 (defonce business-waste-by-region-holder (atom nil))
 (defonce waste-site-holder (atom nil))
+(defonce stirling-bin-collection-holder (atom nil))
 
 ;; -----------------
 
@@ -95,7 +98,11 @@
 
       (fetch "waste-site.json"
              (fn [waste-site] (->> waste-site
-                                   (reset! waste-site-holder)))))
+                                   (reset! waste-site-holder))))
+
+      (fetch "stirling-bin-collection.json"
+             (fn [stirling-bin-collection] (->> stirling-bin-collection
+                                                (reset! stirling-bin-collection-holder)))))
 
 ;; ----------------------
 
@@ -296,6 +303,28 @@
                 (reset! waste-site-derivation-holder waste-site-derivation)
                 (js/console.log (str "Calculating waste-site-derivations: secs-taken=" (secs-to-now start-time))))))
 
+
+(defn maybe-calc-stirling-bin-collection-derivations []
+      (let [stirling-bin-collection @stirling-bin-collection-holder]
+
+           (when (some? stirling-bin-collection))
+           (js/console.log "Calculating stirling-bin-collection-derivations")
+
+           (let [start-time (now)
+
+                 ;; Filter for missed-bin? then roll-up to get values for (year, quarter) pairs
+                 stirling-bin-collection-derivation-missed (->> stirling-bin-collection
+                                                                (filter :missed-bin?)
+                                                                (group-by (juxt :year :quarter))
+                                                                (map (fn [[[year quarter] coll]] {:year year
+                                                                                                  :quarter quarter
+                                                                                                  :tonnes (->> coll
+                                                                                                               (map :tonnes)
+                                                                                                               (apply +))})))]
+
+                (reset! stirling-bin-collection-derivation-missed-holder stirling-bin-collection-derivation-missed)
+                (js/console.log (str "Calculating stirling-bin-collection-derivations: secs-taken=" (secs-to-now start-time))))))
+
 ;; -------------------
 
 ;; Watch for data updates
@@ -329,5 +358,10 @@
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-waste-site-derivations))))
+
+(add-watch stirling-bin-collection-holder :stirling-bin-collection-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-stirling-bin-collection-derivations))))
 
 
