@@ -9,7 +9,7 @@
       (let [year-count (count (group-by :year data))]
            {:schema     "https://vega.github.io/schema/vega/v5.json"
             :title      title
-            :width      400
+            :width      300
             :height     100
             :background "floralwhite"
             :data       {:values data}
@@ -17,7 +17,7 @@
             :selection  {:my {:type   "multi"
                               :fields ["tonnes"]
                               :bind   "legend"}}
-            :encoding   {:x       {:field "date" :type "temporal" :timeUnit "yearquarter" :axis {:title "quarter" :labelAngle 60 :labelOffset 15 :labelBound 10}}
+            :encoding   {:x       {:field "date" :type "temporal" :timeUnit "yearquarter" :axis {:title "year quarter" :labelAngle 70 :labelOffset 10 :labelBound 10}}
                          :y       {:field "tonnes" :type "quantitative" :scale {:zero false} :axis {:title "tonnes"}}
                          :tooltip [{:field "date" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
