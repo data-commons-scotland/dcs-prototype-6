@@ -1,6 +1,8 @@
 (ns dcs.prototype-6.main
   (:require [reagent.core :as r]
             [dcs.prototype-6.state :as state]
+            [dcs.prototype-6.deriver :as deriver]
+            [dcs.prototype-6.loader :as loader]
             [dcs.prototype-6.router :as router]
             [dcs.prototype-6.navbar :as navbar]
             [dcs.prototype-6.status :as status]))
@@ -30,7 +32,7 @@
       ;; init is called ONCE when the page loads
       ;; this is called in the index.html and must be exported
       ;; so it is available even in :advanced release builds
-      (state/load-data)
+      (loader/load-data)
       (start))
 
 ;; this is called before any code is reloaded

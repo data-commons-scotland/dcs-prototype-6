@@ -28,7 +28,6 @@
 
 (defn init
       []
-      (js/console.log "Starting router")
       (rfe/start!
         (rf/router routes
                    {:data      {:coercion rss/coercion}
