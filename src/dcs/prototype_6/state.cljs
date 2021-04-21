@@ -25,6 +25,10 @@
 
 (defonce waste-site-derivation-holder (r/atom nil))
 
+(defonce stirling-bin-collection-derivation-generation-holder (r/atom nil))
+
+(defonce stirling-bin-collection-derivation-percent-recycled-holder (r/atom nil))
+(defonce stirling-bin-collection-derivation-composition-holder (r/atom nil))
 (defonce stirling-bin-collection-derivation-missed-holder (r/atom nil))
 
 

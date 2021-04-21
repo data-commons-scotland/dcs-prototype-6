@@ -1,13 +1,13 @@
 (ns dcs.prototype-6.status
   (:require [dcs.prototype-6.state :as state]))
 
-(defn ele [a b c d e f g h i j k l]
-      (let [n (->> [a b c d e f g h i j k l]
-                   (filter nil?)
-                   count)
-            s (if (= 0 n)
+(defn ele [a b c d e f g h i j k l m n o]
+      (let [num (->> [a b c d e f g h i j k l m n o]
+                     (filter nil?)
+                     count)
+            s (if (= 0 num)
                 ""
-                (str "Loading/deriving " n " datasets..."))]
+                (str "Loading/deriving " num " datasets..."))]
            [:div
             [:p s]]))
 
@@ -27,4 +27,7 @@
 
        @state/waste-site-derivation-holder
 
+       @state/stirling-bin-collection-derivation-generation-holder
+       @state/stirling-bin-collection-derivation-composition-holder
+       @state/stirling-bin-collection-derivation-percent-recycled-holder
        @state/stirling-bin-collection-derivation-missed-holder])

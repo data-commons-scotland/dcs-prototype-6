@@ -202,25 +202,58 @@
 
 
 (defn maybe-calc-stirling-bin-collection-derivations []
-      (let [stirling-bin-collection @state/stirling-bin-collection-holder]
+      (let [stirling-bin-collection @state/stirling-bin-collection-holder
+            population @state/population-holder]
 
-           (when (some? stirling-bin-collection))
-           (js/console.log "Calculating stirling-bin-collection-derivations")
+           (when (and (some? stirling-bin-collection)
+                      (some? population))
+                 (js/console.log "Calculating stirling-bin-collection-derivations")
 
-           (let [start-time (util/now)
+                 (let [start-time (util/now)
 
-                 ;; Filter for missed-bin? then roll-up to get values for (year, quarter) pairs
-                 stirling-bin-collection-derivation-missed (->> stirling-bin-collection
-                                                                (filter :missed-bin?)
-                                                                (group-by (juxt :year :quarter))
-                                                                (map (fn [[[year quarter] coll]] {:year year
-                                                                                                  :quarter quarter
-                                                                                                  :tonnes (->> coll
-                                                                                                               (map :tonnes)
-                                                                                                               (apply +))})))]
+                       ;; Roll-up to get values for (region, year) pairs
+                       derivation-generation0 (data-shaping/rollup-stirling-bin-collection-qua-mat-lan-mis stirling-bin-collection)
 
-                (reset! state/stirling-bin-collection-derivation-missed-holder stirling-bin-collection-derivation-missed)
-                (js/console.log (str "Calculating stirling-bin-collection-derivations: secs-taken=" (util/secs-to-now start-time))))))
+                       ;; Roll-up to get values for (region, year, material) triples
+                       derivation-composition0 (data-shaping/rollup-stirling-bin-collection-qua-lan-mis stirling-bin-collection)
+
+                       ;; Calculate the percentage recycled values
+                       derivation-percent-recycled (data-shaping/calc-stirling-bin-collection-percentage-recycled stirling-bin-collection)
+
+                       ;; Filter for missed-bin? then roll-up to get values for (year, quarter) pairs
+                       derivation-missed (->> stirling-bin-collection
+                                              (filter :missed-bin?)
+                                              (group-by (juxt :year :quarter))
+                                              (map (fn [[[year quarter] coll]] {:year    year
+                                                                                :quarter quarter
+                                                                                :tonnes  (->> coll
+                                                                                              (map :tonnes)
+                                                                                              (apply +))})))
+
+                       ;; Prep for the per citizen calculation
+                       population-max-year (->> population (map :year) (apply max)) ;; assume all regions have the same max year
+                       population-for-lookup (group-by (juxt :region :year) population)
+                       lookup-population (fn [region year] (-> population-for-lookup
+                                                               (get [region (min year population-max-year)]) ;; use population-max-year to avoid an out-of-bounds
+                                                               first
+                                                               :population))
+
+                       ;; Calculate the per citizen values
+                       derivation-generation (map (fn [{:keys [region year tonnes]}] {:region region
+                                                                                      :year   year
+                                                                                      :tonnes (double (/ tonnes (lookup-population region year)))})
+                                                  derivation-generation0)
+                       derivation-composition (map (fn [{:keys [region year material tonnes]}] {:region   region
+                                                                                                :year     year
+                                                                                                :material material
+                                                                                                :tonnes   (double (/ tonnes (lookup-population region year)))})
+                                                   derivation-composition0)]
+
+                      (reset! state/stirling-bin-collection-derivation-generation-holder derivation-generation)
+                      (reset! state/stirling-bin-collection-derivation-composition-holder derivation-composition)
+                      (reset! state/stirling-bin-collection-derivation-percent-recycled-holder derivation-percent-recycled)
+                      (reset! state/stirling-bin-collection-derivation-missed-holder derivation-missed)
+                      (js/console.log (str "Calculating stirling-bin-collection-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 ;; -------------------
 
@@ -235,6 +268,11 @@
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-household-co2e-derivations))))
+
+(add-watch state/population-holder :stirling-bin-collection-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-stirling-bin-collection-derivations))))
 
 (add-watch state/household-waste-holder :household-waste-derivations-dependency
            (fn [_key _atom old-state new-state]
