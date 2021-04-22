@@ -9,7 +9,7 @@
 (defn root []
       [:section.section
        [:div.content.has-text-centered
-        [:h1.title.is-5 "Stirling's bin collection"]]
+        [:h1.title.is-5 "Stirling's bin collection of household waste"]]
 
        [derivation-generation/root]
        [derivation-composition/root]

@@ -212,10 +212,10 @@
                  (let [start-time (util/now)
 
                        ;; Roll-up to get values for (region, year) pairs
-                       derivation-generation0 (data-shaping/rollup-stirling-bin-collection-qua-mat-lan-mis stirling-bin-collection)
+                       derivation-generation0 (data-shaping/rollup-stirling-bin-collection-qu-ma-re-mi stirling-bin-collection)
 
                        ;; Roll-up to get values for (region, year, material) triples
-                       derivation-composition0 (data-shaping/rollup-stirling-bin-collection-qua-lan-mis stirling-bin-collection)
+                       derivation-composition0 (data-shaping/rollup-stirling-bin-collection-qu-re-mi stirling-bin-collection)
 
                        ;; Calculate the percentage recycled values
                        derivation-percent-recycled (data-shaping/calc-stirling-bin-collection-percentage-recycled stirling-bin-collection)

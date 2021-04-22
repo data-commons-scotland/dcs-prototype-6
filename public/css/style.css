@@ -87,12 +87,19 @@
 }
 
 
+
 /* Navbar sundry ------------------------------ */
+
 
 /* Specify this using sass instead? */
 .navbar-divider {
     background-color: #4D4637; /* 'richbrown' */
 }
 
-
+/*
+.navbar-content {
+    white-space: unset !important;
+    max-width: 400px;
+}
+*/
 

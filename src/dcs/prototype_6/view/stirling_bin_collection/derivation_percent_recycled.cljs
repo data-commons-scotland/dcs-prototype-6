@@ -17,26 +17,29 @@
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}
-            :encoding   {:x       {:field "year" :type "temporal" :timeUnit "year" :axis {:tickCount year-count :title "year"}}
-                         :y       {:field "percentage" :type "quantitative" :scale {:zero false} :axis {:title "tonnes"}}
-                         :color   {:field "region" :type "nominal" :scale {:domain ["Scotland" "Stirling (general)" "Stirling (bins)"] :range ["#1f77b4" "#fdae6b" "#55433B"]}}
+            :encoding   {:x       {:field "year" :type "temporal"
+                                   :timeUnit "year"
+                                   :axis {:tickCount year-count :title "year"}}
+                         :y       {:field "percentage" :type "quantitative"
+                                   :scale {:zero false}}
+                         :color   {:field "region" :type "nominal"
+                                   :scale {:domain ["Scotland (recycled overall)" "Stirling (recycled overall)" "Stirling (recycling bin collection)"]
+                                           :range ["#1f77b4" "#fdae6b" "#55433B"]}
+                                   :axis {:title "category"}}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}
-                         :tooltip [{:field "region" :type "nominal"}
+                         :tooltip [{:field "region" :type "nominal" :title "category"}
                                    {:field "year" :type "temporal"}
                                    {:field "percentage" :type "quantitative"}]}}))
 
 (defn chart [stirling-bin-collection-derivation-percent-recycled household-waste-derivation-percent-recycled]
       (let [;; filter for Scotland and Stirling in the more general household waste data
             household-waste-derivation-percent-recycled' (->> household-waste-derivation-percent-recycled
-                                                        (filter #(contains? #{"Scotland" "Stirling"} (:region %))) ;; we only want Scotland and Stirling
-                                                        (map #(assoc % :region (let [region (:region %)]
-                                                                                    (if (= "Stirling" region) ;; add " (general)" to the label for Stirling
-                                                                                      "Stirling (general)"
-                                                                                      region)))))
+                                                              (filter #(contains? #{"Scotland" "Stirling"} (:region %))) ;; we only want Scotland and Stirling
+                                                              (map #(assoc % :region (str (:region %) " (recycled overall)")))) ;; re-label
 
             ;; add " (bins)" to the label for Stirling
-            stirling-bin-collection-derivation-percent-recycled' (map #(assoc % :region "Stirling (bins)")
+            stirling-bin-collection-derivation-percent-recycled' (map #(assoc % :region "Stirling (recycling bin collection)")
                                                                 stirling-bin-collection-derivation-percent-recycled)
 
             ;; combine Stirling bin collection data with that for the more general household waste of Stirling and Scotland
@@ -48,7 +51,7 @@
                                           derivation-percent-recycled')]
 
            [:div
-            [oz/vega-lite (chart-spec "% recycled" derivation-percent-recycled'')
+            [oz/vega-lite (chart-spec "% for the recycling bin collection" derivation-percent-recycled'')
              {:actions false}]]))
 
 (defn root []

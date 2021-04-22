@@ -116,7 +116,7 @@
 
 
 ;; Roll-up to get values for (region, year) pairs
-(defn rollup-stirling-bin-collection-qua-mat-lan-mis [stirling-bin-collection]
+(defn rollup-stirling-bin-collection-qu-ma-re-mi [stirling-bin-collection]
       (->> stirling-bin-collection
            (group-by (juxt :region :year))
            (remove (fn [[[region year] coll]] (not= 4       ;; remove incomplete years
@@ -132,7 +132,7 @@
 
 
 ;; Roll-up to get values for (region, year, material) triples
-(defn rollup-stirling-bin-collection-qua-lan-mis [stirling-bin-collection]
+(defn rollup-stirling-bin-collection-qu-re-mi [stirling-bin-collection]
       (->> stirling-bin-collection
            (group-by (juxt :region :year :material))
            (map (fn [[[region year material] coll]] {:region     region
@@ -153,7 +153,7 @@
                                                                                 (map :tonnes)
                                                                                 (apply +))
                                                               recycled-tonnes (->> coll
-                                                                                   (filter #(not (:landfilled? %)))
+                                                                                   (filter #(:recycling? %))
                                                                                    (map :tonnes)
                                                                                    (apply +))]
                                                              (double (* 100 (/ recycled-tonnes total-tonnes))))}))))

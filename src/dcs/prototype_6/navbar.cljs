@@ -16,7 +16,7 @@
       ([title href]
        [:a.navbar-item
         {:href href :on-click close-burger}  ;; Clickable navbar items should close the burger.
-        [:div.navbar-content
+        [:span.navbar-content
          title]])
       ([title subtitle href]
        (-> (navbar-clickable title href)
@@ -45,7 +45,7 @@
         [:div.navbar-end
 
          ;; Explore
-         [:div.navbar-item.has-dropdown.is-hoverable.is-right
+         [:div.navbar-item.has-dropdown.is-hoverable
           [:input#explore-checkbox {:type "checkbox"}]
           [:label.navbar-link {:for "explore-checkbox"} "Explore"]
           [:div#explore-dropdown.navbar-dropdown.is-right
@@ -53,7 +53,7 @@
                              "Discover and compare regional waste figures"
                              (rfe/href :dcs.prototype-6.router/dashboard-view))
            (navbar-clickable "Stirling's bin collection"
-                             "Data about Stirling's bin collection"
+                             "A peek at Stirling's bin collection of household waste"
                              (rfe/href :dcs.prototype-6.router/stirling-bin-collection-view))
            (navbar-clickable "Waste sites and the quantities of incoming materials"
                              "https://data-commons-scotland.github.io/cluster-map-of-materials-incoming/")
@@ -70,7 +70,7 @@
           [:label.navbar-link {:for "data-checkbox"} "Data"]
           [:div#data-dropdown.navbar-dropdown.is-right
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "About the datasets on this site"]]
+            [:p.has-text-link.has-text-weight-bold "About the data that is used on this site"]]
            (navbar-clickable "Datasets"
                              [:span "An introduction to our " [:em "easier-to-use"] " datasets"]
                              "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/pages-output/data/about/")
@@ -92,6 +92,8 @@
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/waste-site.csv")
            (navbar-clickable [:span "Waste site ins & outs " [:span.has-text-info "(2,667,914 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/waste-site-io.csv")
+           (navbar-clickable [:span "Stirling bin collection " [:span.has-text-info "(127 records)"]]
+                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/stirling-bin-collection.csv")
            (navbar-clickable [:span "Material coding " [:span.has-text-info "(557 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/material-coding.csv")
            (navbar-clickable [:span "EWC coding " [:span.has-text-info "(973 records)"]]
@@ -109,5 +111,7 @@
            (navbar-clickable "About the encompassing project"
                              "https://github.com/data-commons-scotland")
            (navbar-clickable "GitHub repositories"
-                             "For some of the project’s longer-lifespan outputs such as concepts/models, standards, research output and open source code."
+                             [:span "For some of the project’s longer-lifespan outputs" [:br]
+                              "such as concepts/models, standards, research output" [:br]
+                              "and open source code."] ;; Explicit line breaking because I haven't figured out the Bulma CSS way of wrapping this text
                              "https://github.com/data-commons-scotland")]]]]])

@@ -19,14 +19,19 @@
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}
-            :encoding   {:x       {:field "year" :type "temporal" :timeUnit "year" :axis {:tickCount year-count :title "year"}}
-                         :y       {:field "tonnes" :type "quantitative" :scale {:zero false} :axis {:title "tonnes"}}
-                         :color   {:field "material" :type "nominal" :scale {:scheme "tableau20"} :legend nil #_{:orient "bottom" :columns 3}}
+            :encoding   {:x       {:field "year" :type "temporal"
+                                   :timeUnit "year"
+                                   :axis {:tickCount year-count :title "year"}}
+                         :y       {:field "tonnes" :type "quantitative"
+                                   :scale {:zero false}
+                                   :axis {:title "tonnes per citizen"}}
+                         :color   {:field "material" :type "nominal"
+                                   :scale {:scheme "tableau20"}}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}
                          :tooltip [{:field "material" :type "nominal"}
                                    {:field "year" :type "temporal"}
-                                   {:field "tonnes" :type "quantitative"}]}}))
+                                   {:field "tonnes" :type "quantitative" :title "tonnes per citizen"}]}}))
 
 (defn chart [derivation-composition]
       (let [;; stringify the year for Vega

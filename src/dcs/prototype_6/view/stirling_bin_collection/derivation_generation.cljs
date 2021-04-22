@@ -17,26 +17,30 @@
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}
-            :encoding   {:x       {:field "year" :type "temporal" :timeUnit "year" :axis {:tickCount year-count :title "year"}}
-                         :y       {:field "tonnes" :type "quantitative" :scale {:zero false} :axis {:title "tonnes"}}
-                         :color   {:field "region" :type "nominal" :scale {:domain ["Scotland" "Stirling (general)" "Stirling (bins)"] :range ["#1f77b4" "#fdae6b" "#55433B"]}}
+            :encoding   {:x       {:field "year" :type "temporal"
+                                   :timeUnit "year"
+                                   :axis {:tickCount year-count :title "year"}}
+                         :y       {:field "tonnes" :type "quantitative"
+                                   :scale {:zero false}
+                                   :axis {:title "tonnes per citizen"}}
+                         :color   {:field "region" :type "nominal"
+                                   :scale {:domain ["Scotland (all means)" "Stirling (all means)" "Stirling (bin collection)"]
+                                           :range ["#1f77b4" "#fdae6b" "#55433B"]}
+                                   :axis {:title "category"}}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}
-                         :tooltip [{:field "region" :type "nominal"}
+                         :tooltip [{:field "region" :type "nominal" :title "category"}
                                    {:field "year" :type "temporal"}
-                                   {:field "tonnes" :type "quantitative"}]}}))
+                                   {:field "tonnes" :type "quantitative" :title "tonnes per citizen"}]}}))
 
 (defn chart [stirling-bin-collection-derivation-generation household-waste-derivation-generation]
       (let [;; filter for Scotland and Stirling in the more general household waste data
             household-waste-derivation-generation' (->> household-waste-derivation-generation
                                                         (filter #(contains? #{"Scotland" "Stirling"} (:region %))) ;; we only want Scotland and Stirling
-                                                        (map #(assoc % :region (let [region (:region %)]
-                                                                                    (if (= "Stirling" region) ;; add " (general)" to the label for Stirling
-                                                                                      "Stirling (general)"
-                                                                                      region)))))
+                                                        (map #(assoc % :region (str (:region %) " (all means)")))) ;; re-label
 
             ;; add " (bins)" to the label for Stirling
-            stirling-bin-collection-derivation-generation' (map #(assoc % :region "Stirling (bins)")
+            stirling-bin-collection-derivation-generation' (map #(assoc % :region "Stirling (bin collection)")
                                                                 stirling-bin-collection-derivation-generation)
 
             ;; combine Stirling bin collection data with that for the more general household waste of Stirling and Scotland
@@ -48,7 +52,7 @@
                                           derivation-generation')]
 
            [:div
-            [oz/vega-lite (chart-spec "Generation" derivation-generation'')
+            [oz/vega-lite (chart-spec "Amount" derivation-generation'')
              {:actions false}]]))
 
 (defn root []
