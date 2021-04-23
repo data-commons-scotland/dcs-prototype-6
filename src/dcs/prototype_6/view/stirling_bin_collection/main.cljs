@@ -53,7 +53,7 @@
            [:h2.title.is-6.has-text-danger "Composition"]
            [:h2.subtitle.is-5 "What types of material were in the bins?"]
            [:div.content.has-text-warning
-            [:p [:em "Unsorted"] " waste has consistently the biggest component of bin collected waste."]]
+            [:p [:em "Unsorted"] " waste consistently has been the biggest component of bin-collected waste."]]
            [:div.content.is-small.has-text-info
             [:p "These figures are based on a coarse-grained mapping from the values
             supplied in Stirling council's bin collection dataset to SEPA's "
