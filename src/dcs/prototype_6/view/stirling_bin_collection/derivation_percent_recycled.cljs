@@ -21,10 +21,10 @@
                                    :timeUnit "year"
                                    :axis {:tickCount year-count :title "year"}}
                          :y       {:field "percentage" :type "quantitative"
-                                   :scale {:zero false}}
+                                   #_:scale #_{:zero false}}
                          :color   {:field "region" :type "nominal"
                                    :scale {:domain ["Scotland (recycled overall)" "Stirling (recycled overall)" "Stirling (recycling bin collection)"]
-                                           :range ["#1f77b4" "#fdae6b" "#55433B"]}
+                                           :range ["#bcd6e9" "#fedfc4" "#BF5748"]}
                                    :axis {:title "category"}}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}

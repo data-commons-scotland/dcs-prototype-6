@@ -11,8 +11,55 @@
        [:div.content.has-text-centered
         [:h1.title.is-5 "Stirling's bin collection of household waste"]]
 
-       [derivation-generation/root]
-       [derivation-composition/root]
-       [derivation-percent-recycled/root]
-       [derivation-missed/root]])
+       [:div.tile.is-ancestor
+
+        [:div.tile.is-6
+         [:div.tile.is-vertical.is-parent
+          [:div.tile.is-child.box
+            [:figure
+             [derivation-generation/root]]
+           [:h2.title.is-6.has-text-danger "Amount"]
+           [:h2.subtitle.is-5 "How much material was in the bins?"]
+            [:p
+             "NB: Bin collection data for 2021 contains only Q1 data so remove 2021.
+             Population data for 2020 and 2021 not available so using 2019 figures for those years.
+             Is low compared to general so other amounts must have been been accounted for in general."]
+            ]
+           [:div.tile.is-child.box
+            [:figure
+             [derivation-composition/root]]
+            [:h2.title.is-6.has-text-danger "Composition"]
+            [:h2.subtitle.is-5 "What materials were in the bins?"]
+            [:p
+             "NB: did a coarse grained categorisation of the material in bins"]
+            ]
+          ]
+         ]
+
+        [:div.tile.is-6
+         [:div.tile.is-vertical.is-parent
+         [:div.tile.is-child.box
+          [:figure
+           [derivation-percent-recycled/root]]
+          [:h2.title.is-6.has-text-danger "Recycling"]
+          [:h2.subtitle.is-5 "What was the percentage in the recycling collection?"]
+          [:p
+           "NB: % in bin recycling collection is low compared to general so other recycling must have been taking place"]
+          ]
+
+         [:div.tile.is-child.box
+          [:figure
+           [derivation-missed/root]]
+          [:h2.title.is-6.has-text-danger "Missed bins"]
+          [:h2.subtitle.is-5 "How many bins were missed?"]
+          [:p
+           "NB: trend is good"]
+          ]]
+          ]
+         ]
+
+
+
+
+       ])
 

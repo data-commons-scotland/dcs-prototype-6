@@ -21,11 +21,11 @@
                                    :timeUnit "year"
                                    :axis {:tickCount year-count :title "year"}}
                          :y       {:field "tonnes" :type "quantitative"
-                                   :scale {:zero false}
+                                   #_:scale #_{:domain [0.2 0.5]}
                                    :axis {:title "tonnes per citizen"}}
                          :color   {:field "region" :type "nominal"
                                    :scale {:domain ["Scotland (all means)" "Stirling (all means)" "Stirling (bin collection)"]
-                                           :range ["#1f77b4" "#fdae6b" "#55433B"]}
+                                           :range ["#bcd6e9" "#fedfc4" "#BF5748"]}
                                    :axis {:title "category"}}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}

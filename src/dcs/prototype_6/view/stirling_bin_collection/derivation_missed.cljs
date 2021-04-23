@@ -19,7 +19,7 @@
                               :bind   "legend"}}
             :encoding   {:x       {:field "date" :type "temporal" :timeUnit "yearquarter" :axis {:title "year quarter" :labelAngle 70 :labelOffset 10 :labelBound 10}}
                          :y       {:field "tonnes" :type "quantitative" :scale {:zero false} :axis {:title "tonnes"}}
-                         :color   {:value "#A6A198"}
+                         :color   {:value "#BF5748"}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}
                          :tooltip [{:field "date" :type "temporal"}
