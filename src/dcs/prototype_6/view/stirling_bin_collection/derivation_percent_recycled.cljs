@@ -8,7 +8,7 @@
 (defn chart-spec [title data]
       (let [year-count (count (group-by :year data))]
            {:schema     "https://vega.github.io/schema/vega/v5.json"
-            :title      title
+            ;;:title      title
             :width      200
             :height     100
             :background "floralwhite"

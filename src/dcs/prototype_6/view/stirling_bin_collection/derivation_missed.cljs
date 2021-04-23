@@ -8,8 +8,8 @@
 (defn chart-spec [title data]
       (let [year-count (count (group-by :year data))]
            {:schema     "https://vega.github.io/schema/vega/v5.json"
-            :title      title
-            :width      300
+            ;;:title      title
+            :width      250
             :height     100
             :background "floralwhite"
             :data       {:values data}
@@ -17,8 +17,14 @@
             :selection  {:my {:type   "multi"
                               :fields ["tonnes"]
                               :bind   "legend"}}
-            :encoding   {:x       {:field "date" :type "temporal" :timeUnit "yearquarter" :axis {:title "year quarter" :labelAngle 70 :labelOffset 10 :labelBound 10}}
-                         :y       {:field "tonnes" :type "quantitative" :scale {:zero false} :axis {:title "tonnes"}}
+            :encoding   {:x       {:field "date" :type "temporal"
+                                   :timeUnit "yearquarter"
+                                   :axis {:title "year quarter"
+                                          :labelAngle 45
+                                          :labelOffset 10
+                                          :labelBound 25}}
+                         :y       {:field "tonnes" :type "quantitative"
+                                   :scale {:zero false} :axis {:title "tonnes"}}
                          :color   {:value "#BF5748"}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}
