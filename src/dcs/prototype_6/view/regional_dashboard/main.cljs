@@ -2,7 +2,6 @@
   (:require [reagent.core :as r]
             [reitit.frontend.easy :as rfe]
             [dcs.prototype-6.state :as state]
-            [dcs.prototype-6.events :refer [increment decrement]]
             [dcs.prototype-6.view.regional-dashboard.map :as map]
             [dcs.prototype-6.view.regional-dashboard.region-title :as region-title]
             [dcs.prototype-6.view.regional-dashboard.region-position :as region-position]

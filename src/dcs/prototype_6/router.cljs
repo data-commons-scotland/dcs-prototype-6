@@ -32,5 +32,5 @@
         (rf/router routes
                    {:data      {:coercion rss/coercion}
                     :conflicts nil})
-        (fn [m] (reset! state/route-match m))
+        (fn [m] (reset! state/route-match-cursor m))
         {:use-fragment true})) ;; So URLs looking like  base-path/#/other/paths

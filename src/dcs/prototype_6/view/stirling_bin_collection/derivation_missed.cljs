@@ -46,4 +46,4 @@
 
 (defn root []
       [chart
-       @state/stirling-bin-collection-derivation-missed-holder])
+       @state/stirling-bin-collection-derivation-missed-bins-cursor])

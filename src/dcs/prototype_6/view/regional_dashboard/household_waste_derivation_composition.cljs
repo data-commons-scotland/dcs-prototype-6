@@ -41,4 +41,4 @@
              {:actions false}]]))
 
 (defn root []
-      [chart @state/region-holder @state/household-waste-derivation-composition-holder])
+      [chart @state/region-cursor @state/household-waste-derivation-composition-cursor])

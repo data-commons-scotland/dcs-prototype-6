@@ -38,4 +38,4 @@
              {:actions false}]]))
 
 (defn root []
-      [chart @state/region-holder @state/household-co2e-derivation-generation-holder])
+      [chart @state/region-cursor @state/household-co2e-derivation-generation-cursor])

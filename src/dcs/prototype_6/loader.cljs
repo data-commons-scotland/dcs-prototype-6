@@ -23,7 +23,7 @@
       (fetch "geojson.json"
              (fn [geojson] (->> geojson
                                 clj->js
-                                (reset! state/geojson-holder))))
+                                (reset! state/geojson-cursor))))
 
       (fetch "population.json"
              (fn [population] (->> population

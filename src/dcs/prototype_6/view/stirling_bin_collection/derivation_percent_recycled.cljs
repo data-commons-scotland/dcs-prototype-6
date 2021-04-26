@@ -56,5 +56,5 @@
 
 (defn root []
       [chart
-       @state/stirling-bin-collection-derivation-percent-recycled-holder
-       @state/household-waste-derivation-percent-recycled-holder])
+       @state/stirling-bin-collection-derivation-percent-recycled-cursor
+       @state/household-waste-derivation-percent-recycled-cursor])

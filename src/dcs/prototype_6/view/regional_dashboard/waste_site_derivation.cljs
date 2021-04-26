@@ -23,5 +23,5 @@
 
 (defn root []
       [ele
-       @state/region-holder
-       @state/waste-site-derivation-holder])
+       @state/region-cursor
+       @state/waste-site-derivation-cursor])

@@ -5,4 +5,4 @@
       [:div.has-text-centered [:h1.title region]])
 
 (defn root []
-      [ele @state/region-holder])
+      [ele @state/region-cursor])

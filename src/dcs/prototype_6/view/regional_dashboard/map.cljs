@@ -37,8 +37,8 @@
             region (get properties-map "LAD13NM")]
            (do
              #_(js/console.log (str "styling " region))
-             (if (and (some? @state/region-holder)
-                      (= @state/region-holder region))
+             (if (and (some? @state/region-cursor)
+                      (= @state/region-cursor region))
                style-selected
                style-neutral))))
 
@@ -69,12 +69,12 @@
             properties-map (js->clj (.. x -feature -properties))
             region (get properties-map "LAD13NM")]
            (do
-             (when (not= @state/region-holder region)
+             (when (not= @state/region-cursor region)
                    (do
                      (style-neutral-the-previously-selected) ;; Hack! There will be a more elegant way to achieve this
                      ;(.fitBounds component (.getBounds x))
                      (.setStyle x style-selected)
-                     (reset! state/region-holder region)
+                     (reset! state/region-cursor region)
                      (reset! x-for-region-holder x)))
              #_(js/console.log (str "selected " region)))))
 
@@ -98,8 +98,8 @@
              (.addTo basemap-layer component)
 
              ;; If we have the geojson already then add it to the map
-             (when-let [geojson @state/geojson-holder]
-                       (let [geojson-layer (.geoJson js/L @state/geojson-holder
+             (when-let [geojson @state/geojson-cursor]
+                       (let [geojson-layer (.geoJson js/L @state/geojson-cursor
                                                      #js{:style          style
                                                          "onEachFeature" on-each-feature})
                              component @component-holder]
@@ -110,7 +110,7 @@
 
 (defn did-update [this prev-props]
       (let [geojson (:data (r/props this))
-            geojson-layer (.geoJson js/L @state/geojson-holder
+            geojson-layer (.geoJson js/L @state/geojson-cursor
                                     #js{:style          style
                                         "onEachFeature" on-each-feature})
             component @component-holder]
@@ -127,5 +127,5 @@
                        :component-did-update did-update}))
 
 (defn root []
-      [component {:data @state/geojson-holder}])
+      [component {:data @state/geojson-cursor}])
 

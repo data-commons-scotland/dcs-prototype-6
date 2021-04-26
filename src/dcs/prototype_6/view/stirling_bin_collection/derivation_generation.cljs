@@ -57,5 +57,5 @@
 
 (defn root []
       [chart
-       @state/stirling-bin-collection-derivation-generation-holder
-       @state/household-waste-derivation-generation-holder])
+       @state/stirling-bin-collection-derivation-generation-cursor
+       @state/household-waste-derivation-generation-cursor])

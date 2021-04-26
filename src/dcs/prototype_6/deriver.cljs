@@ -98,12 +98,12 @@
                                                                                                                               :position (inc ix)
                                                                                                                               :trend    (:trend trend)})))}]
 
-                      (reset! state/household-waste-derivation-generation-holder household-waste-derivation-generation)
-                      (reset! state/household-waste-derivation-percent-recycled-holder household-waste-derivation-percent-recycled)
-                      (reset! state/household-waste-derivation-management-holder household-waste-derivation-management)
-                      (reset! state/household-waste-derivation-composition-holder household-waste-derivation-composition)
-                      (reset! state/household-waste-derivation-generation-positions-holder household-waste-derivation-generation-positions)
-                      (reset! state/household-waste-derivation-percent-recycled-positions-holder household-waste-derivation-percent-recycled-positions)
+                      (reset! state/household-waste-derivation-generation-cursor household-waste-derivation-generation)
+                      (reset! state/household-waste-derivation-percent-recycled-cursor household-waste-derivation-percent-recycled)
+                      (reset! state/household-waste-derivation-management-cursor household-waste-derivation-management)
+                      (reset! state/household-waste-derivation-composition-cursor household-waste-derivation-composition)
+                      (reset! state/household-waste-derivation-generation-positions-cursor household-waste-derivation-generation-positions)
+                      (reset! state/household-waste-derivation-percent-recycled-positions-cursor household-waste-derivation-percent-recycled-positions)
                       (js/console.log (str "Calculating household-waste-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 
@@ -150,8 +150,8 @@
                                                                                                                        :position (inc ix)
                                                                                                                        :trend    (:trend trend)})))}]
 
-                      (reset! state/household-co2e-derivation-generation-holder household-co2e-derivation-generation)
-                      (reset! state/household-co2e-derivation-generation-positions-holder household-co2e-derivation-generation-positions)
+                      (reset! state/household-co2e-derivation-generation-cursor household-co2e-derivation-generation)
+                      (reset! state/household-co2e-derivation-generation-positions-cursor household-co2e-derivation-generation-positions)
                       (js/console.log (str "Calculating household-co2e-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 
@@ -182,8 +182,8 @@
                  ;; No actual deriving needed for the composition
                  business-waste-by-region-derivation-composition business-waste-by-region]
 
-                (reset! state/business-waste-by-region-derivation-generation-holder business-waste-by-region-derivation-generation)
-                (reset! state/business-waste-by-region-derivation-composition-holder business-waste-by-region-derivation-composition)
+                (reset! state/business-waste-by-region-derivation-generation-cursor business-waste-by-region-derivation-generation)
+                (reset! state/business-waste-by-region-derivation-composition-cursor business-waste-by-region-derivation-composition)
                 (js/console.log (str "Calculating business-waste-by-region-derivations: secs-taken=" (util/secs-to-now start-time))))))
 
 
@@ -197,7 +197,7 @@
 
                  waste-site-derivation (data-shaping/count-waste-sites-per-category-per-region waste-site)]
 
-                (reset! state/waste-site-derivation-holder waste-site-derivation)
+                (reset! state/waste-site-derivation-cursor waste-site-derivation)
                 (js/console.log (str "Calculating waste-site-derivations: secs-taken=" (util/secs-to-now start-time))))))
 
 
@@ -249,10 +249,10 @@
                                                                                                 :tonnes   (double (/ tonnes (lookup-population region year)))})
                                                    derivation-composition0)]
 
-                      (reset! state/stirling-bin-collection-derivation-generation-holder derivation-generation)
-                      (reset! state/stirling-bin-collection-derivation-composition-holder derivation-composition)
-                      (reset! state/stirling-bin-collection-derivation-percent-recycled-holder derivation-percent-recycled)
-                      (reset! state/stirling-bin-collection-derivation-missed-holder derivation-missed)
+                      (reset! state/stirling-bin-collection-derivation-generation-cursor derivation-generation)
+                      (reset! state/stirling-bin-collection-derivation-composition-cursor derivation-composition)
+                      (reset! state/stirling-bin-collection-derivation-percent-recycled-cursor derivation-percent-recycled)
+                      (reset! state/stirling-bin-collection-derivation-missed-bins-cursor derivation-missed)
                       (js/console.log (str "Calculating stirling-bin-collection-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 ;; -------------------

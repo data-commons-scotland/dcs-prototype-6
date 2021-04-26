@@ -81,7 +81,7 @@
 
 (defn root []
       [ele
-       @state/region-holder
-       @state/household-waste-derivation-generation-positions-holder
-       @state/household-waste-derivation-percent-recycled-positions-holder
-       @state/household-co2e-derivation-generation-positions-holder])
+       @state/region-cursor
+       @state/household-waste-derivation-generation-positions-cursor
+       @state/household-waste-derivation-percent-recycled-positions-cursor
+       @state/household-co2e-derivation-generation-positions-cursor])

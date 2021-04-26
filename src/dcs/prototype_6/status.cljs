@@ -1,8 +1,8 @@
 (ns dcs.prototype-6.status
   (:require [dcs.prototype-6.state :as state]))
 
-(defn ele [a b c d e f g h i j k l m n o]
-      (let [num (->> [a b c d e f g h i j k l m n o]
+(defn ele [a b c d e f g h i j k l m n o p]
+      (let [num (->> [a b c d e f g h i j k l m n o p]
                      (filter nil?)
                      count)
             s (if (= 0 num)
@@ -12,22 +12,26 @@
             [:p s]]))
 
 (defn root []
-      [ele @state/household-waste-derivation-generation-holder
-       @state/household-waste-derivation-percent-recycled-holder
-       @state/household-waste-derivation-management-holder
-       @state/household-waste-derivation-composition-holder
-       @state/household-waste-derivation-generation-positions-holder
-       @state/household-waste-derivation-percent-recycled-positions-holder
+      [ele
 
-       @state/household-co2e-derivation-generation-holder
-       @state/household-co2e-derivation-generation-positions-holder
+       @state/geojson-cursor
 
-       @state/business-waste-by-region-derivation-generation-holder
-       @state/business-waste-by-region-derivation-composition-holder
+       @state/household-waste-derivation-generation-cursor
+       @state/household-waste-derivation-percent-recycled-cursor
+       @state/household-waste-derivation-management-cursor
+       @state/household-waste-derivation-composition-cursor
+       @state/household-waste-derivation-generation-positions-cursor
+       @state/household-waste-derivation-percent-recycled-positions-cursor
 
-       @state/waste-site-derivation-holder
+       @state/household-co2e-derivation-generation-cursor
+       @state/household-co2e-derivation-generation-positions-cursor
 
-       @state/stirling-bin-collection-derivation-generation-holder
-       @state/stirling-bin-collection-derivation-composition-holder
-       @state/stirling-bin-collection-derivation-percent-recycled-holder
-       @state/stirling-bin-collection-derivation-missed-holder])
+       @state/business-waste-by-region-derivation-generation-cursor
+       @state/business-waste-by-region-derivation-composition-cursor
+
+       @state/waste-site-derivation-cursor
+
+       @state/stirling-bin-collection-derivation-generation-cursor
+       @state/stirling-bin-collection-derivation-composition-cursor
+       @state/stirling-bin-collection-derivation-percent-recycled-cursor
+       @state/stirling-bin-collection-derivation-missed-bins-cursor])

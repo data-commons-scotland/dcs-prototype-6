@@ -44,4 +44,4 @@
 
 (defn root []
       [chart
-       @state/stirling-bin-collection-derivation-composition-holder])
+       @state/stirling-bin-collection-derivation-composition-cursor])

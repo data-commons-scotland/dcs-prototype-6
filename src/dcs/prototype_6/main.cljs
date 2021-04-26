@@ -12,7 +12,7 @@
       [:div
        [navbar/root]
        [status/root]
-       (let [route @state/route-match
+       (let [route @state/route-match-cursor
              view (-> route :data :view)]
             (js/console.log "page route=" route)
             [view])
