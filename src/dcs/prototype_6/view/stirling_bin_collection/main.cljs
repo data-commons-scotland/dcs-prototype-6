@@ -39,7 +39,7 @@
             [:div.content.has-text-warning-dark.has-text-weight-bold
              [:p "The amount of household waste per citizen, accounted for through bin collection,
            has slightly increased."]]
-            [:p "To provide context, the graph depicts the amounts accounted
+            [:p "To provide context, the graph also depicts the amounts accounted
            for through " [:em "all means"] " for Stirling and Scotland.
            Perhaps the approximately 0.1 tonne gap is due to the household waste
            that deposited at tip sites by citizens themselves(?)."]
@@ -61,7 +61,7 @@
             [:div.content.has-text-success-dark.has-text-weight-bold
              [:p "The percentage of household waste, accounted for through the recycling bin collection,
            has increased."]]
-            [:p "To provide context, the graph depicts the " [:em "overall"] " percentages
+            [:p "To provide context, the graph also depicts the " [:em "overall"] " percentages
            of household waste recycled in Stirling and Scotland.
            Perhaps the significant gap is due to
            the " [:em "waste sorting for recycling"] " that occurs downstream from bin collection
