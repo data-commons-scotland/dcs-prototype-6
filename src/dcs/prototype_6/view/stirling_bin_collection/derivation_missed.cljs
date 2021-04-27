@@ -2,6 +2,7 @@
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
+    [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
 
 
@@ -20,7 +21,7 @@
             :encoding   {:x       {:field "date" :type "temporal"
                                    :timeUnit "yearquarter"
                                    :axis {:title "year quarter"
-                                          :labelAngle 45
+                                          :labelAngle 60
                                           :labelOffset 10
                                           :labelBound 25}}
                          :y       {:field "tonnes" :type "quantitative"
@@ -33,12 +34,7 @@
 
 (defn chart [derivation-missed]
       (let [;; construct a date field for Vega
-            derivation-missed' (map #(assoc % :date (str ({1 "31 Mar"
-                                                           2 "30 Jun"
-                                                           3 "31 Aug"
-                                                           4 "31 Dec"} (:quarter %))
-                                                         " "
-                                                         (:year %)))
+            derivation-missed' (map #(assoc % :date (util/date-str (:year %) (:quarter %)))
                                     derivation-missed)]
            [:div
             [oz/vega-lite (chart-spec "Missed bins" derivation-missed')

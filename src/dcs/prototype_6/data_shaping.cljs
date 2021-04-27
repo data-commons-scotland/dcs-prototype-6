@@ -115,45 +115,43 @@
                                           :non-household non-household})))))
 
 
-;; Roll-up to get values for (region, year) pairs
-(defn rollup-stirling-bin-collection-qu-ma-re-mi [stirling-bin-collection]
+;; Roll-up to get values for (region, year, quarter) triples
+(defn rollup-stirling-bin-collection-ma-re-mi [stirling-bin-collection]
       (->> stirling-bin-collection
-           (group-by (juxt :region :year))
-           (remove (fn [[[region year] coll]] (not= 4       ;; remove incomplete years
-                                                    (->> coll
-                                                         (map :quarter)
-                                                         distinct
-                                                         count))))
-           (map (fn [[[region year] coll]] {:region region
-                                            :year   year
-                                            :tonnes (->> coll
-                                                         (map :tonnes)
-                                                         (apply +))}))))
+           (group-by (juxt :region :year :quarter))
+           (map (fn [[[region year quarter] coll]] {:region  region
+                                                    :year    year
+                                                    :quarter quarter
+                                                    :tonnes  (->> coll
+                                                                  (map :tonnes)
+                                                                  (apply +))}))))
 
 
-;; Roll-up to get values for (region, year, material) triples
-(defn rollup-stirling-bin-collection-qu-re-mi [stirling-bin-collection]
+;; Roll-up to get values for (region, year, quarter, material) quadruples
+(defn rollup-stirling-bin-collection-re-mi [stirling-bin-collection]
       (->> stirling-bin-collection
-           (group-by (juxt :region :year :material))
-           (map (fn [[[region year material] coll]] {:region     region
-                                                     :year       year
-                                                     :material   material
-                                                     :tonnes     (->> coll
-                                                                      (map :tonnes)
-                                                                      (apply +))}))))
+           (group-by (juxt :region :year :quarter :material))
+           (map (fn [[[region year quarter material] coll]] {:region   region
+                                                             :year     year
+                                                             :quarter  quarter
+                                                             :material material
+                                                             :tonnes   (->> coll
+                                                                            (map :tonnes)
+                                                                            (apply +))}))))
 
 
-;; Calculate the percentage recycled values for (region, year) pairs
+;; Calculate the percentage recycled values for (region, year, quarter) triples
 (defn calc-stirling-bin-collection-percentage-recycled [stirling-bin-collection]
       (->> stirling-bin-collection
-           (group-by (juxt :region :year))
-           (map (fn [[[region year] coll]] {:region     region
-                                            :year       year
-                                            :percentage (let [total-tonnes (->> coll
-                                                                                (map :tonnes)
-                                                                                (apply +))
-                                                              recycled-tonnes (->> coll
-                                                                                   (filter #(:recycling? %))
-                                                                                   (map :tonnes)
-                                                                                   (apply +))]
-                                                             (double (* 100 (/ recycled-tonnes total-tonnes))))}))))
+           (group-by (juxt :region :year :quarter))
+           (map (fn [[[region year quarter] coll]] {:region     region
+                                                    :year       year
+                                                    :quarter    quarter
+                                                    :percentage (let [total-tonnes (->> coll
+                                                                                        (map :tonnes)
+                                                                                        (apply +))
+                                                                      recycled-tonnes (->> coll
+                                                                                           (filter #(:recycling? %))
+                                                                                           (map :tonnes)
+                                                                                           (apply +))]
+                                                                     (double (* 100 (/ recycled-tonnes total-tonnes))))}))))

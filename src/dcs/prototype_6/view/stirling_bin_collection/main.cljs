@@ -37,58 +37,18 @@
             [:figure
              [derivation-generation/root]]
             [:div.content.has-text-warning-dark.has-text-weight-bold
-             [:p "The amount of household waste per citizen, accounted for through bin collection,
-           has slightly increased."]]
-            [:p "To provide context, the graph also depicts the amounts accounted
-           for through " [:em "all means"] " for Stirling and Scotland.
-           Perhaps the approximately 0.1 tonne gap is due to the household waste
-           that deposited at tip sites by citizens themselves(?)."]
+             [:p "The amount per citizen of household waste in bin collections,
+           has increased slightly." [:sup "[1][2]"]]]
+            [:p "The amount peaks occurring during the summer months.
+            The cause seems to be the seasonality of the garden waste collection
+            (included under the category \"Animal and mixed food waste\" in the " [:strong "Composition"] " graph)."]
             [:br]
             [:div.content.is-small.has-text-info
-             [:p "The bin collection data for 2021 contains only Q1 data,
-           so we've removed the 2021 data from this year-on-year comparison.
-           The population data for 2020 and 2021 was not available to us,
-           so we're using 2019 population figures for those years."]]]]
-
-          [:div.tile.is-child.message.has-background-white.is-link
-           [:div.message-header
-            [:div
-             [:h2.title.is-6.has-text-weight-bold "Recycling"]
-             [:h2.subtitle.is-5.has-text-primary-light "What percentage was put into the recycling collection?"]]]
-           [:div.message-body
-            [:figure
-             [derivation-percent-recycled/root]]
-            [:div.content.has-text-success-dark.has-text-weight-bold
-             [:p "The percentage of household waste, accounted for through the recycling bin collection,
-           has increased."]]
-            [:p "To provide context, the graph also depicts the " [:em "overall"] " percentages
-           of household waste recycled in Stirling and Scotland.
-           Perhaps the significant gap is due to
-           the " [:em "waste sorting for recycling"] " that occurs downstream from bin collection
-           and at tip sites."]
-            [:br]
-            [:div.content.is-small.has-text-info
-             [:p "The bin collection data for 2021 contains only Q1 data,
-            so this might not be a good representation of the whole of the year 2021."]]]]]]
-
-        [:div.tile.is-6
-         [:div.tile.is-vertical.is-parent
-
-          [:div.tile.is-child.message.has-background-white.is-info
-           [:div.message-header
-            [:div
-             [:h2.title.is-6.has-text-weight-bold "Composition"]
-             [:h2.subtitle.is-5.has-text-primary-light "What types of material were in the bins?"]]]
-           [:div.message-body
-            [:figure
-             [derivation-composition/root]]
-            [:div.content.has-text-warning-dark.has-text-weight-bold
-             [:p [:em "Unsorted"] " waste consistently has been the biggest component of bin-collected waste."]]
-            [:div.content.is-small.has-text-info
-             [:p "These figures are based on a coarse-grained mapping from the values
-            supplied in Stirling council's bin collection dataset to SEPA's "
-              [:a {:href "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/pages-output/data/about/index.html#material-coding"} "material-coding"]
-              ". The data for 2021 contains only Q1 data, hence 2021's lower amounts."]]]]
+             [:ol
+              [:li "To provide context, the graph also depicts the estimated amounts accounted for through "
+               [:em "all means"] " for Stirling and Scotland."]
+              [:li "The population data for 2020 and 2021 was not available to us,
+           so we're using 2019 population figures for those years."]]]]]
 
           [:div.tile.is-child.message.has-background-white.is-link
            [:div.message-header
@@ -99,6 +59,45 @@
             [:figure
              [derivation-missed/root]]
             [:div.content.has-text-success-dark.has-text-weight-bold
-             [:p "The amount of household waste accounted for as "
-              [:em "missed bins"] " fell significantly between Q1 2018 and Q3 2019."]]]]]]]])
+             [:p "The amount of household waste attributed to "
+              [:em "missed bins"] ", fell significantly between Q1 2018 and Q3 2019."]]]]]]
+
+        [:div.tile.is-6
+         [:div.tile.is-vertical.is-parent
+
+          [:div.tile.is-child.message.has-background-white.is-link
+           [:div.message-header
+            [:div
+             [:h2.title.is-6.has-text-weight-bold "Recycling"]
+             [:h2.subtitle.is-5.has-text-primary-light "What percentage was put into the recycling collection?"]]]
+           [:div.message-body
+            [:figure
+             [derivation-percent-recycled/root]]
+            [:div.content.has-text-success-dark.has-text-weight-bold
+             [:p "The percentage of household waste in recycling-bin collections,
+           has increased slightly." [:sup "[1]"]]]
+            [:p
+             "The recycling percentage at the point of bin collections is still substantially less than the overall percentage.
+             Perhaps that is due to the " [:em "sorting & recycling"]
+             " that occurs downstream from bin collection and at tip sites."]
+            [:div.content.is-small.has-text-info
+             [:ol
+              [:li "To provide context, the graph also depicts the "
+               [:em "overall"] " percentages of household waste recycled in Stirling and Scotland."]]]]]
+
+          [:div.tile.is-child.message.has-background-white.is-info
+           [:div.message-header
+            [:div
+             [:h2.title.is-6.has-text-weight-bold "Composition"]
+             [:h2.subtitle.is-5.has-text-primary-light "What types of material were in the bins?"]]]
+           [:div.message-body
+            [:figure
+             [derivation-composition/root]]
+            [:div.content.has-text-warning-dark.has-text-weight-bold
+             [:p [:em "Unsorted"] " household waste is the biggest component in bin-collected waste." [:sup "[1]"]]]
+            [:div.content.is-small.has-text-info
+             [:ol
+              [:li "These figures are based on a coarse-grained mapping from the values
+            supplied in Stirling council's bin collection dataset to SEPA's "
+               [:a {:href "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/pages-output/data/about/index.html#material-coding"} "material-coding"] "."]]]]]]]]])
 

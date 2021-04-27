@@ -211,11 +211,11 @@
 
                  (let [start-time (util/now)
 
-                       ;; Roll-up to get values for (region, year) pairs
-                       derivation-generation0 (data-shaping/rollup-stirling-bin-collection-qu-ma-re-mi stirling-bin-collection)
+                       ;; Roll-up to get values for (region, year, quarter) triples
+                       derivation-generation0 (data-shaping/rollup-stirling-bin-collection-ma-re-mi stirling-bin-collection)
 
-                       ;; Roll-up to get values for (region, year, material) triples
-                       derivation-composition0 (data-shaping/rollup-stirling-bin-collection-qu-re-mi stirling-bin-collection)
+                       ;; Roll-up to get values for (region, year, quarter, material) quadruples
+                       derivation-composition0 (data-shaping/rollup-stirling-bin-collection-re-mi stirling-bin-collection)
 
                        ;; Calculate the percentage recycled values
                        derivation-percent-recycled (data-shaping/calc-stirling-bin-collection-percentage-recycled stirling-bin-collection)
@@ -239,14 +239,16 @@
                                                                :population))
 
                        ;; Calculate the per citizen values
-                       derivation-generation (map (fn [{:keys [region year tonnes]}] {:region region
-                                                                                      :year   year
-                                                                                      :tonnes (double (/ tonnes (lookup-population region year)))})
+                       derivation-generation (map (fn [{:keys [region year quarter tonnes]}] {:region  region
+                                                                                              :year    year
+                                                                                              :quarter quarter
+                                                                                              :tonnes  (double (/ tonnes (lookup-population region year)))})
                                                   derivation-generation0)
-                       derivation-composition (map (fn [{:keys [region year material tonnes]}] {:region   region
-                                                                                                :year     year
-                                                                                                :material material
-                                                                                                :tonnes   (double (/ tonnes (lookup-population region year)))})
+                       derivation-composition (map (fn [{:keys [region year quarter material tonnes]}] {:region   region
+                                                                                                        :year     year
+                                                                                                        :quarter  quarter
+                                                                                                        :material material
+                                                                                                        :tonnes   (double (/ tonnes (lookup-population region year)))})
                                                    derivation-composition0)]
 
                       (reset! state/stirling-bin-collection-derivation-generation-cursor derivation-generation)
