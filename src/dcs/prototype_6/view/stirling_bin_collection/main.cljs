@@ -44,7 +44,7 @@
             (categorised as \"Animal and mixed food waste\" in the " [:strong "Composition"] " graph)."]
             [:div.content.is-small.has-text-info
              [:ol
-              [:li "To provide context, the graph also depicts the estimated amounts accounted for through "
+              [:li "To provide context, the graph also depicts the linearly-estimated quarterly amounts accounted for through "
                [:em "all means"] " for Stirling and Scotland."]
               [:li "The population data for 2020 and 2021 was not available to us,
            so we're using 2019 population figures for those years."]]]]]
@@ -81,7 +81,7 @@
             [:div.content.is-small.has-text-info
              [:ol
               [:li "To provide context, the graph also depicts the "
-               [:em "overall"] " percentages of household waste recycled in Stirling and Scotland."]]]]]
+               [:em "overall"] " linearly-estimated quarterly percentages of household waste recycled in Stirling and Scotland."]]]]]
 
           [:div.tile.is-child.message.has-background-white.is-info
            [:div.message-header
