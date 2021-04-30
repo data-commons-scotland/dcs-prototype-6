@@ -3,12 +3,16 @@
  ["src"]
 
  :dependencies
- [[reagent "0.8.1"]
+ [[reagent "1.0.0"] ; was "0.8.1"
   [arttuka/reagent-material-ui "4.11.3-0"]
-  [cljsjs/leaflet "0.7.7-4"]
+  [cljsjs/leaflet "1.3.4-0"] ; was [cljsjs/leaflet "0.7.7-4"]
+  ; for experiment
+  ;    [cljsjs/leaflet "1.4.0-0"]
+  ;    [cljsjs/react-leaflet "2.0.1-0"]
+  ;
   [cljs-http "0.1.39"]
   [metasoarous/oz "1.6.0-alpha34"]
-  [cljsjs/vega-lite "4.0.2-0"]
+  [cljsjs/vega-lite "4.17.0-0"]
   [kixi/stats "0.5.4"]
   [metosin/reitit-frontend "0.5.12"]
   [metosin/reitit-spec "0.5.12"]]

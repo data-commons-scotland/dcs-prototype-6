@@ -1,5 +1,5 @@
 (ns dcs.prototype-6.main
-  (:require [reagent.core :as r]
+  (:require [reagent.dom :as rdom]
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.deriver :as deriver]
             [dcs.prototype-6.loader :as loader]
@@ -25,7 +25,7 @@
       (js/console.log "Starting router")
       (router/init)
       (js/console.log "Starting render")
-      (r/render [page] (.getElementById js/document "app")))
+      (rdom/render [page] (.getElementById js/document "app")))
 
 (defn ^:export init
       []

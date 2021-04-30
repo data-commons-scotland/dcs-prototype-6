@@ -7,6 +7,7 @@
             [dcs.prototype-6.view.home :as home-view]
             [dcs.prototype-6.view.regional-dashboard.main :as regional-dashboard-view]
             [dcs.prototype-6.view.stirling-bin-collection.main :as stirling-bin-collection-view]
+            [dcs.prototype-6.view.experiment.main :as experiment-view]
             [dcs.prototype-6.view.todo :as todo-view]))
 
 (def routes
@@ -22,6 +23,9 @@
    ["/stirling-bin-collection"
     {:name ::stirling-bin-collection-view
      :view stirling-bin-collection-view/root}]
+   ["/x"
+    {:name ::experiment-view
+     :view experiment-view/root}]
    ["*path"
     {:name ::catch-all
      :view regional-dashboard-view/root}]])
