@@ -55,6 +55,9 @@
            (navbar-clickable "Stirling's bin collection"
                              "A peek at Stirling's bin collection of household waste"
                              (rfe/href :dcs.prototype-6.router/stirling-bin-collection-view))
+           (navbar-clickable "Stirling Community Food"
+                             "Visualisations of their food waste avoidance data"
+                             (rfe/href :dcs.prototype-6.router/stirling-community-food-view))
            (navbar-clickable "Waste sites and the quantities of incoming materials"
                              "https://data-commons-scotland.github.io/cluster-map-of-materials-incoming/")
            (navbar-clickable "Household quanitites through time"

@@ -24,3 +24,6 @@ var L = {
     "circleMarker": {
     }
 };
+
+var Highcharts;
+Highcharts.Chart = function(){};
