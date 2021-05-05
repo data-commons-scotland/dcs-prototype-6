@@ -257,6 +257,36 @@
                       (reset! state/stirling-bin-collection-derivation-missed-bins-cursor derivation-missed)
                       (js/console.log (str "Calculating stirling-bin-collection-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
+
+(defn maybe-calc-stirling-community-food-tonnes-derivations []
+      (let [tonnes @state/stirling-community-food-tonnes-holder]
+
+           (when (some? tonnes))
+           (js/console.log "Calculating stirling-community-food-tonnes-derivations")
+
+           (let [start-time (util/now)
+
+                 derivation-tonnes tonnes]
+
+                (reset! state/stirling-community-food-tonnes-derivation-tonnes-cursor derivation-tonnes)
+                (reset! state/stirling-community-food-tonnes-derivation-flow-cursor :placeholder)
+                (js/console.log (str "Calculating stirling-community-food-tonnes-derivations: secs-taken=" (util/secs-to-now start-time))))))
+
+
+(defn maybe-calc-stirling-community-food-footfall-derivations []
+      (let [footfall @state/stirling-community-food-footfall-holder]
+
+           (when (some? footfall))
+           (js/console.log "Calculating stirling-community-food-footfall-derivations")
+
+           (let [start-time (util/now)
+
+                 derivation footfall]
+
+                (reset! state/stirling-community-food-footfall-derivation-cursor derivation)
+                (js/console.log (str "Calculating stirling-community-food-footfall-derivations: secs-taken=" (util/secs-to-now start-time))))))
+
+
 ;; -------------------
 
 ;; Watch for data updates
@@ -300,5 +330,15 @@
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-stirling-bin-collection-derivations))))
+
+(add-watch state/stirling-community-food-tonnes-holder :stirling-community-food-tonnes-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-stirling-community-food-tonnes-derivations))))
+
+(add-watch state/stirling-community-food-footfall-holder :stirling-community-food-footfall-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-stirling-community-food-footfall-derivations))))
 
 
