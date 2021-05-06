@@ -40,7 +40,7 @@
       (did-mount this)) ;; TODO figure out a more surgical means to update the chart
 
 (defn render []
-      [:div {:style {:min-width "310px" :max-width "800px"
+      [:div {:style {:min-width "310px" :max-width "820px"
                      :height    "400px" :margin "0"}}])
 
 (defn component []

@@ -10,7 +10,7 @@
 (defn chart-spec-per-source
       [data]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
-       :width      400
+       :width      370
        :height     200
        :background "#fff1e5"
        :data       {:values data}
@@ -34,7 +34,7 @@
 (defn chart-spec-per-month
       [data]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
-                        :width      400
+                        :width      370
                         :height     200
                         :background "#fff1e5"
                         :data       {:values data}

@@ -10,7 +10,7 @@
 (defn chart-spec-per-day
       [data]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
-       :width      40
+       :width      30
        :height     200
        :background "floralwhite"
        :data       {:values data}
@@ -42,7 +42,7 @@
 (defn chart-spec-period-in-day-per-month
       [data]
   {:schema     "https://vega.github.io/schema/vega/v5.json"
-   :width      400
+   :width      370
    :height     200
    :background "floralwhite"
    :data       {:values data}
@@ -70,7 +70,7 @@
 (defn chart-spec-day-per-month
       [data]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
-       :width      400
+       :width      370
        :height     200
        :background "floralwhite"
        :data       {:values data}
