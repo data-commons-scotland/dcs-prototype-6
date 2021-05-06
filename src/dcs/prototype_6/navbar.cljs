@@ -50,21 +50,31 @@
           [:label.navbar-link {:for "explore-checkbox"} "Explore"]
           [:div#explore-dropdown.navbar-dropdown.is-right
            (navbar-clickable "Waste by region"
-                             "Discover and compare regional waste figures"
+                             [:span "Discover and compare regional"
+                              [:br] "waste figures"]
                              (rfe/href :dcs.prototype-6.router/dashboard-view))
            (navbar-clickable "Stirling's bin collection"
-                             "A peek at Stirling's bin collection of household waste"
+                             [:span "Interesting facts about Stirling's"
+                              [:br] "bin collection of household waste"]
                              (rfe/href :dcs.prototype-6.router/stirling-bin-collection-view))
            (navbar-clickable "Stirling Community Food"
-                             "Visualisations of their food waste avoidance data"
+                             [:span "Graphs about how this organisation"
+                              [:br] "is reducing a community's food waste"]
                              (rfe/href :dcs.prototype-6.router/stirling-community-food-view))
-           (navbar-clickable "Waste sites and the quantities of incoming materials"
+           (navbar-clickable "Waste sites"
+                             [:span "Waste sites and the quantities of"
+                              [:br] "incoming materials through time, on a map"]
                              "https://data-commons-scotland.github.io/cluster-map-of-materials-incoming/")
-           (navbar-clickable "Household quanitites through time"
+           (navbar-clickable "Household waste"
+                             [:span "Household quanitites through time"]
                              "https://data-commons-scotland.github.io/waste-quants-thru-time-on-a-map/index.html?preset=hw-mgmt")
-           (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e through time"]
+           (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e"]
+                             [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e through time,"
+                              [:br] "on a map"]
                              "https://data-commons-scotland.github.io/waste-quants-thru-time-on-a-map/index.html?preset=hw-co2e")
-           (navbar-clickable "Household vs business quantities through time"
+           (navbar-clickable "Household vs business quantities"
+                             [:span "Household vs business quantities"
+                              [:br] "through time, on a map"]
                              "https://data-commons-scotland.github.io/waste-quants-thru-time-on-a-map/index.html?preset=hvb")]]
 
          ;; Data

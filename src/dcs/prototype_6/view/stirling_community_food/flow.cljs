@@ -4,7 +4,7 @@
             [dcs.prototype-6.state :as state]
     #_[dcs.prototype-6.view.stirling-community-food.map :as map]))
 
-(def chart-config
+(defn chart-config [flow]
   {
    :chart         {:backgroundColor "#980f3d"}
    :navigation    {:buttonOptions {:enabled false}}
@@ -26,35 +26,28 @@
                                    {:id "Donated to animal scantuary" :color "#AC8E00"}
                                    {:id "Used for compost" :color "#A16A51"}
                                    {:id "Disposed of as waste" :color "red" :level 4}]
-                    :data         [["Foodcloud" "Would-be waste" 7.605]
-                                   ["Other" "Would-be waste" 7.388097299999997]
-                                   ["Neighbourly" "Would-be waste" 31.66009500000001]
-                                   ["Sainsbury's" "Would-be waste" 1.5968]
-                                   ["Donated as waste" "Would-be waste" 2.9908609999999998]
-                                   ["Cooperative" "Would-be waste" 1.7901099999999994]
-                                   ["Fairshare" "Would-be waste" 26.792366000000005]
-                                   ["Donated not waste" "Not waste" 2.296225000000002]
-                                   ["Purchased" "Not waste" 2.07525]
-                                   ["Would-be waste" "Stirling Community Food" 79.82332930000001]
-                                   ["Not waste" "Stirling Community Food" 4.371475000000002]
-                                   ["Stirling Community Food" "Not wasted" 77.06230000000005]
-                                   ["Not wasted" "Used as food" 73.69748999999999]
-                                   ["Not wasted" "Donated to animal scantuary" 1.97098]
-                                   ["Not wasted" "Used for compost" 1.39383]
-                                   ["Stirling Community Food" "Disposed of as waste" 3.6506199999999973]]
+                    :data         flow
                     :type         "sankey"
                     :name         "The flow of food material"}]
    :credits       {:enabled false}
    })
 
-(defn home-did-mount [this]
-      (js/Highcharts.Chart. (rdom/dom-node this) (clj->js chart-config)))
+(defn did-mount [this]
+      (let [flow (:data (r/props this))]
+        (js/Highcharts.Chart. (rdom/dom-node this) (clj->js (chart-config flow)))))
 
-(defn home-render []
+(defn did-update [this prev-props]
+      (did-mount this)) ;; TODO figure out a more surgical means to update the chart
+
+(defn render []
       [:div {:style {:min-width "310px" :max-width "700px"
                      :height    "400px" :margin "0"}}])
 
+(defn component []
+      (r/create-class {:reagent-render       render
+                       :component-did-mount  did-mount
+                       :component-did-update did-update}))
+
 (defn root []
-      (r/create-class {:reagent-render      home-render
-                       :component-did-mount home-did-mount}))
+      [component {:data @state/stirling-community-food-tonnes-derivation-flow-cursor}])
 

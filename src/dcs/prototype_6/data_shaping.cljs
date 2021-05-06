@@ -155,3 +155,63 @@
                                                                                            (map :tonnes)
                                                                                            (apply +))]
                                                                      (double (* 100 (/ recycled-tonnes total-tonnes))))}))))
+
+
+;; Calculate the flow (paths and amounts) of food material through the Stirling Community Food system
+(defn calc-stirling-community-food-flow [stirling-community-food-tonnes]
+      (letfn [(sum-counter-party-tonnes [counter-party]
+                                           (->> stirling-community-food-tonnes
+                                                (filter #(and (= "in" (:io-direction %))
+                                                              (= counter-party (:counter-party %))))
+                                                (map :tonnes)
+                                                (apply +)))
+
+              (sum-subflows-tonnes [subflows]
+                                      (->> subflows
+                                           (map #(nth % 2))
+                                           (apply +)))
+
+              (sum-counter-parties-tonnes [counter-parties]
+                                             (->> stirling-community-food-tonnes
+                                                  (filter #(and (= "out" (:io-direction %))
+                                                                (contains? counter-parties (:counter-party %))))
+                                                  (map :tonnes)
+                                                  (apply +)))]
+
+             (let [source-keys (->> stirling-community-food-tonnes
+                                    (filter #(= "in" (:io-direction %)))
+                                    (map :counter-party)
+                                    distinct)
+
+                   not-waste-sources #{"Purchased" "Donated not waste"}
+                   waste-sources (remove #(contains? not-waste-sources %) source-keys)
+
+                   non-waste-outcomes #{"Used as food" "Donated to animal scantuary" "Used for compost"}
+                   waste-outcomes #{"Disposed of as waste"}
+
+                   subflows-1a
+                   (for [from waste-sources]
+                        [from "Would-be waste" (sum-counter-party-tonnes from)])
+
+                   subflows-1b
+                   (for [from not-waste-sources]
+                        [from "Not waste" (sum-counter-party-tonnes from)])
+
+                   subflows-2
+                   [["Would-be waste" "Stirling Community Food" (sum-subflows-tonnes subflows-1a)]
+                    ["Not waste" "Stirling Community Food" (sum-subflows-tonnes subflows-1b)]]
+
+                   subflows-3
+                   [["Stirling Community Food" "Not wasted" (sum-counter-parties-tonnes non-waste-outcomes)]
+                    ["Stirling Community Food" "Disposed of as waste" (sum-counter-parties-tonnes waste-outcomes)]]
+
+                   subflows-4
+                   (for [to non-waste-outcomes]
+                        ["Not wasted" to (sum-counter-parties-tonnes #{to})])
+
+                   flow (concat subflows-1a subflows-1b subflows-2 subflows-4 subflows-3)]
+
+                  flow)))
+
+
+

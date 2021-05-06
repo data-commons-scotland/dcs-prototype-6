@@ -266,10 +266,12 @@
 
            (let [start-time (util/now)
 
-                 derivation-tonnes tonnes]
+                 derivation-tonnes tonnes
+
+                 derivation-flow (data-shaping/calc-stirling-community-food-flow tonnes)]
 
                 (reset! state/stirling-community-food-tonnes-derivation-tonnes-cursor derivation-tonnes)
-                (reset! state/stirling-community-food-tonnes-derivation-flow-cursor :placeholder)
+                (reset! state/stirling-community-food-tonnes-derivation-flow-cursor derivation-flow)
                 (js/console.log (str "Calculating stirling-community-food-tonnes-derivations: secs-taken=" (util/secs-to-now start-time))))))
 
 

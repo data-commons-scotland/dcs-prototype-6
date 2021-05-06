@@ -32,7 +32,8 @@
                                              "#AC8E00"
                                              "#A16A51"
                                              "#BF5748"]}
-                            :legend {:symbolType "circle"}}
+                            :legend {:symbolType "circle"
+                                     :orient "bottom" :columns 3}}
                     :tooltip [{:field "outcome" :type "nominal"}
                               {:field "tonnes" :type "quantitative"}]}})
 
@@ -61,7 +62,8 @@
                                       :range  ["#009175"
                                                "#AC8E00"
                                                "#A16A51"
-                                               "#BF5748"]}}
+                                               "#BF5748"]}
+                              :legend nil #_{:orient "bottom"}}
                     :tooltip [{:field "outcome" :type "nominal"}
                               {:field "month" :type "temporal" :format "%b %Y"}
                               {:field "tonnes" :type "quantitative"}]}})
@@ -76,13 +78,26 @@
                             (filter #(= "out" (:io-direction %)))
                             (map #(assoc % :outcome (:counter-party %))))]
 
-           [:div
-            [oz/vega-lite (chart-spec-per-outcome chart-data)
-             {:actions false}]
-            [oz/vega-lite (chart-spec-per-month chart-data)
-             {:actions false}]
-            [oz/vega-lite (chart-spec-per-month-logarithmic chart-data)
-             {:actions false}]]))
+           [:div.tile.is-ancestor
+
+            [:div.tile.is-6
+             [:div.tile.is-vertical.is-parent
+
+              [:div.tile.is-child
+               [oz/vega-lite (chart-spec-per-outcome chart-data)
+                {:actions false}]]
+              [:div.tile.is-child
+               [:p "Some text"]]]]
+
+            [:div.tile
+             [:div.tile.is-vertical.is-parent
+
+              [:div.tile.is-child
+               [oz/vega-lite (chart-spec-per-month chart-data)
+                {:actions false}]]
+              [:div.tile.is-child
+               [oz/vega-lite (chart-spec-per-month-logarithmic chart-data)
+                {:actions false}]]]]]))
 
 (defn root []
       [charts

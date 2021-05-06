@@ -32,7 +32,8 @@
                                              "Evening"]
                                     :range  ["#8DD9E3"
                                              "#E8CAE3"]}
-                            :legend {:title "period in day" :symbolType "circle"}}
+                            :legend nil #_{:title "period in day" :symbolType "circle"
+                                     :orient "bottom"}}
                     :tooltip [{:field "period-in-day" :type "nominal" :title "period in day"}
                               {:field "day" :type "nominal"}
                               {:field "footfall" :type "quantitative"}]}})
@@ -59,7 +60,8 @@
                                            "Evening"]
                                   :range  ["#8DD9E3"
                                            "#E8CAE3"]}
-                          :legend {:title "period in day"}}
+                          :legend {:title "period in day"
+                                   :orient "bottom"}}
                 :tooltip [{:field "period-in-day" :type "nominal" :title "period in day"}
                           {:field "month" :type "temporal" :format "%b %Y"}
                           {:field "footfall" :type "quantitative"}]}})
@@ -82,7 +84,8 @@
                                      :labelBound 45}}
                     :y       {:field "footfall" :type "quantitative" :scale {:zero false}}
                     :color   {:field "day" :type "nominal"
-                              :scale {:scheme "tableau20"}}
+                              :scale {:scheme "tableau20"}
+                              :legend {:orient "bottom"}}
                     :tooltip [{:field "day" :type "nominal"}
                               {:field "month" :type "temporal" :format "%b %Y"}
                               {:field "footfall" :type "quantitative"}]}})
@@ -91,13 +94,26 @@
 (defn charts [derivation]
       (let [chart-data derivation]
 
-           [:div
-            [oz/vega-lite (chart-spec-per-day chart-data)
-             {:actions false}]
-            [oz/vega-lite (chart-spec-period-in-day-per-month chart-data)
-             {:actions false}]
-            [oz/vega-lite (chart-spec-day-per-month chart-data)
-             {:actions false}]]))
+           [:div.tile.is-ancestor
+
+            [:div.tile.is-6
+             [:div.tile.is-vertical.is-parent
+
+              [:div.tile.is-child
+               [oz/vega-lite (chart-spec-per-day chart-data)
+                {:actions false}]]
+              [:div.tile.is-child
+               [:p "Some text"]]]]
+
+            [:div.tile
+             [:div.tile.is-vertical.is-parent
+
+              [:div.tile.is-child
+               [oz/vega-lite (chart-spec-period-in-day-per-month chart-data)
+                {:actions false}]]
+              [:div.tile.is-child
+               [oz/vega-lite (chart-spec-day-per-month chart-data)
+                {:actions false}]]]]]))
 
 (defn root []
       [charts

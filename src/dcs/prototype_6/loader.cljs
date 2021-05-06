@@ -20,6 +20,14 @@
       []
       (js/console.log "Loading data files")
 
+      (fetch "stirling-community-food-tonnes.json"
+             (fn [stirling-community-food-tonnes] (->> stirling-community-food-tonnes
+                                                       (reset! state/stirling-community-food-tonnes-holder))))
+
+      (fetch "stirling-community-food-footfall.json"
+             (fn [stirling-community-food-footfall] (->> stirling-community-food-footfall
+                                                         (reset! state/stirling-community-food-footfall-holder))))
+
       (fetch "geojson.json"
              (fn [geojson] (->> geojson
                                 clj->js
@@ -55,12 +63,4 @@
 
       (fetch "stirling-bin-collection.json"
              (fn [stirling-bin-collection] (->> stirling-bin-collection
-                                                (reset! state/stirling-bin-collection-holder))))
-
-      (fetch "stirling-community-food-tonnes.json"
-             (fn [stirling-community-food-tonnes] (->> stirling-community-food-tonnes
-                                                (reset! state/stirling-community-food-tonnes-holder))))
-
-      (fetch "stirling-community-food-footfall.json"
-             (fn [stirling-community-food-footfall] (->> stirling-community-food-footfall
-                                                       (reset! state/stirling-community-food-footfall-holder)))))
+                                                (reset! state/stirling-bin-collection-holder)))))
