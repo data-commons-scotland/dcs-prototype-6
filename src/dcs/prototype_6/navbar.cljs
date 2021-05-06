@@ -58,7 +58,7 @@
                               [:br] "bin collection of household waste"]
                              (rfe/href :dcs.prototype-6.router/stirling-bin-collection-view))
            (navbar-clickable "Stirling Community Food"
-                             [:span "Graphs about how this organisation"
+                             [:span "Graphs indicating how this organisation"
                               [:br] "is reducing a community's food waste"]
                              (rfe/href :dcs.prototype-6.router/stirling-community-food-view))
            (navbar-clickable "Waste sites"

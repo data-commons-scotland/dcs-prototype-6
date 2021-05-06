@@ -40,7 +40,7 @@
       (did-mount this)) ;; TODO figure out a more surgical means to update the chart
 
 (defn render []
-      [:div {:style {:min-width "310px" :max-width "700px"
+      [:div {:style {:min-width "310px" :max-width "800px"
                      :height    "400px" :margin "0"}}])
 
 (defn component []
@@ -49,5 +49,17 @@
                        :component-did-update did-update}))
 
 (defn root []
-      [component {:data @state/stirling-community-food-tonnes-derivation-flow-cursor}])
+
+      [:div.tile.is-ancestor
+
+       [:div.tile
+        [:div.tile.is-vertical.is-parent
+
+         [:div.tile.is-child
+          [component {:data @state/stirling-community-food-tonnes-derivation-flow-cursor}]]
+         [:div.tile.is-child.has-text-primary-light
+          [:p "Food materials flow left-to-right through Stirling Community Food's process."
+          " On the left are the sources: supermarkets, collection aggregators, donors."
+           " On the right are the outcomes, broadly: not wasted, or waste was unavoidable."
+           " (Hover over a part to display the tonnes of food material flowing through that part of the process.)"]]]]])
 
