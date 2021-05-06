@@ -2,6 +2,7 @@
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
+    [goog.string :as gstring]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
 
@@ -102,8 +103,15 @@
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-per-day chart-data)
                 {:actions false}]]
-              [:div.tile.is-child
-               [:p "Some text"]]]]
+              [:div.tile.is-child.content
+               [:p "The graph above, shows that there is
+               no significant differences in footfall between days of the week.
+               (Days to the left have a higher overall footfall then days to the right.)"]
+               [:p "The next graph provides a month-by-month breakdown of footfall.
+               Did evening opening cease after Dec" (gstring/unescapeEntities "&nbsp;") "20?"]
+               [:p "The graph after that, provides a month-by-month breakdown
+               of the footfall per day-of-the-week. There is no discernible
+               correlation between a day-of-the-week and a month-of-the-year."]]]]
 
             [:div.tile
              [:div.tile.is-vertical.is-parent

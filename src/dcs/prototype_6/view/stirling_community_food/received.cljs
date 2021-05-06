@@ -2,6 +2,7 @@
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
+    [goog.string :as gstring]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
 
@@ -72,8 +73,13 @@
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-per-source chart-data)
                 {:actions false}]]
-              [:div.tile.is-child
-               [:p "Some text"]]]]
+              [:div.tile.is-child.content
+               [:p "The graph above, shows Neighbourly (a collection aggregator)
+               to be the source that supplied the most food material during the year."]
+               [:p "The graphs left, provide a month-by-month breakdown
+               (with the second one using a non-linear scale to make the differences more obvious).
+               It seems that Sainsbury's ceased being a source after Dec" (gstring/unescapeEntities "&nbsp;") "20,
+               and that Foodcloud started being a source in Apr" (gstring/unescapeEntities "&nbsp;") "21."]]]]
 
             [:div.tile
              [:div.tile.is-vertical.is-parent

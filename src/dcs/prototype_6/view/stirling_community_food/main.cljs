@@ -19,7 +19,7 @@
           [:p [:a {:href "https://www.transitionstirling.org.uk/community-food"} "Stirling Community Food"]
            " is an charitable organisation that helps to reduce food waste in Stirling by"
            " collecting (from supermarkets & aggregators) excess and near-sell-by-date food,"
-           " routing it away from waste bins, and making it available to the community (for free)."]
+           " routing it away from waste bins, and making it available (for free) to the community."]
           [:p "Stirling Community Food are working on publishing their data as "
            [:b "open data"] ". The following graphs have been generated from their 2020-21 tonnage and footfall datasets."]]]]
 

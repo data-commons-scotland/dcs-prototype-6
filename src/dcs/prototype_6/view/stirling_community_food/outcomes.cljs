@@ -87,7 +87,17 @@
                [oz/vega-lite (chart-spec-per-outcome chart-data)
                 {:actions false}]]
               [:div.tile.is-child
-               [:p "Some text"]]]]
+               [:div.tile.is-child.content
+                [:p "The graph above, shows that Stirling Community Food has
+                provided (for free) to the community during the year:"]
+                 [:ul
+                  [:li "73.7 tonnes of food to people"]
+                  [:li "2 tonnes of food to an animal sanctuary"]
+                  [:li "1.4 tonnes of compost"]
+                  [:li "(3.7 tonnes was unavoidably waste)"]]
+                [:p "The graphs left, provide a month-by-month breakdown
+               (with the second one using a non-linear scale to make the differences more obvious).
+               [TODO: Overlay a received-material line.]"]]]]]
 
             [:div.tile
              [:div.tile.is-vertical.is-parent

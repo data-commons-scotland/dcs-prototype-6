@@ -57,9 +57,9 @@
 
          [:div.tile.is-child
           [component {:data @state/stirling-community-food-tonnes-derivation-flow-cursor}]]
-         [:div.tile.is-child.has-text-primary-light
+         [:div.tile.is-child.has-text-primary-light.content
           [:p "Food materials flow left-to-right through Stirling Community Food's process."
           " On the left are the sources: supermarkets, collection aggregators, donors."
            " On the right are the outcomes, broadly: not wasted, or waste was unavoidable."
-           " (Hover over a part to display the tonnes of food material flowing through that part of the process.)"]]]]])
+           " (Hover over a part to display the tonnes of food material flowing through that part of the process, during the year.)"]]]]])
 

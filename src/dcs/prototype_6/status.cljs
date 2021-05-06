@@ -7,7 +7,7 @@
                      count)
             s (if (= 0 num)
                 ""
-                (str "Please wait - loading/deriving " num " datasets..."))]
+                (str "Please wait... loading/deriving " num " datasets."))]
            [:div
             [:p s]]))
 
