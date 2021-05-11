@@ -198,8 +198,8 @@
                         [from "Not waste" (sum-counter-party-tonnes from)])
 
                    subflows-2
-                   [["Would-be waste" "Stirling Community Food" (sum-subflows-tonnes subflows-1a)]
-                    ["Not waste" "Stirling Community Food" (sum-subflows-tonnes subflows-1b)]]
+                   [["Not waste" "Stirling Community Food" (sum-subflows-tonnes subflows-1b)]
+                    ["Would-be waste" "Stirling Community Food" (sum-subflows-tonnes subflows-1a)]]
 
                    subflows-3
                    [["Stirling Community Food" "Not wasted" (sum-counter-parties-tonnes non-waste-outcomes)]
@@ -209,7 +209,8 @@
                    (for [to non-waste-outcomes]
                         ["Not wasted" to (sum-counter-parties-tonnes #{to})])
 
-                   flow (concat subflows-1a subflows-1b subflows-2 subflows-4 subflows-3)]
+                   ;; order to have "Not waste" top-left, and "Disposed of as waste" bottom-right
+                   flow (concat subflows-1b subflows-1a subflows-2 subflows-4 subflows-3)]
 
                   flow)))
 
