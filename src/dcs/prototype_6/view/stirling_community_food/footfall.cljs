@@ -108,7 +108,7 @@
                no significant differences in footfall between days of the week.
                (Days to the left have a higher overall footfall then days to the right.)"]
                [:p "The next graph provides a month-by-month breakdown of footfall.
-               Did evening opening cease after Dec" (gstring/unescapeEntities "&nbsp;") "20?"]
+               Did evening opening cease after Dec" (gstring/unescapeEntities "&nbsp;") "20? [...\"" [:em "yes"] "\"]"]
                [:p "The graph after that, provides a month-by-month breakdown
                of the footfall per day-of-the-week. There is no discernible
                correlation between a day-of-the-week and a month-of-the-year."]]]]

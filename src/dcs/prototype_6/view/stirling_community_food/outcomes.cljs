@@ -108,7 +108,7 @@
                 [:p "The graphs left, provide a month-by-month breakdown
                (with the second one using a non-linear scale to make the differences more obvious).
                Changes in amounts outgoing coincide with the changes in amounts received "
-               [:span.has-text-grey-light "(depicted by the light grey line the next graph)"] "."]]]]]
+               [:span.has-text-grey "(depicted by the light grey line the next graph)"] "."]]]]]
 
             [:div.tile
              [:div.tile.is-vertical.is-parent

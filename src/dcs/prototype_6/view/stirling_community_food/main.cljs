@@ -16,12 +16,16 @@
 
         [:div.container
          [:div.content
-          [:p [:a {:href "https://www.transitionstirling.org.uk/community-food"} "Stirling Community Food"]
-           " is an charitable organisation that helps to reduce food waste in Stirling by"
+          [:p "Stirling Community Food" [:sup "[1]"] " is a project that helps to reduce food waste in Stirling by"
            " collecting (from supermarkets & aggregators) excess and near-sell-by-date food,"
            " routing it away from waste bins, and making it available (for free) to the community."]
           [:p "Stirling Community Food are working on publishing their data as "
-           [:b "open data"] ". The following graphs have been generated from their 2020-21 tonnage and footfall datasets."]]]]
+           [:b "open data"] ". The following graphs have been generated from their 2020-21 tonnage and footfall datasets."]
+          [:div.content.is-small.has-text-info
+           [:ol
+            [:li [:a {:href "https://www.transitionstirling.org.uk/community-food"} "Stirling Community Food"]
+             " is run by the charity Transition Stirling,"
+             " and was set-up in partnership with the " [:a {:ref "https://www.facebook.com/thekitchenat44kingstreet/"} "Kitchen at 44"] "."]]]]]]
 
 
        [:section.hero {:style {:backgroundColor "#980f3d"}} ;
