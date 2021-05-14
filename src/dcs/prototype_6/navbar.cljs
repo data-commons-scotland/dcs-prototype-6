@@ -61,6 +61,11 @@
                              [:span "Graphs indicating how this organisation"
                               [:br] "is reducing a community's food waste"]
                              (rfe/href :dcs.prototype-6.router/stirling-community-food-view))
+           (navbar-clickable "Household waste analysis"
+                             [:span "What do households put into their bins"
+                              [:br] "and how appropriate are their disposal"
+                              [:br] "decisions?"]
+                             (rfe/href :dcs.prototype-6.router/household-waste-analysis-view))
            (navbar-clickable "Waste sites"
                              [:span "Waste sites and the quantities of"
                               [:br] "incoming materials through time, on a map"]

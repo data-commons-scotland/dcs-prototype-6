@@ -1,8 +1,8 @@
 (ns dcs.prototype-6.status
   (:require [dcs.prototype-6.state :as state]))
 
-(defn ele [a b c d e f g h i j k l m n o p q r s]
-      (let [num (->> [a b c d e f g h i j k l m n o p q r s]
+(defn ele [a b c d e f g h i j k l m n o p q r s t]
+      (let [num (->> [a b c d e f g h i j k l m n o p q r s t]
                      (filter nil?)
                      count)
             s (if (= 0 num)
@@ -38,4 +38,6 @@
 
        @state/stirling-community-food-tonnes-derivation-tonnes-cursor
        @state/stirling-community-food-tonnes-derivation-flow-cursor
-       @state/stirling-community-food-footfall-derivation-cursor])
+       @state/stirling-community-food-footfall-derivation-cursor
+
+       @state/household-waste-analysis-derivation-cursor])

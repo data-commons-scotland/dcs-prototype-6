@@ -28,6 +28,10 @@
              (fn [stirling-community-food-footfall] (->> stirling-community-food-footfall
                                                          (reset! state/stirling-community-food-footfall-holder))))
 
+      (fetch "household-waste-analysis.json"
+             (fn [household-waste-analysis] (->> household-waste-analysis
+                                                 (reset! state/household-waste-analysis-holder))))
+
       (fetch "geojson.json"
              (fn [geojson] (->> geojson
                                 clj->js

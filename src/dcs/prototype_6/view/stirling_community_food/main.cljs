@@ -16,7 +16,7 @@
 
         [:div.container
          [:div.content
-          [:p "Stirling Community Food" [:sup "[1]"] " is a project that helps to reduce food waste in Stirling by"
+          [:p "Stirling Community Food" [:sup "1"] " is a project that helps to reduce food waste in Stirling by"
            " collecting (from supermarkets & aggregators) excess and near-sell-by-date food,"
            " routing it away from waste bins, and making it available (for free) to the community."]
           [:p "Stirling Community Food are working on publishing their data as "

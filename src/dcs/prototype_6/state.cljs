@@ -54,6 +54,7 @@
 (defonce stirling-community-food-tonnes-derivation-flow-cursor (r/cursor root [:stirling-community-food-tonnes-derivation :flow]))
 (defonce stirling-community-food-footfall-derivation-cursor (r/cursor root [:stirling-community-food-footfall-derivation]))
 
+(defonce household-waste-analysis-derivation-cursor (r/cursor root [:household-waste-analysis-derivation]))
 
 ;; -----------------
 
@@ -65,4 +66,4 @@
 (defonce stirling-bin-collection-holder (atom nil))
 (defonce stirling-community-food-tonnes-holder (atom nil))
 (defonce stirling-community-food-footfall-holder (atom nil))
-
+(defonce household-waste-analysis-holder (atom nil))

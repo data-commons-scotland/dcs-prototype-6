@@ -8,6 +8,7 @@
             [dcs.prototype-6.view.regional-dashboard.main :as regional-dashboard-view]
             [dcs.prototype-6.view.stirling-bin-collection.main :as stirling-bin-collection-view]
             [dcs.prototype-6.view.stirling-community-food.main :as stirling-community-food-view]
+            [dcs.prototype-6.view.household-waste-analysis.main :as household-waste-analysis-view]
             [dcs.prototype-6.view.experiment.main :as experiment-view]
             [dcs.prototype-6.view.todo :as todo-view]))
 
@@ -27,6 +28,9 @@
    ["/stirling-community-food"
     {:name ::stirling-community-food-view
      :view stirling-community-food-view/root}]
+   ["/household-waste-analysis"
+    {:name ::household-waste-analysis-view
+     :view household-waste-analysis-view/root}]
    ["/x"
     {:name ::experiment-view
      :view experiment-view/root}]

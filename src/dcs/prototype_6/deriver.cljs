@@ -289,6 +289,20 @@
                 (js/console.log (str "Calculating stirling-community-food-footfall-derivations: secs-taken=" (util/secs-to-now start-time))))))
 
 
+(defn maybe-calc-household-waste-analysis-derivations []
+      (let [household-waste-analysis @state/household-waste-analysis-holder]
+
+           (when (some? household-waste-analysis))
+           (js/console.log "Calculating household-waste-analysis-derivations")
+
+           (let [start-time (util/now)
+
+                 household-waste-analysis-derivation household-waste-analysis]
+
+                (reset! state/household-waste-analysis-derivation-cursor household-waste-analysis-derivation)
+                (js/console.log (str "Calculating household-waste-analysis-derivations: secs-taken=" (util/secs-to-now start-time))))))
+
+
 ;; -------------------
 
 ;; Watch for data updates
@@ -342,5 +356,10 @@
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-stirling-community-food-footfall-derivations))))
+
+(add-watch state/household-waste-analysis-holder :household-waste-analysis-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-household-waste-analysis-derivations))))
 
 

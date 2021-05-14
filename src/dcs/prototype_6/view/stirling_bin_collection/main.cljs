@@ -38,7 +38,7 @@
              [derivation-generation/root]]
             [:div.content.has-text-warning-dark.has-text-weight-bold
              [:p "The amount per citizen of household waste in bin collections,
-           has increased slightly." [:sup "[1][2]"]]]
+           has increased slightly." [:sup "1,2"]]]
             [:p "The amount peaks occurring during the summer months.
             The cause seems to be the seasonality of the garden waste collection
             (categorised as \"Animal and mixed food waste\" in the " [:strong "Composition"] " graph)."]
@@ -74,7 +74,7 @@
              [derivation-percent-recycled/root]]
             [:div.content.has-text-success-dark.has-text-weight-bold
              [:p "The percentage of household waste in recycling-bin collections,
-           has increased slightly." [:sup "[1]"]]]
+           has increased slightly." [:sup "1"]]]
             [:p "The recycling percentage at the point of bin collections is still substantially less than the overall percentage.
              Perhaps that is due to the " [:em "sorting & recycling"]
              " that occurs downstream from bin collection and at tip sites."]
@@ -92,7 +92,7 @@
             [:figure
              [derivation-composition/root]]
             [:div.content.has-text-warning-dark.has-text-weight-bold
-             [:p [:em "Unsorted"] " household waste is the biggest component in bin-collected waste." [:sup "[1]"]]]
+             [:p [:em "Unsorted"] " household waste is the biggest component in bin-collected waste." [:sup "1"]]]
             [:div.content.is-small.has-text-info
              [:ol
               [:li "These figures are based on a coarse-grained mapping from the values
