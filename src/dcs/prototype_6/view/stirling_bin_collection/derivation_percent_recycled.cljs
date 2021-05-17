@@ -74,7 +74,7 @@
 
            [:div
             [oz/vega-lite (chart-spec "% for the recycling bin collection" derivation-percent-recycled'')
-             {:actions false}]]))
+             util/vega-embed-opts]]))
 
 (defn root []
       [chart

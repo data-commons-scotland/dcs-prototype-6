@@ -72,7 +72,7 @@
 
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-per-source chart-data)
-                {:actions false}]]
+                util/vega-embed-opts]]
               [:div.tile.is-child.content
                [:p "The graph above, shows Neighbourly (a collection aggregator)
                to be the source that supplied the most food material during the year."]
@@ -86,10 +86,10 @@
 
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-per-month chart-data)
-                {:actions false}]]
+                util/vega-embed-opts]]
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-per-month-logarithmic chart-data)
-                {:actions false}]]]]]))
+                util/vega-embed-opts]]]]]))
 
 (defn root []
       [charts

@@ -95,7 +95,7 @@
 
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-per-outcome chart-data)
-                {:actions false}]]
+                util/vega-embed-opts]]
               [:div.tile.is-child
                [:div.tile.is-child.content
                 [:p "The graph above, shows that Stirling Community Food has
@@ -115,10 +115,10 @@
 
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-per-month chart-data-plus)
-                {:actions false}]]
+                util/vega-embed-opts]]
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-per-month-logarithmic chart-data)
-                {:actions false}]]]]]))
+                util/vega-embed-opts]]]]]))
 
 (defn root []
       [charts

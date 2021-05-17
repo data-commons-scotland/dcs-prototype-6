@@ -2,6 +2,7 @@
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
+    [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
 
 
@@ -58,7 +59,7 @@
                                                          household-waste-derivation-management')]
            [:div
             [oz/vega-lite (chart-spec "Management" region household-waste-derivation-management'')
-             {:actions false}]]))
+             util/vega-embed-opts]]))
 
 (defn root []
       [chart @state/region-cursor @state/household-waste-derivation-management-cursor])

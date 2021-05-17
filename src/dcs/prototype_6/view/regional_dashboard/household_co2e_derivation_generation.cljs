@@ -2,6 +2,7 @@
   (:require
     [reagent.core :as r]
     [oz.core :as oz]
+    [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
 
 
@@ -35,7 +36,7 @@
                                              household-co2e-derivation-generation')]
            [:div
             [oz/vega-lite (chart-spec "Carbon impact" region household-co2e-derivation-generation'')
-             {:actions false}]]))
+             util/vega-embed-opts]]))
 
 (defn root []
       [chart @state/region-cursor @state/household-co2e-derivation-generation-cursor])

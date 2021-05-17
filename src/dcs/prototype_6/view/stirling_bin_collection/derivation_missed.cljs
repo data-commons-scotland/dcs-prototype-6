@@ -38,7 +38,7 @@
                                     derivation-missed)]
            [:div
             [oz/vega-lite (chart-spec "Missed bins" derivation-missed')
-             {:actions false}]]))
+             util/vega-embed-opts]]))
 
 (defn root []
       [chart

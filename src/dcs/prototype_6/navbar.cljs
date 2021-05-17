@@ -97,7 +97,7 @@
                              "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/pages-output/data/about/index.html#dimensions")
            [:hr.navbar-divider]
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "Directly access the datasets"]]
+            [:p.has-text-link.has-text-weight-bold "Directly access the datasets" [:span.has-text-weight-normal.has-text-info " (as CSVs)"]]]
            (navbar-clickable [:span "Household waste " [:span.has-text-info "(19,008 records)"]]
                              "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/household-waste.csv")
            (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info "(208 records)"]]

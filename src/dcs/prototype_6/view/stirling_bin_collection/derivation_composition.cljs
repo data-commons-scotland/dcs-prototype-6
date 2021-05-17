@@ -46,7 +46,7 @@
 
            [:div
             [oz/vega-lite (chart-spec "Composition" derivation-composition')
-             {:actions false}]]))
+             util/vega-embed-opts]]))
 
 (defn root []
       [chart

@@ -102,7 +102,7 @@
 
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-per-day chart-data)
-                {:actions false}]]
+                util/vega-embed-opts]]
               [:div.tile.is-child.content
                [:p "The graph above, shows that there is
                no significant differences in footfall between days of the week.
@@ -118,10 +118,10 @@
 
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-period-in-day-per-month chart-data)
-                {:actions false}]]
+                util/vega-embed-opts]]
               [:div.tile.is-child
                [oz/vega-lite (chart-spec-day-per-month chart-data)
-                {:actions false}]]]]]))
+                util/vega-embed-opts]]]]]))
 
 (defn root []
       [charts

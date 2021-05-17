@@ -16,3 +16,12 @@
                    3 "31 Aug"
                    4 "31 Dec"}]
       (str (q-map quarter) " " year)))
+
+(def vega-embed-opts
+      ;; alternatively, to hide Vega's 3-dot menu, use: {:actions false}
+      {:actions {:export true
+                 :source true
+                 :compiled false
+                 :editor true}
+       :downloadFileName "WasteMattersScotland-visualisation"
+       :scaleFactor 2})

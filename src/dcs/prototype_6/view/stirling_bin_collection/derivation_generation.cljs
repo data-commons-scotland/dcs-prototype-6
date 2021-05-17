@@ -77,7 +77,7 @@
 
            [:div
             [oz/vega-lite (chart-spec "Amount" derivation-generation'')
-             {:actions false}]]))
+             util/vega-embed-opts]]))
 
 (defn root []
       [chart

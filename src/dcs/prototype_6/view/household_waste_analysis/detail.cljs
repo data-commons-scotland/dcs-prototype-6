@@ -64,7 +64,7 @@
 
               [:div.tile.is-child
                [oz/vega-lite (chart-spec chart-data)
-                {:actions false}]]
+                util/vega-embed-opts]]
 
               [:div.tile.is-child.content
                [:blockquote
