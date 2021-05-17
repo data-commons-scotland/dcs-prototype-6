@@ -36,7 +36,8 @@
                                              household-co2e-derivation-generation')]
            [:div
             [oz/vega-lite (chart-spec "Carbon impact" region household-co2e-derivation-generation'')
-             util/vega-embed-opts]]))
+             util/vega-embed-opts]
+            ]))
 
 (defn root []
       [chart @state/region-cursor @state/household-co2e-derivation-generation-cursor])

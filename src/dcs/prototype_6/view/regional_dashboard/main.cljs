@@ -59,5 +59,15 @@
          [:div.column
           [:br]
           [:h1.subtitle "Operational waste sites in the region"]
-          [waste-site-derivation/root]]]])
+          [waste-site-derivation/root]]]
+
+       ;; Info column
+       [:div.columns
+        [:div.column.is-full
+        [:div.content.is-small.has-text-info
+         [:ol
+          [:li "The " [:b "carbon impact"] " is a measure devised by " [:a {:href "https://www.zerowastescotland.org.uk"} "Zero Waste Scotland"] ","
+           " that conveys the whole-life carbon impact of waste,"
+           " from resource extraction and manufacturing emissions, right through to waste management emissions."
+           " Its unit-of-measure is " [:b "tonnes of carbon dioxide equivalent"] " (" [:b "CO" [:sub "2"] "eT"] ")."]]]]]])
 
