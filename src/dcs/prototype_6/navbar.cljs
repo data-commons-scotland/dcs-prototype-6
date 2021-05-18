@@ -1,6 +1,7 @@
 (ns dcs.prototype-6.navbar
   (:require [reagent.core :as r]
-            [reitit.frontend.easy :as rfe]))
+            [reitit.frontend.easy :as rfe]
+            [dcs.prototype-6.util :as util]))
 
 
 (defn close-burger
@@ -99,27 +100,27 @@
            [:div.navbar-item
             [:p.has-text-link.has-text-weight-bold "Directly access the datasets" [:span.has-text-weight-normal.has-text-info " (as CSVs)"]]]
            (navbar-clickable [:span "Household waste " [:span.has-text-info "(19,008 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/household-waste.csv")
+                             (str util/easier-url-stem "household-waste.csv"))
            (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info "(208 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/household-co2e.csv")
+                             (str util/easier-url-stem "household-co2e.csv"))
            (navbar-clickable [:span "Business waste by region " [:span.has-text-info "(8,976 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/business-waste-by-region.csv")
+                             (str util/easier-url-stem "business-waste-by-region.csv"))
            (navbar-clickable [:span "Business waste by sector " [:span.has-text-info "(2,640 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/business-waste-by-sector.csv")
+                             (str util/easier-url-stem "business-waste-by-sector.csv"))
            (navbar-clickable [:span "Waste site " [:span.has-text-info "(1254 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/waste-site.csv")
+                             (str util/easier-url-stem "waste-site.csv"))
            (navbar-clickable [:span "Waste site ins & outs " [:span.has-text-info "(2,667,914 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/waste-site-io.csv")
+                             (str util/easier-url-stem "waste-site-io.csv"))
            (navbar-clickable [:span "Stirling bin collection " [:span.has-text-info "(127 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/stirling-bin-collection.csv")
+                             (str util/easier-url-stem "stirling-bin-collection.csv"))
            (navbar-clickable [:span "Material coding " [:span.has-text-info "(557 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/material-coding.csv")
+                             (str util/easier-url-stem "material-coding.csv"))
            (navbar-clickable [:span "EWC coding " [:span.has-text-info "(973 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/ewc-coding.csv")
+                             (str util/easier-url-stem "ewc-coding.csv"))
            (navbar-clickable [:span "Households " [:span.has-text-info "(288 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/households.csv")
+                             (str util/easier-url-stem "households.csv"))
            (navbar-clickable [:span "Population " [:span.has-text-info "(288 records)"]]
-                             "https://github.com/data-commons-scotland/dcs-easier-open-data/raw/master/data/population.csv")]]
+                             (str util/easier-url-stem "population.csv"))]]
 
          ;; About
          [:div.navbar-item.has-dropdown.is-hoverable

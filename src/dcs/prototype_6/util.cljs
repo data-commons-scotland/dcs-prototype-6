@@ -25,3 +25,9 @@
                  :editor true}
        :downloadFileName "WasteMattersScotland-visualisation"
        :scaleFactor 2})
+
+;; For dcs-easier-open-data URLs I want to use the stem
+;;   https://github.com/data-commons-scotland/dcs-easier-open-data/raw/v1.0-beta/data/
+;; but it results in a "redirect"+"cross site restriction" problem.
+;; So, instead use the "more direct" stem:
+(def easier-url-stem "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/v1.0-beta/data/")

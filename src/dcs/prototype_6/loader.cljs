@@ -11,10 +11,16 @@
       [url body-handler]
       (js/console.log (str "Fetching " url))
       (go (let [start-time (util/now)
-                response (<! (http/get url))]
+                response (<! (http/get url {:with-credentials? false}))]
                (do
                  (js/console.log (str "Response from " url ": status=" (:status response) " success=" (:success response) " secs-taken=" (util/secs-to-now start-time)))
-                 (body-handler (:body response))))))
+                 (let [body (:body response)
+                       clj-body (if (string? body)
+                                  (js->clj (.parse js/JSON body) :keywordize-keys true) ;; probably a text/plain response that we'll have to explicitly convert to Clojure data
+                                  body)] ;; probably an application/json response causing cljs-http to have aleady auto converted the JSON to Clojure data
+                      (js/console.log (str "got body was a string?" (string? body)))
+                      (js/console.log (str "first ele in clj-body is" (first clj-body)))
+                      (body-handler clj-body))))))
 
 (defn load-data
       []
@@ -37,34 +43,34 @@
                                 clj->js
                                 (reset! state/geojson-cursor))))
 
-      (fetch "population.json"
+      (fetch (str util/easier-url-stem "population.json")
              (fn [population] (->> population
                                    data-shaping/rollup-population-regions
                                    (concat population)
                                    (reset! state/population-holder))))
 
-      (fetch "household-waste.json"
+      (fetch (str util/easier-url-stem "household-waste.json")
              (fn [household-waste] (->> household-waste
                                         data-shaping/rollup-household-waste-regions
                                         (concat household-waste)
                                         (reset! state/household-waste-holder))))
 
-      (fetch "household-co2e.json"
+      (fetch (str util/easier-url-stem "household-co2e.json")
              (fn [household-co2e] (->> household-co2e
                                        data-shaping/rollup-household-co2e-regions
                                        (concat household-co2e)
                                        (reset! state/household-co2e-holder))))
 
-      (fetch "business-waste-by-region.json"
+      (fetch (str util/easier-url-stem "business-waste-by-region.json")
              (fn [business-waste-by-region] (->> business-waste-by-region
                                                  data-shaping/rollup-business-waste-by-region-regions
                                                  (concat business-waste-by-region)
                                                  (reset! state/business-waste-by-region-holder))))
 
-      (fetch "waste-site.json"
+      (fetch (str util/easier-url-stem "waste-site.json")
              (fn [waste-site] (->> waste-site
                                    (reset! state/waste-site-holder))))
 
-      (fetch "stirling-bin-collection.json"
+      (fetch (str util/easier-url-stem "stirling-bin-collection.json")
              (fn [stirling-bin-collection] (->> stirling-bin-collection
                                                 (reset! state/stirling-bin-collection-holder)))))

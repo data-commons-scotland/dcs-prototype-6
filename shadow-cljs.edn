@@ -10,7 +10,7 @@
   ;    [cljsjs/leaflet "1.4.0-0"]
   ;    [cljsjs/react-leaflet "2.0.1-0"]
   ;
-  [cljs-http "0.1.39"]
+  [cljs-http "0.1.46"]
   [metasoarous/oz "1.6.0-alpha34"]
   [cljsjs/vega-lite "4.17.0-0"]
   [kixi/stats "0.5.4"]
