@@ -14,7 +14,7 @@
             :height     100
             :background "floralwhite"
             :data       {:values data}
-            :mark       {:type "line" :point false #_{:filled false :fill "floralwhite" }}
+            :mark       {:type "line" :point false #_{:filled false :fill "floralwhite"}}
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}

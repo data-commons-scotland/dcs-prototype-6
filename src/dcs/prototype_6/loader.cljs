@@ -18,8 +18,6 @@
                        clj-body (if (string? body)
                                   (js->clj (.parse js/JSON body) :keywordize-keys true) ;; probably a text/plain response that we'll have to explicitly convert to Clojure data
                                   body)] ;; probably an application/json response causing cljs-http to have aleady auto converted the JSON to Clojure data
-                      (js/console.log (str "got body was a string?" (string? body)))
-                      (js/console.log (str "first ele in clj-body is" (first clj-body)))
                       (body-handler clj-body))))))
 
 (defn load-data

@@ -7,7 +7,9 @@
                      count)
             s (if (= 0 num)
                 ""
-                (str "Please wait... loading/deriving " num " datasets."))]
+                [:span.icon-text
+                 [:span.icon [:i.fas.fa-spinner.fa-pulse]]
+                 (str " please wait - loading/deriving " num " datasets")])]
            [:div
             [:p s]]))
 

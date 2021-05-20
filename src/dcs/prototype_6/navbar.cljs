@@ -10,7 +10,7 @@
       ;;  Comment-out. Isn't affecting clicked-on dropdowns as I'd like. Maybe give-up on this.
       ;;  (doseq [id ["explore-dropdown" "data-dropdown" "about-dropdown" "toggler" ]]
       ;;         (.remove (.-classList (.getElementById js/document id)) "is-active"))
-      (doseq [id ["explore-checkbox" "data-checkbox" "about-checkbox" "toggler" ]]
+      (doseq [id ["explore-checkbox" "data-checkbox" "about-checkbox" "toggler"]]
              (set! (.-checked (.getElementById js/document id)) false)))
 
 (defn navbar-clickable
