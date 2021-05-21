@@ -41,34 +41,34 @@
                                 clj->js
                                 (reset! state/geojson-cursor))))
 
-      (fetch (str util/easier-url-stem "population.json")
+      (fetch (str util/easier-repo-data "population.json")
              (fn [population] (->> population
                                    data-shaping/rollup-population-regions
                                    (concat population)
                                    (reset! state/population-holder))))
 
-      (fetch (str util/easier-url-stem "household-waste.json")
+      (fetch (str util/easier-repo-data "household-waste.json")
              (fn [household-waste] (->> household-waste
                                         data-shaping/rollup-household-waste-regions
                                         (concat household-waste)
                                         (reset! state/household-waste-holder))))
 
-      (fetch (str util/easier-url-stem "household-co2e.json")
+      (fetch (str util/easier-repo-data "household-co2e.json")
              (fn [household-co2e] (->> household-co2e
                                        data-shaping/rollup-household-co2e-regions
                                        (concat household-co2e)
                                        (reset! state/household-co2e-holder))))
 
-      (fetch (str util/easier-url-stem "business-waste-by-region.json")
+      (fetch (str util/easier-repo-data "business-waste-by-region.json")
              (fn [business-waste-by-region] (->> business-waste-by-region
                                                  data-shaping/rollup-business-waste-by-region-regions
                                                  (concat business-waste-by-region)
                                                  (reset! state/business-waste-by-region-holder))))
 
-      (fetch (str util/easier-url-stem "waste-site.json")
+      (fetch (str util/easier-repo-data "waste-site.json")
              (fn [waste-site] (->> waste-site
                                    (reset! state/waste-site-holder))))
 
-      (fetch (str util/easier-url-stem "stirling-bin-collection.json")
+      (fetch (str util/easier-repo-data "stirling-bin-collection.json")
              (fn [stirling-bin-collection] (->> stirling-bin-collection
                                                 (reset! state/stirling-bin-collection-holder)))))

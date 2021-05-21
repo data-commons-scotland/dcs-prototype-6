@@ -50,6 +50,8 @@
           [:input#explore-checkbox {:type "checkbox"}]
           [:label.navbar-link {:for "explore-checkbox"} "Explore"]
           [:div#explore-dropdown.navbar-dropdown.is-right
+           [:div.navbar-item
+            [:p.has-text-link.has-text-weight-bold "Explore through articles and tools"]]
            (navbar-clickable "Waste by region"
                              [:span "Discover and compare regional"
                               [:br] "waste figures"]
@@ -67,6 +69,9 @@
                               [:br] "and how appropriate are their disposal"
                               [:br] "decisions?"]
                              (rfe/href :dcs.prototype-6.router/household-waste-analysis-view))
+           [:hr.navbar-divider]
+           [:div.navbar-item
+            [:p.has-text-link.has-text-weight-bold "Maps still to be integrated into this site"]]
            (navbar-clickable "Waste sites"
                              [:span "Waste sites and the quantities of"
                               [:br] "incoming materials through time, on a map"]
@@ -89,48 +94,56 @@
           [:label.navbar-link {:for "data-checkbox"} "Data"]
           [:div#data-dropdown.navbar-dropdown.is-right
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "About the data that is used on this site"]]
-           (navbar-clickable "Datasets"
-                             [:span "An introduction to our " [:em "easier-to-use"] " datasets"]
-                             "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/pages-output/data/about/")
-           (navbar-clickable "Dimensions"
-                             "Descriptions of the dimensions of the datasets"
-                             "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/pages-output/data/about/index.html#dimensions")
+            [:p.has-text-link.has-text-weight-bold "About the data on this site"]]
+           (navbar-clickable "Introduction"
+                             [:span "An introduction to our " [:em "easier-to-use"] [:br]
+                              "datasets and their dimensions"]
+                             (rfe/href :dcs.prototype-6.router/easier-open-data-view))
+
            [:hr.navbar-divider]
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "Directly access the datasets" [:span.has-text-weight-normal.has-text-info " (as CSVs)"]]]
-           (navbar-clickable [:span "Household waste " [:span.has-text-info "(19,008 records)"]]
-                             (str util/easier-url-stem "household-waste.csv"))
-           (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info "(208 records)"]]
-                             (str util/easier-url-stem "household-co2e.csv"))
-           (navbar-clickable [:span "Business waste by region " [:span.has-text-info "(8,976 records)"]]
-                             (str util/easier-url-stem "business-waste-by-region.csv"))
-           (navbar-clickable [:span "Business waste by sector " [:span.has-text-info "(2,640 records)"]]
-                             (str util/easier-url-stem "business-waste-by-sector.csv"))
-           (navbar-clickable [:span "Waste site " [:span.has-text-info "(1254 records)"]]
-                             (str util/easier-url-stem "waste-site.csv"))
-           (navbar-clickable [:span "Waste site ins & outs " [:span.has-text-info "(2,667,914 records)"]]
-                             (str util/easier-url-stem "waste-site-io.csv"))
-           (navbar-clickable [:span "Stirling bin collection " [:span.has-text-info "(127 records)"]]
-                             (str util/easier-url-stem "stirling-bin-collection.csv"))
-           (navbar-clickable [:span "Material coding " [:span.has-text-info "(557 records)"]]
-                             (str util/easier-url-stem "material-coding.csv"))
-           (navbar-clickable [:span "EWC coding " [:span.has-text-info "(973 records)"]]
-                             (str util/easier-url-stem "ewc-coding.csv"))
-           (navbar-clickable [:span "Households " [:span.has-text-info "(288 records)"]]
-                             (str util/easier-url-stem "households.csv"))
-           (navbar-clickable [:span "Population " [:span.has-text-info "(288 records)"]]
-                             (str util/easier-url-stem "population.csv"))]]
+            [:p.has-text-link.has-text-weight-bold "Directly access the dataset files"]]
+           (navbar-clickable [:span "Household waste"]
+                             (str util/easier-repo-data "household-waste.csv"))
+           (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e"]
+                             (str util/easier-repo-data "household-co2e.csv"))
+           (navbar-clickable [:span "Business waste by region"]
+                             (str util/easier-repo-data "business-waste-by-region.csv"))
+           (navbar-clickable [:span "Business waste by sector"]
+                             (str util/easier-repo-data "business-waste-by-sector.csv"))
+           (navbar-clickable [:span "Waste site"]
+                             (str util/easier-repo-data "waste-site.csv"))
+           (navbar-clickable [:span "Waste site ins & outs"]
+                             (str util/easier-repo-data "waste-site-io.csv"))
+           (navbar-clickable [:span "Stirling bin collection"]
+                             (str util/easier-repo-data "stirling-bin-collection.csv"))
+           (navbar-clickable [:span "Material coding"]
+                             (str util/easier-repo-data "material-coding.csv"))
+           (navbar-clickable [:span "EWC coding"]
+                             (str util/easier-repo-data "ewc-coding.csv"))
+           (navbar-clickable [:span "Households"]
+                             (str util/easier-repo-data "households.csv"))
+           (navbar-clickable [:span "Population"]
+                             (str util/easier-repo-data "population.csv"))]]
 
          ;; About
          [:div.navbar-item.has-dropdown.is-hoverable
           [:input#about-checkbox {:type "checkbox"}]
           [:label.navbar-link {:for "about-checkbox"} "About"]
           [:div#about-dropdown.navbar-dropdown.is-right
-           (navbar-clickable "About the encompassing project"
-                             "https://github.com/data-commons-scotland")
+           [:div.navbar-item
+            [:p.has-text-link.has-text-weight-bold "About this site"]]
+           (navbar-clickable "About TODO"
+                             (rfe/href :dcs.prototype-6.router/todo))
+           [:hr.navbar-divider]
+           [:div.navbar-item
+            [:p.has-text-link.has-text-weight-bold "About the encompassing project"]]
+           (navbar-clickable "Blog site"
+                             [:span "For further information about the" [:br]
+                              "project and its activities"]
+                             "https://campuspress.stir.ac.uk/datacommonsscotland/")
            (navbar-clickable "GitHub repositories"
-                             [:span "For some of the project’s longer-lifespan outputs" [:br]
-                              "such as concepts/models, standards, research output" [:br]
-                              "and open source code."] ;; Explicit line breaking because I haven't figured out the Bulma CSS way of wrapping this text
+                             [:span "For some of the project’s longer-lifespan" [:br]
+                              "outputs such as concepts/models, standards," [:br]
+                              " research output and open source code."] ;; Explicit line breaking because I haven't figured out the Bulma CSS way of wrapping this text
                              "https://github.com/data-commons-scotland")]]]]])

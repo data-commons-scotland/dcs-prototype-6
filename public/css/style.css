@@ -16,10 +16,22 @@
 }
 
 
-/* The "league table" ------------------------------ */
+/* The "league' table ------------------------------ */
 
 #league-table {
     font-size: x-small;
+}
+
+/* The "easier open data" tables ------------------------------ */
+
+#easier-table-fff1e5 {
+    font-size: small;
+    background-color: #fff1e5;
+}
+
+#easier-table-f2dfce {
+    font-size: small;
+    background-color: #f2dfce;
 }
 
 
@@ -103,3 +115,9 @@
 }
 */
 
+/* Allow for the navbar area when scrolling-into-view a specific element (doesn't work in Safari) */
+/*Commented out and instead using a JS workaround for Safari
+[id] {
+  scroll-margin-top: 3rem;
+}
+*/

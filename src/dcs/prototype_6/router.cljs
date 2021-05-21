@@ -9,6 +9,7 @@
             [dcs.prototype-6.view.stirling-bin-collection.main :as stirling-bin-collection-view]
             [dcs.prototype-6.view.stirling-community-food.main :as stirling-community-food-view]
             [dcs.prototype-6.view.household-waste-analysis.main :as household-waste-analysis-view]
+            [dcs.prototype-6.view.easier-open-data.main :as easier-open-data-view]
             [dcs.prototype-6.view.experiment.main :as experiment-view]
             [dcs.prototype-6.view.todo :as todo-view]))
 
@@ -31,6 +32,9 @@
    ["/household-waste-analysis"
     {:name ::household-waste-analysis-view
      :view household-waste-analysis-view/root}]
+   ["/easier-open-data"
+    {:name ::easier-open-data-view
+     :view easier-open-data-view/root}]
    ["/x"
     {:name ::experiment-view
      :view experiment-view/root}]
