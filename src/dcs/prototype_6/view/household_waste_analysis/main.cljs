@@ -24,7 +24,7 @@
            "Zero Waste Scotland" [:sup "1"] "."]
           [:div.content.is-small.has-text-info
            [:ol
-            [:li [:a {:href "https://www.zerowastescotland.org.uk"} "Zero Waste Scotland"]
+            [:li [:a {:href "https://www.zerowastescotland.org.uk" :target "_blank"} "Zero Waste Scotland"]
              " not-for-profit environmental organisation, funded by the Scottish Government and European Regional Development Fund."]]]]]]
 
        [:section.hero {:style {:backgroundColor "#f2dfce"}}

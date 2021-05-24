@@ -2,6 +2,7 @@
   (:require [reitit.frontend :as rf]
             [reitit.coercion.spec :as rss]
             [reitit.frontend.easy :as rfe]
+            [spec-tools.data-spec :as ds]
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.navbar :as navbar]
             [dcs.prototype-6.view.home :as home-view]
@@ -12,6 +13,7 @@
             [dcs.prototype-6.view.easier-open-data.main :as easier-open-data-view]
             [dcs.prototype-6.view.experiment.main :as experiment-view]
             [dcs.prototype-6.view.todo :as todo-view]
+            [dcs.prototype-6.view.about :as about-view]
             [dcs.prototype-6.view.waste-sites-map :as waste-sites-map-view]
             [dcs.prototype-6.view.waste-through-time-map :as waste-through-time-map-view]))
 
@@ -35,8 +37,10 @@
     {:name ::household-waste-analysis-view
      :view household-waste-analysis-view/root}]
    ["/easier-open-data"
-    {:name ::easier-open-data-view
-     :view easier-open-data-view/root}]
+     {:name ::easier-open-data-view
+      :view easier-open-data-view/root
+      ;:parameters {:query {:scroll-to string?}}
+      }]
    ["/waste-sites-map"
     {:name ::waste-sites-map-view
      :view waste-sites-map-view/root}]
@@ -44,12 +48,15 @@
     {:name ::waste-through-time-map-view
      :view waste-through-time-map-view/root
      :parameters {:path {:preset string?}}}]
+   ["/about"
+    {:name ::about-view
+     :view about-view/root}]
    ["/x"
     {:name ::experiment-view
      :view experiment-view/root}]
    ["*path"
     {:name ::catch-all
-     :view regional-dashboard-view/root}]])
+     :view home-view/root}]])
 
 (defn init
       []

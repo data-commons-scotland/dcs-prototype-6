@@ -23,9 +23,9 @@
            [:b "open data"] ". The following graphs have been generated from their 2020-21 tonnage and footfall datasets."]
           [:div.content.is-small.has-text-info
            [:ol
-            [:li [:a {:href "https://www.transitionstirling.org.uk/community-food"} "Stirling Community Food"]
+            [:li [:a {:href "https://www.transitionstirling.org.uk/community-food" :target "_blank"} "Stirling Community Food"]
              " is run by the charity Transition Stirling,"
-             " and was set-up in partnership with the " [:a {:ref "https://www.facebook.com/thekitchenat44kingstreet/"} "Kitchen at 44"] "."]]]]]]
+             " and was set-up in partnership with the " [:a {:href "https://www.facebook.com/thekitchenat44kingstreet/" :target "_blank"} "Kitchen at 44"] "."]]]]]]
 
 
        [:section.hero {:style {:backgroundColor "#980f3d"}} ;

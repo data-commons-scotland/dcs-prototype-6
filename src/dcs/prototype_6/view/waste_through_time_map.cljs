@@ -3,7 +3,6 @@
 (defn root
       [route]
       (let [preset (-> route :parameters :path :preset)]
-           (js/console.log preset)
 
       [:div
 

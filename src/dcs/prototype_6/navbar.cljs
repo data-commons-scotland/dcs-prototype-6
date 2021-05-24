@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.navbar
-  (:require [reagent.core :as r]
+  (:require [clojure.string :as str]
+            [reagent.core :as r]
             [reitit.frontend.easy :as rfe]
             [dcs.prototype-6.util :as util]))
 
@@ -16,7 +17,7 @@
 (defn navbar-clickable
       ([title href]
        [:a.navbar-item
-        {:href href :on-click close-burger}  ;; Clickable navbar items should close the burger.
+        {:href href :on-click close-burger :target (if (str/starts-with? href "http") "_blank" "_self")}  ;; Clickable navbar items should close the burger.
         [:span.navbar-content
          title]])
       ([title subtitle href]
@@ -109,49 +110,27 @@
            [:hr.navbar-divider]
            [:div.navbar-item
             [:p.has-text-link.has-text-weight-bold "Directly access the dataset files"]]
-           (navbar-clickable  [:span.icon-text
-                               [:span "Household waste " [:span.has-text-info.is-size-7 "(JSON)"]]
-                               [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable  [:span "Household waste " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "household-waste.json"))
-           (navbar-clickable [:span.icon-text
-                              [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info.is-size-7 "(JSON)"]]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "household-co2e.json"))
-           (navbar-clickable [:span.icon-text
-                              [:span "Biz. waste by region " [:span.has-text-info.is-size-7 "(JSON)"]]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable [:span "Business waste by region " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "business-waste-by-region.json"))
-           (navbar-clickable [:span.icon-text
-                              [:span "Biz. waste by sector " [:span.has-text-info.is-size-7 "(JSON)"]]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable [:span "Business waste by sector " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "business-waste-by-sector.json"))
-           (navbar-clickable [:span.icon-text
-                              [:span "Waste site " [:span.has-text-info.is-size-7 "(JSON)"]]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable [:span "Waste site " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "waste-site.json"))
-           (navbar-clickable [:span.icon-text
-                              [:span "Waste site ins & outs " [:span.has-text-info.is-size-7 "(CSV)"]]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable [:span "Waste site ins & outs " [:span.has-text-info.is-size-7 "(CSV)"]]
                              (str util/easier-repo-data "waste-site-io.csv"))
-           (navbar-clickable [:span.icon-text
-                              [:span "Stir. bin collection " [:span.has-text-info.is-size-7 "(JSON)"]]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable [:span "Stirling bin collection " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "stirling-bin-collection.json"))
-           (navbar-clickable [:span.icon-text
-                              [:span "Material coding " [:span.has-text-info.is-size-7 "(JSON)"]]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable [:span "Material coding " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "material-coding.json"))
-           (navbar-clickable [:span.icon-text
-                              [:span "EWC coding " [:span.has-text-info.is-size-7 "(JSON)"]]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable [:span "EWC coding " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "ewc-coding.json"))
-           (navbar-clickable [:span.icon-text
-                              [:span "Households " [:span.has-text-info.is-size-7 "(JSON)"]]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable [:span "Households " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "households.json"))
-           (navbar-clickable [:span.icon-text
-                              [:span "Population " [:span.has-text-info.is-size-7 "(JSON)"]]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable [:span "Population " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "population.json"))]]
 
          ;; About
@@ -160,12 +139,12 @@
           [:label.navbar-link {:for "about-checkbox"} "About"]
           [:div#about-dropdown.navbar-dropdown.is-right
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "About this site"]]
-           (navbar-clickable "This site"
-                             (rfe/href :dcs.prototype-6.router/todo-view))
+            [:p.has-text-link.has-text-weight-bold "This site"]]
+           (navbar-clickable "About this site"
+                             (rfe/href :dcs.prototype-6.router/about-view))
            [:hr.navbar-divider]
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "About the encompassing project"]]
+            [:p.has-text-link.has-text-weight-bold "The encompassing project"]]
            (navbar-clickable [:span.icon-text
                               [:span "Blog site"]
                               [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]

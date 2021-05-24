@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.view.stirling-bin-collection.main
   (:require [reagent.core :as r]
+            [reitit.frontend.easy :as rfe]
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.view.stirling-bin-collection.derivation-generation :as derivation-generation]
             [dcs.prototype-6.view.stirling-bin-collection.derivation-composition :as derivation-composition]
@@ -16,7 +17,7 @@
          [:p "Stirling Council set a precedent by being the first (and " [:em "still"] " only) Scottish local authority
         to have published " [:b "open data"] " about their bin collection of household waste.
         This data is contained in the "
-          [:a {:href "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/pages-output/data/about/index.html#stirling-bin-collection"}
+          [:a {:href (rfe/href :dcs.prototype-6.router/easier-open-data-view {:scroll-to "stirling-bin-collection"})}
            "stirling-bin-collection"] " dataset."]
          [:p "The council are currently working on increasing the fidelity of this dataset,
         e.g. by adding spatial data to describe collection routes.

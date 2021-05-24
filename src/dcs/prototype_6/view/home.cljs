@@ -117,12 +117,11 @@
             (leaf-tile-blue "About"
                        "This site and the project"
                        "Find out about the ideas behind this website and about its encompassing project, Data Commons Scotland."
-                       (rfe/href :dcs.prototype-6.router/todo-view)
+                       (rfe/href :dcs.prototype-6.router/about-view)
                        "img/project-team.png")]
            ]
           ]
          ]
         ]
-
 
        ])
