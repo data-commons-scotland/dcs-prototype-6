@@ -145,15 +145,11 @@
            [:hr.navbar-divider]
            [:div.navbar-item
             [:p.has-text-link.has-text-weight-bold "The encompassing project"]]
-           (navbar-clickable [:span.icon-text
-                              [:span "Blog site"]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable "Blog site"
                              [:span "For further information about the" [:br]
                               "project and its activities"]
                              "https://campuspress.stir.ac.uk/datacommonsscotland/")
-           (navbar-clickable [:span.icon-text
-                              [:span "GitHub repositories"]
-                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+           (navbar-clickable "GitHub repositories"
                              [:span "For some of the project’s longer-lifespan" [:br]
                               "outputs such as concepts/models, standards," [:br]
                               " research output and open source code."] ;; Explicit line breaking because I haven't figured out the Bulma CSS way of wrapping this text
