@@ -38,7 +38,7 @@
     {:name ::easier-open-data-view
      :view easier-open-data-view/root}]
    ["/waste-sites-map"
-    {:name ::waste-sites-view
+    {:name ::waste-sites-map-view
      :view waste-sites-map-view/root}]
    ["/waste-through-time-map/:preset"
     {:name ::waste-through-time-map-view

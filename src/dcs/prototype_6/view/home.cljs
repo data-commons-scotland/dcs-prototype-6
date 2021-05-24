@@ -76,14 +76,14 @@
             (leaf-tile "Tool"
                        "Waste by region"
                        "How is waste in your region? Explore and compare regional waste amounts."
-                       (rfe/href :dcs.prototype-6.router/regional-dashboard-view)
+                       (rfe/href :dcs.prototype-6.router/dashboard-view)
                        "img/regional-dashboard.png")]
 
            [:div.tile.is-vertical.is-parent.is-3
             (leaf-tile "Tool"
                        "Waste sites"
                        "Explore the location of waste sites and quantities of materials that they receive."
-                       (rfe/href :dcs.prototype-6.router/todo-view)
+                       (rfe/href :dcs.prototype-6.router/waste-sites-map-view)
                        "img/waste-site.jpeg")
 
             (leaf-tile "Article"

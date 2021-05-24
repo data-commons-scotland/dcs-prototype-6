@@ -109,28 +109,50 @@
            [:hr.navbar-divider]
            [:div.navbar-item
             [:p.has-text-link.has-text-weight-bold "Directly access the dataset files"]]
-           (navbar-clickable [:span "Household waste"]
-                             (str util/easier-repo-data "household-waste.csv"))
-           (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e"]
-                             (str util/easier-repo-data "household-co2e.csv"))
-           (navbar-clickable [:span "Business waste by region"]
-                             (str util/easier-repo-data "business-waste-by-region.csv"))
-           (navbar-clickable [:span "Business waste by sector"]
-                             (str util/easier-repo-data "business-waste-by-sector.csv"))
-           (navbar-clickable [:span "Waste site"]
-                             (str util/easier-repo-data "waste-site.csv"))
-           (navbar-clickable [:span "Waste site ins & outs"]
+           (navbar-clickable  [:span.icon-text
+                               [:span "Household waste " [:span.has-text-info.is-size-7 "(JSON)"]]
+                               [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+                             (str util/easier-repo-data "household-waste.json"))
+           (navbar-clickable [:span.icon-text
+                              [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info.is-size-7 "(JSON)"]]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+                             (str util/easier-repo-data "household-co2e.json"))
+           (navbar-clickable [:span.icon-text
+                              [:span "Biz. waste by region " [:span.has-text-info.is-size-7 "(JSON)"]]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+                             (str util/easier-repo-data "business-waste-by-region.json"))
+           (navbar-clickable [:span.icon-text
+                              [:span "Biz. waste by sector " [:span.has-text-info.is-size-7 "(JSON)"]]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+                             (str util/easier-repo-data "business-waste-by-sector.json"))
+           (navbar-clickable [:span.icon-text
+                              [:span "Waste site " [:span.has-text-info.is-size-7 "(JSON)"]]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+                             (str util/easier-repo-data "waste-site.json"))
+           (navbar-clickable [:span.icon-text
+                              [:span "Waste site ins & outs " [:span.has-text-info.is-size-7 "(CSV)"]]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
                              (str util/easier-repo-data "waste-site-io.csv"))
-           (navbar-clickable [:span "Stirling bin collection"]
-                             (str util/easier-repo-data "stirling-bin-collection.csv"))
-           (navbar-clickable [:span "Material coding"]
-                             (str util/easier-repo-data "material-coding.csv"))
-           (navbar-clickable [:span "EWC coding"]
-                             (str util/easier-repo-data "ewc-coding.csv"))
-           (navbar-clickable [:span "Households"]
-                             (str util/easier-repo-data "households.csv"))
-           (navbar-clickable [:span "Population"]
-                             (str util/easier-repo-data "population.csv"))]]
+           (navbar-clickable [:span.icon-text
+                              [:span "Stir. bin collection " [:span.has-text-info.is-size-7 "(JSON)"]]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+                             (str util/easier-repo-data "stirling-bin-collection.json"))
+           (navbar-clickable [:span.icon-text
+                              [:span "Material coding " [:span.has-text-info.is-size-7 "(JSON)"]]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+                             (str util/easier-repo-data "material-coding.json"))
+           (navbar-clickable [:span.icon-text
+                              [:span "EWC coding " [:span.has-text-info.is-size-7 "(JSON)"]]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+                             (str util/easier-repo-data "ewc-coding.json"))
+           (navbar-clickable [:span.icon-text
+                              [:span "Households " [:span.has-text-info.is-size-7 "(JSON)"]]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+                             (str util/easier-repo-data "households.json"))
+           (navbar-clickable [:span.icon-text
+                              [:span "Population " [:span.has-text-info.is-size-7 "(JSON)"]]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
+                             (str util/easier-repo-data "population.json"))]]
 
          ;; About
          [:div.navbar-item.has-dropdown.is-hoverable
@@ -139,16 +161,20 @@
           [:div#about-dropdown.navbar-dropdown.is-right
            [:div.navbar-item
             [:p.has-text-link.has-text-weight-bold "About this site"]]
-           (navbar-clickable "About TODO"
-                             (rfe/href :dcs.prototype-6.router/todo))
+           (navbar-clickable "This site"
+                             (rfe/href :dcs.prototype-6.router/todo-view))
            [:hr.navbar-divider]
            [:div.navbar-item
             [:p.has-text-link.has-text-weight-bold "About the encompassing project"]]
-           (navbar-clickable "Blog site"
+           (navbar-clickable [:span.icon-text
+                              [:span "Blog site"]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
                              [:span "For further information about the" [:br]
                               "project and its activities"]
                              "https://campuspress.stir.ac.uk/datacommonsscotland/")
-           (navbar-clickable "GitHub repositories"
+           (navbar-clickable [:span.icon-text
+                              [:span "GitHub repositories"]
+                              [:span.icon.has-text-info.is-size-7 [:i.fas.fa-external-link-alt]]]
                              [:span "For some of the project’s longer-lifespan" [:br]
                               "outputs such as concepts/models, standards," [:br]
                               " research output and open source code."] ;; Explicit line breaking because I haven't figured out the Bulma CSS way of wrapping this text
