@@ -103,7 +103,7 @@
             (leaf-tile "Tool"
                        "Waste through the decade"
                        [:span "Discover how waste, recycling and CO" [:sub "2"] "e amounts have been changing across Scotland through the last 10 years"]
-                       (rfe/href :dcs.prototype-6.router/waste-through-time-map-view)
+                       (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hw-mgmt"})
                        "img/map-mgmt.gif")
             ]
 
