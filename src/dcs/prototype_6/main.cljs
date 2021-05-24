@@ -15,7 +15,7 @@
        (let [route @state/route-match-cursor
              view (-> route :data :view)]
             (js/console.log "page route=" route)
-            [view])
+            [view route])
        [:footer.footer
         [:p "Built by the " [:strong "Data Commons Scotland"] " project."]]])
 

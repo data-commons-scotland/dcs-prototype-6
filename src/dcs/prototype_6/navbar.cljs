@@ -10,7 +10,7 @@
       ;;  Comment-out. Isn't affecting clicked-on dropdowns as I'd like. Maybe give-up on this.
       ;;  (doseq [id ["explore-dropdown" "data-dropdown" "about-dropdown" "toggler" ]]
       ;;         (.remove (.-classList (.getElementById js/document id)) "is-active"))
-      (doseq [id ["explore-checkbox" "data-checkbox" "about-checkbox" "toggler"]]
+      (doseq [id ["articles-checkbox" "tools-checkbox" "data-checkbox" "about-checkbox" "toggler"]]
              (set! (.-checked (.getElementById js/document id)) false)))
 
 (defn navbar-clickable
@@ -45,17 +45,13 @@
 
         [:div.navbar-end
 
-         ;; Explore
+         ;; Articles
          [:div.navbar-item.has-dropdown.is-hoverable
-          [:input#explore-checkbox {:type "checkbox"}]
-          [:label.navbar-link {:for "explore-checkbox"} "Explore"]
-          [:div#explore-dropdown.navbar-dropdown.is-right
+          [:input#articles-checkbox {:type "checkbox"}]
+          [:label.navbar-link {:for "articles-checkbox"} "Articles"]
+          [:div#articles-dropdown.navbar-dropdown.is-right
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "Explore through articles and tools"]]
-           (navbar-clickable "Waste by region"
-                             [:span "Discover and compare regional"
-                              [:br] "waste figures"]
-                             (rfe/href :dcs.prototype-6.router/dashboard-view))
+            [:p.has-text-link.has-text-weight-bold "Learn from data-based articles"]]
            (navbar-clickable "Stirling's bin collection"
                              [:span "Interesting facts about Stirling's"
                               [:br] "bin collection of household waste"]
@@ -69,24 +65,34 @@
                               [:br] "and how appropriate are their disposal"
                               [:br] "decisions?"]
                              (rfe/href :dcs.prototype-6.router/household-waste-analysis-view))
-           [:hr.navbar-divider]
+           ]]
+
+         ;; Tools
+         [:div.navbar-item.has-dropdown.is-hoverable
+          [:input#tools-checkbox {:type "checkbox"}]
+          [:label.navbar-link {:for "tools-checkbox"} "Tools"]
+          [:div#tools-dropdown.navbar-dropdown.is-right
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "Maps still to be integrated into this site"]]
+            [:p.has-text-link.has-text-weight-bold "Explore using tools"]]
+           (navbar-clickable "Waste by region"
+                             [:span "Discover and compare regional"
+                              [:br] "waste figures"]
+                             (rfe/href :dcs.prototype-6.router/dashboard-view))
            (navbar-clickable "Waste sites"
                              [:span "Waste sites and the quantities of"
-                              [:br] "incoming materials through time, on a map"]
-                             "https://data-commons-scotland.github.io/cluster-map-of-materials-incoming/")
+                              [:br] "materials that they receive"]
+                             (rfe/href :dcs.prototype-6.router/waste-sites-map-view))
            (navbar-clickable "Household waste"
                              [:span "Household quanitites through time"]
-                             "https://data-commons-scotland.github.io/waste-quants-thru-time-on-a-map/index.html?preset=hw-mgmt")
+                             (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hw-mgmt"}))
            (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e"]
                              [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e through time,"
                               [:br] "on a map"]
-                             "https://data-commons-scotland.github.io/waste-quants-thru-time-on-a-map/index.html?preset=hw-co2e")
+                             (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hw-co2e"}))
            (navbar-clickable "Household vs business quantities"
                              [:span "Household vs business quantities"
                               [:br] "through time, on a map"]
-                             "https://data-commons-scotland.github.io/waste-quants-thru-time-on-a-map/index.html?preset=hvb")]]
+                             (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hvb"}))]]
 
          ;; Data
          [:div.navbar-item.has-dropdown.is-hoverable

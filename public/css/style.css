@@ -92,7 +92,8 @@
   display: none;
 }
 /* The functionality */
-#explore-checkbox:checked ~ #explore-dropdown,
+#articles-checkbox:checked ~ #articles-dropdown,
+#tools-checkbox:checked ~ #tools-dropdown,
 #data-checkbox:checked ~ #data-dropdown,
 #about-checkbox:checked ~ #about-dropdown {
     display: block;

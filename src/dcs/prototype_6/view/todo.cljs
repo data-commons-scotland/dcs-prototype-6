@@ -1,6 +1,6 @@
 (ns dcs.prototype-6.view.todo)
 
-(defn root []
+(defn root
       []
       [:div
        [:h1 "TODO"]])

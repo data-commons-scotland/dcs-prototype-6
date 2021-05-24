@@ -11,7 +11,9 @@
             [dcs.prototype-6.view.household-waste-analysis.main :as household-waste-analysis-view]
             [dcs.prototype-6.view.easier-open-data.main :as easier-open-data-view]
             [dcs.prototype-6.view.experiment.main :as experiment-view]
-            [dcs.prototype-6.view.todo :as todo-view]))
+            [dcs.prototype-6.view.todo :as todo-view]
+            [dcs.prototype-6.view.waste-sites-map :as waste-sites-map-view]
+            [dcs.prototype-6.view.waste-through-time-map :as waste-through-time-map-view]))
 
 (def routes
   [["/"
@@ -35,6 +37,13 @@
    ["/easier-open-data"
     {:name ::easier-open-data-view
      :view easier-open-data-view/root}]
+   ["/waste-sites-map"
+    {:name ::waste-sites-view
+     :view waste-sites-map-view/root}]
+   ["/waste-through-time-map/:preset"
+    {:name ::waste-through-time-map-view
+     :view waste-through-time-map-view/root
+     :parameters {:path {:preset string?}}}]
    ["/x"
     {:name ::experiment-view
      :view experiment-view/root}]
