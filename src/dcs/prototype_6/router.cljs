@@ -39,8 +39,7 @@
    ["/easier-open-data"
      {:name ::easier-open-data-view
       :view easier-open-data-view/root
-      ;:parameters {:query {:scroll-to string?}}
-      }]
+      :parameters {:query {(ds/opt :target) string?}}}]
    ["/waste-sites-map"
     {:name ::waste-sites-map-view
      :view waste-sites-map-view/root}]

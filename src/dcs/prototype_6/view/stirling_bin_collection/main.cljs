@@ -17,7 +17,7 @@
          [:p "Stirling Council set a precedent by being the first (and " [:em "still"] " only) Scottish local authority
         to have published " [:b "open data"] " about their bin collection of household waste.
         This data is contained in the "
-          [:a {:href (rfe/href :dcs.prototype-6.router/easier-open-data-view {:scroll-to "stirling-bin-collection"})}
+          [:a {:href (rfe/href :dcs.prototype-6.router/easier-open-data-view nil {:target "stirling-bin-collection"})}
            "stirling-bin-collection"] " dataset."]
          [:p "The council are currently working on increasing the fidelity of this dataset,
         e.g. by adding spatial data to describe collection routes.

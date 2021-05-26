@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.view.easier-open-data.main
-  (:require [goog.string :as gstring]
+  (:require [reagent.core :as r]
+            [goog.string :as gstring]
             [dcs.prototype-6.util :as util]))
 
 (defn dataset-row
@@ -19,8 +20,9 @@
 (defn scroll-fn
       [id]
       (fn []
-          (do
-            (.scrollIntoView (.getElementById js/document id) true)
+          (let [ele (.getElementById js/document id)]
+            (.scrollIntoView ele true)
+            (.add (.-classList ele) "is-selected")
             ;; allow for the navbar area when scrolling-into-view a specific element
             (when-let [scrolledY (.-scrollY js/window)]
                       (.scroll js/window 0 (- scrolledY 50))))))
@@ -42,8 +44,9 @@
 
 (defn root
       [route]
-      (let [scroll-to (some-> route :parameters :query :scroll-to)]
-      ;     (js/console.log scroll-to)
+      (let [target (some-> route :parameters :query :target)]
+           (js/console.log (str "target=" target))
+           (when target (r/after-render (scroll-fn target)))
 
       [:div
 
