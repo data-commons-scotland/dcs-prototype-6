@@ -186,8 +186,8 @@
                    not-waste-sources #{"Purchased" "Donated not waste"}
                    waste-sources (remove #(contains? not-waste-sources %) source-keys)
 
-                   non-waste-outcomes #{"Used as food" "Donated to animal scantuary" "Used for compost"}
-                   waste-outcomes #{"Disposed of as waste"}
+                   used-as-food-outcomes #{"Used as food"}
+                   not-used-as-food-outcomes #{"Donated to animal scantuary" "Used by individuals for compost" "Council compost, Energen biogas, etc."}
 
                    subflows-1a
                    (for [from waste-sources]
@@ -202,15 +202,38 @@
                     ["Would-be waste" "Stirling Community Food" (sum-subflows-tonnes subflows-1a)]]
 
                    subflows-3
-                   [["Stirling Community Food" "Not wasted" (sum-counter-parties-tonnes non-waste-outcomes)]
-                    ["Stirling Community Food" "Disposed of as waste" (sum-counter-parties-tonnes waste-outcomes)]]
+                   [["Stirling Community Food" "Used as food" (sum-counter-parties-tonnes used-as-food-outcomes)]
+                    ["Stirling Community Food" "Not used as food" (sum-counter-parties-tonnes not-used-as-food-outcomes)]]
 
                    subflows-4
-                   (for [to non-waste-outcomes]
-                        ["Not wasted" to (sum-counter-parties-tonnes #{to})])
+                   (for [to not-used-as-food-outcomes]
+                        ["Not used as food" to (sum-counter-parties-tonnes #{to})])
 
-                   ;; order to have "Not waste" top-left, and "Disposed of as waste" bottom-right
-                   flow (concat subflows-1b subflows-1a subflows-2 subflows-4 subflows-3)]
+                   ;; concat and order them
+
+                   ordered-froms ["Purchased"
+                             "Donated not waste"
+                             "Local supermarkets"
+                             "Fareshare"
+                             "Donated as waste"
+                             "Other"
+                             "Not waste"
+                             "Would-be waste"
+                             "Stirling Community Food"]
+
+                   ordered-tos ["Used as food" ;; should be no need to worry about the earlier ones in the flow
+                                "Not used as food"
+                                "Donated to animal scantuary"
+                                "Used by individuals for compost"
+                                "Council compost, Energen biogas, etc."]
+
+                   comparator (fn [[a-from a-to] [b-from b-to]] (if (not= a-from b-from)
+                                                      (< (.indexOf ordered-froms a-from) (.indexOf ordered-froms b-from))
+                                                      (< (.indexOf ordered-tos a-to) (.indexOf ordered-tos b-to))))
+
+                   flow (sort-by (juxt first second)
+                                 comparator
+                                 (concat subflows-1a subflows-1b subflows-2 subflows-3 subflows-4))]
 
                   flow)))
 

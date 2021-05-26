@@ -20,12 +20,23 @@
                     :cornerRadiusTopLeft  3
                     :cornerRadiusTopRight 3}
        :encoding   {:x       {:field "source" :type "nominal"
-                              :axis  {:labelAngle 60
+                              :axis  {:labelAngle 45
                                       :labelBound 45}
                               :sort  {:field "tonnes" :order "descending"}}
                     :y       {:field "tonnes" :type "quantitative"}
                     :color   {:field  "source" :type "nominal"
-                              :scale  {:scheme "tableau20"}
+                              :scale  {:domain ["Purchased"
+                                                "Donated not waste"
+                                                "Local supermarkets"
+                                                "Fareshare"
+                                                "Donated as waste"
+                                                "Other"]
+                                       :range  ["#FFC473"
+                                                "#7158A1"
+                                                "#006CAE"
+                                                "#59896A"
+                                                "#BF5748"
+                                                "#928E85"]}
                               :legend {:symbolType "circle"
                                        :orient "bottom" :columns 4}}
                     :tooltip [{:field "source" :type "nominal"}
@@ -49,7 +60,18 @@
                                                       :labelBound 45}}
                                      :y       {:field "tonnes" :type "quantitative"}
                                      :color   {:field "source" :type "nominal"
-                                               :scale {:scheme "tableau20"}
+                                               :scale {:domain ["Purchased"
+                                                                "Donated not waste"
+                                                                "Local supermarkets"
+                                                                "Fareshare"
+                                                                "Donated as waste"
+                                                                "Other"]
+                                                       :range  ["#FFC473"
+                                                                "#7158A1"
+                                                                "#006CAE"
+                                                                "#59896A"
+                                                                "#BF5748"
+                                                                "#928E85"]}
                                                :legend nil #_{:orient "bottom" :columns 4}}
                                      :tooltip [{:field "source" :type "nominal"}
                                                {:field "month" :type "temporal" :format "%b %Y"}
@@ -74,12 +96,14 @@
                [oz/vega-lite (chart-spec-per-source chart-data)
                 util/vega-embed-opts]]
               [:div.tile.is-child.content
-               [:p "The graph above, shows Neighbourly (a collection aggregator)
-               to be the source that supplied the most food material during the year."]
-               [:p "The graphs left, provide a month-by-month breakdown
-               (with the second one using a non-linear scale to make the differences more obvious).
-               It seems that Sainsbury's ceased being a source after Dec" (gstring/unescapeEntities "&nbsp;") "20,
-               and that Foodcloud started being a source in Apr" (gstring/unescapeEntities "&nbsp;") "21."]]]]
+               [:p "The graph above, shows " [:em "Local supermarkets"] " to be the source that supplied the most food material during the year. "
+                "(" [:em "Local supermarkets"] " is an aggregation of the collection agencies Neighbourly & Foodiverse,"
+                " and of the supermarkets Sainsbury's & Cooperative.)"]
+               [:p "The next graphs, provide a month-by-month breakdown
+               (with the second one using a non-linear scale to make differences more obvious).
+               The high value for " [:em "Local supermarkets"] " in Apr" (gstring/unescapeEntities "&nbsp;") "21 is because one of its constituent"
+                " organisations - Foodiverse - does not report its figures on a monthly basis; instead it reports on a batch of previous months every so often,"
+               " with Apr" (gstring/unescapeEntities "&nbsp;") "21 being an instance of that."]]]]
 
             [:div.tile
              [:div.tile.is-vertical.is-parent

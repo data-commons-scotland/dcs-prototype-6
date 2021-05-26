@@ -19,19 +19,19 @@
                     :cornerRadiusTopLeft  3
                     :cornerRadiusTopRight 3}
        :encoding   {:x       {:field "outcome" :type "nominal"
-                              :axis {:labelAngle 60
+                              :axis {:labelAngle 45
                                      :labelBound 45}
                               :sort {:field "tonnes" :order "descending"}}
                     :y       {:field "tonnes" :type "quantitative"}
                     :color {:field "outcome" :type "nominal"
                             :scale {:domain ["Used as food"
                                              "Donated to animal scantuary"
-                                             "Used for compost"
-                                             "Disposed of as waste"]
-                                    :range  ["#009175"
-                                             "#AC8E00"
-                                             "#A16A51"
-                                             "#BF5748"]}
+                                             "Used by individuals for compost"
+                                             "Council compost, Energen biogas, etc."]
+                                    :range  ["#00AC8F"
+                                             "#006AC7"
+                                             "#B49531"
+                                             "#E27E44"]}
                             :legend {:symbolType "circle"
                                      :orient "bottom" :columns 3}}
                     :tooltip [{:field "outcome" :type "nominal"}
@@ -57,14 +57,14 @@
                     :color   {:field "outcome" :type "nominal"
                               :scale {:domain ["Used as food"
                                                "Donated to animal scantuary"
-                                               "Used for compost"
-                                               "Disposed of as waste"
+                                               "Used by individuals for compost"
+                                               "Council compost, Energen biogas, etc."
                                                "Total received"]
-                                      :range  ["#009175"
-                                               "#AC8E00"
-                                               "#A16A51"
-                                               "#BF5748"
-                                               "#D1CDC3"]}
+                                      :range  ["#00AC8F"
+                                               "#006AC7"
+                                               "#B49531"
+                                               "#E27E44"
+                                               "#B1AB99"]}
                               :legend {:orient "bottom" :columns 3}}
                     :tooltip [{:field "outcome" :type "nominal"}
                               {:field "month" :type "temporal" :format "%b %Y"}
@@ -102,13 +102,14 @@
                 provided (for free) to the community during the year:"]
                  [:ul
                   [:li "73.7 tonnes of food to people"]
+                  [:li "3.7 tonnes of waste food to Stirling council (for compost) and to Energen (for biogas and fertiliser)"]
                   [:li "2 tonnes of food to an animal sanctuary"]
-                  [:li "1.4 tonnes of compost"]
-                  [:li "(3.7 tonnes was unavoidably waste)"]]
-                [:p "The graphs left, provide a month-by-month breakdown
-               (with the second one using a non-linear scale to make the differences more obvious).
+                  [:li "1.4 tonnes to individuals for compost"]
+                  ]
+                [:p "The next graphs, provide a month-by-month breakdown
+               (with the second one using a non-linear scale to make differences more obvious).
                Changes in amounts outgoing coincide with the changes in amounts received "
-               [:span.has-text-grey "(depicted by the light grey line the next graph)"] "."]]]]]
+               [:span.has-text-grey "(depicted by the grey line the next graph)"] "."]]]]]
 
             [:div.tile
              [:div.tile.is-vertical.is-parent

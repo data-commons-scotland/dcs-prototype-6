@@ -14,18 +14,31 @@
    :tooltip       {:headerFormat nil
                    :pointFormat  "{point.fromNode.name} \u2192 {point.toNode.name}: {point.weight:.2f} tonnes"
                    :nodeFormat   "{point.name}: {point.sum:.2f} tonnes"}
-   ;:plotOptions {:sankey {:label { :minFontSize 4}}}
+   :plotOptions {:sankey {
+                          ;:label { :minFontSize 4}
+                          :nodePadding 20
+                          :dataLabels {
+                          ;             :crop false
+                          ;             :overflow "allow"
+                                        :allowOverlap true}
+                          }}
    :series        [{:keys         ["from" "to" "weight"]
-                    :minLinkWidth 17
+                    :minLinkWidth 6
                     :label        {:minFontSize 6}
-                    :nodes        [{:id "Would-be waste" :color "red"}
+                    :nodes        [{:id "Purchased" :color "#FFC473"}
+                                   {:id "Donated not waste" :color "#7158A1"}
+                                   {:id "Donated as waste" :color "#BF5748"}
+                                   {:id "Other" :color "#928E85"}
+                                   {:id "Local supermarkets" :color "#006CAE"}
+                                   {:id "Fareshare" :color "#59896A"}
+                                   {:id "Would-be waste" :color "#EF0606"}
                                    {:id "Not waste" :color "#00C9A9"}
-                                   {:id "Stirling Community Food" :color "#B3AA99"}
-                                   {:id "Not wasted" :color "#00C9A9"}
-                                   {:id "Used as food" :color "#B6E6F6"}
-                                   {:id "Donated to animal scantuary" :color "#AC8E00"}
-                                   {:id "Used for compost" :color "#A16A51"}
-                                   {:id "Disposed of as waste" :color "red" :level 4}]
+                                   {:id "Stirling Community Food" :color "#009790"}
+                                   {:id "Used as food" :color "#00AC8F" :level 4 :offset -100}
+                                   {:id "Not used as food" :color "#98B0A9" :offset 105}
+                                   {:id "Donated to animal scantuary" :color "#006AC7" :offset 280}
+                                   {:id "Used by individuals for compost" :color "#B49531" :offset 280}
+                                   {:id "Council compost, Energen biogas, etc." :color "#E27E44" :offset 280}]
                     :data         flow
                     :type         "sankey"
                     :name         "The flow of food material"}]
@@ -40,7 +53,7 @@
       (did-mount this)) ;; TODO figure out a more surgical means to update the chart
 
 (defn render []
-      [:div {:style {:min-width "310px" :max-width "820px"
+      [:div {:style {:min-width "340px" :max-width "880px"
                      :height    "400px" :margin "0"}}])
 
 (defn component []
@@ -59,7 +72,8 @@
           [component {:data @state/stirling-community-food-tonnes-derivation-flow-cursor}]]
          [:div.tile.is-child.has-text-primary-light.content
           [:p "Food materials flow left-to-right through Stirling Community Food's process."
-          " On the left are the sources: supermarkets, collection aggregators, donors."
-           " On the right are the outcomes, broadly: not wasted, or waste was unavoidable."
-           " (Hover over a part to display the tonnes of food material flowing through that part of the process, during the year.)"]]]]])
+          " On the left are the sources: aggregations of supermarkets, collection agencies, and donors."
+           " On the right are the outcomes, broadly: used as food, or not."
+           " (Hover over a part to display the tonnes of food material flowing through that part of the process, during the year.)"]
+          ]]]])
 
