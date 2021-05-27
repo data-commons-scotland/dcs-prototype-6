@@ -98,5 +98,5 @@
              [:ol
               [:li "These figures are based on a coarse-grained mapping from the values
             supplied in Stirling council's bin collection dataset to SEPA's "
-               [:a {:href "https://data-commons-scotland.github.io/dcs-wcs-prototype-3/pages-output/data/about/index.html#material-coding"} "material-coding"] "."]]]]]]]]])
+               [:a {:href (rfe/href :dcs.prototype-6.router/easier-open-data-view nil {:target "material-coding"})} "material-coding"] "."]]]]]]]]])
 
