@@ -61,6 +61,10 @@
                              [:span "Graphs indicating how this organisation"
                               [:br] "is reducing a community's food waste"]
                              (rfe/href :dcs.prototype-6.router/stirling-community-food-view))
+           #_(navbar-clickable "Fairshare"
+                             [:span "Discover how many " [:em "cars worth"] " of CO" [:sub "2"] "e is avoided"
+                              [:br] "each year by this university based reuse store."]
+                             (rfe/href :dcs.prototype-6.router/fairshare-view))
            (navbar-clickable "Household waste analysis"
                              [:span "What do households put into their bins"
                               [:br] "and how appropriate are their disposal"

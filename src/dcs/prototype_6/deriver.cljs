@@ -289,6 +289,32 @@
                 (js/console.log (str "Calculating stirling-community-food-footfall-derivations: secs-taken=" (util/secs-to-now start-time))))))
 
 
+(defn maybe-calc-fairshare-donations-derivations []
+      (let [raw @state/fairshare-donations-holder]
+
+           (when (some? raw))
+           (js/console.log "Calculating fairshare-donations-derivations")
+
+           (let [start-time (util/now)
+                 derivation raw]                            ;; no transformation required
+
+                (reset! state/fairshare-donations-derivation-cursor derivation)
+                (js/console.log (str "Calculating fairshare-donations-derivations: secs-taken=" (util/secs-to-now start-time))))))
+
+
+(defn maybe-calc-fairshare-co2e-derivations []
+      (let [raw @state/fairshare-co2e-holder]
+
+           (when (some? raw))
+           (js/console.log "Calculating fairshare-co2e-derivations")
+
+           (let [start-time (util/now)
+                 derivation raw]                            ;; no transformation required
+
+                (reset! state/fairshare-co2e-derivation-cursor derivation)
+                (js/console.log (str "Calculating fairshare-co2e-derivations: secs-taken=" (util/secs-to-now start-time))))))
+
+
 (defn maybe-calc-household-waste-analysis-derivations []
       (let [household-waste-analysis @state/household-waste-analysis-holder]
 
@@ -356,6 +382,16 @@
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-stirling-community-food-footfall-derivations))))
+
+(add-watch state/fairshare-donations-holder :fairshare-donations-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-fairshare-donations-derivations))))
+
+(add-watch state/fairshare-co2e-holder :fairshare-co2e-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-fairshare-co2e-derivations))))
 
 (add-watch state/household-waste-analysis-holder :household-waste-analysis-derivations-dependency
            (fn [_key _atom old-state new-state]

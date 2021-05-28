@@ -22,7 +22,9 @@
                                                                      :missed-bins      nil}
                        :stirling-community-food-tonnes-derivation   {:tonnes nil
                                                                      :flow   nil}
-                       :stirling-community-food-footfall-derivation nil}))
+                       :stirling-community-food-footfall-derivation nil
+                       :fairshare-donations-derivation              nil
+                       :fairshare-co2e-derivation                   nil}))
 
 (defonce route-match-cursor (r/cursor root [:route-match]))
 
@@ -54,6 +56,9 @@
 (defonce stirling-community-food-tonnes-derivation-flow-cursor (r/cursor root [:stirling-community-food-tonnes-derivation :flow]))
 (defonce stirling-community-food-footfall-derivation-cursor (r/cursor root [:stirling-community-food-footfall-derivation]))
 
+(defonce fairshare-donations-derivation-cursor (r/cursor root [:fairshare-donations-derivation]))
+(defonce fairshare-co2e-derivation-cursor (r/cursor root [:fairshare-co2e-derivation]))
+
 (defonce household-waste-analysis-derivation-cursor (r/cursor root [:household-waste-analysis-derivation]))
 
 ;; -----------------
@@ -66,4 +71,6 @@
 (defonce stirling-bin-collection-holder (atom nil))
 (defonce stirling-community-food-tonnes-holder (atom nil))
 (defonce stirling-community-food-footfall-holder (atom nil))
+(defonce fairshare-donations-holder (atom nil))
+(defonce fairshare-co2e-holder (atom nil))
 (defonce household-waste-analysis-holder (atom nil))

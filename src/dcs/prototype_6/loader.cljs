@@ -32,6 +32,14 @@
              (fn [stirling-community-food-footfall] (->> stirling-community-food-footfall
                                                          (reset! state/stirling-community-food-footfall-holder))))
 
+      (fetch "fairshare-donations.json"
+             (fn [fairshare-donations] (->> fairshare-donations
+                                            (reset! state/fairshare-donations-holder))))
+
+      (fetch "fairshare-co2e.json"
+             (fn [fairshare-co2e] (->> fairshare-co2e
+                                            (reset! state/fairshare-co2e-holder))))
+
       (fetch "household-waste-analysis.json"
              (fn [household-waste-analysis] (->> household-waste-analysis
                                                  (reset! state/household-waste-analysis-holder))))
