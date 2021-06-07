@@ -15,16 +15,18 @@
                    2 "30 Jun"
                    3 "31 Aug"
                    4 "31 Dec"}]
-      (str (q-map quarter) " " year)))
+           (str (q-map quarter) " " year)))
 
 (def vega-embed-opts
-      ;; alternatively, to hide Vega's 3-dot menu, use: {:actions false}
-      {:actions {:export true
-                 :source true
-                 :compiled false
-                 :editor true}
-       :downloadFileName "WasteMattersScotland-visualisation"
-       :scaleFactor 2})
+  ;; hide Vega's 3-dot menu
+  {:actions false}
+  ;; alternatively, to display Vega's 3-dot menu, uncomment...
+  #_{:actions          {:export   true
+                        :source   true
+                        :compiled false
+                        :editor   true}
+     :downloadFileName "WasteMattersScotland-visualisation"
+     :scaleFactor      2})
 
 ;; For dcs-easier-open-data URLs I want to use the stem
 ;;   https://github.com/data-commons-scotland/dcs-easier-open-data/raw/v1.0-beta/data/

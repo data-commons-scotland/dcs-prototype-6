@@ -42,7 +42,7 @@
        @state/stirling-community-food-tonnes-derivation-flow-cursor
        @state/stirling-community-food-footfall-derivation-cursor
 
-       @state/fairshare-donations-derivation-cursor
+       @state/fairshare-material-derivation-cursor
        @state/fairshare-co2e-derivation-cursor
 
        @state/household-waste-analysis-derivation-cursor])
