@@ -15,7 +15,11 @@
             [dcs.prototype-6.view.regional-dashboard.business-waste-by-region-derivation-composition :as business-waste-by-region-derivation-composition]))
 
 
-(defn root []
+(defn root [route]
+      (let [region (some-> route :parameters :query :region)]
+           ;;(js/console.log (str "region=" region))
+           (reset! state/region-cursor region)
+
       [:section.section
         [:div.content.has-text-centered
          [:h1.title.is-5 "Regional dashboard"]]
@@ -44,7 +48,14 @@
            [:div.column.is-two-fifths
             [household-waste-derivation-percent-recycled/root]]
            [:div.column
-            [household-co2e-derivation-generation/root]]]]]
+            [household-co2e-derivation-generation/root]]]
+          ;; Replace this Stirling-specific example with a general approach for showing region-specific notes of interest
+          (when (= "Stirling" @state/region-cursor)
+                [:div.columns
+                 [:div.column.is-full
+                  [:div.content.has-text-centered.is-small
+                  [:p "Related: " [:a {:href (rfe/href :dcs.prototype-6.router/stirling-bin-collection-view)} "Interesting facts about Stirling's bin collection"] "."]]]])
+          ]]
 
         ;; Business column
         [:div.columns
@@ -69,5 +80,5 @@
           [:li "The " [:b "carbon impact"] " is a measure devised by " [:a {:href "https://www.zerowastescotland.org.uk" :target "_blank"} "Zero Waste Scotland"] ","
            " that conveys the whole-life carbon impact of waste,"
            " from resource extraction and manufacturing emissions, right through to waste management emissions."
-           " Its unit-of-measure is " [:b "tonnes of carbon dioxide equivalent"] " (" [:b "CO" [:sub "2"] "eT"] ")."]]]]]])
+           " Its unit-of-measure is " [:b "tonnes of carbon dioxide equivalent"] " (" [:b "CO" [:sub "2"] "eT"] ")."]]]]]]))
 

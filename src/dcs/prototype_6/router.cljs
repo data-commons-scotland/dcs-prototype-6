@@ -27,7 +27,8 @@
      :view todo-view/root}]
    ["/regional-dashboard"
     {:name ::dashboard-view
-     :view regional-dashboard-view/root}]
+     :view regional-dashboard-view/root
+     :parameters {:query {(ds/opt :region) string?}}}]
    ["/stirling-bin-collection"
     {:name ::stirling-bin-collection-view
      :view stirling-bin-collection-view/root}]

@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.view.regional-dashboard.map
   (:require [reagent.core :as r]
+            [reitit.frontend.easy :as rfe]
             [dcs.prototype-6.state :as state]))
 
 (def dom-id "map-ui")
@@ -74,8 +75,9 @@
                      (style-neutral-the-previously-selected) ;; Hack! There will be a more elegant way to achieve this
                      ;(.fitBounds component (.getBounds x))
                      (.setStyle x style-selected)
+                     (reset! x-for-region-holder x)
                      (reset! state/region-cursor region)
-                     (reset! x-for-region-holder x)))
+                     (set! (.-location js/window) (rfe/href :dcs.prototype-6.router/dashboard-view nil {:region region}))))
              #_(js/console.log (str "selected " region)))))
 
 (defn on-each-feature [^js feature layer]

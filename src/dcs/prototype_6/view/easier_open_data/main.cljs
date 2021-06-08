@@ -45,7 +45,7 @@
 (defn root
       [route]
       (let [target (some-> route :parameters :query :target)]
-           (js/console.log (str "target=" target))
+           ;(js/console.log (str "target=" target))
            (when target (r/after-render (scroll-fn target)))
 
       [:div

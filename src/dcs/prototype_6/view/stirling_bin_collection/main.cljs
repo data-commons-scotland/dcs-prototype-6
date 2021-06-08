@@ -82,7 +82,9 @@
             [:div.content.is-small.has-text-info
              [:ol
               [:li "To provide context, the graph also depicts the "
-               [:em "overall"] " linearly-estimated quarterly percentages of household waste recycled in Stirling and Scotland."]]]]]
+               [:em "overall"] " linearly-estimated quarterly percentages of household waste recycled in Stirling and Scotland."]
+              [:li "Also, see the corresponding \"Carbon impact\" graph on "
+               [:a {:href (rfe/href :dcs.prototype-6.router/dashboard-view nil {:region "Stirling"})} "Stirling's waste dashboard"] "."]]]]]
 
           [:div.tile.is-child.message.has-background-white.is-info
            [:div.message-header
