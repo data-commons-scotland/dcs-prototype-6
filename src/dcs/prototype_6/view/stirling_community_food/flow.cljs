@@ -36,7 +36,7 @@
                                    {:id "Stirling Community Food" :color "#009790"}
                                    {:id "Used as food" :color "#00AC8F" :level 4 :offset -100}
                                    {:id "Not used as food" :color "#98B0A9" :offset 105}
-                                   {:id "Donated to animal scantuary" :color "#006AC7" :offset 280}
+                                   {:id "Donated to animal sanctuary" :color "#006AC7" :offset 280}
                                    {:id "Used by individuals for compost" :color "#B49531" :offset 280}
                                    {:id "Council compost, Energen biogas, etc." :color "#E27E44" :offset 280}]
                     :data         flow

@@ -187,7 +187,7 @@
                    waste-sources (remove #(contains? not-waste-sources %) source-keys)
 
                    used-as-food-outcomes #{"Used as food"}
-                   not-used-as-food-outcomes #{"Donated to animal scantuary" "Used by individuals for compost" "Council compost, Energen biogas, etc."}
+                   not-used-as-food-outcomes #{"Donated to animal sanctuary" "Used by individuals for compost" "Council compost, Energen biogas, etc."}
 
                    subflows-1a
                    (for [from waste-sources]
@@ -223,7 +223,7 @@
 
                    ordered-tos ["Used as food" ;; should be no need to worry about the earlier ones in the flow
                                 "Not used as food"
-                                "Donated to animal scantuary"
+                                "Donated to animal sanctuary"
                                 "Used by individuals for compost"
                                 "Council compost, Energen biogas, etc."]
 

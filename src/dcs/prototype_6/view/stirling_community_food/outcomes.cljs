@@ -25,7 +25,7 @@
                     :y       {:field "tonnes" :type "quantitative"}
                     :color {:field "outcome" :type "nominal"
                             :scale {:domain ["Used as food"
-                                             "Donated to animal scantuary"
+                                             "Donated to animal sanctuary"
                                              "Used by individuals for compost"
                                              "Council compost, Energen biogas, etc."]
                                     :range  ["#00AC8F"
@@ -56,7 +56,7 @@
                     :y       {:field "tonnes" :type "quantitative"}
                     :color   {:field "outcome" :type "nominal"
                               :scale {:domain ["Used as food"
-                                               "Donated to animal scantuary"
+                                               "Donated to animal sanctuary"
                                                "Used by individuals for compost"
                                                "Council compost, Energen biogas, etc."
                                                "Total received"]
