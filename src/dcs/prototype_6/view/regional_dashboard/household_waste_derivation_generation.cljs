@@ -35,7 +35,7 @@
             household-waste-derivation-generation'' (map #(assoc % :year (str (:year %)))
                                                          household-waste-derivation-generation')]
            [:div
-            [oz/vega-lite (chart-spec "Generation" region household-waste-derivation-generation'')
+            [oz/vega-lite (chart-spec "Waste generated per person" region household-waste-derivation-generation'')
              util/vega-embed-opts]]))
 
 (defn root []

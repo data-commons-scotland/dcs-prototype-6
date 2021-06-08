@@ -35,7 +35,7 @@
             household-co2e-derivation-generation'' (map #(assoc % :year (str (:year %)))
                                              household-co2e-derivation-generation')]
            [:div
-            [oz/vega-lite (chart-spec "Carbon impact" region household-co2e-derivation-generation'')
+            [oz/vega-lite (chart-spec "Carbon impact per person" region household-co2e-derivation-generation'')
              util/vega-embed-opts]
             ]))
 

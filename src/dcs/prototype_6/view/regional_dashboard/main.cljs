@@ -34,7 +34,7 @@
             [region-title/root]]]
           [:div.columns
            [:div.column.is-two-fifths
-            [:h1.subtitle "Household waste per citizen"]
+            [:h1.subtitle "Household waste per person"]
             [region-position/root]]
            [:div.column
             [:h1.subtitle {:dangerouslySetInnerHTML {:__html "&nbsp;"}}]
