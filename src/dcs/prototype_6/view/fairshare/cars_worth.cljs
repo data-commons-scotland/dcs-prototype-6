@@ -77,7 +77,7 @@
             [:div.tile
 
              [:div.content
-              [:p "Each item sold through The Fair Share, is an item that has avoided becoming waste/pollution."
+              [:p "Each item reused through The Fair Share, is an item that has avoided becoming waste/pollution."
                " Pollution is often estimated in terms of CO" [:sub "2"] "e,"
                " and The Fair Share data contains CO" [:sub "2"] "e" [:sup "a"] " values for this avoided waste/pollution."]
                [:p " But by themselves, CO" [:sub "2"] "e values can be difficult to relate to so"
