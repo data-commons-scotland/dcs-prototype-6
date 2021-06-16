@@ -122,3 +122,8 @@
   scroll-margin-top: 3rem;
 }
 */
+
+/* Hack to make the line along the bottom border of tabs, show up when the tabs are nested within Bulma's content-type elements */
+.tabs > ul > li {
+    border-bottom: 1px solid;
+}

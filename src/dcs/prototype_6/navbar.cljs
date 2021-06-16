@@ -65,6 +65,10 @@
                              [:span "Discover how many " [:em "cars worth"] " of CO" [:sub "2"] "e is avoided"
                               [:br] "each year by this university based, reuse store."]
                              (rfe/href :dcs.prototype-6.router/fairshare-view))
+           (navbar-clickable "The ACE furniture reuse initiative"
+                             [:span "Find out about the amounts and types of furniture"
+                              [:br] "that are being reused because of this initiative."]
+                             (rfe/href :dcs.prototype-6.router/ace-furniture-view))
            (navbar-clickable "Household waste analysis"
                              [:span "What do households put into their bins"
                               [:br] "and how appropriate are their disposal"

@@ -1,4 +1,5 @@
-(ns dcs.prototype-6.util)
+(ns dcs.prototype-6.util
+  (:require [clojure.string :as str]))
 
 (defn now
       "Milliseconds since epoch"
@@ -35,3 +36,12 @@
 (def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/v1.0-beta/")
 (def easier-repo-data (str easier-repo "data/"))
 (def easier-repo-metadata (str easier-repo "metadata/"))
+
+
+(defn open-tab [event tab-group-suffix tab-id]
+      (doseq [tab-content (.getElementsByClassName js/document (str "tab-content-" tab-group-suffix))]
+             (set! (.-display (.-style tab-content)) "none"))
+      (doseq [tab (.getElementsByClassName js/document (str "tab-" tab-group-suffix))]
+             (set! (.-className tab) (str/replace (.-className tab) " is-active" "")))
+      (set! (.-display (.-style (.getElementById js/document (str tab-id "-" tab-group-suffix)))) "block")
+      (set! (.-className (.-currentTarget event)) (str (.-className (.-currentTarget event)) " is-active")))

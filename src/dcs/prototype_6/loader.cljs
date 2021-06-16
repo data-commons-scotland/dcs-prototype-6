@@ -40,6 +40,14 @@
              (fn [fairshare-co2e] (->> fairshare-co2e
                                             (reset! state/fairshare-co2e-holder))))
 
+      (fetch "ace-furniture-sold-counts.json"
+             (fn [ace-furniture-counts] (->> ace-furniture-counts
+                                       (reset! state/ace-furniture-counts-holder))))
+
+      (fetch "ace-furniture-sold-weights.json"
+             (fn [ace-furniture-weights] (->> ace-furniture-weights
+                                             (reset! state/ace-furniture-weights-holder))))
+
       (fetch "household-waste-analysis.json"
              (fn [household-waste-analysis] (->> household-waste-analysis
                                                  (reset! state/household-waste-analysis-holder))))

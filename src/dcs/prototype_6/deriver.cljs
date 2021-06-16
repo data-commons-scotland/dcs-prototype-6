@@ -1,16 +1,7 @@
 (ns dcs.prototype-6.deriver
-  (:require [kixi.stats.core :as stats]
-            [dcs.prototype-6.util :as util]
+  (:require [dcs.prototype-6.util :as util]
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.data-shaping :as data-shaping]))
-
-
-; Compute 'the trend of y'.
-; (Returns the gradient of a linear approximation to the curve decribed by xy-pairs.)
-(defn trend [xy-pairs]
-      (let [rf (stats/simple-linear-regression first second)
-            ^js jsobj (transduce identity rf xy-pairs)]
-           (. jsobj -slope)))
 
 
 (defn maybe-calc-household-waste-derivations []
@@ -72,11 +63,11 @@
                                                                                                (map (fn [[region coll]] {:region region
                                                                                                                          :trend  (->> coll
                                                                                                                                       (map #(vector (double (:year %)) (:tonnes %)))
-                                                                                                                                      trend)}))
+                                                                                                                                      data-shaping/trend)}))
                                                                                                (sort-by :trend)
                                                                                                (map-indexed (fn [ix m] {:region   (:region m)
                                                                                                                         :position (inc ix)
-                                                                                                                        :trend    (:trend trend)})))}
+                                                                                                                        :trend    (:trend data-shaping/trend)})))}
 
                        household-waste-derivation-percent-recycled-positions {:latest-positions (->> household-waste-derivation-percent-recycled
                                                                                                      (remove #(= "Scotland" (:region %)))
@@ -91,12 +82,12 @@
                                                                                                      (map (fn [[region coll]] {:region region
                                                                                                                                :trend  (->> coll
                                                                                                                                             (map #(vector (double (:year %)) (:percentage %)))
-                                                                                                                                            trend)}))
+                                                                                                                                            data-shaping/trend)}))
                                                                                                      (sort-by :trend)
                                                                                                      reverse
                                                                                                      (map-indexed (fn [ix m] {:region   (:region m)
                                                                                                                               :position (inc ix)
-                                                                                                                              :trend    (:trend trend)})))}]
+                                                                                                                              :trend    (:trend data-shaping/trend)})))}]
 
                       (reset! state/household-waste-derivation-generation-cursor household-waste-derivation-generation)
                       (reset! state/household-waste-derivation-percent-recycled-cursor household-waste-derivation-percent-recycled)
@@ -144,11 +135,11 @@
                                                                                               (map (fn [[region coll]] {:region region
                                                                                                                         :trend  (->> coll
                                                                                                                                      (map #(vector (double (:year %)) (:tonnes %)))
-                                                                                                                                     trend)}))
+                                                                                                                                     data-shaping/trend)}))
                                                                                               (sort-by :trend)
                                                                                               (map-indexed (fn [ix m] {:region   (:region m)
                                                                                                                        :position (inc ix)
-                                                                                                                       :trend    (:trend trend)})))}]
+                                                                                                                       :trend    (:trend data-shaping/trend)})))}]
 
                       (reset! state/household-co2e-derivation-generation-cursor household-co2e-derivation-generation)
                       (reset! state/household-co2e-derivation-generation-positions-cursor household-co2e-derivation-generation-positions)
@@ -296,6 +287,7 @@
            (js/console.log "Calculating fairshare-material-derivations")
 
            (let [start-time (util/now)
+
                  derivation raw]                            ;; no transformation required
 
                 (reset! state/fairshare-material-derivation-cursor derivation)
@@ -309,10 +301,42 @@
            (js/console.log "Calculating fairshare-co2e-derivations")
 
            (let [start-time (util/now)
+
                  derivation raw]                            ;; no transformation required
 
                 (reset! state/fairshare-co2e-derivation-cursor derivation)
                 (js/console.log (str "Calculating fairshare-co2e-derivations: secs-taken=" (util/secs-to-now start-time))))))
+
+
+(defn maybe-calc-ace-furniture-counts-derivations []
+      (let [raw @state/ace-furniture-counts-holder]
+
+           (when (some? raw))
+           (js/console.log "Calculating ace-furniture-counts-derivations")
+
+           (let [start-time (util/now)
+
+                 orig raw                            ;; no transformation required
+                 [category-trends item-trends] (data-shaping/calc-ace-furniture-trends raw)]
+
+                (reset! state/ace-furniture-counts-derivation-orig-cursor orig)
+                (reset! state/ace-furniture-counts-derivation-category-trends-cursor category-trends)
+                (reset! state/ace-furniture-counts-derivation-item-trends-cursor item-trends)
+                (js/console.log (str "Calculating ace-furniture-counts-derivations: secs-taken=" (util/secs-to-now start-time))))))
+
+
+(defn maybe-calc-ace-furniture-weights-derivations []
+      (let [raw @state/ace-furniture-weights-holder]
+
+           (when (some? raw))
+           (js/console.log "Calculating ace-furniture-weights-derivations")
+
+           (let [start-time (util/now)
+
+                 derivation raw]                            ;; no transformation required
+
+                (reset! state/ace-furniture-weights-derivation-cursor derivation)
+                (js/console.log (str "Calculating ace-furniture-weights-derivations: secs-taken=" (util/secs-to-now start-time))))))
 
 
 (defn maybe-calc-household-waste-analysis-derivations []
@@ -392,6 +416,16 @@
            (fn [_key _atom old-state new-state]
                (when new-state
                      (maybe-calc-fairshare-co2e-derivations))))
+
+(add-watch state/ace-furniture-counts-holder :ace-furniture-counts-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-ace-furniture-counts-derivations))))
+
+(add-watch state/ace-furniture-weights-holder :ace-furniture-weights-derivations-dependency
+           (fn [_key _atom old-state new-state]
+               (when new-state
+                     (maybe-calc-ace-furniture-weights-derivations))))
 
 (add-watch state/household-waste-analysis-holder :household-waste-analysis-derivations-dependency
            (fn [_key _atom old-state new-state]

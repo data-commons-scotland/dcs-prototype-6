@@ -1,4 +1,14 @@
-(ns dcs.prototype-6.data-shaping)
+(ns dcs.prototype-6.data-shaping
+  (:require [kixi.stats.core :as stats]))
+
+
+; Compute 'the trend of y'.
+; (Returns the gradient of a linear approximation to the curve decribed by xy-pairs.)
+(defn trend [xy-pairs]
+      (let [rf (stats/simple-linear-regression first second)
+            ^js jsobj (transduce identity rf xy-pairs)]
+           (. jsobj -slope)))
+
 
 ;; Roll-up to get values for Scotland as a whole
 (defn rollup-population-regions [population]
@@ -237,5 +247,58 @@
 
                   flow)))
 
+;; Calculate for the ACE furniture sold counts,
+;;   the avg-count-per-month for each accounting period (for each category/item)
+;;   and then the trend (for each category/item).
+(defn calc-ace-furniture-trends [sold-counts]
+      (let [;; The x value for a yyyy-MM-dd, is the yyyy-MM-dd's index
+            yyyy-MM-dds ["2018-02-28" "2019-02-28" "2019-08-31"]
 
+            ;; The x value for a month-count, is the month-count's index
+            month-counts [12 12 6]
 
+            sold-items-by-avg-count-per-month-at-x (->> sold-counts
+                                                        (group-by (juxt :category :item))
+                                                        (map (fn [[[category item] coll]] (for [x [0 1 2]]
+                                                                                               (let [yyyy-MM-dd (get yyyy-MM-dds x)
+                                                                                                     avg-count (/
+                                                                                                                 (or (->> coll
+                                                                                                                          (filter #(= yyyy-MM-dd (:yyyy-MM-dd %)))
+                                                                                                                          first
+                                                                                                                          :count)
+                                                                                                                     0)
+                                                                                                                 (get month-counts x))]
+                                                                                                    {:category   category
+                                                                                                     :item       item
+                                                                                                     :yyyy-MM-dd yyyy-MM-dd
+                                                                                                     :x          x
+                                                                                                     :avg-count  avg-count}))))
+                                                        flatten
+                                                        (sort-by (juxt :category :item :yyyy-MM-dd :x)))
+
+            sold-categories-by-avg-count-per-month-trend (->> sold-items-by-avg-count-per-month-at-x
+                                                              (group-by (juxt :category :yyyy-MM-dd :x))
+                                                              (map (fn [[[category yyyy-MM-dd x] coll]] {:category   category
+                                                                                                         :yyyy-MM-dd yyyy-MM-dd
+                                                                                                         :x          x
+                                                                                                         :avg-count  (->> coll
+                                                                                                                          (map :avg-count)
+                                                                                                                          (apply +))}))
+                                                              (group-by :category)
+                                                              (map (fn [[_ coll]] (let [trend-val (trend (map (fn [{:keys [x avg-count]}] [x avg-count]) coll))]
+                                                                                       ;; put this calculated trend-val into each item in the coll
+                                                                                       (map #(assoc % :trend trend-val) coll))))
+                                                              flatten
+                                                              (sort-by :trend)
+                                                              reverse)
+
+            sold-items-by-avg-count-per-month-trend (->> sold-items-by-avg-count-per-month-at-x
+                                                         (group-by (juxt :category :item))
+                                                         (map (fn [[[_ _] coll]] (let [trend-val (trend (map (fn [{:keys [x avg-count]}] [x avg-count]) coll))]
+                                                                                      ;; put this calculated trend-val into each item in the coll
+                                                                                      (map #(assoc % :trend trend-val) coll))))
+                                                         flatten
+                                                         (sort-by :trend)
+                                                         reverse)]
+
+           [sold-categories-by-avg-count-per-month-trend sold-items-by-avg-count-per-month-trend]))

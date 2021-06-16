@@ -10,6 +10,7 @@
             [dcs.prototype-6.view.stirling-bin-collection.main :as stirling-bin-collection-view]
             [dcs.prototype-6.view.stirling-community-food.main :as stirling-community-food-view]
             [dcs.prototype-6.view.fairshare.main :as fairshare-view]
+            [dcs.prototype-6.view.ace-furniture.main :as ace-furniture-view]
             [dcs.prototype-6.view.household-waste-analysis.main :as household-waste-analysis-view]
             [dcs.prototype-6.view.easier-open-data.main :as easier-open-data-view]
             [dcs.prototype-6.view.experiment.main :as experiment-view]
@@ -38,6 +39,9 @@
    ["/fairshare"
     {:name ::fairshare-view
      :view fairshare-view/root}]
+   ["/ace-furniture"
+    {:name ::ace-furniture-view
+     :view ace-furniture-view/root}]
    ["/household-waste-analysis"
     {:name ::household-waste-analysis-view
      :view household-waste-analysis-view/root}]

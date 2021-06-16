@@ -4598,7 +4598,7 @@ label.panel-block {
       border-bottom-color: #A4CAC2;
       color: #A4CAC2; }
   .tabs ul {
-    align-items: center;
+    align-items: baseline;
     border-bottom-color: #dbdbdb;
     border-bottom-style: solid;
     border-bottom-width: 1px;

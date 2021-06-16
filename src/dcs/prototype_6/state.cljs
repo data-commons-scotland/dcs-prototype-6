@@ -23,8 +23,12 @@
                        :stirling-community-food-tonnes-derivation   {:tonnes nil
                                                                      :flow   nil}
                        :stirling-community-food-footfall-derivation nil
-                       :fairshare-material-derivation              nil
-                       :fairshare-co2e-derivation                   nil}))
+                       :fairshare-material-derivation               nil
+                       :fairshare-co2e-derivation                   nil
+                       :ace-furniture-counts-derivation             {:orig            nil
+                                                                     :category-trends nil
+                                                                     :item-trends     nil}
+                       :ace-furniture-weights-derivation            nil}))
 
 (defonce route-match-cursor (r/cursor root [:route-match]))
 
@@ -59,6 +63,11 @@
 (defonce fairshare-material-derivation-cursor (r/cursor root [:fairshare-material-derivation]))
 (defonce fairshare-co2e-derivation-cursor (r/cursor root [:fairshare-co2e-derivation]))
 
+(defonce ace-furniture-counts-derivation-orig-cursor (r/cursor root [:ace-furniture-counts-derivation :orig]))
+(defonce ace-furniture-counts-derivation-category-trends-cursor (r/cursor root [:ace-furniture-counts-derivation :category-trends]))
+(defonce ace-furniture-counts-derivation-item-trends-cursor (r/cursor root [:ace-furniture-counts-derivation :item-trends]))
+(defonce ace-furniture-weights-derivation-cursor (r/cursor root [:ace-furniture-weights-derivation]))
+
 (defonce household-waste-analysis-derivation-cursor (r/cursor root [:household-waste-analysis-derivation]))
 
 ;; -----------------
@@ -73,4 +82,6 @@
 (defonce stirling-community-food-footfall-holder (atom nil))
 (defonce fairshare-material-holder (atom nil))
 (defonce fairshare-co2e-holder (atom nil))
+(defonce ace-furniture-counts-holder (atom nil))
+(defonce ace-furniture-weights-holder (atom nil))
 (defonce household-waste-analysis-holder (atom nil))
