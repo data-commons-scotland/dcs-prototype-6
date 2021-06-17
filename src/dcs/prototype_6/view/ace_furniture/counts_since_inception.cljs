@@ -82,7 +82,7 @@
         [:div.has-text-danger-dark
          [:p "The sub-category " [:span.has-text-grey "Chair, Kitchen, Dining or Wooden"] " accounts (by far) for the most items sold."
           " Click on one of its bar segments and you'll see that it is associated with the category " [:span.has-text-grey "Furniture"] "."
-          " Interestingly, may of the top sub-categories appear to have enjoyed an upwards surge in numbers during the last (and shortest) of the 3 accounting periods."
+          " Interestingly, many of the top sub-categories appear to have enjoyed an upwards surge in numbers during the last (and shortest) of the 3 accounting periods."
           " The trends graphs (later on this page) reinforce that observation."]]
         [oz/vega-lite (chart-spec-item-level counts) util/vega-embed-opts]
         ]

@@ -107,8 +107,8 @@
       [:div
        [:div.tabs
         [:ul
-         [:li.tab-counts-per-period.is-active {:on-click (fn [e] (util/open-tab e "trends" "category-level"))} [:a "Less detail"]]
-         [:li.tab-counts-per-period {:on-click (fn [e] (util/open-tab e "trends" "item-level"))} [:a "More detail"]]]]
+         [:li.tab-trends.is-active {:on-click (fn [e] (util/open-tab e "trends" "category-level"))} [:a "Less detail"]]
+         [:li.tab-trends {:on-click (fn [e] (util/open-tab e "trends" "item-level"))} [:a "More detail"]]]]
 
 
        [:div#category-level-trends.content.tab-content-trends
