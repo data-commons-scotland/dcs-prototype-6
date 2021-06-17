@@ -43,17 +43,20 @@
        :mark       {:type "bar"
                     :cornerRadiusTopLeft  3
                     :cornerRadiusTopRight 3}
-       :encoding   {:y       {:field "item" :type "nominal"
+       :encoding   {:y       {:title "sub-category" :field "item" :type "nominal"
                               :sort {:field "weight" :order "descending"}}
                     :x       {:title "weight"
                               :field "weight" :type "quantitative"
                               :axis {:title "total kg" :orient "top"}}
                     :color   shared/color-spec
                     :tooltip [{:title "category" :field "category" :type "nominal"}
-                              {:title "item" :field "item" :type "nominal"}
+                              {:title "sub-category" :field "item" :type "nominal"}
                               {:title "period" :field "period" :type "nominal"}
                               {:title "kg" :field "weight" :type "quantitative"}]}})
 
+(def hint [:div.content.is-small.has-text-info-dark
+           [:p "A coloured segment of a bar represents an " [:em "accounting"] " period."
+            " Click on it to see further detail."]])
 
 (defn tabbed-area [weights]
       [:div
@@ -64,13 +67,22 @@
 
 
        [:div#category-level-weights-since-inception.content.tab-content-weights-since-inception
-        [:p "Less detail"]
+        [:p "The " [:b "total weight"] " of the items of furniture sold in each " [:b "category"] "."]
+        hint
+        [:div.has-text-danger-dark
+         [:p "For the concern of pollution avoidance, the weight of furniture is more representative than the number of items."
+          " So weights are depicted in the graph below."
+          " The categories "[:span.has-text-grey "Large Household Appliances"] " and "
+          [:span.has-text-grey "Cooling Appliances"] " contain weighty items such as washing machines and fridge-freezers"
+          " so it is unsurprising that those two categories feature higher up this weights chart [below] than they did"
+          " in the counts chart [above]."]]
         [oz/vega-lite (chart-spec-category-level weights) util/vega-embed-opts]
         ]
 
 
        [:div#item-level-weights-since-inception.content.tab-content-weights-since-inception {:style {:display "none"}}
-        [:p "More detail"]
+        [:p "The " [:b "total weight"] " of the items of furniture sold in each " [:b "sub-category"] "."]
+        hint
         [oz/vega-lite (chart-spec-item-level weights) util/vega-embed-opts]
         ]
 

@@ -18,13 +18,13 @@
          [:h2.subtitle.is-6.has-text-primary "Find out about the amounts and types of furniture that are being reused because of this initiative."]]
 
         [:div.content
-         [:p "The ACE" [:sup "a"] " furniture reuse initiative has been running since 2017 and ...TODO... ."]
+         [:p "The ACE" [:sup.has-text-danger "a"] " furniture reuse initiative has been running since 1984(!), helping prevent furniture from becoming waste."]
          [:p "ACE is in the process of publishing its data as open data."
           " This article is based on an draft of that work."]]
-          [:div.content.is-small ;.has-text-info
+          [:div.content.is-small.has-text-danger
            [:ol.is-lower-alpha
-            [:li [:a {:href "https://www.ace-todo.com/" :target "_blank"} "ACE"]
-             " - Alloa Community Enterprises - is ...TODO... ."]]]]]]
+            [:li [:a {:href "https://ace.scot/" :target "_blank"} [:span.has-text-link-dark "ACE"]]
+             " - Alloa Community Enterprises - is a charity, community enterprise and second-hand furniture outlet based near Alloa."]]]]]]
 
 
        [:section.hero {:style {:backgroundColor "#f2dfce"}}

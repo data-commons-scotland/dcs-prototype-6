@@ -261,17 +261,17 @@
                                                         (group-by (juxt :category :item))
                                                         (map (fn [[[category item] coll]] (for [x [0 1 2]]
                                                                                                (let [yyyy-MM-dd (get yyyy-MM-dds x)
-                                                                                                     avg-count (/
-                                                                                                                 (or (->> coll
-                                                                                                                          (filter #(= yyyy-MM-dd (:yyyy-MM-dd %)))
-                                                                                                                          first
-                                                                                                                          :count)
-                                                                                                                     0)
-                                                                                                                 (get month-counts x))]
+                                                                                                     period-count (or (->> coll
+                                                                                                                           (filter #(= yyyy-MM-dd (:yyyy-MM-dd %)))
+                                                                                                                           first
+                                                                                                                           :count)
+                                                                                                                      0)
+                                                                                                     avg-count (/ period-count (get month-counts x))]
                                                                                                     {:category   category
                                                                                                      :item       item
                                                                                                      :yyyy-MM-dd yyyy-MM-dd
                                                                                                      :x          x
+                                                                                                     :period-count period-count
                                                                                                      :avg-count  avg-count}))))
                                                         flatten
                                                         (sort-by (juxt :category :item :yyyy-MM-dd :x)))
@@ -281,6 +281,9 @@
                                                               (map (fn [[[category yyyy-MM-dd x] coll]] {:category   category
                                                                                                          :yyyy-MM-dd yyyy-MM-dd
                                                                                                          :x          x
+                                                                                                         :period-count (->> coll
+                                                                                                                            (map :period-count)
+                                                                                                                            (apply +))
                                                                                                          :avg-count  (->> coll
                                                                                                                           (map :avg-count)
                                                                                                                           (apply +))}))
@@ -302,3 +305,4 @@
                                                          reverse)]
 
            [sold-categories-by-avg-count-per-month-trend sold-items-by-avg-count-per-month-trend]))
+
