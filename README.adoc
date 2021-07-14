@@ -22,10 +22,15 @@ Building and running:
 # Install any npm controlled libs
 npm install
 
-# In a non-fresh install, I've used the following to 'force' install stuff...
+# In a *non-fresh* install, I've used the following to 'force' install stuff...
 #     npm install leaflet react-leaflet
+#     npm install vega vega-lite vega-embed
 #  or
 #     npm init -y
+
+# To make shadow-cljs directly available on to the command line...
+#     npm install -g shadow-cljs
+
 
 # Compile a build once and exit
 shadow-cljs compile app
