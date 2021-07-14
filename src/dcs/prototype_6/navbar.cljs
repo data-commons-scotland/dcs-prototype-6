@@ -136,6 +136,8 @@
                              (str util/easier-repo-data "material-coding.json"))
            (navbar-clickable [:span "EWC coding " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "ewc-coding.json"))
+           (navbar-clickable [:span "CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e multipiers " [:span.has-text-info.is-size-7 "(JSON)"]]
+                             (str util/easier-repo-data "co2e-multiplier.json"))
            (navbar-clickable [:span "Households " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "households.json"))
            (navbar-clickable [:span "Population " [:span.has-text-info.is-size-7 "(JSON)"]]

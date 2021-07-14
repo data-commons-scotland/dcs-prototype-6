@@ -33,7 +33,7 @@
 ;;   https://github.com/data-commons-scotland/dcs-easier-open-data/raw/v1.0-beta/data/
 ;; but it results in a "redirect"+"cross site restriction" problem.
 ;; So, instead use the "more direct" stem:
-(def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/v1.0-beta/")
+(def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/v1.1-beta/")
 (def easier-repo-data (str easier-repo "data/"))
 (def easier-repo-metadata (str easier-repo "metadata/"))
 
