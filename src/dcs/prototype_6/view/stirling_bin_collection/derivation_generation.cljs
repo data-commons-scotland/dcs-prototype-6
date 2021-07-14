@@ -1,15 +1,13 @@
 (ns dcs.prototype-6.view.stirling-bin-collection.derivation-generation
   (:require
-    [reagent.core :as r]
     [oz.core :as oz]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
 
 
-(defn chart-spec [title data]
+(defn chart-spec [_title data]
       (let [quarter-count (count (group-by (juxt :year :quarter) data))]
            {:schema     "https://vega.github.io/schema/vega/v5.json"
-            ;;:title      title
             :width      250
             :height     100
             :background "floralwhite"

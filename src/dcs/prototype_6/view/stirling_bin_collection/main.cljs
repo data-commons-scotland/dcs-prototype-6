@@ -1,7 +1,5 @@
 (ns dcs.prototype-6.view.stirling-bin-collection.main
-  (:require [reagent.core :as r]
-            [reitit.frontend.easy :as rfe]
-            [dcs.prototype-6.state :as state]
+  (:require [reitit.frontend.easy :as rfe]
             [dcs.prototype-6.view.stirling-bin-collection.derivation-generation :as derivation-generation]
             [dcs.prototype-6.view.stirling-bin-collection.derivation-composition :as derivation-composition]
             [dcs.prototype-6.view.stirling-bin-collection.derivation-percent-recycled :as derivation-percent-recycled]

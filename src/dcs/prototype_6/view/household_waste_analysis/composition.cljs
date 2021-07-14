@@ -1,8 +1,6 @@
 (ns dcs.prototype-6.view.household-waste-analysis.composition
   (:require
-    [reagent.core :as r]
     [oz.core :as oz]
-    [goog.string :as gstring]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
 

@@ -1,6 +1,5 @@
 (ns dcs.prototype-6.view.experiment.main
   (:require [dcs.prototype-6.util :as util]
-            [dcs.prototype-6.state :as state]
     #_[dcs.prototype-6.view.experiment.map :as map]))
 
 (defn root []

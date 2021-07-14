@@ -49,7 +49,7 @@
       (let [flow (:data (r/props this))]
         (js/Highcharts.Chart. (rdom/dom-node this) (clj->js (chart-config flow)))))
 
-(defn did-update [this prev-props]
+(defn did-update [this _prev-props]
       (did-mount this)) ;; TODO figure out a more surgical means to update the chart
 
 (defn render []

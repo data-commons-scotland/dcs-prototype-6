@@ -1,7 +1,7 @@
 (ns dcs.prototype-6.main
   (:require [reagent.dom :as rdom]
             [dcs.prototype-6.state :as state]
-            [dcs.prototype-6.deriver :as deriver]
+            [dcs.prototype-6.deriver :as deriver] ; execute add-watch calls 
             [dcs.prototype-6.loader :as loader]
             [dcs.prototype-6.router :as router]
             [dcs.prototype-6.navbar :as navbar]

@@ -1,6 +1,5 @@
 (ns dcs.prototype-6.navbar
   (:require [clojure.string :as str]
-            [reagent.core :as r]
             [reitit.frontend.easy :as rfe]
             [dcs.prototype-6.util :as util]))
 

@@ -1,6 +1,5 @@
 (ns dcs.prototype-6.view.stirling-community-food.received
   (:require
-    [reagent.core :as r]
     [oz.core :as oz]
     [goog.string :as gstring]
     [dcs.prototype-6.util :as util]

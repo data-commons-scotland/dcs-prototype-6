@@ -18,7 +18,7 @@
       (leaflet/icon (-> opts (assoc :iconUrl image-url) (clj->js))))
 
 (defn latLng->latlon [lat-lng]
-      (if lat-lng [(.-lat lat-lng) (.-lng lat-lng)]))
+      (when lat-lng [(.-lat lat-lng) (.-lng lat-lng)]))
 
 (defn make-bounds [{:keys [sw ne]}]
       (leaflet/latLngBounds (clj->js sw) (clj->js ne)))
@@ -73,7 +73,7 @@
 
                (fn [state _]
                    (let [ref-fn (fn [^js el]
-                                    (swap! state assoc :leaflet (if el (.-leafletElement el))))]
+                                    (swap! state assoc :leaflet (when el (.-leafletElement el))))]
                         (fn [state _]
                             [:div
                              [Map

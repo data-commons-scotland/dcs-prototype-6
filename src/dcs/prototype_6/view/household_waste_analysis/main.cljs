@@ -1,6 +1,5 @@
 (ns dcs.prototype-6.view.household-waste-analysis.main
-  (:require [dcs.prototype-6.state :as state]
-            [dcs.prototype-6.view.household-waste-analysis.composition :as composition]
+  (:require [dcs.prototype-6.view.household-waste-analysis.composition :as composition]
             [dcs.prototype-6.view.household-waste-analysis.disposal :as disposal]
             [dcs.prototype-6.view.household-waste-analysis.detail :as detail]))
 

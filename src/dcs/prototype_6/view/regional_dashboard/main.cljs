@@ -1,6 +1,5 @@
 (ns dcs.prototype-6.view.regional-dashboard.main
-  (:require [reagent.core :as r]
-            [reitit.frontend.easy :as rfe]
+  (:require [reitit.frontend.easy :as rfe]
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.view.regional-dashboard.map :as map]
             [dcs.prototype-6.view.regional-dashboard.region-title :as region-title]

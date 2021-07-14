@@ -1,10 +1,7 @@
 (ns dcs.prototype-6.view.ace-furniture.main
-  (:require [goog.string :as gstring]
-            [dcs.prototype-6.state :as state]
-            [dcs.prototype-6.view.ace-furniture.counts-since-inception :as counts-since-inception]
+  (:require [dcs.prototype-6.view.ace-furniture.counts-since-inception :as counts-since-inception]
             [dcs.prototype-6.view.ace-furniture.weights-since-inception :as weights-since-inception]
-            [dcs.prototype-6.view.ace-furniture.trends :as trends]
-            ))
+            [dcs.prototype-6.view.ace-furniture.trends :as trends]))
 
 
 (defn root []

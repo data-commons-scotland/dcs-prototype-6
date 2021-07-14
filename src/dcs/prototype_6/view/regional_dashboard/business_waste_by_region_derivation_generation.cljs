@@ -1,6 +1,5 @@
 (ns dcs.prototype-6.view.regional-dashboard.business-waste-by-region-derivation-generation
   (:require
-    [reagent.core :as r]
     [oz.core :as oz]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))

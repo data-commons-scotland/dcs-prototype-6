@@ -1,6 +1,5 @@
 (ns dcs.prototype-6.view.stirling-community-food.main
-  (:require [dcs.prototype-6.state :as state]
-            [dcs.prototype-6.view.stirling-community-food.flow :as flow]
+  (:require [dcs.prototype-6.view.stirling-community-food.flow :as flow]
             [dcs.prototype-6.view.stirling-community-food.received :as received]
             [dcs.prototype-6.view.stirling-community-food.outcomes :as outcomes]
             [dcs.prototype-6.view.stirling-community-food.footfall :as footfall]))

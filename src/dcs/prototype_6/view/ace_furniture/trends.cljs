@@ -1,8 +1,6 @@
 (ns dcs.prototype-6.view.ace-furniture.trends
   (:require
-    [reagent.core :as r]
     [oz.core :as oz]
-    [goog.string :as gstring]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]
     [dcs.prototype-6.view.ace-furniture.shared :as shared]))

@@ -1,6 +1,5 @@
 (ns dcs.prototype-6.view.regional-dashboard.household-waste-derivation-management
   (:require
-    [reagent.core :as r]
     [oz.core :as oz]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
@@ -27,7 +26,7 @@
                                    {:field "year" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
 
-(defn chart-spec [title region data]
+(defn chart-spec [title _region data]
       (let [year-count (count (group-by :year data))]
            {:schema     "https://vega.github.io/schema/vega/v5.json"
             :title      title

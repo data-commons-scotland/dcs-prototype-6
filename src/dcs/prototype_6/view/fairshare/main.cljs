@@ -1,7 +1,5 @@
 (ns dcs.prototype-6.view.fairshare.main
-  (:require [goog.string :as gstring]
-            [dcs.prototype-6.state :as state]
-            [dcs.prototype-6.view.fairshare.cars-worth :as cars-worth]
+  (:require [dcs.prototype-6.view.fairshare.cars-worth :as cars-worth]
             [dcs.prototype-6.view.fairshare.per-material :as per-material]
             [dcs.prototype-6.view.fairshare.per-quarter :as per-quarter]))
 

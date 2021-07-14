@@ -36,29 +36,27 @@
 (defn style [^js feature]
       (let [properties-map (js->clj (.. feature -properties))
             region (get properties-map "LAD13NM")]
-           (do
              #_(js/console.log (str "styling " region))
              (if (and (some? @state/region-cursor)
                       (= @state/region-cursor region))
                style-selected
-               style-neutral))))
+               style-neutral)))
 
 (defn highlight-feature [e]
       (let [^js x (.. e -target)
-            properties-map (js->clj (.. x -feature -properties))
-            region (get properties-map "LAD13NM")]
-           (do
+            ;properties-map (js->clj (.. x -feature -properties))
+            ;region (get properties-map "LAD13NM")
+            ]
              (.openTooltip x)
              (.setStyle x style-highlighted)
              (.bringToFront x)
-             #_(js/console.log (str "entered " region)))))
+             #_(js/console.log (str "entered " region))))
 
 (defn reset-highlight [e]
       (let [x (.. e -target)
             geojson-layer @geojson-layer-holder]
-           (do
              (.closeTooltip x)
-             (.resetStyle geojson-layer x))))
+             (.resetStyle geojson-layer x)))
 
 (defn style-neutral-the-previously-selected []
       (when-let [x-for-region @x-for-region-holder]
@@ -66,59 +64,53 @@
 
 (defn zoom-to-feature [e]
       (let [^js x (.. e -target)
-            component @component-holder
+            ;component @component-holder
             properties-map (js->clj (.. x -feature -properties))
             region (get properties-map "LAD13NM")]
-           (do
              (when (not= @state/region-cursor region)
-                   (do
                      (style-neutral-the-previously-selected) ;; Hack! There will be a more elegant way to achieve this
                      ;(.fitBounds component (.getBounds x))
                      (.setStyle x style-selected)
                      (reset! x-for-region-holder x)
                      (reset! state/region-cursor region)
-                     (set! (.-location js/window) (rfe/href :dcs.prototype-6.router/dashboard-view nil {:region region}))))
-             #_(js/console.log (str "selected " region)))))
+                     (set! (.-location js/window) (rfe/href :dcs.prototype-6.router/dashboard-view nil {:region region})))
+             #_(js/console.log (str "selected " region))))
 
 (defn on-each-feature [^js feature layer]
       (let [properties-map (js->clj (.. feature -properties))
             region (get properties-map "LAD13NM")]
-           (do
              (.bindTooltip layer region)
              (.on layer #js{:mouseover highlight-feature
                             :mouseout  reset-highlight
-                            :click     zoom-to-feature}))))
+                            :click     zoom-to-feature})))
 
 (defn did-mount []
       (let [component (.map js/L dom-id)
             basemap-layer (.tileLayer js/L basemap-url
                                       #js{"maxZoom"    basemap-maxzoom
                                           :attribution basemap-attribution})]
-           (do
              (reset! component-holder component)
              (.setView component (array init-lat init-lng) init-zoom)
              (.addTo basemap-layer component)
 
              ;; If we have the geojson already then add it to the map
-             (when-let [geojson @state/geojson-cursor]
+             (when-let [_geojson @state/geojson-cursor]
                        (let [geojson-layer (.geoJson js/L @state/geojson-cursor
                                                      #js{:style          style
                                                          "onEachFeature" on-each-feature})
                              component @component-holder]
-                            (do
                               (reset! geojson-layer-holder geojson-layer)
-                              (.addTo geojson-layer component))))
-             )))
+                              (.addTo geojson-layer component)))
+             ))
 
-(defn did-update [this prev-props]
-      (let [geojson (:data (r/props this))
+(defn did-update [_this _prev-props]
+      (let [;geojson (:data (r/props this))
             geojson-layer (.geoJson js/L @state/geojson-cursor
                                     #js{:style          style
                                         "onEachFeature" on-each-feature})
             component @component-holder]
-           (do
              (reset! geojson-layer-holder geojson-layer)
-             (.addTo geojson-layer component))))
+             (.addTo geojson-layer component)))
 
 (defn render []
       [:div#map-ui])

@@ -1,13 +1,11 @@
 (ns dcs.prototype-6.view.stirling-bin-collection.derivation-missed
   (:require
-    [reagent.core :as r]
     [oz.core :as oz]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
 
 
-(defn chart-spec [title data]
-      (let [year-count (count (group-by :year data))]
+(defn chart-spec [_title data]
            {:schema     "https://vega.github.io/schema/vega/v5.json"
             ;;:title      title
             :width      250
@@ -30,7 +28,7 @@
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}
                          :tooltip [{:field "date" :type "temporal"}
-                                   {:field "tonnes" :type "quantitative"}]}}))
+                                   {:field "tonnes" :type "quantitative"}]}})
 
 (defn chart [derivation-missed]
       (let [;; construct a date field for Vega

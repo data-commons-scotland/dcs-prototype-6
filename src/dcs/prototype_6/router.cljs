@@ -4,7 +4,6 @@
             [reitit.frontend.easy :as rfe]
             [spec-tools.data-spec :as ds]
             [dcs.prototype-6.state :as state]
-            [dcs.prototype-6.navbar :as navbar]
             [dcs.prototype-6.view.home :as home-view]
             [dcs.prototype-6.view.regional-dashboard.main :as regional-dashboard-view]
             [dcs.prototype-6.view.stirling-bin-collection.main :as stirling-bin-collection-view]

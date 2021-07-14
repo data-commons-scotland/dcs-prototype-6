@@ -1,15 +1,12 @@
 (ns dcs.prototype-6.view.stirling-bin-collection.derivation-composition
   (:require
-    [reagent.core :as r]
     [oz.core :as oz]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
 
 
-(defn chart-spec [title data]
-      (let [year-count (count (group-by :year data))]
+(defn chart-spec [_title data]
            {:schema     "https://vega.github.io/schema/vega/v5.json"
-            ;;:title      title
             :width      250
             :height     100
             :background "floralwhite"
@@ -37,7 +34,7 @@
                                    :value     0.2}
                          :tooltip [{:field "material" :type "nominal"}
                                    {:field "date" :type "temporal"}
-                                   {:field "tonnes" :type "quantitative" :title "tonnes per citizen"}]}}))
+                                   {:field "tonnes" :type "quantitative" :title "tonnes per citizen"}]}})
 
 (defn chart [derivation-composition]
       (let [;; construct a date field for Vega

@@ -1,6 +1,5 @@
 (ns dcs.prototype-6.view.regional-dashboard.household-waste-derivation-generation
   (:require
-    [reagent.core :as r]
     [oz.core :as oz]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))

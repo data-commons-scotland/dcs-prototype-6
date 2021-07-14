@@ -12,13 +12,12 @@
       (js/console.log (str "Fetching " url))
       (go (let [start-time (util/now)
                 response (<! (http/get url {:with-credentials? false}))]
-               (do
                  (js/console.log (str "Response from " url ": status=" (:status response) " success=" (:success response) " secs-taken=" (util/secs-to-now start-time)))
                  (let [body (:body response)
                        clj-body (if (string? body)
                                   (js->clj (.parse js/JSON body) :keywordize-keys true) ;; probably a text/plain response that we'll have to explicitly convert to Clojure data
                                   body)] ;; probably an application/json response causing cljs-http to have aleady auto converted the JSON to Clojure data
-                      (body-handler clj-body))))))
+                      (body-handler clj-body)))))
 
 (defn load-data
       []

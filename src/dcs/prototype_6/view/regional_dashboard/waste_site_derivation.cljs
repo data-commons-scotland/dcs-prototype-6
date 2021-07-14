@@ -1,6 +1,5 @@
 (ns dcs.prototype-6.view.regional-dashboard.waste-site-derivation
-  (:require [clojure.string :as str]
-            [dcs.prototype-6.state :as state]))
+  (:require [dcs.prototype-6.state :as state]))
 
 
 (defn ele [region
