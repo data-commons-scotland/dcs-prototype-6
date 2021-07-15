@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.view.ace-furniture.counts-since-inception
+(ns dcs.prototype-6.view.ace-furniture.counts
   (:require
     [oz.core :as oz]
     [dcs.prototype-6.util :as util]
@@ -34,7 +34,7 @@
       [data]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
        :width      500
-       :height     1000
+       :height     1500
        :background "#f2dfce"
        :data       {:values data}
        :transform  shared/transform-spec
@@ -66,22 +66,20 @@
 
        [:div#category-level-counts-since-inception.content.tab-content-counts-since-inception
         [:p "The " [:b "total count"] " of the items of furniture sold in each " [:b "category"] "."]
+         [:p "The categories " [:span.has-text-warning "Furniture"] " and " [:span.has-text-warning "Soft Furniture"] " account (by far) for the most items sold."
+          " Click on the " [:span.has-text-warning "More detail"] " tab [above] to find out which specific types have been the most popular."]
         hint
-        [:div.has-text-danger-dark
-         [:p "The categories " [:span.has-text-grey "Furniture"] " and " [:span.has-text-grey "Soft Furniture"] " account (by far) for the most items sold."
-          " Click on the " [:span.has-text-grey "More detail"] " tab [above] to find out which specific types have been the most popular."]]
         [oz/vega-lite (chart-spec-category-level counts) util/vega-embed-opts]
         ]
 
 
        [:div#item-level-counts-since-inception.content.tab-content-counts-since-inception {:style {:display "none"}}
         [:p "The " [:b "total count"] " of the items of furniture sold in each " [:b "sub-category"] "."]
-        hint
-        [:div.has-text-danger-dark
-         [:p "The sub-category " [:span.has-text-grey "Chair, Kitchen, Dining or Wooden"] " accounts (by far) for the most items sold."
-          " Click on one of its bar segments and you'll see that it is associated with the category " [:span.has-text-grey "Furniture"] "."
+         [:p "The sub-category " [:span.has-text-warning "Chair, Kitchen, Dining or Wooden"] " accounts (by far) for the most items sold."
+          " Click on one of its bar segments and you'll see that it is associated with the category " [:span.has-text-warning "Furniture"] "."
           " Interestingly, many of the top sub-categories appear to have enjoyed an upwards surge in numbers during the last (and shortest) of the 3 accounting periods."
-          " The trends graphs (later on this page) reinforce that observation."]]
+          " The trends graphs (later on this page) reinforce that observation."]
+        hint
         [oz/vega-lite (chart-spec-item-level counts) util/vega-embed-opts]
         ]
 

@@ -111,20 +111,18 @@
 
        [:div#category-level-trends.content.tab-content-trends
         [:p "The " [:b "trend"] " of the average-count-per-month of the items of furniture sold in each " [:b "category"] "."]
+        [:p "The category " [:span.has-text-warning "Furniture"] " has the best trend (for the average number of items reused per month),"
+          " and the category " [:span.has-text-warning "Children's items"] " has the worse."]
         hint
-        [:div.has-text-danger-dark
-         [:p "The category " [:span.has-text-grey "Furniture"] " has the best trend (for the average number of items reused per month),"
-          " and the category " [:span.has-text-grey "Children's items"] " has the worse."]]
         [oz/vega-lite (chart-spec-category-level category-trends) util/vega-embed-opts]
         ]
 
 
        [:div#item-level-trends.content.tab-content-trends {:style {:display "none"}}
         [:p "The " [:b "trend"] " of the average-count-per-month of the items of furniture sold in each " [:b "sub-category"] "."]
+        [:p "The sub-category " [:span.has-text-warning "Chair, Kitchen, Dining or Wooden"] " has the best trend (for the average number of items reused per month),"
+          " and the sub-category " [:span.has-text-warning "Wardrobe, single"] " has the worse."]
         hint
-        [:div.has-text-danger-dark
-         [:p "The sub-category " [:span.has-text-grey "Chair, Kitchen, Dining or Wooden"] " has the best trend (for the average number of items reused per month),"
-          " and the sub-category " [:span.has-text-grey "Wardrobe, single"] " has the worse."]]
         [oz/vega-lite (chart-spec-item-level item-trends) util/vega-embed-opts]
         ]
 

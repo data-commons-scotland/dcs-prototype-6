@@ -338,16 +338,23 @@
 
 (defn maybe-calc-ace-furniture-weights-derivations 
   []
-  (let [raw @state/ace-furniture-weights-holder]
+  (let [raw-weights @state/ace-furniture-weights-holder
+        furniture-to-waste-streams @state/ace-furniture-to-waste-streams-holder
+        co2e-multiplier @state/co2e-multiplier-holder]
 
-    (when (some? raw)
+    (when (and (some? raw-weights)
+               (some? furniture-to-waste-streams)
+               (some? co2e-multiplier))
       (js/console.log "Calculating ace-furniture-weights-derivations")
+      
+      (let [start-time      (util/now)
 
-      (let [start-time (util/now)
-
-            derivation raw]                            ;; no transformation required
+            orig raw-weights                      ; no transformation required
+            [flights-per-category flights-per-item] (data-shaping/calc-ace-furniture-flights-worth raw-weights furniture-to-waste-streams co2e-multiplier)]
         
-        (reset! state/ace-furniture-weights-derivation-cursor derivation)
+        (reset! state/ace-furniture-weights-derivation-orig-cursor orig)
+        (reset! state/ace-furniture-weights-derivation-flights-per-category-cursor flights-per-category)
+        (reset! state/ace-furniture-weights-derivation-flights-per-item-cursor flights-per-item)
         (js/console.log (str "Calculating ace-furniture-weights-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 
@@ -439,6 +446,16 @@
            (fn [_key _atom _old-state new-state]
                (when new-state
                      (maybe-calc-ace-furniture-weights-derivations))))
+
+(add-watch state/ace-furniture-to-waste-streams-holder :ace-furniture-weights-derivations-dependency
+           (fn [_key _atom _old-state new-state]
+             (when new-state
+               (maybe-calc-ace-furniture-weights-derivations))))
+
+(add-watch state/co2e-multiplier-holder :ace-furniture-weights-derivations-dependency
+           (fn [_key _atom _old-state new-state]
+             (when new-state
+               (maybe-calc-ace-furniture-weights-derivations))))
 
 (add-watch state/household-waste-analysis-holder :household-waste-analysis-derivations-dependency
            (fn [_key _atom _old-state new-state]

@@ -28,7 +28,9 @@
                        :ace-furniture-counts-derivation             {:orig            nil
                                                                      :category-trends nil
                                                                      :item-trends     nil}
-                       :ace-furniture-weights-derivation            nil}))
+                       :ace-furniture-weights-derivation            {:orig nil
+                                                                     :flights-worth {:per-category nil
+                                                                                     :per-item nil}}}))
 
 (defonce route-match-cursor (r/cursor root [:route-match]))
 
@@ -66,13 +68,16 @@
 (defonce ace-furniture-counts-derivation-orig-cursor (r/cursor root [:ace-furniture-counts-derivation :orig]))
 (defonce ace-furniture-counts-derivation-category-trends-cursor (r/cursor root [:ace-furniture-counts-derivation :category-trends]))
 (defonce ace-furniture-counts-derivation-item-trends-cursor (r/cursor root [:ace-furniture-counts-derivation :item-trends]))
-(defonce ace-furniture-weights-derivation-cursor (r/cursor root [:ace-furniture-weights-derivation]))
+(defonce ace-furniture-weights-derivation-orig-cursor (r/cursor root [:ace-furniture-weights-derivation :orig]))
+(defonce ace-furniture-weights-derivation-flights-per-category-cursor (r/cursor root [:ace-furniture-weights-derivation :flights-worth :per-category]))
+(defonce ace-furniture-weights-derivation-flights-per-item-cursor (r/cursor root [:ace-furniture-weights-derivation :flights-worth :per-item]))
 
 (defonce household-waste-analysis-derivation-cursor (r/cursor root [:household-waste-analysis-derivation]))
 
 ;; -----------------
 
 (defonce population-holder (atom nil))
+(defonce co2e-multiplier-holder (atom nil))
 (defonce household-waste-holder (atom nil))
 (defonce household-co2e-holder (atom nil))
 (defonce business-waste-by-region-holder (atom nil))
@@ -84,4 +89,5 @@
 (defonce fairshare-co2e-holder (atom nil))
 (defonce ace-furniture-counts-holder (atom nil))
 (defonce ace-furniture-weights-holder (atom nil))
+(defonce ace-furniture-to-waste-streams-holder (atom nil))
 (defonce household-waste-analysis-holder (atom nil))

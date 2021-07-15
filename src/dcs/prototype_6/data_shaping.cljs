@@ -306,3 +306,66 @@
 
            [sold-categories-by-avg-count-per-month-trend sold-items-by-avg-count-per-month-trend]))
 
+;; Calculate for the ACE furniture sold weights,
+;;   the flights-worth-of-CO2e for each category/item.
+(defn calc-ace-furniture-flights-worth [sold-weights furniture-to-waste-streams co2e-multiplier]
+  (let [furniture->waste-stream  (->> furniture-to-waste-streams
+                                      (map (fn [{:keys [category item waste-stream]}] [[category item] waste-stream]))
+                                      (into {}))
+        waste-stream->multiplier (->> co2e-multiplier
+                                      (map (fn [{:keys [waste-stream multiplier]}] [waste-stream multiplier]))
+                                      (into {}))
+        get-co2e-multiplier      (fn [category item]
+                                   (->> [category item]
+                                        (get furniture->waste-stream)
+                                        (get waste-stream->multiplier)))
+        sold-weights-with-co2es  (->> sold-weights
+                                      (map (fn [{:keys [category item weight]
+                                                 :as   m}]
+                                             (assoc m
+                                                    :co2e (* weight (get-co2e-multiplier category item))))))
+        flights-per-category (->> sold-weights-with-co2es
+                                               ;; roll-up to per-category
+                                  (group-by :category)
+                                  (map (fn [[category coll]]
+                                         {:category category
+                                          :co2e     (apply + (map :co2e coll))}))
+                                               ;; and calcuate the avoided CO2e in terms of flights (Glasgow -> Berlin, one-way)
+                                               ;; 202.5 = average kg of CO2e per flight 
+                                  (map (fn [{:keys [category co2e]}]
+                                         {:category category
+                                          :co2e     co2e
+                                          :flights  (int (Math/round (/ co2e 202.5)))}))
+                                               ;; for a Vega emoji representation, create a record per flight
+                                  (map (fn [{:keys [category co2e flights]}]
+                                         (repeat flights
+                                                 {:co2e          co2e
+                                                  :category      category
+                                                  :flights-total flights
+                                                  :flight        1})))
+                                  flatten)
+        flights-per-item (->> sold-weights-with-co2es
+                          ;; roll-up to per-item
+                              (group-by (juxt :category :item))
+                              (map (fn [[[category item] coll]]
+                                     {:category category
+                                      :item     item
+                                      :co2e     (apply + (map :co2e coll))}))
+                          ;; and calcuate the avoided CO2e in terms of flights (Glasgow -> Berlin, one-way)
+                          ;; 202.5 = average kg of CO2e per flight 
+                              (map (fn [{:keys [category item co2e]}]
+                                     {:category category
+                                      :item     item
+                                      :co2e     co2e
+                                      :flights  (int (Math/round (/ co2e 202.5)))}))
+                          ;; for a Vega emoji representation, create a record per flight
+                              (map (fn [{:keys [category item co2e flights]}]
+                                     (repeat flights
+                                             {:co2e          co2e
+                                              :category      category
+                                              :item          item
+                                              :flights-total flights
+                                              :flight        1})))
+                              flatten)]
+    
+    [flights-per-category flights-per-item]))

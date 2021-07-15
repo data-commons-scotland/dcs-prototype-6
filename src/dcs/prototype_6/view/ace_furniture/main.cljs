@@ -1,6 +1,7 @@
 (ns dcs.prototype-6.view.ace-furniture.main
-  (:require [dcs.prototype-6.view.ace-furniture.counts-since-inception :as counts-since-inception]
-            [dcs.prototype-6.view.ace-furniture.weights-since-inception :as weights-since-inception]
+  (:require [dcs.prototype-6.view.ace-furniture.counts :as counts]
+            [dcs.prototype-6.view.ace-furniture.weights :as weights]
+            [dcs.prototype-6.view.ace-furniture.co2e :as co2e]
             [dcs.prototype-6.view.ace-furniture.trends :as trends]))
 
 
@@ -28,10 +29,10 @@
         [:div.hero-body
          [:div.container
           [:div
-           [:h1.title.is-5.has-text-weight-bold.has-text-success "Counts since inception"]
+           [:h1.title.is-5.has-text-weight-bold.has-text-success "Counts"]
            [:h2.subtitle.is-4 [:span "This helps compare the relative " [:em "popularities"] " of the sold furniture types"]]]
           [:br]
-          [counts-since-inception/root]
+          [counts/root]
           ]
          ]
         ]
@@ -41,13 +42,22 @@
         [:div.hero-body
          [:div.container
           [:div
-            [:h2.title.is-5.has-text-weight-bold.has-text-danger "Weights since inception"]
+            [:h2.title.is-5.has-text-weight-bold.has-text-danger "Weights"]
             [:h2.subtitle.is-4 "This helps compare the relative weights of the sold furniture types"]]
           [:br]
-          [weights-since-inception/root]
+          [weights/root]
           ]
          ]
         ]
+       
+       [:section.hero {:style {:backgroundColor "#f2dfce"}}
+        [:div.hero-body
+         [:div.container
+          [:div
+           [:h1.title.is-5.has-text-weight-bold.has-text-success "CO" [:sub "2"] "e avoided"]
+           [:h2.subtitle.is-4 [:span "This helps us comprehend (in terms of flights) the amounts of CO" [:sub "2"] "e that has been avoided"]]]
+          [:br]
+          [co2e/root]]]]
 
        [:section.hero
         [:div.hero-body

@@ -20,70 +20,78 @@
                       (body-handler clj-body)))))
 
 (defn load-data
-      []
-      (js/console.log "Loading data files")
+  []
+  (js/console.log "Loading data files")
 
-      (fetch "stirling-community-food-tonnes.json"
-             (fn [stirling-community-food-tonnes] (->> stirling-community-food-tonnes
-                                                       (reset! state/stirling-community-food-tonnes-holder))))
+  (fetch "stirling-community-food-tonnes.json"
+         (fn [stirling-community-food-tonnes] (->> stirling-community-food-tonnes
+                                                   (reset! state/stirling-community-food-tonnes-holder))))
 
-      (fetch "stirling-community-food-footfall.json"
-             (fn [stirling-community-food-footfall] (->> stirling-community-food-footfall
-                                                         (reset! state/stirling-community-food-footfall-holder))))
+  (fetch "stirling-community-food-footfall.json"
+         (fn [stirling-community-food-footfall] (->> stirling-community-food-footfall
+                                                     (reset! state/stirling-community-food-footfall-holder))))
 
-      (fetch "fairshare-material.json"
-             (fn [fairshare-material] (->> fairshare-material
-                                            (reset! state/fairshare-material-holder))))
+  (fetch "fairshare-material.json"
+         (fn [fairshare-material] (->> fairshare-material
+                                       (reset! state/fairshare-material-holder))))
 
-      (fetch "fairshare-co2e.json"
-             (fn [fairshare-co2e] (->> fairshare-co2e
-                                            (reset! state/fairshare-co2e-holder))))
+  (fetch "fairshare-co2e.json"
+         (fn [fairshare-co2e] (->> fairshare-co2e
+                                   (reset! state/fairshare-co2e-holder))))
 
-      (fetch "ace-furniture-sold-counts.json"
-             (fn [ace-furniture-counts] (->> ace-furniture-counts
-                                       (reset! state/ace-furniture-counts-holder))))
+  (fetch "ace-furniture-sold-counts.json"
+         (fn [ace-furniture-counts] (->> ace-furniture-counts
+                                         (reset! state/ace-furniture-counts-holder))))
 
-      (fetch "ace-furniture-sold-weights.json"
-             (fn [ace-furniture-weights] (->> ace-furniture-weights
-                                             (reset! state/ace-furniture-weights-holder))))
+  (fetch "ace-furniture-sold-weights.json"
+         (fn [ace-furniture-weights] (->> ace-furniture-weights
+                                          (reset! state/ace-furniture-weights-holder))))
+  
+  (fetch "ace-furniture-to-waste-streams.json"
+         (fn [ace-furniture-to-waste-streams] (->> ace-furniture-to-waste-streams
+                                                   (reset! state/ace-furniture-to-waste-streams-holder))))
 
-      (fetch "household-waste-analysis.json"
-             (fn [household-waste-analysis] (->> household-waste-analysis
-                                                 (reset! state/household-waste-analysis-holder))))
+  (fetch "household-waste-analysis.json"
+         (fn [household-waste-analysis] (->> household-waste-analysis
+                                             (reset! state/household-waste-analysis-holder))))
 
-      (fetch "geojson.json"
-             (fn [geojson] (->> geojson
-                                clj->js
-                                (reset! state/geojson-cursor))))
+  (fetch "geojson.json"
+         (fn [geojson] (->> geojson
+                            clj->js
+                            (reset! state/geojson-cursor))))
+  
+  (fetch (str util/easier-repo-data "co2e-multiplier.json") 
+         (fn [co2e-multiplier] (->> co2e-multiplier
+                                    (reset! state/co2e-multiplier-holder))))
+  
+  (fetch (str util/easier-repo-data "population.json")
+         (fn [population] (->> population
+                               data-shaping/rollup-population-regions
+                               (concat population)
+                               (reset! state/population-holder))))
 
-      (fetch (str util/easier-repo-data "population.json")
-             (fn [population] (->> population
-                                   data-shaping/rollup-population-regions
-                                   (concat population)
-                                   (reset! state/population-holder))))
+  (fetch (str util/easier-repo-data "household-waste.json")
+         (fn [household-waste] (->> household-waste
+                                    data-shaping/rollup-household-waste-regions
+                                    (concat household-waste)
+                                    (reset! state/household-waste-holder))))
 
-      (fetch (str util/easier-repo-data "household-waste.json")
-             (fn [household-waste] (->> household-waste
-                                        data-shaping/rollup-household-waste-regions
-                                        (concat household-waste)
-                                        (reset! state/household-waste-holder))))
+  (fetch (str util/easier-repo-data "household-co2e.json")
+         (fn [household-co2e] (->> household-co2e
+                                   data-shaping/rollup-household-co2e-regions
+                                   (concat household-co2e)
+                                   (reset! state/household-co2e-holder))))
 
-      (fetch (str util/easier-repo-data "household-co2e.json")
-             (fn [household-co2e] (->> household-co2e
-                                       data-shaping/rollup-household-co2e-regions
-                                       (concat household-co2e)
-                                       (reset! state/household-co2e-holder))))
+  (fetch (str util/easier-repo-data "business-waste-by-region.json")
+         (fn [business-waste-by-region] (->> business-waste-by-region
+                                             data-shaping/rollup-business-waste-by-region-regions
+                                             (concat business-waste-by-region)
+                                             (reset! state/business-waste-by-region-holder))))
 
-      (fetch (str util/easier-repo-data "business-waste-by-region.json")
-             (fn [business-waste-by-region] (->> business-waste-by-region
-                                                 data-shaping/rollup-business-waste-by-region-regions
-                                                 (concat business-waste-by-region)
-                                                 (reset! state/business-waste-by-region-holder))))
+  (fetch (str util/easier-repo-data "waste-site.json")
+         (fn [waste-site] (->> waste-site
+                               (reset! state/waste-site-holder))))
 
-      (fetch (str util/easier-repo-data "waste-site.json")
-             (fn [waste-site] (->> waste-site
-                                   (reset! state/waste-site-holder))))
-
-      (fetch (str util/easier-repo-data "stirling-bin-collection.json")
-             (fn [stirling-bin-collection] (->> stirling-bin-collection
-                                                (reset! state/stirling-bin-collection-holder)))))
+  (fetch (str util/easier-repo-data "stirling-bin-collection.json")
+         (fn [stirling-bin-collection] (->> stirling-bin-collection
+                                            (reset! state/stirling-bin-collection-holder)))))
