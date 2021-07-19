@@ -9,7 +9,7 @@
       [:section.section
        [:div.content.has-text-centered
         [:h1.title.is-5 "Stirling's bin collection of household waste"]]
-
+       
        [:div.container
         [:div.content
          [:p "Stirling Council set a precedent by being the first (and " [:em "still"] " only) Scottish local authority
@@ -21,12 +21,12 @@
         e.g. by adding spatial data to describe collection routes.
         However, we can still squeeze from its current version, several interesting pieces of information..."]
          [:br]]]
-
+       
        [:div.tile.is-ancestor
 
-        [:div.tile.is-6
+        [:div.tile.is-child.is-6
          [:div.tile.is-vertical.is-parent
-
+          
           [:div.tile.is-child.message.has-background-white.is-info
            [:div.message-header
             [:div
@@ -60,7 +60,7 @@
              [:p "The amount of household waste attributed to "
               [:em "missed bins"] ", fell significantly between Q1 2018 and Q3 2019."]]]]]]
 
-        [:div.tile.is-6
+        [:div.tile.is-child
          [:div.tile.is-vertical.is-parent
 
           [:div.tile.is-child.message.has-background-white.is-link
@@ -83,7 +83,7 @@
                [:em "overall"] " linearly-estimated quarterly percentages of household waste recycled in Stirling and Scotland."]
               [:li "Also, see the corresponding \"Carbon impact\" graph on "
                [:a {:href (rfe/href :dcs.prototype-6.router/dashboard-view nil {:region "Stirling"})} "Stirling's waste dashboard"] "."]]]]]
-
+          
           [:div.tile.is-child.message.has-background-white.is-info
            [:div.message-header
             [:div

@@ -83,7 +83,7 @@
                              [:span "Discover how many " [:em "cars worth"] " of CO" [:sub "2"] "e is avoided"
                               [:br] "each year by this university based, reuse store."]
                              (rfe/href :dcs.prototype-6.router/fairshare-view))
-           #_(navbar-clickable "The ACE furniture reuse initiative"
+           (navbar-clickable "The ACE furniture reuse initiative"
                              [:span "Find out about the amounts and types of furniture"
                               [:br] "that are being reused because of this initiative."]
                              (rfe/href :dcs.prototype-6.router/ace-furniture-view))
