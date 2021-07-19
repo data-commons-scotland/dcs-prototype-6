@@ -52,52 +52,16 @@
 
 /* Navbar dynamics ------------------------------ */
 
-/* We don't need checkbox to be displayed in order for it to work */
-.toggler {
-  display: none;
+/*
+.has-dropdown label[class="navbar-link"]::after {
+	transform: rotate(-135deg);
+	transition: transform 0.2s;
 }
-
-/* Hamburger changes to X when toggler is checked */
-.navbar .toggler:checked + .navbar-brand .burger span:nth-child(1) {
-  -webkit-transform: translateY(5px) rotate(45deg);
-  transform: translateY(5px) rotate(45deg);
+.has-dropdown label[class="navbar-link is-active"]::after {
+	transform: rotate(-45deg);
+	transition: transform 0.2s;
 }
-.navbar .toggler:checked + .navbar-brand .burger span:nth-child(2) {
-  opacity: 0;
-}
-.navbar .toggler:checked + .navbar-brand .burger span:nth-child(3) {
-  -webkit-transform: translateY(-5px) rotate(-45deg);
-  transform: translateY(-5px) rotate(-45deg);
-}
-
-/*  Displays menu when toggler is checked only on mobile/tablet */
-@media screen and (max-width: 1024px) {
-  .navbar .toggler:checked ~ .navbar-menu {
-    display: block;
-  }
-  /* We don't want menu to be displayed on mobile by default */
-  .navbar-menu {
-    display: none;
-  }
-}
-
-/* For dropdown functionality */
-
-/* Same reason as for checkbox */
-.has-dropdown input[type=checkbox] {
-  display: none;
-}
-/* Hide by default */
-.navbar-dropdown {
-  display: none;
-}
-/* The functionality */
-#articles-checkbox:checked ~ #articles-dropdown,
-#tools-checkbox:checked ~ #tools-dropdown,
-#data-checkbox:checked ~ #data-dropdown,
-#about-checkbox:checked ~ #about-dropdown {
-    display: block;
-}
+*/
 
 
 

@@ -3,22 +3,42 @@
             [reitit.frontend.easy :as rfe]
             [dcs.prototype-6.util :as util]))
 
+(defn remove-class [el toggleable-class]
+  (let [el-classList (.-classList el)]
+    (when (.contains el-classList toggleable-class)
+      (.remove el-classList toggleable-class))))
 
-(defn close-burger
-      "Close-up the burger's dropdowns and the burger itself"
-      [& _]
-      ;;  Comment-out. Isn't affecting clicked-on dropdowns as I'd like. Maybe give-up on this.
-      ;;  (doseq [id ["explore-dropdown" "data-dropdown" "about-dropdown" "toggler" ]]
-      ;;         (.remove (.-classList (.getElementById js/document id)) "is-active"))
-      (doseq [id ["articles-checkbox" "tools-checkbox" "data-checkbox" "about-checkbox" "toggler"]]
-             (set! (.-checked (.getElementById js/document id)) false)))
+(defn toggle-class [el toggleable-class]
+  (let [el-classList (.-classList el)]
+    (if (.contains el-classList toggleable-class)
+      (.remove el-classList toggleable-class)
+      (.add el-classList toggleable-class))))
+
+(defn toggle-burger
+  "Expands/collapses the burger-ised menu"
+  [_event]
+  (let [burger-el (.getElementById js/document "topburger")
+        ;burger-el (.-currentTarget _event)
+        navbarmenu-id (.-target (.-dataset burger-el))
+        navbarmenu-el (.getElementById js/document navbarmenu-id)]
+    (toggle-class burger-el "is-active")
+    (toggle-class navbarmenu-el "is-active")))
+
+(defn collapse-burger
+  "Collapses the burger-ised menu. Only works when the burger is in-play."
+  []
+  (let [burger-el (.getElementById js/document "topburger")
+        navbarmenu-id (.-target (.-dataset burger-el))
+        navbarmenu-el (.getElementById js/document navbarmenu-id)]
+    (remove-class burger-el "is-active")
+    (remove-class navbarmenu-el "is-active")))
 
 (defn navbar-clickable
       ([title href]
        [:a.navbar-item
-        {:href href :on-click close-burger :target (if (str/starts-with? href "http") "_blank" "_self")}  ;; Clickable navbar items should close the burger.
+        {:on-click #(collapse-burger) :href href :target (if (str/starts-with? href "http") "_blank" "_self")}  ;; Clickable navbar items should close the burger.
         [:span.navbar-content
-         title]])
+         [:span.has-text-link-dark title]]])
       ([title subtitle href]
        (-> (navbar-clickable title href)
            (assoc-in [2 2] [:p.is-size-7.has-text-info subtitle])))) ;; Append a vector that contains the subtitle
@@ -26,14 +46,13 @@
 (defn root []
       [:nav.navbar.is-fixed-top.is-primary {:role "navigation"}
 
-       [:input#toggler.toggler {:type "checkbox"}]
        [:div.navbar-brand
         [:a.navbar-item {:href (rfe/href :dcs.prototype-6.router/home-view)}
          [:img.brand-logo {:src "img/dcs-circle.png" :alt "Waste Matters Scotland logo"}]
          "Waste Matters Scotland"]
         [:a.navbar-item]
 
-        [:label.navbar-burger.burger {:data-target "topnavbar" :for "toggler" :role "button"}
+        [:span#topburger.navbar-burger.burger {:data-target "topnavbar" :on-click #(toggle-burger %) }
          [:span]
          [:span]
          [:span]]]
@@ -47,11 +66,11 @@
 
          ;; Articles
          [:div.navbar-item.has-dropdown.is-hoverable
-          [:input#articles-checkbox {:type "checkbox"}]
-          [:label.navbar-link {:for "articles-checkbox"} "Articles"]
-          [:div#articles-dropdown.navbar-dropdown.is-right
+          [:label.navbar-link "Articles"]
+          [:div.navbar-dropdown.is-right
+           
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "Learn from data-based articles"]]
+            [:p.has-text-weight-bold "Learn from data-based articles"]]
            (navbar-clickable "Stirling's bin collection"
                              [:span "Interesting facts about Stirling's"
                               [:br] "bin collection of household waste"]
@@ -77,11 +96,11 @@
 
          ;; Tools
          [:div.navbar-item.has-dropdown.is-hoverable
-          [:input#tools-checkbox {:type "checkbox"}]
-          [:label.navbar-link {:for "tools-checkbox"} "Tools"]
-          [:div#tools-dropdown.navbar-dropdown.is-right
+          [:label.navbar-link "Tools"]
+          [:div.navbar-dropdown.is-right
+           
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "Explore using tools"]]
+            [:p.has-text-weight-bold "Explore using tools"]]
            (navbar-clickable "Waste by region"
                              [:span "Discover and compare regional"
                               [:br] "waste figures"]
@@ -104,11 +123,11 @@
 
          ;; Data
          [:div.navbar-item.has-dropdown.is-hoverable
-          [:input#data-checkbox {:type "checkbox"}]
-          [:label.navbar-link {:for "data-checkbox"} "Data"]
-          [:div#data-dropdown.navbar-dropdown.is-right
+          [:label.navbar-link "Data"]
+          [:div.navbar-dropdown.is-right
+           
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "About the data on this site"]]
+            [:p.has-text-weight-bold "About the data on this site"]]
            (navbar-clickable "Introduction"
                              [:span "An introduction to our " [:em "easier-to-use"] [:br]
                               "datasets and their dimensions"]
@@ -116,7 +135,7 @@
 
            [:hr.navbar-divider]
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "Directly access the dataset files"]]
+            [:p.has-text-weight-bold "Directly access the dataset files"]]
            (navbar-clickable  [:span "Household waste " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "household-waste.json"))
            (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info.is-size-7 "(JSON)"]]
@@ -144,16 +163,16 @@
 
          ;; About
          [:div.navbar-item.has-dropdown.is-hoverable
-          [:input#about-checkbox {:type "checkbox"}]
-          [:label.navbar-link {:for "about-checkbox"} "About"]
-          [:div#about-dropdown.navbar-dropdown.is-right
+          [:label.navbar-link "About"]
+          [:div.navbar-dropdown.is-right
+           
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "This site"]]
+            [:p.has-text-weight-bold "This site"]]
            (navbar-clickable "About this site"
                              (rfe/href :dcs.prototype-6.router/about-view))
            [:hr.navbar-divider]
            [:div.navbar-item
-            [:p.has-text-link.has-text-weight-bold "The encompassing project"]]
+            [:p.has-text-weight-bold "The encompassing project"]]
            (navbar-clickable "Blog site"
                              [:span "For further information about the" [:br]
                               "project and its activities"]
