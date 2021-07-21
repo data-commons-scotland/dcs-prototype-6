@@ -46,8 +46,8 @@
                                    first
                                    :position)]
               [:tr [:td "Reduce waste generation"]
-               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
-               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])
+               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]
+               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]])
 
          (let [latest-position (->> household-co2e-derivation-generation-positions
                                     :latest-positions
@@ -61,8 +61,8 @@
                                    first
                                    :position)]
               [:tr [:td "Reduce carbon impact"]
-               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
-               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])
+               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]
+               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]])
 
          (let [latest-position (->> household-waste-derivation-percent-recycled-positions
                                     :latest-positions
@@ -75,8 +75,8 @@
                                    first
                                    :position)]
               [:tr [:td "Increase percentage recycled"]
-               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
-               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]])]]])
+               [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]
+               [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]])]]])
 
 
 (defn root []

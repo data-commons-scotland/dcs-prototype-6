@@ -3,6 +3,7 @@
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.view.regional-dashboard.map :as map]
             [dcs.prototype-6.view.regional-dashboard.region-title :as region-title]
+            [dcs.prototype-6.view.regional-dashboard.region-curiosities :as region-curiosities]
             [dcs.prototype-6.view.regional-dashboard.region-position :as region-position]
             [dcs.prototype-6.view.regional-dashboard.waste-site-derivation :as waste-site-derivation]
             [dcs.prototype-6.view.regional-dashboard.household-waste-derivation-generation :as household-waste-derivation-generation]
@@ -31,6 +32,9 @@
           [:div.columns
            [:div.column.is-full
             [region-title/root]]]
+          #_[:div.columns
+           [:div.column.is-full
+            [region-curiosities/root]]]
           [:div.columns
            [:div.column.is-two-fifths
             [:h1.subtitle "Household waste per person"]
