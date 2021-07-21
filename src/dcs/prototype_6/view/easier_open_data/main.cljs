@@ -114,8 +114,8 @@
 
            (dataset-row "waste-site-io" "waste-site-io" "The categorised quantities of waste going in and out of waste sites." "waste-site-io.csv" nil "2667914" "SEPA" "SEPA" "https://www.sepa.org.uk/data-visualisation/waste-sites-and-capacity-tool" "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/" "OGL v2.0")
 
-           (dataset-row "stirling-bin-collection" "stirling-bin-collection" "The categorised quantities of the waste collected from household bins." "stirling-bin-collection.csv" "stirling-bin-collection.json" "127" "Stirling council" "Stirling council" "https://data.stirling.gov.uk/dataset/waste-management" "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" "OGL v3.0")
-
+           (dataset-row "stirling-bin-collection" "stirling-bin-collection" "The categorised quantities of the waste collected from household bins." "stirling-bin-collection.csv" "stirling-bin-collection.json" "136" "Stirling council" "Stirling council" "https://data.stirling.gov.uk/dataset/waste-management" "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" "OGL v3.0")
+           
            (dataset-row "material-coding" "material-coding" "A mapping between the EWC codes and SEPA's materials classification (as used in these datasets)." "material-coding.csv" "material-coding.json" "557" "SEPA" "SEPA" "https://www.sepa.org.uk/data-visualisation/waste-sites-and-capacity-tool" "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/" "OGL v2.0")
 
            (dataset-row "ewc-coding" "ewc-coding" "EWC (European Waste Classification) codes and descriptions." "ewc-coding.csv" "ewc-coding.json" "973" "European Commission of the EU" "Publications Office of the EU" "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02000D0532-20150601&from=EN#tocId7" "https://creativecommons.org/licenses/by/4.0/" "CC BY 4.0")
