@@ -1,0 +1,327 @@
+body {
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    background-color: floralwhite;
+}
+html, body {
+    height: 100%;
+    width: 100vw;
+}
+.title {
+    display: flex;
+    align-items: center;
+    margin: 3px;
+}
+.title h2 {
+    text-align: center;
+    align-items: center;
+}
+.title h1 {
+    font-size: 26px;
+    font-family: 'Alegreya';
+}
+.title img {
+    max-height: 64px;
+    width: auto;
+    padding: 3px;
+    display: inline;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+.title a {
+    color: #fff !important;
+    font-size: 26px;
+    text-decoration: none;
+}
+/* Previously, in the standalone version, I was (below) using:   height: 90%   */
+#map-container {
+    position: relative;
+    height: 100%;
+    width: 95vw;
+    padding: 5px;
+}
+#map {
+    position: relative;
+    height: inherit;
+    width: inherit;
+    color: black;
+    background-color: white;
+}
+
+
+.leaflet-center {
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.leaflet-middle {
+    top: 50%;
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+  transform: translate(0%, -50%);
+
+}
+
+.leaflet-center.leaflet-middle {
+  transform: translate(-50%, -50%);
+}
+
+.leaflet-bottom.leaflet-right {
+  transform: translate(0%, -10%); /* to keep it clear of the attributions location */
+}
+
+
+
+
+#legend {
+  position: relative;
+  top: 3px;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 100;
+  font-size: 1em;
+  font-family: sans-serif;
+  min-width: 190px;
+  max-width: 210px;
+  background: rgba(255,255,255,0.6);
+  opacity: 0.7;
+}
+.legendheading {
+  position: relative;
+  height: 25px;
+  padding: 5px 2px 0px 2px;
+  font-size: larger;
+  font-weight: bold;
+  text-align: center;
+}
+.legenditem {
+  padding: 2px;
+  margin-bottom: 1px;
+  font-size: 7pt;
+  font-weight: bold;
+}
+
+/*Marker clusters*/
+.marker-cluster-pie g.arc{
+  fill-opacity: 0.5;
+}
+.marker-cluster-pie-label {
+  font-size: 14px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+/*Markers*/
+.marker {
+  width: 18px;
+  height: 18px;
+  border-width: 2px;
+  border-radius:10px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-style: solid;
+  fill: #CCC;
+  stroke: #444;
+  background: #CCC;
+  border-color: #444;
+}
+.marker div{
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+/*marker categories*/
+.category-m0{
+  fill: #E78144;
+  background: #E78144;
+}
+.category-m1{
+  fill: #8BA6A9;
+  background: #8BA6A9;
+}
+.category-m2{
+  fill: #9A816D;
+                 background: #9A816D;
+               }
+.category-m3{
+  fill: #F64B54;
+                 background: #F64B54;
+               }
+
+.category-m4{
+  fill: #F4EBBE;
+                 background: #F4EBBE;
+               }
+.category-m5{
+  fill: #F7EBEC;
+                 background: #F7EBEC;
+               }
+.category-m6{
+  fill: #DDBDD5;
+                 background: #DDBDD5;
+               }
+.category-m7{
+  fill: #AC9FBB;
+                 background: #AC9FBB;
+               }
+.category-m8{
+  fill: #59656F;
+                 background: #59656F;
+               }
+.category-m9{
+  fill: #878472;
+                 background: #878472;
+               }
+.category-m10{
+  fill: #89ACAB;
+                 background: #89ACAB;
+               }
+.category-m11{
+  fill: #70E4EF;
+                 background: #DE541E;
+               }
+.category-m12{ /*Household*/
+  fill: #8B6E87;
+                 background: #8B6E87;
+               }
+.category-m13{
+  fill: #8D6346;
+                 background: #8D6346;
+               }
+.category-m14{
+  fill: #DDF45B;
+                 background: #DDF45B;
+               }
+.category-m15{
+  fill: #667761;
+                 background: #667761;
+               }
+.category-m16{
+  fill: #9E9A91;
+                 background: #9E9A91;
+               }
+.category-m17{
+  fill: #917C78;
+                 background: #917C78;
+               }
+.category-m18{
+  fill: #B79492;
+                 background: #B79492;
+               }
+.category-m19{
+  fill: #EAE1DF;
+                 background: #EAE1DF;
+               }
+.category-m20{
+  fill: #7C9EB2;
+                 background: #7C9EB2;
+               }
+.category-m21{ /*Paper and cardboard*/
+  fill: #E6D4A4;
+                 background: #E6D4A4;
+               }
+.category-m22{
+  fill: #B965C8;
+                 background: #B965C8;
+               }
+.category-m23{
+  fill: #2460AC;
+                 background: #2460AC;
+               }
+.category-m24{
+  fill: #DB2B39;
+                 background: #DB2B39;
+               }
+.category-m25{
+  fill: #AB906E;
+                 background: #AB906E;
+               }
+.category-m26{ /* Sorting residues*/
+  fill: #C8665A;
+                 background: #C8665A;
+               }
+.category-m27{
+  fill: #971B66;
+                 background: #971B66;
+               }
+.category-m28{
+  fill: #F0CEA0;
+                 background: #F0CEA0;
+               }
+.category-m29{
+  fill: #CACC90;
+                 background: #CACC90;
+               }
+.category-m30{
+  fill: #297373;
+                 background: #297373;
+               }
+.category-m31{
+  fill: #FF8552;
+                 background: #FF8552;
+               }
+.category-m32{
+  fill: #839E5B;
+                 background: #839E5B;
+               }
+ .category-m33{
+                 fill: #B7AEB3;
+                                background: #B7AEB3;
+                              }
+.category-m34{
+                                fill: #808178;
+                                               background: #808178;
+                                             }
+/* E6D4A4 */
+
+/*marker icons*/
+.icon-1{
+  background-image: url('dump-16.png');
+  background-repeat: no-repeat;
+  background-position: 0px 1px;
+}
+.icon-2{
+  background-image: url('dump-16.png');
+  background-repeat: no-repeat;
+  background-position: 1px 0px;
+}
+.icon-3{
+  background-image: url('dump-16.png');
+  background-repeat: no-repeat;
+  background-position: 1px 0px;
+}
+.icon-4{
+  background-image: url('dump-16.png');
+  background-repeat: no-repeat;
+  background-position: 1px 0px;
+}
+
+/*Popup*/
+.map-popup span.heading {
+  display: block;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.map-popup span.attribute {
+  display: block;
+}
+.map-popup span.label {
+  font-weight: bold;
+}
+
+
+.attributions {
+    width: 90%;
+    padding: 5px;
+    margin: 5px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    color: black;
+    background-color: floralwhite;
+    box-shadow: 0 0 15px floralwhite;
+    border-radius: 5px;
+}

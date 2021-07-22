@@ -25,7 +25,7 @@
             (.add (.-classList ele) "is-selected")
             ;; allow for the navbar area when scrolling-into-view a specific element
             (when-let [scrolledY (.-scrollY js/window)]
-                      (.scroll js/window 0 (- scrolledY 50))))))
+                      (.scroll js/window 0 (- scrolledY 65))))))
 
 (defn dimension-row
       ([dataset-ele-id dataset example count min max]
