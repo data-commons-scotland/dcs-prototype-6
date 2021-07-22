@@ -1,6 +1,9 @@
 (ns dcs.prototype-6.view.waste-sites-map
   (:require [reitit.frontend.easy :as rfe]))
 
+(def webapp-ctx (.. js/document -location -pathname))
+(js/console.log (str "webapp-ctx: " webapp-ctx))
+
 (defn root
       []
 
@@ -20,7 +23,7 @@
           [:div.column.is-three-fifths
            [:figure.image.is-3by4
             [:iframe.has-ratio
-             {:src         "waste-sites-cluster-map/"
+             {:src         (str webapp-ctx "waste-sites-cluster-map/")
               :scrolling   "no"
               :border      "no"
               :frameborder "no"}]]]
@@ -38,10 +41,7 @@
            [:div.content
 
             [:h3.subtitle.is-6.has-text-danger "Key elements"]
-            [:p
-
-             "Each pie chart depicts the amounts of materials incoming to a single waste site, or the aggregation of waste sites within a map area."
-             ]
+            [:p "Each pie chart depicts the amounts of materials incoming to a single waste site, or the aggregation of waste sites within a map area."]
 
              [:div.columns.is-flex.is-vcentered
               [:column
@@ -108,10 +108,10 @@
               ") waste material"]
              [:li "was moved in or out"]
              [:li "of each authorised waste site in Scotland."]]
-            [:p "Here is an extract:"
+            [:p "Here is an extract:"]
              [:figure.image.is-4by1.is-flex.is-justify-content-center
               [:img {:src "https://github.com/data-commons-scotland/dcs-shorts/raw/master/cluster-map-of-materials-incoming/screenshot-sepa-site-returns-sample.png"
-                     :alt "An extract of the 'Site returns' dataset"}]]]
+                     :alt "An extract of the 'Site returns' dataset"}]]
             [:p "This is impressive, ongoing data collection and curation by SEPA."]
             [:p [:em "But might some of its information be made more understandable to the general public by depicting it on a map?"]]
             [:p "Towards answering that, we have built this map tool."]
@@ -120,10 +120,10 @@
           ;; data mapping
             [:h3.subtitle.is-6.has-text-danger "Data mapping"]
             [:p "To aid comprehension, SEPA often sorts waste materials into 33 categories."
-             " We do the same for this map tool, mapping each EWC coded waste material into 1 of the 33 categories:"
+             " We do the same for this map tool, mapping each EWC coded waste material into 1 of the 33 categories:"]
              [:figure.image.is-128x128.is-flex.is-justify-content-center
               [:img {:src "https://github.com/data-commons-scotland/dcs-shorts/raw/master/cluster-map-of-materials-incoming/material-categories-sample.png"
-                     :alt "A sample of the 33 categories"}]]]
+                     :alt "A sample of the 33 categories"}]]
             [:p "The Site returns dataset identifies waste sites by their Permit/Licence code."
              " We want our map to show additional information about each waste site."
              " Specifically, its name, council area, waste processing activities, client types,"
