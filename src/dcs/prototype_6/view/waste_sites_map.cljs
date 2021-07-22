@@ -20,7 +20,7 @@
           [:div.column.is-three-fifths
            [:figure.image.is-3by4
             [:iframe.has-ratio
-             {:src         "/waste-sites-cluster-map/"
+             {:src         "waste-sites-cluster-map/"
               :scrolling   "no"
               :border      "no"
               :frameborder "no"}]]]
