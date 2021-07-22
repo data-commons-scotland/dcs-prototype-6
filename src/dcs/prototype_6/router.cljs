@@ -16,7 +16,8 @@
             [dcs.prototype-6.view.todo :as todo-view]
             [dcs.prototype-6.view.about :as about-view]
             [dcs.prototype-6.view.waste-sites-map :as waste-sites-map-view]
-            [dcs.prototype-6.view.waste-through-time-map :as waste-through-time-map-view]))
+            [dcs.prototype-6.view.waste-through-time-map :as waste-through-time-map-view]
+            [dcs.prototype-6.view.pivot-drilldown-and-plot :as pivot-drilldown-and-plot-view]))
 
 (def routes
   [["/"
@@ -54,6 +55,10 @@
    ["/waste-through-time-map/:preset"
     {:name ::waste-through-time-map-view
      :view waste-through-time-map-view/root
+     :parameters {:path {:preset string?}}}]
+   ["/pivot-drilldown-and-plot/:preset"
+    {:name ::pivot-drilldown-and-plot-view
+     :view pivot-drilldown-and-plot-view/root
      :parameters {:path {:preset string?}}}]
    ["/about"
     {:name ::about-view

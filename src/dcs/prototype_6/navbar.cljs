@@ -109,17 +109,16 @@
                              [:span "Waste sites and the quantities of"
                               [:br] "materials that they receive"]
                              (rfe/href :dcs.prototype-6.router/waste-sites-map-view))
-           (navbar-clickable "Household waste"
-                             [:span "Household quanitites through time"]
+           (navbar-clickable "Waste through the decade"
+                             [:span "Discover how waste, recycling and"
+                              [:br] "CO" [:sub "2"] "e amounts have been changing"
+                              [:br] "across Scotland over the last 10yrs"]
                              (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hw-mgmt"}))
-           (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e"]
-                             [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e through time,"
-                              [:br] "on a map"]
-                             (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hw-co2e"}))
-           (navbar-clickable "Household vs business quantities"
-                             [:span "Household vs business quantities"
-                              [:br] "through time, on a map"]
-                             (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hvb"}))]]
+           (navbar-clickable "Data grid & graph tool"
+                             [:span "Explore the data using this tool"
+                              [:br] "which allows you to select, filter"
+                              [:br] "and visualise our datasets"]
+                             (rfe/href :dcs.prototype-6.router/pivot-drilldown-and-plot-view {:preset "orig"}))]]
 
          ;; Data
          [:div.navbar-item.has-dropdown.is-hoverable
