@@ -29,23 +29,19 @@
 
 
 (defn charts [material]
-      [:div.tile.is-ancestor
-
-        [:div.tile.is-child.is-5
-          [oz/vega-lite (chart-spec-per-season material)
-           util/vega-embed-opts]]
-
-
-      [:div.tilee
-         [:p "Q3 donations are, by far, the most pronounced."
-          " Q3 starts in June which - at Stirling, the host university - is the end of the academic year for most courses."
-          " So the high Q3 donations are likely to be the results of students donating possessions before leaving for the summer."]
-       [:p "For the period Q2 2013 to Q1 2014 the data has less date resolution which partially accounts for the irregular donation pattern during this period."
-        " The other factor in this was, the unusually large donation of textiles"
-         " (duvet covers, sheets, pillowcases) from the student halls of residence [also evident in this page's first graph]."]
-        ]
-
-       ])
+  [:div.columns
+   [:column
+    [oz/vega-lite (chart-spec-per-season material)
+     util/vega-embed-opts]]
+   [:column
+    [:div.m-4.content
+     [:p "Q3 donations are, by far, the most pronounced."
+      " Q3 starts in June which - at Stirling, the host university - is the end of the academic year for most courses."
+      " So the high Q3 donations are likely to be the results of students donating possessions before leaving for the summer."]
+     [:p "For the period Q2 2013 to Q1 2014 the data has less date resolution which partially accounts for the irregular donation pattern during this period."
+      " The other factor in this was, the unusually large donation of textiles"
+      " (duvet covers, sheets, pillowcases) from the student halls of residence [also evident in this page's first graph]."]]]]
+  )
 
 (defn root []
       [charts

@@ -31,30 +31,27 @@
 
 
 (defn charts [material co2e]
-      [:div.tile.is-ancestor
-       [:div.tile.is-vertical.is-parent
-
-        [:div.tile.is-parent ;.is-align-items-center
-       [:div.tile.is-child.is-5
-        [oz/vega-lite (chart-spec-per-material material)
-         util/vega-embed-opts]
-        ]
-         [:div.tile.is-child.content
-          [:p "This graph depicts the (average) tonnes per year of each (category of) material reused."
-           " Textiles & footwear is by far the highest, followed by books then aggregates."]]]
-
-       [:div.tile.is-parent ;.is-align-items-center
-        [:div.tile.is-child.is-5
-         [oz/vega-lite (assoc-in (chart-spec-per-material co2e) [:encoding :color :value] "#BF5748")
-                          util/vega-embed-opts]]
-        [:div.tile.is-child.content
-         [:p "This graph has the same basis as the previous one but this time it orders the material amounts "
-          " by their CO" [:sub "2"] "e impacts."]
-         [:p "Tonne-for-tonne, textiles & footwear accounts more CO" [:sub "2"] "e"
-          " than any of the other materials, so it is good that textiles & footwear component is (by weight) the most reused of the materials!"]
-         ]]
-
-       ]])
+       [:div
+        [:div.columns
+         [:column
+          [oz/vega-lite (chart-spec-per-material material)
+           util/vega-embed-opts]
+          ]
+         [:column
+          [:div.m-4.content
+           [:p "This graph depicts the (average) tonnes per year of each (category of) material reused."
+            " Textiles & footwear is by far the highest, followed by books then aggregates."]]
+          ]]
+        [:div.columns
+         [:column
+          [oz/vega-lite (assoc-in (chart-spec-per-material co2e) [:encoding :color :value] "#BF5748")
+           util/vega-embed-opts]]
+         [:column
+          [:div.m-4.content
+           [:p "This graph has the same basis as the previous one but this time it orders the material amounts "
+            " by their CO" [:sub "2"] "e impacts."]
+           [:p "Tonne-for-tonne, textiles & footwear accounts more CO" [:sub "2"] "e"
+            " than any of the other materials, so it is good that textiles & footwear component is (by weight) the most reused of the materials!"]]]]])
 
 (defn root []
       [charts
