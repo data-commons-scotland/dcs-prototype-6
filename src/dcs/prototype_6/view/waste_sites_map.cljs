@@ -2,7 +2,6 @@
   (:require [reitit.frontend.easy :as rfe]))
 
 (def webapp-ctx (.. js/document -location -pathname))
-(js/console.log (str "webapp-ctx: " webapp-ctx))
 
 (defn root
       []
@@ -35,7 +34,7 @@
             [:blockquote
              [:p
               [:span.is-small.has-text-danger "NB: This is " [:em "work-in-progress"] "."]
-              " The following map tool is not yet integrated fully into this website."
+              " At present, this map tool works only on some user devices."
               " Also, it currently includes only the materials incoming to waste sites during the year 2019."]]]
 
            [:div.content

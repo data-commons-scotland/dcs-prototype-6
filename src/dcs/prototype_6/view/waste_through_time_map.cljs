@@ -1,5 +1,8 @@
 (ns dcs.prototype-6.view.waste-through-time-map)
 
+(def webapp-ctx (.. js/document -location -pathname))
+(js/console.log (str "webapp-ctx: " webapp-ctx))
+
 (defn root
       [route]
       (let [preset (-> route :parameters :path :preset)]
@@ -13,24 +16,77 @@
           [:span "Discover how waste, recycling and CO" [:sub "2"] "e amounts have been changing across Scotland through the last 10 years"]]]
 
         [:div.container
-
+         
+         ;; map | ui hints
          [:div.columns.is-centered
-          [:div.column.has-text-centered
 
-           [:div.content
-            [:blockquote
-             [:p
-              [:span.has-text-weight-bold.has-text-danger "NB: This is " [:em "work-in-progress"] "."]
-              " The following map tool is not yet integrated into this website."]]]
-
+          ;; map
+          [:div.column.is-three-fifths
            [:figure.image.is-3by4
             [:iframe.has-ratio
-             {:src         (str "https://data-commons-scotland.github.io/waste-quants-thru-time-on-a-map/index.html?preset=" preset)
+             {:src         (str webapp-ctx "waste-through-time-map/index.html?preset=" preset)
               :scrolling   "no"
               :border      "no"
-              :frameborder "no"}]]
+              :frameborder "no"}]]]
+          
+          ;; ui hints
+          [:div.column
 
-           ]]
+           [:div.content.is-small
+            [:blockquote
+             [:p
+              [:span.is-small.has-text-danger "NB: This is " [:em "work-in-progress"] "."]
+              " At present, this map tool works only on some user devices."]]]
+           
+           [:div.content
+            
+            [:h3.subtitle.is-6.has-text-danger "Key elements"]
 
-         ]]]))
+            [:div.columns.is-flex.is-vcentered
+             [:column
+              [:figure.image.is-inline-block
+               [:img {:src "https://github.com/data-commons-scotland/dcs-shorts/raw/master/waste-quants-thru-time-on-a-map/dropdown.png"}]]]
+             [:column
+              "The " [:em "dataset of interest"] " is chosen using this control."
+              ]]
+            
+            [:div {:style {:padding "0rem 2rem 2rem 2rem"}}
+             [:p "Choices:"
+              [:ol
+               [:li "Tonnes of household waste per person per year."]
+               [:li "Tonnes of C0" [:sub "2"] "e due to household waste per person per year."]
+               [:li "Tonnes of household vs. business waste."]]]]
+            
+            [:div.columns.is-flex.is-vcentered
+             [:column
+              [:figure.image.is-inline-block
+               [:img {:src "https://github.com/data-commons-scotland/dcs-shorts/raw/master/waste-quants-thru-time-on-a-map/slider.png"}]]]
+             [:column
+              "Used this control to " [:em "travel through time"] " ."]]
+
+            [:div.columns.is-flex.is-vcentered
+             [:column
+              [:figure.image.is-inline-block.is-48x48
+               [:img {:src "https://github.com/data-commons-scotland/dcs-shorts/raw/master/waste-quants-thru-time-on-a-map/pie.png"}]]]
+             [:column
+              "Each chart depicts the waste-related quantities for a council area. The sizes of its slices and its overall size, are related to the quantities that it depicts." ]]
+            
+            [:div.columns.is-flex.is-vcentered
+             [:column
+              [:figure.image.is-inline-block
+               [:img {:src "https://github.com/data-commons-scotland/dcs-shorts/raw/master/waste-quants-thru-time-on-a-map/detail.png"}]]]
+             [:column
+              "Hover over a council area to see detailed metrics in the panel." ]]
+            
+            [:div.columns.is-flex.is-vcentered
+             [:column
+              [:figure.image.is-inline-block.is-64x64
+               [:img {:src "https://github.com/data-commons-scotland/dcs-shorts/raw/master/cluster-map-of-materials-incoming/zoom-control.png"}]]]
+             [:column
+              "The usual zoom and pan controls."]]
+
+            ]
+           ]
+          
+          ]]]]))
 

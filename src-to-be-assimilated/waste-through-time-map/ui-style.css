@@ -1,0 +1,167 @@
+body {
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    background-color: floralwhite;
+}
+html, body {
+    height: 100%;
+    width: 100vw;
+}
+.title {
+    display: flex;
+    align-items: center;
+    margin: 3px;
+}
+.title a {
+    color: #fff !important;
+    font-size: 26px;
+    text-decoration: none;
+}
+.title h1 {
+    font-size: 26px;
+    font-family: 'Alegreya';
+}
+.title img {
+    max-height: 64px;
+    width: auto;
+    padding: 3px;
+    display: inline;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+#map-container {
+    position: relative;
+    height: 90%;
+    width: 95vw;
+    padding: 5px;
+}
+#map {
+    position: relative;
+    height: inherit;
+    width: inherit;
+    color: black;
+    background-color: white;
+}
+
+
+
+.leaflet-center {
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.leaflet-middle {
+    top: 50%;
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+  transform: translate(0%, -50%);
+
+}
+
+.leaflet-center.leaflet-middle {
+  transform: translate(-50%, -50%);
+}
+
+.leaflet-bottom.leaflet-right {
+  transform: translate(0%, -10%); /* to keep it clear of the attributions location */
+}
+
+
+.swapper select, option {
+    font: 12px/14px Arial, Helvetica, sans-serif;
+    opacity: 0.6;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4, h2 {
+    margin: 0 0 0px;
+    color: #777;
+}
+
+.legend {
+    min-width: 130px;
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.6;
+}
+
+
+
+input[type=range],
+	::-moz-range-track,
+	 ::-ms-track {
+	 -webkit-appearance: none;
+	 background-color: 3f91e5;
+	 width: 250px;
+	 height:20px;
+}
+
+.slidecontainer {
+    display: flex;
+    align-items: center;
+    padding: 1px 1px;
+    font-weight: bold;
+}
+
+.map-title h2 {
+    color: black;
+    text-align: center;
+    /*
+    padding-left: 10px;
+    padding-right: 10px;
+    background: rgba(255,255,255,0.75);
+    font-size: 28px;
+    font-weight: bold;
+    */
+}
+
+/*
+.leaflet-control.info {
+    text-align: right;
+}
+*/
+
+.qual {
+    font-size: x-small;
+    /*text-align: right;*/
+}
+
+dl {
+  margin-top: 2px;
+  margin-bottom: 0px;
+  display: grid;
+  grid-template-columns: max-content auto;
+}
+dt {
+  grid-column-start: 1;
+}
+dd {
+  grid-column-start: 2;
+}
+
+.attributions {
+    width: 90%;
+    padding: 5px;
+    margin: 5px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    color: black;
+    background-color: floralwhite;
+    box-shadow: 0 0 15px floralwhite;
+    border-radius: 5px;
+}
+
