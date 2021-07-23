@@ -1,7 +1,6 @@
 (ns dcs.prototype-6.view.waste-through-time-map)
 
 (def webapp-ctx (.. js/document -location -pathname))
-(js/console.log (str "webapp-ctx: " webapp-ctx))
 
 (defn root
       [route]
