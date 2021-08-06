@@ -1,6 +1,7 @@
 (ns dcs.prototype-6.view.household-waste-analysis.detail
   (:require
     [oz.core :as oz]
+   [goog.string :as gstring]
     [dcs.prototype-6.util :as util]
     [dcs.prototype-6.state :as state]))
 
@@ -53,27 +54,41 @@
                                             {:field "kg" :type "quantitative" :title "avg kg per household per wk"}]}}]}})
 
 (defn charts [derivation]
-      (let [chart-data derivation]
-
-           [:div.tile.is-ancestor
-
-            [:div.tile.is-6
-             [:div.tile.is-vertical.is-parent
-
-              [:div.tile.is-child
-               [oz/vega-lite (chart-spec chart-data)
-                util/vega-embed-opts]]
-
-              [:div.tile.is-child.content
-               [:blockquote
-                [:p "TODO:"]
-                [:ul
-                 [:li "This chart conveys a fair amount of information - explain how to interpret it. E.g. bars outlined in red represent inappropriate disposal."]
-                 [:li "How should we interpret for 'Unavoidable food waste'? Was there an collection that targeted food & garden waste,
-                 that wasn't covered by the sample dataset? ...since that would might mean that, elsewhere,  'Unavoidable food waste' was being disposed of appropriately."]]]
-               ]
-
-              ]]]))
+  (let [chart-data derivation]
+    [:div.columns
+     [:column
+      [:div.m-4.content
+       [:p "This next graph conveys a fair amount of information!"]
+       [:p.has-text-info "As before, hover/click on a bar in the graph to be shown more detailed information."
+        [:br]
+        " The bars with a " [:span.has-text-danger.has-text-weight-bold "red"] " outline represent " 
+        [:em.has-text-danger "inappropriate disposal"] "."
+        [:br]
+        [:p "The categories are ordered by: heaviest " [:em "sub-breakdown"] " first."]]
+       [:p "Again we can see [on the top row] that " [:span.has-text-warning "rural £/££"] " households dispose of a lot of fine-grained material,"
+        " i.e." (gstring/unescapeEntities "&nbsp;") [:span.has-text-warning "Fines" (gstring/unescapeEntities "&nbsp;") "(<10mm)"] "."
+        " Also, they dispose of a sizable portion of it " [:em.has-text-danger "inappropriately"] " in " [:span.has-text-warning "recycling bin"] "s."]
+       [:p "For some categories (e.g. "
+        [:span.has-text-warning "Unavoidable food waste"]
+        ", " [:span.has-text-warning "Avoidable food waste"]
+        " and " [:span.has-text-warning "Clear container glass"]
+        ") " [:b "both"] " bars ("
+        [:span.has-text-warning "grey bin"]
+        " and " [:span.has-text-warning "recycling bin"]
+        ") are outlined in " [:span.has-text-danger "red"] ". Why?"
+        " ...Probably because the bins that are appropriate for those categories,"
+        " were not covered by the dataset."
+        " (E.g. because the appropriate bins are actually fixed containers at recyling points; or because they were collected at times outside of the sampling periods.)"
+        " We will ask ZWS to confirm this interpretation."]
+       [:p [:span.has-text-warning "urban £££"] " households dispose of a lot of " 
+        [:span.has-text-warning "Green garden waste"] " " [:em.has-text-danger "inappropriately"] 
+        " in comparison to their " [:span.has-text-warning "£££ rural"] " peers [see the 18" [:sup "th"] " category down]."
+        " Is that because " [:span.has-text-warning "£££ urban"] " households have fewer convenient spaces in which to heap their garden waste!"
+        " Perhaps, but it is foolish to make such inferences from data (such as this) which covers a relatively small number of observations."]]
+      
+      [oz/vega-lite (chart-spec chart-data)
+       util/vega-embed-opts]
+      ]]))
 
 (defn root []
       [charts

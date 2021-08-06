@@ -1,8 +1,9 @@
 (ns dcs.prototype-6.view.household-waste-analysis.disposal
   (:require
-    [oz.core :as oz]
-    [dcs.prototype-6.util :as util]
-    [dcs.prototype-6.state :as state]))
+   [oz.core :as oz]
+   [goog.string :as gstring]
+   [dcs.prototype-6.util :as util]
+   [dcs.prototype-6.state :as state]))
 
 (def stratum-labels ["urban £" "urban ££" "urban £££" "rural £/££" "rural £££"])
 
@@ -43,25 +44,22 @@
 
 
 
-
 (defn charts [derivation]
-      (let [chart-data derivation]
-
-           [:div.tile.is-ancestor
-            [:div.tile.is-parent
-
-             [:div.tile.is-child
-              [oz/vega-lite (chart-spec chart-data)
-               util/vega-embed-opts]]
-
-             [:div.tile.is-child.content
-              [:blockquote
-               [:p "TODO:"]
-               [:ul
-                [:li "Say that the graph suggested that the majority of grey bin waste should be disposed of via a different means."]]]
-              ]
-
-             ]]))
+  (let [chart-data derivation]
+    [:div.columns
+     [:column
+      [oz/vega-lite (chart-spec chart-data)
+       util/vega-embed-opts]
+      ]
+     [:column
+      [:div.m-4.content
+        [:p "This graph suggested that the majority of grey bin content should be disposed of via different means:"
+         " compare the relative heights of the " 
+         [:span.has-text-warning "grey" (gstring/unescapeEntities "&nbsp;") "bin" (gstring/unescapeEntities "&nbsp;") "-" (gstring/unescapeEntities "&nbsp;") "appropriate"] 
+         " vs " 
+         [:span.has-text-warning "grey" (gstring/unescapeEntities "&nbsp;") "bin" (gstring/unescapeEntities "&nbsp;") "-" (gstring/unescapeEntities "&nbsp;") "inappropriate"]
+         " graph bars."]
+       ]]]))
 
 (defn root []
       [charts

@@ -14,17 +14,38 @@
 
         [:div.container
          [:div.content
-         [:blockquote [:p.has-text-weight-bold.has-text-danger "NB: This is very much " [:em "work-in-progress"] "."]
-          [:p "TODO:"]
+          [:p "...To provide an answer to that question, ZWS" [:sup "a"] " occasionally asks"
+           " each of the 32 Scottish councils to sample their bin collections"
+           " and to analyse their content."
+           " This " [:em "compositional analysis"]  " uncovers the types and weights of the disposed of materials,"
+           " and assesses the appropriateness of the disposal decisions"
+           " (i.e. " [:em "was it put into the right bin?"] ")."]
+          [:p "ZWS is considering publishing this data as " [:b "open data"] "."
+           " This article is based on an anonymised" [:sup "b"] " subset of the data."]
+          [:p "But " [:span.has-text-danger [:em "\"What's in " [:b "my"] " bin?\""]] "..."
+           " Well, the best that you can do here, with this anonymised subset of the data,"
+           " is to select [from the graphs below] the " [:em "household type "] " that most closely matches with yours:"]
           [:ul
-           [:li "Introduce what it is that we're trying to convey through this page."]
-           [:li "Provide an additional(?), easier to understand \"" [:em "what's in just " [:b "my"] " bin"] "\" perspective with simplier info-graphics."]]]
-          [:p "The information in this page has been derived from a sample dataset that was supplied by"
-           "Zero Waste Scotland" [:sup "1"] "."]
+           [:li "Your property's location?"
+            [:ul
+             [:li [:span.has-text-warning "urban"]]
+             [:li [:span.has-text-warning "rural"]]]]
+           [:li "Your property's price?"
+            [:ul
+             [:li [:span.has-text-warning "£"] " - " [:a {:href "https://www.saa.gov.uk/council-tax/council-tax-bands/" :target "_blank"} "council tax band"] " A or B"]  
+             [:li [:span.has-text-warning "££"] " - council tax band C or D"]
+             [:li [:span.has-text-warning "£££"] " - council tax band E, F or G" [:span.has-text-info " (The data subset doesn't cover band H property.)"]]]]]
+         
           [:div.content.is-small.has-text-info
-           [:ol
-            [:li [:a {:href "https://www.zerowastescotland.org.uk" :target "_blank"} "Zero Waste Scotland"]
-             " not-for-profit environmental organisation, funded by the Scottish Government and European Regional Development Fund."]]]]]]
+           [:ol.is-lower-alpha
+            [:li [:a {:href "https://www.zerowastescotland.org.uk" :target "_blank"} "ZWS"]
+             " - Zero Waste Scotland - a not-for-profit environmental organisation, funded by the Scottish Government and European Regional Development Fund."]
+            [:li "This subset of the data comes from one, anonymised council region;"
+             " and to bins that it collected across the 2 periods of Nov/Dec 2013 and Mar 2014."]]]
+          
+          ;; ...Does that provide a good enough introduction to what it is that we're trying to convey through this page?
+          ;; It would be nice to provide an additional, easier to understand "what's in just my bin" perspective with simplier info-graphics.
+          ]]]
 
        [:section.hero {:style {:backgroundColor "#f2dfce"}}
         [:div.hero-body

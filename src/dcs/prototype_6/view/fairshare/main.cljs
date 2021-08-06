@@ -18,7 +18,7 @@
         [:div.content.has-text-primary-light
          [:p "The Fair Share" [:sup "a"] " is a university based, reuse store."
           " It accepts donations of second-hand books, clothes, kitchenware, electricals, etc. and sells these to students."]
-         [:p "The Fair Share is in the process of publishing its data as open data."
+         [:p "The Fair Share is in the process of publishing its data as " [:b "open data"] "."
           " This article is based on an draft of that work."]]
           [:div.content.is-small.has-text-info
            [:ol.is-lower-alpha

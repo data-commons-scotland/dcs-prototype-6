@@ -1,8 +1,9 @@
 (ns dcs.prototype-6.view.household-waste-analysis.composition
   (:require
-    [oz.core :as oz]
-    [dcs.prototype-6.util :as util]
-    [dcs.prototype-6.state :as state]))
+   [oz.core :as oz]
+   [goog.string :as gstring]
+   [dcs.prototype-6.util :as util]
+   [dcs.prototype-6.state :as state]))
 
 (def stratum-labels ["urban £" "urban ££" "urban £££" "rural £/££" "rural £££"])
 
@@ -32,24 +33,21 @@
                           {:field "kg" :type "quantitative" :title "avg kg per household per wk"}]}})
 
 (defn charts [derivation]
-      (let [chart-data derivation]
-
-           [:div.tile.is-ancestor
-            [:div.tile.is-parent
-
-              [:div.tile.is-child
-               [oz/vega-lite (chart-spec chart-data)
-                util/vega-embed-opts]]
-
-              [:div.tile.is-child.content
-               [:blockquote
-                [:p "TODO:"]
-                [:ul
-                 [:li "Say that the graph shows that... food waste forms a significant component."]
-                 [:li "Rural £/££ households dispose of a lot of fine-grained material - what is it? Dirt?"]]]
-                  ]
-
-             ]]))
+  (let [chart-data derivation]
+    [:div.columns
+     [:column
+      [oz/vega-lite (chart-spec chart-data)
+       util/vega-embed-opts]
+      ]
+     [:column
+      [:div.m-4.content
+       [:p.has-text-info.has-text-weight-bold "Hover/click on part of the graph to be shown more detail."]
+       [:p "This graph shows that " [:span.has-text-warning "Food wastes"] " and " [:span.has-text-warning "Paper and cardboard"] 
+        " form significant components of binned material, across all 5 household types."]
+       [:p [:span.has-text-warning "rural £/££"]" households dispose of a lot of fine-grained material," 
+        " i.e." (gstring/unescapeEntities "&nbsp;") [:span.has-text-warning "Fines" (gstring/unescapeEntities "&nbsp;") "(<10mm)"] "."
+        " ...What is it? ...Soil/dust/dirt?"]
+       ]]]))
 
 (defn root []
       [charts
