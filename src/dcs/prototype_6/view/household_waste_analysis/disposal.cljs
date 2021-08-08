@@ -21,7 +21,7 @@
                              :header {:title "household type (location type & council tax band)"
                                       :titleOrient "bottom"
                                       :labelPadding -170}}} ;; hack to workaround labelOrient problem
-       :spec       {:width  100
+       :spec       {:width  80
                     :height 150
                     :mark     {:type "bar"}
                     :encoding {:x           {:field "stream" :type "nominal"
