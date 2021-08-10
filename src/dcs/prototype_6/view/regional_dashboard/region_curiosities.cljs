@@ -63,4 +63,4 @@
                          " | " [:a {:href (rfe/href :dcs.prototype-6.router/fairshare-view)} "The Fair Share"]]]})
 
 (defn root []
-  (get points-of-interest @state/region-cursor [:div ""]))
+  (get points-of-interest @state/region-cursor ""))
