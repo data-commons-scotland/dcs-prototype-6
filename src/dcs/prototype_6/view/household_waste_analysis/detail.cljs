@@ -82,8 +82,8 @@
         " We will ask ZWS to confirm this interpretation."]
        [:p [:span.has-text-warning "urban £££"] " households dispose of a lot of " 
         [:span.has-text-warning "Green garden waste"] " " [:em.has-text-danger "inappropriately"] 
-        " in comparison to their " [:span.has-text-warning "£££ rural"] " peers [see the 18" [:sup "th"] " category down]."
-        " Is that because " [:span.has-text-warning "£££ urban"] " households have fewer convenient spaces in which to heap their garden waste!"
+        " in comparison to their " [:span.has-text-warning "rural £££"] " peers [see the 18" [:sup "th"] " category down]."
+        " Is that because " [:span.has-text-warning "urban £££"] " households have fewer convenient spaces in which to heap their garden waste!"
         " Perhaps, but it is foolish to make such inferences from data (such as this) which covers a relatively small number of observations."]]
       
       [oz/vega-lite (chart-spec chart-data)
