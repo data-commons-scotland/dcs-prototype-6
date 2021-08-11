@@ -26,7 +26,7 @@
                               " In 2016 there were spikes in " [:em "Mixed and undifferentiated materials"] " for both household and business waste."
                               " There is also a noticable drip in household waste recyling around 2016.​"
                               [:span.has-text-grey [:em "Why?"]]
-                              [:div.has-text-centered "Also see: the " [:a {:href (rfe/href :dcs.prototype-6.router/ace-furniture-view)} "ACE Furniture"] " reuse initative"]]
+                              [:div [:span.has-text-info "Also see: "] " the " [:a {:href (rfe/href :dcs.prototype-6.router/ace-furniture-view)} "ACE Furniture"] " reuse initative"]]
          "Dundee City"       [:div.content
                               [:span.has-text-warning "Dundee City's household waste trends look concerning."]
                               " But these trends are adversely affected by its irregular 2011 figures which might be due to an old accounting method."
@@ -37,7 +37,7 @@
                               " But, it does have the best trend in household waste reduction."
                               " Also interesting is that the signature of Fife's Longannet power station (including its closing in 2016) can be seen in its business " 
                               [:em "Combustion wastes"] " data."
-                              [:div.has-text-centered "Related: " "the Fife region in " [:a {:href (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hvb"})} "Waste through the decade"]]]
+                              [:div [:span.has-text-info "Related: "] "the Fife region in " [:a {:href (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hvb"})} "Waste through the decade"]]]
          "Glasgow City"      [:div.content
                               [:span.has-text-danger "Glasgow City doesn't seem to be doing so great"]
                               " Although their latest data about the generation of household waste (an important metric) does place them noticably better than the Scottish average."]
@@ -54,13 +54,13 @@
                               [:span.has-text-danger "The Outer Hebrides doesn't seem to be doing so well."]
                               " But its positions are similar to most of the other rural and island regions."
                               " One curiousity is the large amount of " [:em "Soils"] " that came into the Bennadrove landfill site on the Isle of Lewis in 2019."
-                              [:div.has-text-centered "Related: " "the Isle of Lewis in " [:a {:href (rfe/href :dcs.prototype-6.router/waste-sites-map-view)} "Waste sites"]]]
+                              [:div [:span.has-text-info "Related: "] "the Isle of Lewis in " [:a {:href (rfe/href :dcs.prototype-6.router/waste-sites-map-view)} "Waste sites"]]]
          "Perth and Kinross" [:div.content
                               [:span.has-text-grey "Perth and Kinross is broadly following the trends of Scotland as a whole, for household waste."]
                               " Its data shows an anomaly in its business waste " [:em "Common sludges"] " in 2016 (perhaps some of the 2017 amount ought to have been accounted against the 2015 year?)." ]
          "Stirling"          [:div.content
                               [:span.has-text-grey "Stirling is broadly following the trends of Scotland as a whole, for household waste."]
-                              [:div.has-text-centered "Related: " [:a {:href (rfe/href :dcs.prototype-6.router/stirling-bin-collection-view)} "Stirling's bin collection"]
+                              [:div [:span.has-text-info "Related: "] [:a {:href (rfe/href :dcs.prototype-6.router/stirling-bin-collection-view)} "Stirling's bin collection"]
                                " | " [:a {:href (rfe/href :dcs.prototype-6.router/stirling-community-food-view)} "Stirling Community Food"]
                                " | " [:a {:href (rfe/href :dcs.prototype-6.router/fairshare-view)} "The Fair Share"]]]}]
 (get points-of-interest region [:div " "])))
