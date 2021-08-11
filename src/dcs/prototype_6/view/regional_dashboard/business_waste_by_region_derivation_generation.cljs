@@ -17,18 +17,35 @@
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}
-            :encoding   {:x       {:field "year" :type "temporal" :timeUnit "year" :axis {:tickCount year-count :title "year"}}
-                         :y       {:field "tonnes" :type "quantitative" :scale {:zero false} :axis {:title "tonnes"}}
-                         :color   {:field "region" :type "nominal" :scale {:domain ["Scotland average" region] :range ["#1f77b4" "#fdae6b"]}}
-                         :opacity {:condition {:selection "my" :value 1}
-                                   :value     0.2}
-                         :tooltip [{:field "region" :type "nominal"}
-                                   {:field "year" :type "temporal"}
-                                   {:field "tonnes" :type "quantitative"}]}}))
+            :encoding   {:x          {:field    "year"
+                                      :type     "temporal"
+                                      :timeUnit "year"
+                                      :axis     {:tickCount year-count
+                                                 :title     "year"}}
+                         :y          {:field "tonnes"
+                                      :type  "quantitative"
+                                      :scale {:zero false}
+                                      :axis  {:title "tonnes"}}
+                         :strokeDash {:condition {:test  "datum.region == 'Scot gov target'"
+                                                  :value [5 10]}
+                                      :value     [0]}
+                         :color      {:field "region"
+                                      :type  "nominal"
+                                      :scale {:domain [region "Scotland average" "Scot gov target"]
+                                              :range  ["#fdae6b" "#1f77b4" "lightgrey"]}}
+                         :opacity    {:condition {:selection "my"
+                                                  :value     1}
+                                      :value     0.2}
+                         :tooltip    [{:field "region"
+                                       :type  "nominal"}
+                                      {:field "year"
+                                       :type  "temporal"}
+                                      {:field "tonnes"
+                                       :type  "quantitative"}]}}))
 
 (defn chart [region business-waste-by-region-derivation-generation]
       (let [;; filter
-            business-waste-by-region-derivation-generation' (filter #(contains? #{"Scotland average" region} (:region %)) business-waste-by-region-derivation-generation)
+            business-waste-by-region-derivation-generation' (filter #(contains? #{region "Scotland average" "Scot gov target"} (:region %)) business-waste-by-region-derivation-generation)
 
             ;; stringify the year for Vega
             business-waste-by-region-derivation-generation'' (map #(assoc % :year (str (:year %)))

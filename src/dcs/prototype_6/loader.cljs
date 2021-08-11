@@ -65,16 +65,22 @@
                                     (reset! state/co2e-multiplier-holder))))
   
   (fetch (str util/easier-repo-data "population.json")
-         (fn [population] (->> population
-                               data-shaping/rollup-population-regions
-                               (concat population)
-                               (reset! state/population-holder))))
+         (fn [population] (let [population-scotland      (data-shaping/rollup-population-regions population)
+                                ;; fabricate records that will be used to calculate "Scottish government target" values
+                                ;; (fabricated records will be the same as the records for "Scotland", just with a different :region value)
+                                population-scotGovTarget (map #(assoc % :region "Scot gov target") population-scotland)]
+                            (reset! state/population-holder
+                                    (concat population
+                                            population-scotland
+                                            population-scotGovTarget)))))
 
   (fetch (str util/easier-repo-data "household-waste.json")
-         (fn [household-waste] (->> household-waste
-                                    data-shaping/rollup-household-waste-regions
-                                    (concat household-waste)
-                                    (reset! state/household-waste-holder))))
+         (fn [household-waste] (let [household-waste-scotland      (data-shaping/rollup-household-waste-regions household-waste)
+                                     household-waste-scotGovTarget (data-shaping/calc-scotGovTarget-for-household-waste household-waste-scotland)]
+                                 (reset! state/household-waste-holder
+                                         (concat household-waste 
+                                                 household-waste-scotland
+                                                 household-waste-scotGovTarget)))))
 
   (fetch (str util/easier-repo-data "household-co2e.json")
          (fn [household-co2e] (->> household-co2e
@@ -83,10 +89,12 @@
                                    (reset! state/household-co2e-holder))))
 
   (fetch (str util/easier-repo-data "business-waste-by-region.json")
-         (fn [business-waste-by-region] (->> business-waste-by-region
-                                             data-shaping/rollup-business-waste-by-region-regions
-                                             (concat business-waste-by-region)
-                                             (reset! state/business-waste-by-region-holder))))
+         (fn [business-waste-by-region] (let [business-waste-by-region-scotland      (data-shaping/rollup-business-waste-by-region-regions business-waste-by-region)
+                                              business-waste-by-region-scotGovTarget (data-shaping/calc-scotGovTarget-for-business-waste-by-region business-waste-by-region-scotland)]
+                                          (reset! state/business-waste-by-region-holder
+                                                  (concat business-waste-by-region
+                                                          business-waste-by-region-scotland
+                                                          business-waste-by-region-scotGovTarget)))))
 
   (fetch (str util/easier-repo-data "waste-site.json")
          (fn [waste-site] (->> waste-site

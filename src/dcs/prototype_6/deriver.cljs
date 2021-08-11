@@ -15,20 +15,20 @@
 
       (let [start-time                                            (util/now)
 
-                       ;; Roll-up to get values for (region, year) pairs
+            ;; Roll-up to get values for (region, year) pairs
             household-waste-derivation-generation0                (data-shaping/rollup-household-waste-materials-and-management household-waste)
 
-                       ;; Roll-up to get values for (region, year, management) triples
+            ;; Roll-up to get values for (region, year, management) triples
             household-waste-derivation-management0                (data-shaping/rollup-household-waste-materials household-waste)
 
-                       ;; Roll-up to get values for (region, year, material) triples
+            ;; Roll-up to get values for (region, year, material) triples
             household-waste-derivation-composition0               (data-shaping/rollup-household-waste-managements household-waste)
 
-                       ;; Prep for the per citizen calculation
+            ;; Prep for the per citizen calculation
             population-for-lookup                                 (group-by (juxt :region :year) population)
             lookup-population                                     (fn [region year] (-> population-for-lookup (get [region year]) first :population))
 
-                       ;; Calculate the per citizen values
+            ;; Calculate the per citizen values
             household-waste-derivation-generation                 (map (fn [{:keys [region year tonnes]}] {:region region
                                                                                                            :year   year
                                                                                                            :tonnes (double (/ tonnes (lookup-population region year)))})
@@ -44,22 +44,22 @@
                                                                                                                     :tonnes   (double (/ tonnes (lookup-population region year)))})
                                                                        household-waste-derivation-composition0)
 
-                       ;; Calculate the percentage recycled values
+            ;; Calculate the percentage recycled values
             household-waste-derivation-percent-recycled           (data-shaping/calc-household-waste-percentage-recycled household-waste)
 
-                       ;; Calculate positions
+            ;; Calculate positions
             latest-year                                           (->> household-waste
                                                                        (map :year)
                                                                        (apply max))
             household-waste-derivation-generation-positions       {:latest-positions (->> household-waste-derivation-generation
-                                                                                          (remove #(= "Scotland" (:region %)))
+                                                                                          (remove #(contains? #{"Scotland" "Scot gov target"} (:region %)))
                                                                                           (filter #(= latest-year (:year %)))
                                                                                           (sort-by :tonnes)
                                                                                           (map-indexed (fn [ix m] {:region   (:region m)
                                                                                                                    :position (inc ix)
                                                                                                                    :year     latest-year})))
                                                                    :trend-positions  (->> household-waste-derivation-generation
-                                                                                          (remove #(= "Scotland" (:region %)))
+                                                                                          (remove #(contains? #{"Scotland" "Scot gov target"} (:region %)))
                                                                                           (group-by :region)
                                                                                           (map (fn [[region coll]] {:region region
                                                                                                                     :trend  (->> coll
@@ -71,7 +71,7 @@
                                                                                                                    :trend    (:trend data-shaping/trend)})))}
 
             household-waste-derivation-percent-recycled-positions {:latest-positions (->> household-waste-derivation-percent-recycled
-                                                                                          (remove #(= "Scotland" (:region %)))
+                                                                                          (remove #(contains? #{"Scotland" "Scot gov target"} (:region %)))
                                                                                           (filter #(= latest-year (:year %)))
                                                                                           (sort-by :percentage)
                                                                                           reverse
@@ -79,6 +79,7 @@
                                                                                                                    :position (inc ix)
                                                                                                                    :year     latest-year})))
                                                                    :trend-positions  (->> household-waste-derivation-percent-recycled
+                                                                                          (remove #(contains? #{"Scotland" "Scot gov target"} (:region %)))
                                                                                           (group-by :region)
                                                                                           (map (fn [[region coll]] {:region region
                                                                                                                     :trend  (->> coll
@@ -125,14 +126,14 @@
                                                                 (map :year)
                                                                 (apply max))
             household-co2e-derivation-generation-positions {:latest-positions (->> household-co2e-derivation-generation
-                                                                                   (remove #(= "Scotland" (:region %)))
+                                                                                   (remove #(contains? #{"Scotland" "Scot gov target"} (:region %)))
                                                                                    (filter #(= latest-year (:year %)))
                                                                                    (sort-by :tonnes)
                                                                                    (map-indexed (fn [ix m] {:region   (:region m)
                                                                                                             :position (inc ix)
                                                                                                             :year     latest-year})))
                                                             :trend-positions  (->> household-co2e-derivation-generation
-                                                                                   (remove #(= "Scotland" (:region %)))
+                                                                                   (remove #(contains? #{"Scotland" "Scot gov target"} (:region %)))
                                                                                    (group-by :region)
                                                                                    (map (fn [[region coll]] {:region region
                                                                                                              :trend  (->> coll
@@ -162,19 +163,21 @@
                                                                  distinct
                                                                  count)
 
-                 ;; Roll-up to get values for (region, year) pairs
+            ;; Roll-up to get values for (region, year) pairs
             business-waste-by-region-derivation-generation0 (data-shaping/rollup-business-waste-by-region-materials business-waste-by-region)
 
-                 ;; Scotland (total) -> Scotland average
+            ;; Scotland (total) -> Scotland average
             business-waste-by-region-derivation-generation  (map (fn [{:keys [region year tonnes]
-                                                                       :as   original}] (if (= "Scotland" region)
-                                                                                          {:region "Scotland average"
+                                                                       :as   original}] (if (contains? #{"Scotland" "Scot gov target"} region)
+                                                                                          {:region (if (= "Scotland" region)
+                                                                                                     "Scotland average"
+                                                                                                     "Scot gov target")
                                                                                            :year   year
                                                                                            :tonnes (double (/ tonnes region-count))}
                                                                                           original))
                                                                  business-waste-by-region-derivation-generation0)
 
-                 ;; No actual deriving needed for the composition
+            ;; No actual deriving needed for the composition
             business-waste-by-region-derivation-composition business-waste-by-region]
 
         (reset! state/business-waste-by-region-derivation-generation-cursor business-waste-by-region-derivation-generation)
@@ -208,16 +211,16 @@
 
       (let [start-time                  (util/now)
 
-                       ;; Roll-up to get values for (region, year, quarter) triples
+            ;; Roll-up to get values for (region, year, quarter) triples
             derivation-generation0      (data-shaping/rollup-stirling-bin-collection-ma-re-mi stirling-bin-collection)
 
-                       ;; Roll-up to get values for (region, year, quarter, material) quadruples
+            ;; Roll-up to get values for (region, year, quarter, material) quadruples
             derivation-composition0     (data-shaping/rollup-stirling-bin-collection-re-mi stirling-bin-collection)
 
-                       ;; Calculate the percentage recycled values
+            ;; Calculate the percentage recycled values
             derivation-percent-recycled (data-shaping/calc-stirling-bin-collection-percentage-recycled stirling-bin-collection)
 
-                       ;; Filter for missed-bin? then roll-up to get values for (year, quarter) pairs
+            ;; Filter for missed-bin? then roll-up to get values for (year, quarter) pairs
             derivation-missed           (->> stirling-bin-collection
                                              (filter :missed-bin?)
                                              (group-by (juxt :year :quarter))
@@ -227,7 +230,7 @@
                                                                                              (map :tonnes)
                                                                                              (apply +))})))
 
-                       ;; Prep for the per citizen calculation
+            ;; Prep for the per citizen calculation
             population-max-year         (->> population (map :year) (apply max)) ;; assume all regions have the same max year
             population-for-lookup       (group-by (juxt :region :year) population)
             lookup-population           (fn [region year] (-> population-for-lookup
@@ -235,7 +238,7 @@
                                                               first
                                                               :population))
 
-                       ;; Calculate the per citizen values
+            ;; Calculate the per citizen values
             derivation-generation       (map (fn [{:keys [region year quarter tonnes]}] {:region  region
                                                                                          :year    year
                                                                                          :quarter quarter
