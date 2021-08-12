@@ -9,8 +9,8 @@
         [:p subtitle]]])
 
 (defn leaf-tile [title title-colour  subtitle body href img-src]
-      [:div.tile.is-child
-       [:a {:href href }
+      [:div#standout.tile.is-child 
+       [:a {:href href}
        [:div.card.is-shadowless {:style {:backgroundColor "#fff1e5"}}
         [:div.card-image
          [:figure.image.is-2by1
@@ -23,8 +23,8 @@
          ]]]])
 
 (defn leaf-tile-red [title subtitle body href img-src]
-           [:div.tile.is-child
-            [:a {:href href }
+           [:div#standout.tile.is-child
+            [:a {:href href}
              [:div.card.is-shadowless {:style {:backgroundColor "#980f3d"}}
               [:div.card-image
                [:figure.image.is-2by1
@@ -37,8 +37,8 @@
                ]]]])
 
 (defn leaf-tile-blue [title subtitle body href img-src]
-      [:div.tile.is-child
-       [:a {:href href }
+      [:div#standout.tile.is-child
+       [:a {:href href}
         [:div.card.is-shadowless {:style {:backgroundColor "#0f5499"}}
          [:div.card-image
           [:figure.image.is-2by1

@@ -1,6 +1,7 @@
 (ns dcs.prototype-6.navbar
   (:require [clojure.string :as str]
             [reitit.frontend.easy :as rfe]
+            [goog.string :as gstring]
             [dcs.prototype-6.util :as util]))
 
 (defn remove-class [el toggleable-class]
@@ -161,23 +162,6 @@
                              (str util/easier-repo-data "population.json"))]]
 
          ;; About
-         [:div.navbar-item.has-dropdown.is-hoverable
-          [:label.navbar-link "About"]
-          [:div.navbar-dropdown.is-right
-           
-           [:div.navbar-item
-            [:p.has-text-weight-bold "This site"]]
-           (navbar-clickable "About this site"
-                             (rfe/href :dcs.prototype-6.router/about-view))
-           [:hr.navbar-divider]
-           [:div.navbar-item
-            [:p.has-text-weight-bold "The encompassing project"]]
-           (navbar-clickable "Blog site"
-                             [:span "For further information about the" [:br]
-                              "project and its activities"]
-                             "https://campuspress.stir.ac.uk/datacommonsscotland/")
-           (navbar-clickable "GitHub repositories"
-                             [:span "For some of the project’s longer-lifespan" [:br]
-                              "outputs such as concepts/models, standards," [:br]
-                              " research output and open source code."] ;; Explicit line breaking because I haven't figured out the Bulma CSS way of wrapping this text
-                             "https://github.com/data-commons-scotland")]]]]])
+         [:a.navbar-item
+           {:href (rfe/href :dcs.prototype-6.router/about-view)}
+           [:span (gstring/unescapeEntities "&nbsp;") "About" (gstring/unescapeEntities "&nbsp;")]]]]])
