@@ -45,7 +45,11 @@
                                                                        household-waste-derivation-composition0)
 
             ;; Calculate the percentage recycled values
-            household-waste-derivation-percent-recycled           (data-shaping/calc-household-waste-percentage-recycled household-waste)
+            household-waste-derivation-percent-recycled          (let [household-waste' (remove #(= "Scot gov target" (:region %)) household-waste) ;; remove the "Scot gov target" records that an earlier stage added
+                                                                       regions-and-scotland (data-shaping/calc-household-waste-percentage-recycled household-waste')
+                                                                       household-waste-percentage-recycled-scotland (filter #(= "Scotland" (:region %)) regions-and-scotland)
+                                                                       scotGovTarget (data-shaping/calc-scotGovTarget-for-household-waste-percentage-recycled household-waste-percentage-recycled-scotland)]
+                                                                   (concat regions-and-scotland scotGovTarget))
 
             ;; Calculate positions
             latest-year                                           (->> household-waste

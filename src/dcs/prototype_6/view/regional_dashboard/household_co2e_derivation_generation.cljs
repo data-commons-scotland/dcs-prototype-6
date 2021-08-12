@@ -1,8 +1,9 @@
 (ns dcs.prototype-6.view.regional-dashboard.household-co2e-derivation-generation
   (:require
-    [oz.core :as oz]
-    [dcs.prototype-6.util :as util]
-    [dcs.prototype-6.state :as state]))
+   [oz.core :as oz]
+   [goog.string :as gstring]
+   [dcs.prototype-6.util :as util]
+   [dcs.prototype-6.state :as state]))
 
 
 (defn chart-spec [title region data]
@@ -36,6 +37,7 @@
            [:div
             [oz/vega-lite (chart-spec "Carbon impact per person" region household-co2e-derivation-generation'')
              util/vega-embed-opts]
+            [:div#footnote-ref.content.has-text-left.has-text-info "See footnote" (gstring/unescapeEntities "&nbsp;") "b."]
             ]))
 
 (defn root []

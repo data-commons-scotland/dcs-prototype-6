@@ -1,9 +1,9 @@
 (ns dcs.prototype-6.view.household-waste-analysis.detail
   (:require
-    [oz.core :as oz]
+   [oz.core :as oz]
    [goog.string :as gstring]
-    [dcs.prototype-6.util :as util]
-    [dcs.prototype-6.state :as state]))
+   [dcs.prototype-6.util :as util]
+   [dcs.prototype-6.state :as state]))
 
 (def stratum-labels ["urban £" "urban ££" "urban £££" "rural £/££" "rural £££"])
 

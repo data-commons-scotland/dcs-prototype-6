@@ -16,11 +16,20 @@
 }
 
 
-/* The "league' table ------------------------------ */
+/* The "league" table ------------------------------ */
 
 #league-table {
     font-size: x-small;
 }
+
+/* The "footnote references" on the regional dashboard page ------------------------------ */
+
+#footnote-ref {
+    font-size: x-small;
+    position: relative;
+    top: -1.5rem;
+    left: 1rem;
+} 
 
 /* The "easier open data" tables ------------------------------ */
 

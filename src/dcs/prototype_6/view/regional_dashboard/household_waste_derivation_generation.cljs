@@ -1,8 +1,9 @@
 (ns dcs.prototype-6.view.regional-dashboard.household-waste-derivation-generation
   (:require
-    [oz.core :as oz]
-    [dcs.prototype-6.util :as util]
-    [dcs.prototype-6.state :as state]))
+   [oz.core :as oz]
+   [goog.string :as gstring]
+   [dcs.prototype-6.util :as util]
+   [dcs.prototype-6.state :as state]))
 
 
 (defn chart-spec [title region data]
@@ -52,7 +53,8 @@
                                                          household-waste-derivation-generation')]
            [:div
             [oz/vega-lite (chart-spec "Waste generated per person" region household-waste-derivation-generation'')
-             util/vega-embed-opts]]))
+             util/vega-embed-opts]
+            [:div#footnote-ref.content.has-text-left.has-text-info "See footnote" (gstring/unescapeEntities "&nbsp;") "a."]]))
 
 (defn root []
       [chart @state/region-cursor @state/household-waste-derivation-generation-cursor])

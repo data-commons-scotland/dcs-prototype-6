@@ -71,7 +71,11 @@
      [:div.columns
       [:div.column.is-full
        [:div.content.is-small.has-text-info
-        [:ol
+        [:ol.is-lower-alpha
+         [:li "By 2025, the " [:a {:href    "https://www.gov.scot/policies/managing-waste/"
+                                   :target "_blank"} "Scottish Government aims"] 
+          " to \"" [:b "reduce total waste arising in Scotland by 15% against 2011 levels"] "\""
+          " and to \""[:b "recycle 70% of remaining waste"] "\"."]
          [:li "The " [:b "carbon impact"] " is a measure devised by " [:a {:href   "https://www.zerowastescotland.org.uk"
                                                                            :target "_blank"} "Zero Waste Scotland"] ","
           " that conveys the whole-life carbon impact of waste,"

@@ -53,6 +53,9 @@
                                      :labelAngle 60
                                      :labelBound 45}}
                     :y       {:field "tonnes" :type "quantitative"}
+                    :strokeDash {:condition {:test  "datum.outcome == 'Total received'"
+                                             :value [5 5]}
+                                 :value     [0]}
                     :color   {:field "outcome" :type "nominal"
                               :scale {:domain ["Used as food"
                                                "Donated to animal sanctuary"
@@ -63,7 +66,7 @@
                                                "#006AC7"
                                                "#B49531"
                                                "#E27E44"
-                                               "#B1AB99"]}
+                                               "grey" #_"#B1AB99"]}
                               :legend {:orient "bottom" :columns 3}}
                     :tooltip [{:field "outcome" :type "nominal"}
                               {:field "month" :type "temporal" :format "%b %Y"}
@@ -108,7 +111,7 @@
                 [:p "The next graphs, provide a month-by-month breakdown
                (with the second one using a non-linear scale to make differences more obvious).
                Changes in amounts outgoing coincide with the changes in amounts received "
-               [:span.has-text-grey "(depicted by the grey line the next graph)"] "."]]]]]
+               [:span.has-text-grey "(depicted by the dashed grey line the next graph)"] "."]]]]]
 
             [:div.tile
              [:div.tile.is-vertical.is-parent

@@ -137,6 +137,22 @@
                                                                                    (apply +))]
                                                              (double (* 100 (/ recycled-tonnes total-tonnes))))}))))
 
+;; Calculate the Scottish Government target.
+;;   https://www.gov.scot/policies/managing-waste/ says that
+;;     by 2025, the Scottish Government aims to
+;;     recycle 70% of remaining waste.
+(defn calc-scotGovTarget-for-household-waste-percentage-recycled [household-waste-percentage-recycled-scotland]
+  (assert (every? #(= "Scotland" (:region %)) household-waste-percentage-recycled-scotland) "expected all :region values to be \"Scotland\"")
+  (assert (some #(= 2011 (:year %)) household-waste-percentage-recycled-scotland) "expected some :year values to be 2011") ;; slightly too weak but better than no checking
+  (let [record-2011     (first (filter #(= 2011 (:year %)) household-waste-percentage-recycled-scotland))
+        percentage-2011 (:percentage record-2011)
+        per-year-change (/ (- 70 percentage-2011) (- 2025 2011)) ;; NB assumes a linear, year-on-year change from 2011 towards the 2025 target 
+        max-year        (->> household-waste-percentage-recycled-scotland (map :year) (apply max))]
+    (for [year (range 2011 (inc (min max-year 2025)))]
+      {:region     "Scot gov target"
+       :year       year
+       :percentage (+ percentage-2011 (* per-year-change (- year 2011)))})))
+
 ;; Roll-up to get values for (region, year) pairs
 (defn rollup-business-waste-by-region-materials [business-waste-by-region]
       (->> business-waste-by-region
