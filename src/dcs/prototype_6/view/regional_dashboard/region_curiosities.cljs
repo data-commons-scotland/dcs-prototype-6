@@ -32,6 +32,9 @@
                               " But these trends are adversely affected by its irregular 2011 figures which might be due to an old accounting method."
                               " Also, in its management of household waste, its sends the majority to " [:em "Other Diversion"] " (i.e. to inceneration, bio gas generation, etc.)"
                               " and surprisingly low proportions are " [:em "Landfilled"] "."]
+         "East Renfrewshire" [:div.content
+                              [:span.has-text-success "East Renfrewshire's recycling of household waste is impressive."]
+                              [:span.has-text-warning " However, that acheivement is tempered by its high household waste generation figures."]]
          "Fife"              [:div.content
                               [:span.has-text-warning "Fife's latest household waste figures aren't so good."]
                               " But, it does have the best trend in household waste reduction."

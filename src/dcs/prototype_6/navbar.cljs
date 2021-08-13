@@ -163,5 +163,6 @@
 
          ;; About
          [:a.navbar-item
-           {:href (rfe/href :dcs.prototype-6.router/about-view)}
+           {:on-click #(collapse-burger)
+            :href (rfe/href :dcs.prototype-6.router/about-view)}
            [:span (gstring/unescapeEntities "&nbsp;") "About" (gstring/unescapeEntities "&nbsp;")]]]]])
