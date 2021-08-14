@@ -7,43 +7,41 @@
   ;; (NB didn't manage to get (rfe/href ...) to work inside a (def ..) - probably 'cause the router is initialised at that stage.)
   (let [points-of-interest 
         {"Aberdeen City"     [:div.content
-                              [:span.has-text-success "The available data on Aberdeen City's waste suggests that 
+                              [:span.has-text-success "The available data on Aberdeen City's household waste suggests that 
                                it is moving in the right direction in relation to reaching the Scottish Government's 
                                waste reduction targets."]
-                              " In 2017/,8 the fraction of household waste that went to recycling overtook the Scottish average. 
+                              " In 2017/18 the fraction of household waste that went to recycling overtook the Scottish average. 
                               However, it still has a way to go before it reaches the Government's goal of 70% recycling, 
                               which is set for 2025."
                               " The data raise some interesting questions. For example, they show that in 2017, a significant 
                               proportion of Aberdeen City's household waste that was previously going to landfill was instead
                               managed through " 
-                             [:em "Other Diversion"] " . We might ask, 
+                              [:em "Other Diversion"] ". We might ask, 
                               what is happening to this waste - is it going to, e.g., energy generation, or is it simply being 
                               incinerated?"
                               " Another, related questio relates to the increasing percentage of recycled waste after 2017. Looking at 
                               the absolute numbers, there has been a small increase in the amounts of waste going to recycling. However, 
-                              there has also been a reduction in the total amount of non-recycled waste (i.e. the sum of [:em "Landifll"] and 
-                              [:em "Other Diversion"]). What has caused these changes? Is it something other regions can learn from, such 
-                              as changes to waste collections or public awareness and education campaigns? "
-                              ]
+                              there has also been a reduction in the total amount of non-recycled waste (i.e. the sum of " [:em "Landfill"] " and 
+                              " [:em "Other Diversion"] "). What has caused these changes? Is it something other regions can learn from, such 
+                              as changes to waste collections or public awareness and education campaigns?"]
          "Aberdeenshire"     [:div.content
-                              [:span.has-text-success "Aberdeenshire's household waste data show that the region has been achieving 
-                               in waste generated per person since 2011."]
-                              " It is now approaching the Scottish average, although the rate of this reduction will need to increase 
-                              further if it is going to meet the Government's overall target by 2025."
-                               [:span.has-text-success "However, Aberdeenshire's business waste data shows that it is not only 
-                                significantly higher than the Scottish average - it has also been generally increasing since around 2012."]
-                              " This increase seems to be largely driven by increases in waste in the [:em "Vegetal"] and 
-                              [:em "Animal and mixed food waste"] categories."
+                              "Aberdeenshire's household waste data shows what the region has been achieving 
+                               in terms of waste generated per person since 2011."
+                              [:span.has-text-success " It is now approaching the Scottish average"] 
+                              ", although the rate of this reduction will need to increase further if it is going to meet the Government's overall target by 2025."
+                              " However, Aberdeenshire's business waste data shows that it is not only 
+                                significantly higher than the Scottish average - it has also been generally increasing since around 2012."
+                              " This increase seems to be largely driven by increases in waste in the " [:em "Vegetal"] " and 
+                              " [:em "Animal and mixed food waste"] " categories."
                               " The data also show that both the total amount of domestic waste going to recycling and the fraction of all waste
                               being managed has remained fairly static for the past few years."
                               " This raises some intersting questions. Aberdeenshire is a rich farming area, which may account for the significant 
-                              contributions of [:em "Vegetal"] and [:em "Animal and mixed food waste"] to the business waste figures. 
+                              contributions of " [:em "Vegetal"] " and " [:em "Animal and mixed food waste"] " to the business waste figures. 
                               So, could a reduction in 
                               business waste be achieved by targeting the agricultural sector? And what can be done to increase 
                               the fraction of domestic waste going to recycling, to help aberdeenshire head towards the Government's targets?
                               Is it simply a matter of education, or do we need to accept that some regions have contextual factors such as
-                              geography, access to recycling facilities, etc., and make the targets more sensitive to these factors? "
-                              ]
+                              geography, access to recycling facilities, etc., and make the targets more sensitive to these factors?"]
          "City of Edinburgh" [:div.content
                               [:span.has-text-grey "The City of Edinburgh is broadly following the trends of Scotland as a whole, for household waste."]
                               " But there are a few noticable peaks and toughs in its data graphs."
