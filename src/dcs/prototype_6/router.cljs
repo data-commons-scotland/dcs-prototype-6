@@ -17,7 +17,8 @@
             [dcs.prototype-6.view.about :as about-view]
             [dcs.prototype-6.view.waste-sites-map :as waste-sites-map-view]
             [dcs.prototype-6.view.waste-through-time-map :as waste-through-time-map-view]
-            [dcs.prototype-6.view.pivot-drilldown-and-plot :as pivot-drilldown-and-plot-view]))
+            [dcs.prototype-6.view.pivot-drilldown-and-plot :as pivot-drilldown-and-plot-view]
+            [dcs.prototype-6.view.tutorial.regional-dashboard.main :as regional-dashboard-tutorial-view]))
 
 (def routes
   [["/"
@@ -60,6 +61,9 @@
     {:name ::pivot-drilldown-and-plot-view
      :view pivot-drilldown-and-plot-view/root
      :parameters {:path {:preset string?}}}]
+   ["/tutorial/regional-dashboard"
+    {:name ::regional-dashboard-tutorial-view
+     :view regional-dashboard-tutorial-view/root}]
    ["/about"
     {:name ::about-view
      :view about-view/root}]

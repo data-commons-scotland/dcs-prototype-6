@@ -94,6 +94,17 @@
                               [:br] "decisions?"]
                              (rfe/href :dcs.prototype-6.router/household-waste-analysis-view))
            ]]
+         
+         ;; Tutorials
+         [:div.navbar-item.has-dropdown.is-hoverable
+          [:label.navbar-link "Tutorials"]
+          [:div.navbar-dropdown.is-right
+
+           [:div.navbar-item
+            [:p.has-text-weight-bold "Step-by-step guides on how to use the data"]]
+           (navbar-clickable "Regional dashboard"
+                             [:span "How to interpret the " [:em "regional dashboard"] " page"]
+                             (rfe/href :dcs.prototype-6.router/regional-dashboard-tutorial-view))]]
 
          ;; Tools
          [:div.navbar-item.has-dropdown.is-hoverable
@@ -137,7 +148,7 @@
            [:div.navbar-item
             [:p.has-text-weight-bold "Directly access the dataset files"]]
            (navbar-clickable  [:span "Household waste " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "household-waste.json"))
+                              (str util/easier-repo-data "household-waste.json"))
            (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info.is-size-7 "(JSON)"]]
                              (str util/easier-repo-data "household-co2e.json"))
            (navbar-clickable [:span "Business waste by region " [:span.has-text-info.is-size-7 "(JSON)"]]
@@ -163,6 +174,6 @@
 
          ;; About
          [:a.navbar-item
-           {:on-click #(collapse-burger)
-            :href (rfe/href :dcs.prototype-6.router/about-view)}
-           [:span (gstring/unescapeEntities "&nbsp;") "About" (gstring/unescapeEntities "&nbsp;")]]]]])
+          {:on-click #(collapse-burger)
+           :href     (rfe/href :dcs.prototype-6.router/about-view)}
+          [:span (gstring/unescapeEntities "&nbsp;") "About" (gstring/unescapeEntities "&nbsp;")]]]]])

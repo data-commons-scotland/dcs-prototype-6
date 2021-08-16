@@ -79,9 +79,9 @@
                               [:span.has-text-success "Inverclyde's waste data show some interesting and positive features."]
                               " As one of Scotland's smallest unitary authorities, we might expect the total waste it produces to be lower than in other regions. However, 
                               it's important to note that the waste generated per person is also relatively small.  Inverclyde's household waste per person has been
-                              consistently below the SCottish average and has been decreasing - in 2019, it reported the lowest household waste per person of any 
-                              of the reporting areas, at just under 0l.36 tonnes per person."
-                              " The fraction of household waste sent for recycling is also higher than the Scotitsh average, with less than 50% going to landfill 
+                              consistently below the Scottish average and has been decreasing - in 2019, it reported the lowest household waste per person of any 
+                              of the reporting areas, at just under 0.36 tonnes per person."
+                              " The fraction of household waste sent for recycling is also higher than the Scottish average, with less than 50% going to landfill 
                               every year since 2012. "
                               " It would be interesting to know what is behind these positive figures.  The generally high recycling rates compared to the national average 
                               might be a result of Inverclyde's small size, good transport links and therefore accessiblity of recycling facilities compared to more dispersed and 
