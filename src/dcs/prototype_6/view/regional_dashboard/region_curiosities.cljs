@@ -7,7 +7,7 @@
   ;; (NB didn't manage to get (rfe/href ...) to work inside a (def ..) - probably 'cause the router is initialised at that stage.)
   (let [points-of-interest 
         {"Aberdeen City"     [:div.content
-                              [:span.has-text-success "The available data on Aberdeen City's household waste suggests that 
+                              [:span.has-text-success "The available data on Aberdeen City's household waste suggest that 
                                it is moving in the right direction in relation to reaching the Scottish Government's 
                                waste reduction targets."]
                               " In 2017/18 the fraction of household waste that went to recycling overtook the Scottish average. 
@@ -25,7 +25,7 @@
                               " [:em "Other Diversion"] "). What has caused these changes? Is it something other regions can learn from, such 
                               as changes to waste collections or public awareness and education campaigns?"]
          "Aberdeenshire"     [:div.content
-                              "Aberdeenshire's household waste data shows what the region has been achieving 
+                              "Aberdeenshire's household waste data show what the region has been achieving 
                                in terms of waste generated per person since 2011."
                               [:span.has-text-success " It is now approaching the Scottish average"] 
                               ", although the rate of this reduction will need to increase further if it is going to meet the Government's overall target by 2025."
@@ -76,10 +76,23 @@
                               " But its positions are similar to most of the other rural and island regions."
                               " In particular, its % recycled of household waste is falling behind the Scottish average."]
          "Inverclyde"        [:div.content
-                              [:span.has-text-success "Inverclyde is doing well."]
-                              " In the latest data (2019), it generates the fewest tonnes of household waste (per citizen) of any of the council areas."
-                              " And its same 1st position for CO" [:sub "2"] "e indicates the close relation between the amount of waste generated and its carbon impact."
-                              " Also, in its latest year's business waste data, " [:em "Common sludges"] " has reduced significantly."]
+                              [:span.has-text-success "Inverclyde's waste data show some interesting and positive features."]
+                              " As one of Scotland's smallest unitary authorities, we might expect the total waste it produces to be lower than in other regions. However, 
+                              it's important to note that the waste generated per person is also relatively small.  Inverclyde's household waste per person has been
+                              consistently below the SCottish average and has been decreasing - in 2019, it reported the lowest household waste per person of any 
+                              of the reporting areas, at just under 0l.36 tonnes per person."
+                              " The fraction of household waste sent for recycling is also higher than the Scotitsh average, with less than 50% going to landfill 
+                              every year since 2012. "
+                              " It would be interesting to know what is behind these positive figures.  The gnerally high recycling rates compared to the national average 
+                              might be a result of Inverclyde's small size, good transport links and therefore accessiblity of recycling facilities compared to more dispersed and 
+                              geographically remote regions. However, the significant increase in recycling rates seen between 2011 and 
+                              2013 suggests that something changed in the region in this period.  Were there changes to waste collections, processing, or perhaps people's 
+                              awareness of the importance of waste? Or was there some other factor?  "
+                              " The data on business waste also raise some questions.  For example, between 2014 and 2017, " [:em "Vegetal wastes"] " appeared to almost 
+                              vanish from Inverclyde's business, only to return in 2018. Was this real, and if so what caused it - or was it because of a temporary change in 
+                              reporting? Similarly, in 2018, the category " [:em "Common sludges"] " (which refers to sludges produced from waste water treatment and from food
+                              preparation and processing) has reduced significantly.  Is this because of improved processes or because of changes to what businesses are operating
+                              in the region - for example, has a food processing business closed down or moved away?"]
          "Outer Hebrides"    [:div.content
                               [:span.has-text-danger "The Outer Hebrides doesn't seem to be doing so well."]
                               " But its positions are similar to most of the other rural and island regions."
