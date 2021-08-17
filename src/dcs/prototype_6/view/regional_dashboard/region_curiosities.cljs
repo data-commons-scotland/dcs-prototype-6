@@ -95,9 +95,9 @@
                               in the region - for example, has a food processing business closed down or moved away?"]
          "Outer Hebrides"    [:div.content
                               [:span.has-text-danger "Like other island and rural regions, the Outer Hebrides sends a lower-than-average fraction of its household waste for 
-                               recycling. However it is important to remember that collecting and processing recycling is not so easy for a distributed community without major
+                               recycling."] " However it is important to remember that collecting and processing recycling is not so easy for a distributed community without major
                                transport infrastructure. It is also important to realise that shipping materials long distances to recycling facilitaites bears its own
-                               environmental costs in carbon emissions and pollution associated with transport."]
+                               environmental costs in carbon emissions and pollution associated with transport."
                               " For household waste, overall voluments of waste per person, waste desitnations and waste composition have all remained broadly similar in 
                               the period hsown in the graphs on this page. "
                               " However, there are some intersting features in the business waste data. There was a large drop in the amount of business waste reported between 
