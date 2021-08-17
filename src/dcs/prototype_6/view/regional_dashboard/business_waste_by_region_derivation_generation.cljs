@@ -32,8 +32,8 @@
                                       :value     [0]}
                          :color      {:field "region"
                                       :type  "nominal"
-                                      :scale {:domain [region "Scotland average" "Scot gov target"]
-                                              :range  ["#fdae6b" "#1f77b4" "lightgrey"]}}
+                                      :scale {:domain [region #_"Scotland average" #_"Scot gov target"]
+                                              :range  ["#fdae6b" #_"#1f77b4" #_"lightgrey"]}}
                          :opacity    {:condition {:selection "my"
                                                   :value     1}
                                       :value     0.2}
@@ -46,7 +46,8 @@
 
 (defn chart [region business-waste-by-region-derivation-generation]
       (let [;; filter
-            business-waste-by-region-derivation-generation' (filter #(contains? #{region "Scotland average" "Scot gov target"} (:region %)) business-waste-by-region-derivation-generation)
+            ;;   Decided to comment-out the "Scotland average" (and "Scot gov target") because averaging business waste over the regions isn't so useful.
+            business-waste-by-region-derivation-generation' (filter #(contains? #{region #_"Scotland average" #_"Scot gov target" } (:region %)) business-waste-by-region-derivation-generation)
 
             ;; stringify the year for Vega
             business-waste-by-region-derivation-generation'' (map #(assoc % :year (str (:year %)))
