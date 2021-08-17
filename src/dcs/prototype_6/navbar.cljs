@@ -101,9 +101,10 @@
           [:div.navbar-dropdown.is-right
 
            [:div.navbar-item
-            [:p.has-text-weight-bold "Step-by-step guides on how to use the data"]]
+            [:p.has-text-weight-bold [:span [:em "How to"] " guides"]]]
            (navbar-clickable "Regional dashboard"
-                             [:span "How to interpret the " [:em "regional dashboard"] " page"]
+                             [:span "How to understand the graphs" 
+                              [:br] "on the "[:em "regional dashboard"] " page"]
                              (rfe/href :dcs.prototype-6.router/regional-dashboard-tutorial-view))]]
 
          ;; Tools

@@ -16,14 +16,14 @@
   [:div.section
 
    [:div.content.has-text-centered
-    [:h1.title.is-5 "Reading the " [:em "Regional Dashboard"] " pages"]
-    [:h2.subtitle.is-6.has-text-info "What the graphs show and what to look out for."]]
+    [:h1.title.is-5 "Reading the " [:em "Regional Dashboard"] " page"]
+    [:h2.subtitle.is-6.has-text-info "What the graphs show and what to look out for"]]
 
    [:div.container
     [:div.content
 
      [:p "This page provides some information and guidance relating to the Waste Matters Scotland "
-      [:em "Regional Dashboard"] " pages."]
+      [:em "Regional Dashboard"] " page."]
      [:p "It is intended to help you:"]
      [:ul
       [:li "understand what the data are and where they come from"]
@@ -31,12 +31,12 @@
      
      [:h2.title.is-5 "What are the data and where do they come from?"]
      
-     [:p "The " [:em "Regional Dashboard"] " pages display a range of data sets relating to household"
+     [:p "The " [:em "Regional Dashboard"] " page displays a range of data sets relating to household"
       " and business waste for each of Scotland's unitary authorities."]
      [:p "The data are published by Scotland's Environment Protection Agency (SEPA). They are"
       " reported by the authorities, mostly on an annual basis. The latest available data are"
-      " from the reports for the year 2019. The Waste Matters Scotland " [:em "Regional Dashboard"] " pages"
-      " show data going back to 2011, which means you can look for changes over time."]
+      " from the reports for the year 2019. The Waste Matters Scotland " [:em "Regional Dashboard"] " page"
+      " shows data going back to 2011, which means you can look for changes over time."]
      [:p "If you click on one of the authorities (or regions) on the map on the right-hand side of the page,"
       " the data associated with that region will be displayed in a series of graphs and visualisations on the left-hand side."
       " Data relating to household waste are shown at the top. It is important to note that these data relate to household"
@@ -45,13 +45,13 @@
      
      [:h2.title.is-5 "Interpreting the graphs and other data visualisations"]
      
-     [:p "The first six data visulaisations displayed on these pages relate to " [:em "household waste"] " ."]
+     [:p "The first six data visulaisations displayed on this page relate to " [:em "household waste"] " ."]
      [:p " " [:em "Ranking"] " information that tells you how this region compares to other regions"
       " for a series of metrics that relate to three of the Scottish Government's key aims. These aims are"
       " (1) to reduce the total amount of waste generated in Scotland, (2) to reduce the carbon footprint"
       " of the waste we generate and (3) to increase the fraction of the waste that we generate that goes to"
-      " recycling rather than landfill.  The " [:em "Regional Dashboard"] " pages show you rankings for both the"
-      " " [:em "trend"] " how quickly reductions are being made) and the " [:em "latest"] " reported figures."]
+      " recycling rather than landfill.  The " [:em "Regional Dashboard"] " page shows you rankings for both the"
+      " " [:em "trend"] " (how quickly changes are being made) and the " [:em "latest"] " reported figures."]
      
      
      [:div.columns.is-vcentered
