@@ -45,7 +45,7 @@
          "City of Edinburgh" [:div.content
                               [:span.has-text-success "The City of Edinburgh has consistently produced less household waste per person than the"
                                " Scottish average, and is on track to be below the Government's target in 2025."]
-                              [:span.has-text-warning "However, the fraction of waste going to recycling is below both the average and the"
+                              [:span.has-text-warning " However, the fraction of waste going to recycling is below both the average and the"
                                " Government's target."]
                               " Recycling in Edinburgh will have to increase substantially if that target is to be met by 2025."
                               " There are also some interesting changes that you can see in the graphs."
@@ -53,10 +53,10 @@
                               " in household waste spiked - as did waste management by " [:em "Other Diversion"] " (i.e. through incineration, bio gas generation, etc.)."
                               " Will that increase be maintained in 2020 and 2021?"]
          "Clackmannanshire"  [:div.content
-                              [:span.has-text-danger "The amount of household waste generated per person i Clackmannanshire is above both the Scottish average and" 
+                              [:span.has-text-danger "The amount of household waste generated per person in Clackmannanshire is above both the Scottish average and" 
                                " the Government's target."]
                               " The trend is in the right direction but there is still some way to go."
-                              [:span.has-text-success "On the other hand, Clackmannashire recycles a larger fraction of its household waste than the Scottish average."]
+                              [:span.has-text-success " On the other hand, Clackmannashire recycles a larger fraction of its household waste than the Scottish average."]
                               " In 2016 there were spikes in " [:em "Mixed and undifferentiated materials"] " for both household and business waste."
                               " There are also some unusual, abrupt changes in some of the data. For example, the fraction of household waste going to recycling"
                               " dropped in 2015, and there was a big spike in business waste in 2016."
@@ -73,7 +73,7 @@
          "East Renfrewshire" [:div.content
                               [:span.has-text-danger " East Renfrewshire generates significantly higher than average household waste per person."]
                               " It will have a lot of work to do to reach the Government's target by 2025."
-                              [:span.has-text-success "On the other hand, a large fraction of that waste is recycled."]
+                              [:span.has-text-success " On the other hand, a large fraction of that waste is recycled."]
                               " We might therefore ask, does it matter if the total amount of waste is high, if most of it is going to recycling?  The answer is probably yes "
                               " - it does still matter, as recycling uses up energy and resources even if it is better than landfill."
                               " In terms of business waste, there are large fluctuations in the amounts produced between different years.  Is this real, or is it something"
