@@ -95,18 +95,6 @@
                              (rfe/href :dcs.prototype-6.router/household-waste-analysis-view))
            ]]
          
-         ;; Tutorials
-         [:div.navbar-item.has-dropdown.is-hoverable
-          [:label.navbar-link "Tutorials"]
-          [:div.navbar-dropdown.is-right
-
-           [:div.navbar-item
-            [:p.has-text-weight-bold [:span [:em "How to"] " guides"]]]
-           (navbar-clickable "Regional dashboard"
-                             [:span "How to understand the graphs" 
-                              [:br] "on the "[:em "regional dashboard"] " page"]
-                             (rfe/href :dcs.prototype-6.router/regional-dashboard-tutorial-view))]]
-
          ;; Tools
          [:div.navbar-item.has-dropdown.is-hoverable
           [:label.navbar-link "Tools"]
@@ -133,21 +121,31 @@
                               [:br] "and visualise our datasets"]
                              (rfe/href :dcs.prototype-6.router/pivot-drilldown-and-plot-view {:preset "orig"}))]]
 
+         ;; Guides
+         [:div.navbar-item.has-dropdown.is-hoverable
+          [:label.navbar-link "Guides"]
+          [:div.navbar-dropdown.is-right
+           
+           [:div.navbar-item
+            [:p.has-text-weight-bold [:span [:em "How to"] " guides"]]]
+           
+           (navbar-clickable "About the data on this site"
+                             [:span "An introduction to our " [:em "easier-to-use"] [:br]
+                              "datasets and their dimensions"]
+                             (rfe/href :dcs.prototype-6.router/easier-open-data-view))
+           (navbar-clickable "About the regional dashboard page"
+                             [:span "How to understand the graphs"
+                              [:br] "on the " [:em "regional dashboard"] " page"]
+                             (rfe/href :dcs.prototype-6.router/regional-dashboard-tutorial-view))]]
+
          ;; Data
          [:div.navbar-item.has-dropdown.is-hoverable
           [:label.navbar-link "Data"]
           [:div.navbar-dropdown.is-right
            
            [:div.navbar-item
-            [:p.has-text-weight-bold "About the data on this site"]]
-           (navbar-clickable "Introduction"
-                             [:span "An introduction to our " [:em "easier-to-use"] [:br]
-                              "datasets and their dimensions"]
-                             (rfe/href :dcs.prototype-6.router/easier-open-data-view))
-
-           [:hr.navbar-divider]
-           [:div.navbar-item
             [:p.has-text-weight-bold "Directly access the dataset files"]]
+           
            (navbar-clickable  [:span "Household waste " [:span.has-text-info.is-size-7 "(JSON)"]]
                               (str util/easier-repo-data "household-waste.json"))
            (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info.is-size-7 "(JSON)"]]
