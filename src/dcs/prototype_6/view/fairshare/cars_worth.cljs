@@ -98,7 +98,7 @@
                :target "_blank"} "OVO Energy"]
           "." [:sub "2"]]
          [:li "And textiles have the highest CO2e weighting according to "
-          [:a {:href (rfe/href :dcs.prototype-6.router/easier-open-data-view nil {:target "co2e-multiplier"})} "The Scottish Carbon Metric multiplier table"] "."]]]]]]))
+          [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "co2e-multiplier"})} "The Scottish Carbon Metric multiplier table"] "."]]]]]]))
 
 (defn root []
       [charts

@@ -131,7 +131,7 @@
            
            (navbar-clickable "About the data on this site"
                              [:span "An introduction to our " [:em "easier-to-use"] [:br]
-                              "datasets and their dimensions"]
+                              "datasets"]
                              (rfe/href :dcs.prototype-6.router/easier-open-data-view))
            (navbar-clickable "About the regional dashboard page"
                              [:span "How to understand the graphs"

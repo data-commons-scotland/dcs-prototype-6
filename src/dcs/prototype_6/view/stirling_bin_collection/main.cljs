@@ -15,7 +15,7 @@
          [:p "Stirling Council set a precedent by being the first (and " [:em "still"] " only) Scottish local authority
         to have published " [:b "open data"] " about their bin collection of household waste.
         This data is contained in the "
-          [:a {:href (rfe/href :dcs.prototype-6.router/easier-open-data-view nil {:target "bin-collection"})}
+          [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "bin-collection"})}
            "bin-collection"] " dataset."]
          [:p "The council are currently working on increasing the fidelity of this dataset,
         e.g. by adding spatial data to describe collection routes.
@@ -98,5 +98,5 @@
              [:ol
               [:li "These figures are based on a coarse-grained mapping from the values
             supplied in Stirling council's bin collection dataset to SEPA's "
-               [:a {:href (rfe/href :dcs.prototype-6.router/easier-open-data-view nil {:target "material-coding"})} "material-coding"] "."]]]]]]]]])
+               [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "material-coding"})} "material-coding"] "."]]]]]]]]])
 

@@ -74,7 +74,7 @@
       " and we can estimate this for ACE by multipling the total weight of the items"
       " in each category (as shown in the section above) by an appropriate " [:em "multiplier"] "."
       " These multipliers can be found in " 
-      [:a {:href (rfe/href :dcs.prototype-6.router/easier-open-data-view nil {:target "co2e-multiplier"})} "The Scottish Carbon Metric multiplier table"] "."
+      [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "co2e-multiplier"})} "The Scottish Carbon Metric multiplier table"] "."
       " Also, we have to " [:em "map"] " ACE's item categories to records in that table,"
       " and this is done via " [:a {:href "ace-furniture-to-waste-streams.csv" :target "_blank"} "this mapping table"] "."]
      [:p " But by themselves, CO" [:sub "2"] "e values can be difficult to relate to so"

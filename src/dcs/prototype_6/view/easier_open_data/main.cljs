@@ -28,11 +28,11 @@
       [:div.hero-body
 
        [:div.content.has-text-centered
-        [:h1.title.is-5 "About the data on this site"]]
+        [:h1.title.is-6 "About the data on this site"]
+        [:h2.subtitle.is-5.has-text-danger [:span [:em "Easier"] " open data about waste in Scotland"]]]
 
        [:div.container
         [:div.content
-         [:h2.subtitle.is-4.has-text-danger [:span [:em "Easier"] " open data about waste in Scotland"]]
          [:h3.subtitle.is-6 "Objective"]
          [:p "Several organisations are doing a very good job of curating & publishing "
           [:b "open data"] " about waste in Scotland but,
@@ -59,26 +59,16 @@
          [:p "We have tried to rectify the inconsistencies that occur in the source data
               (in particular, the inconsistent labelling of waste materials and regions).
               However, this is still \"work-in-progress \" and we yet to tease out & 
-              make consistent further useful dimensions."]]]]]
-     
-     [:section.hero {:style {:backgroundColor "#fff1e5"}}
-      [:div.hero-body
-       [:div.container
-        [:div.content
-         [:h3.subtitle.is-6 [:span "The " (count metas) " " [:em "easier"] " datasets"]]
-         [:table#easier-table-fff1e5.table.is-hoverable.is-narrow
-          [:thead
-           [:tr.has-text-left
-            [:th.has-text-danger {:col-span 2} [:span "dataset"]]
-            [:th.has-text-danger {:col-span 3} [:span "source"]]]
-           [:tr.has-text-left
-            [:th.has-text-danger [:span "name" [:br] [:span.has-text-info {:style {:font-size "x-small"}} "(click for the data files)"]]]
-            [:th.has-text-danger "description"]
-            #_[:th.has-text-danger "rows x cols"]
-            [:th.has-text-danger "creator"]
-            [:th.has-text-danger "supplier"]
-            [:th.has-text-danger "licence"]]]
-          [:tbody (map dataset-row (sort-by :name metas))]]]]]]]))
+              make consistent further useful dimensions."]
+         
+         [:a {:href (rfe/href :dcs.prototype-6.router/data-view)}
+          [:div.notification {:style {:backgroundColor "#f2dfce"}}
+           [:div.icon-text.has-text-weight-bold.icon-text.has-text-danger.is-justify-content-center.has-text-centered 
+            [:span.icon
+             [:i.fas.fa-eye.fa-lg]]
+            [:span " See the list of the " (count metas)
+             " " [:em "easier-to-use"]
+             " datasets that are used on this site"]]]]]]]]]))
 
 
 (defn root [route]
