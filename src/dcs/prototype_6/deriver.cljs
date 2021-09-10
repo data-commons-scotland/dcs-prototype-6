@@ -386,8 +386,8 @@
   (let [meta       @state/meta-holder
         #_"TODO the others"]
 
-    (when (and (some? meta)
-               #_"TODO the others")
+    (when (some? meta)
+           #_"TODO 'and' the others"
       (js/console.log "Calculating meta-derivations")
 
       (let [start-time (util/now)

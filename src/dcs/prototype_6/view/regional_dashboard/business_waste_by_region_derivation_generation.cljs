@@ -1,7 +1,6 @@
 (ns dcs.prototype-6.view.regional-dashboard.business-waste-by-region-derivation-generation
   (:require
    [oz.core :as oz]
-   [goog.string :as gstring]
    [dcs.prototype-6.util :as util]
    [dcs.prototype-6.state :as state]))
 

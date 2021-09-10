@@ -33,13 +33,11 @@
 ;;   https://github.com/data-commons-scotland/dcs-easier-open-data/raw/v1.0-beta/data/
 ;; but it results in a "redirect"+"cross site restriction" problem.
 ;; So, instead use the "more direct" stem:
-;;CHANGE 
-;;CHANGE (def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/v1.2-beta/")
-;;CHANGE
-#_CHANGE (js/alert "Using a for-dev-only setting for 'easier-repo' - change before pushing to prod !")
-#_CHANGE (def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/master/")
+;; *****
+;; TODO: in the line below, change 'master' to a <tag> such as 'v1.3-beta' once the v1.3-beta tag has been created 
+;; *****
+(def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/master/")
 (def easier-repo-data (str easier-repo "data/"))
-(def easier-repo-metadata (str easier-repo "metadata/"))
 
 
 (defn open-tab [event tab-group-suffix tab-id]

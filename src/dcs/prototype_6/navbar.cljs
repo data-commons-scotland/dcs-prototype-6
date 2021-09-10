@@ -1,8 +1,7 @@
 (ns dcs.prototype-6.navbar
   (:require [clojure.string :as str]
             [reitit.frontend.easy :as rfe]
-            [goog.string :as gstring]
-            [dcs.prototype-6.util :as util]))
+            [goog.string :as gstring]))
 
 (defn remove-class [el toggleable-class]
   (let [el-classList (.-classList el)]
