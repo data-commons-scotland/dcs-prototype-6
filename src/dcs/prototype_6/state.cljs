@@ -5,6 +5,7 @@
 (defonce root (r/atom {:route-match                                 nil
                        :geojson                                     nil
                        :region                                      "Please select a region..."
+                       :meta-derivation                             nil
                        :household-waste-derivation                  {:generation                 nil
                                                                      :percent-recycled           nil
                                                                      :management                 nil
@@ -28,15 +29,17 @@
                        :ace-furniture-counts-derivation             {:orig            nil
                                                                      :category-trends nil
                                                                      :item-trends     nil}
-                       :ace-furniture-weights-derivation            {:orig nil
+                       :ace-furniture-weights-derivation            {:orig          nil
                                                                      :flights-worth {:per-category nil
-                                                                                     :per-item nil}}}))
+                                                                                     :per-item     nil}}}))
 
 (defonce route-match-cursor (r/cursor root [:route-match]))
 
 (defonce geojson-cursor (r/cursor root [:geojson]))
 
 (defonce region-cursor (r/cursor root [:region]))
+
+(defonce meta-derivation-cursor (r/cursor root [:meta-derivation]))
 
 (defonce household-waste-derivation-generation-cursor (r/cursor root [:household-waste-derivation :generation]))
 (defonce household-waste-derivation-percent-recycled-cursor (r/cursor root [:household-waste-derivation :percent-recycled]))
@@ -76,6 +79,7 @@
 
 ;; -----------------
 
+(defonce meta-holder (atom nil))
 (defonce population-holder (atom nil))
 (defonce co2e-multiplier-holder (atom nil))
 (defonce household-waste-holder (atom nil))

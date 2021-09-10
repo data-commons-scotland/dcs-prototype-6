@@ -76,7 +76,7 @@
 
           [:div.tile.is-ancestor
 
-           [:div.tile.is-vertical.is-parent.is-3
+           [:div.tile.is-vertical.is-parent.is-3 #_{:style {:backgroundColor "#f2dfce"}}
             (leaf-tile "Government data"
                        "#1f77b4"
                        "Household waste analysis"
@@ -98,7 +98,7 @@
                        (rfe/href :dcs.prototype-6.router/stirling-community-food-view)
                        "img/stirling-community-food.png")]
 
-           [:div.tile.is-vertical.is-parent.is-3
+           [:div.tile.is-vertical.is-parent.is-3 #_{:style {:backgroundColor "floralwhite"}}
             (leaf-tile "Government data"
                        "#1f77b4"
                        "Waste sites"

@@ -13,8 +13,8 @@
             :width      200
             :height     100
             :background "floralwhite"
-            :data       {:values data}
-            :mark       {:type "line" :point false #_{:filled false :fill "floralwhite" }}
+            :data       {:values data }
+            :mark       {:type "line" :point {:filled true}}
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}
@@ -28,17 +28,19 @@
                                       :scale {:zero false}
                                       :axis  {:title "tonnes"}}
                          :strokeDash {:condition {:test  "datum.region == 'Scot gov target'"
-                                                  :value [5 10]}
+                                                  :value [3 3]}
                                       :value     [0]}
                          :color      {:field "region"
                                       :type  "nominal"
                                       :scale {:domain [region "Scotland" "Scot gov target"] 
-                                              :range  ["#fdae6b" "#1f77b4" "lightgrey"]}}
+                                              :range  ["#fdae6b" "#1f77b4" "lightgrey"]}
+                                      :legend {:title nil}}
                          :opacity    {:condition {:selection "my"
                                                   :value     1}
                                       :value     0.2}
                          :tooltip    [{:field "region"
-                                       :type  "nominal"}
+                                       :type  "nominal"
+                                       :title "subject"}
                                       {:field "year"
                                        :type  "temporal"}
                                       {:field "tonnes"

@@ -14,7 +14,7 @@
             :height     100
             :background "floralwhite"
             :data       {:values data}
-            :mark       {:type "line" :point false #_{:filled false :fill "floralwhite" }}
+            :mark       {:type "line" :point {:filled true}}
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}
@@ -23,7 +23,7 @@
                          :color   {:field "region" :type "nominal" :scale {:domain ["Scotland" region] :range ["#1f77b4" "#fdae6b"]} :legend nil #_{:orient "bottom" :columns 3}}
                          :opacity {:condition {:selection "my" :value 1}
                                    :value     0.2}
-                         :tooltip [{:field "region" :type "nominal"}
+                         :tooltip [{:field "region" :type "nominal" :title "subject"}
                                    {:field "year" :type "temporal"}
                                    {:field "tonnes" :type "quantitative"}]}}))
 

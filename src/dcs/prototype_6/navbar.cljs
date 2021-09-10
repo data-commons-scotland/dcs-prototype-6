@@ -139,37 +139,10 @@
                              (rfe/href :dcs.prototype-6.router/regional-dashboard-tutorial-view))]]
 
          ;; Data
-         [:div.navbar-item.has-dropdown.is-hoverable
-          [:label.navbar-link "Data"]
-          [:div.navbar-dropdown.is-right
-           
-           [:div.navbar-item
-            [:p.has-text-weight-bold "Directly access the dataset files"]]
-           
-           (navbar-clickable  [:span "Household waste " [:span.has-text-info.is-size-7 "(JSON)"]]
-                              (str util/easier-repo-data "household-waste.json"))
-           (navbar-clickable [:span "Household CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "household-co2e.json"))
-           (navbar-clickable [:span "Business waste by region " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "business-waste-by-region.json"))
-           (navbar-clickable [:span "Business waste by sector " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "business-waste-by-sector.json"))
-           (navbar-clickable [:span "Waste site " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "waste-site.json"))
-           (navbar-clickable [:span "Waste site ins & outs " [:span.has-text-info.is-size-7 "(CSV)"]]
-                             (str util/easier-repo-data "waste-site-io.csv"))
-           (navbar-clickable [:span "Stirling bin collection " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "stirling-bin-collection.json"))
-           (navbar-clickable [:span "Material coding " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "material-coding.json"))
-           (navbar-clickable [:span "EWC coding " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "ewc-coding.json"))
-           (navbar-clickable [:span "CO" [:span {:dangerouslySetInnerHTML {:__html "<sub>2</sub>"}}] "e multipiers " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "co2e-multiplier.json"))
-           (navbar-clickable [:span "Households " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "households.json"))
-           (navbar-clickable [:span "Population " [:span.has-text-info.is-size-7 "(JSON)"]]
-                             (str util/easier-repo-data "population.json"))]]
+         [:a.navbar-item
+          {:on-click #(collapse-burger)
+           :href     (rfe/href :dcs.prototype-6.router/data-view)}
+          [:span (gstring/unescapeEntities "&nbsp;") "Data" (gstring/unescapeEntities "&nbsp;")]]
 
          ;; About
          [:a.navbar-item

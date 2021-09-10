@@ -26,7 +26,7 @@
 
             ;; Prep for the per citizen calculation
             population-for-lookup                                 (group-by (juxt :region :year) population)
-            lookup-population                                     (fn [region year] (-> population-for-lookup (get [region year]) first :population))
+            lookup-population                                     (fn [region year] (-> population-for-lookup (get [region year]) first :count))
 
             ;; Calculate the per citizen values
             household-waste-derivation-generation                 (map (fn [{:keys [region year tonnes]}] {:region region
@@ -117,7 +117,7 @@
 
                        ;; Prep for the per citizen calculation
             population-for-lookup                          (group-by (juxt :region :year) population)
-            lookup-population                              (fn [region year] (-> population-for-lookup (get [region year]) first :population))
+            lookup-population                              (fn [region year] (-> population-for-lookup (get [region year]) first :count))
 
                        ;; Calculate the per citizen values
             household-co2e-derivation-generation           (map (fn [{:keys [region year tonnes]}] {:region region
@@ -240,7 +240,7 @@
             lookup-population           (fn [region year] (-> population-for-lookup
                                                               (get [region (min year population-max-year)]) ;; use population-max-year to avoid an out-of-bounds
                                                               first
-                                                              :population))
+                                                              :count))
 
             ;; Calculate the per citizen values
             derivation-generation       (map (fn [{:keys [region year quarter tonnes]}] {:region  region
@@ -380,6 +380,24 @@
         (js/console.log (str "Calculating household-waste-analysis-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 
+
+(defn maybe-calc-meta-derivations
+  []
+  (let [meta       @state/meta-holder
+        #_"TODO the others"]
+
+    (when (and (some? meta)
+               #_"TODO the others")
+      (js/console.log "Calculating meta-derivations")
+
+      (let [start-time (util/now)
+            
+            derivation (map #(assoc % :record-count -1 :attribute-count -1) meta)]                            
+        
+        (reset! state/meta-derivation-cursor derivation)
+        (js/console.log (str "Calculating meta-derivations: secs-taken=" (util/secs-to-now start-time)))))))
+
+
 ;; -------------------
 
 ;; Watch for data updates
@@ -469,4 +487,8 @@
                (when new-state
                      (maybe-calc-household-waste-analysis-derivations))))
 
-
+;;TODO also watch all of the other that this derivation depends on
+(add-watch state/meta-holder :meta-derivations-dependency
+           (fn [_key _atom _old-state new-state]
+             (when new-state
+               (maybe-calc-meta-derivations))))

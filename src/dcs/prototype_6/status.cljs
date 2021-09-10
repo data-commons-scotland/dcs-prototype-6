@@ -1,8 +1,8 @@
 (ns dcs.prototype-6.status
   (:require [dcs.prototype-6.state :as state]))
 
-(defn ele [a b c d e f g h i j k l m n o p q r s t u v w x y z a2 b2]
-      (let [num (->> [a b c d e f g h i j k l m n o p q r s t u v w x y z a2 b2]
+(defn ele [a b c d e f g h i j k l m n o p q r s t u v w x y z a2 b2 c2]
+      (let [num (->> [a b c d e f g h i j k l m n o p q r s t u v w x y z a2 b2 c2]
                      (filter nil?)
                      count)
             s (if (= 0 num)
@@ -17,6 +17,8 @@
       [ele
 
        @state/geojson-cursor
+
+       @state/meta-derivation-cursor
 
        @state/household-waste-derivation-generation-cursor
        @state/household-waste-derivation-percent-recycled-cursor

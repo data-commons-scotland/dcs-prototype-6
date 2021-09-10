@@ -60,6 +60,11 @@
                             clj->js
                             (reset! state/geojson-cursor))))
   
+  (fetch (str util/easier-repo-data "meta.json")
+         (fn [meta] (->> meta
+                         (reset! state/meta-holder))))
+
+
   (fetch (str util/easier-repo-data "co2e-multiplier.json") 
          (fn [co2e-multiplier] (->> co2e-multiplier
                                     (reset! state/co2e-multiplier-holder))))
@@ -96,10 +101,10 @@
                                                           business-waste-by-region-scotland
                                                           business-waste-by-region-scotGovTarget)))))
 
-  (fetch (str util/easier-repo-data "waste-site.json")
+  (fetch (str util/easier-repo-data "waste-site-io.json")
          (fn [waste-site] (->> waste-site
                                (reset! state/waste-site-holder))))
 
-  (fetch (str util/easier-repo-data "stirling-bin-collection.json")
+  (fetch (str util/easier-repo-data "bin-collection.json")
          (fn [stirling-bin-collection] (->> stirling-bin-collection
                                             (reset! state/stirling-bin-collection-holder)))))

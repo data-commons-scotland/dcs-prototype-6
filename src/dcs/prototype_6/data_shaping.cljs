@@ -16,9 +16,9 @@
            (group-by :year)
            (map (fn [[year coll]] {:region     "Scotland"
                                    :year       year
-                                   :population (->> coll
-                                                    (map :population)
-                                                    (apply +))}))))
+                                   :count (->> coll
+                                               (map :count)
+                                               (apply +))}))))
 
 ;; Roll-up to get values for Scotland as a whole
 (defn rollup-household-co2e-regions [household-co2e]

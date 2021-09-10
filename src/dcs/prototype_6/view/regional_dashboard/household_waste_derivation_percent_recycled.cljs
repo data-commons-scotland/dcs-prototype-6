@@ -14,7 +14,7 @@
             :height     100
             :background "floralwhite"
             :data       {:values data}
-            :mark       {:type "line" :point false #_{:filled false :fill "floralwhite"}}
+            :mark       {:type "line" :point {:filled true}}
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}
@@ -28,7 +28,7 @@
                                    :scale {:zero false}
                                    :axis  {:title "percentage"}}
                          :strokeDash {:condition {:test  "datum.region == 'Scot gov target'"
-                                                  :value [5 10]}
+                                                  :value [3 3]}
                                       :value     [0]}
                          :color   {:field "region" :type "nominal" 
                                    :scale {:domain [region "Scotland" "Scot gov target"]
@@ -37,7 +37,7 @@
                          :opacity {:condition {:selection "my"
                                                :value     1}
                                    :value     0.2}
-                         :tooltip [{:field "region" :type "nominal"}
+                         :tooltip [{:field "region" :type "nominal" :title "subject"}
                                    {:field "year" :type "temporal"}
                                    {:field "percentage" :type "quantitative"}]}}))
 
@@ -53,8 +53,7 @@
                                                                household-waste-derivation-percent-recycled')]
            [:div
             [oz/vega-lite (chart-spec "% recycled" region household-waste-derivation-percent-recycled'')
-             util/vega-embed-opts]
-            [:div#footnote-ref.content.has-text-left.has-text-info "See footnote" (gstring/unescapeEntities "&nbsp;") "a."]]))
+             util/vega-embed-opts]]))
 
 (defn root []
       [chart @state/region-cursor @state/household-waste-derivation-percent-recycled-cursor])

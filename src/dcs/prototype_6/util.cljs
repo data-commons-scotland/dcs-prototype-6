@@ -33,7 +33,11 @@
 ;;   https://github.com/data-commons-scotland/dcs-easier-open-data/raw/v1.0-beta/data/
 ;; but it results in a "redirect"+"cross site restriction" problem.
 ;; So, instead use the "more direct" stem:
-(def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/v1.2-beta/")
+;;CHANGE 
+;;CHANGE (def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/v1.2-beta/")
+;;CHANGE
+#_CHANGE (js/alert "Using a for-dev-only setting for 'easier-repo' - change before pushing to prod !")
+#_CHANGE (def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/master/")
 (def easier-repo-data (str easier-repo "data/"))
 (def easier-repo-metadata (str easier-repo "metadata/"))
 
@@ -45,3 +49,20 @@
              (set! (.-className tab) (str/replace (.-className tab) " is-active" "")))
       (set! (.-display (.-style (.getElementById js/document (str tab-id "-" tab-group-suffix)))) "block")
       (set! (.-className (.-currentTarget event)) (str (.-className (.-currentTarget event)) " is-active")))
+
+
+(defn scroll-fn
+  [id]
+  (fn []
+    (when-let [ele (.getElementById js/document id)]
+      (.scrollIntoView ele true)
+      (.add (.-classList ele) "is-selected")
+      ;; a hacky way of de-selecting
+      (letfn [(mousedown-handler [_e]
+                (.remove (.-classList ele) "is-selected")
+                (.removeEventListener js/document "mousedown" mousedown-handler))]
+        (.addEventListener js/document "mousedown" mousedown-handler))
+      ;; allow for the navbar area when scrolling-into-view a specific element
+      (when-let [scrolledY (.-scrollY js/window)]
+        (.scroll js/window 0 (- scrolledY 65))))))
+

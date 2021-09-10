@@ -14,6 +14,7 @@
             [dcs.prototype-6.view.easier-open-data.main :as easier-open-data-view]
             [dcs.prototype-6.view.experiment.main :as experiment-view]
             [dcs.prototype-6.view.todo :as todo-view]
+            [dcs.prototype-6.view.data :as data-view]
             [dcs.prototype-6.view.about :as about-view]
             [dcs.prototype-6.view.waste-sites-map :as waste-sites-map-view]
             [dcs.prototype-6.view.waste-through-time-map :as waste-through-time-map-view]
@@ -64,6 +65,10 @@
    ["/tutorial/regional-dashboard"
     {:name ::regional-dashboard-tutorial-view
      :view regional-dashboard-tutorial-view/root}]
+   ["/data"
+    {:name ::data-view
+     :view data-view/root
+     :parameters {:query {(ds/opt :target) string?}}}]
    ["/about"
     {:name ::about-view
      :view about-view/root}]
