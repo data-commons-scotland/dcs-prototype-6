@@ -67,7 +67,7 @@
             [:span.icon
              [:i.fas.fa-eye.fa-lg]]
             [:span " See the list of the " (count metas)
-             " " [:em "easier-to-use"]
+             " " [:em "easier"]
              " datasets that are used on this site"]]]]]]]]]))
 
 
