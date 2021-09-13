@@ -44,8 +44,8 @@
        @state/stirling-community-food-tonnes-derivation-flow-cursor
        @state/stirling-community-food-footfall-derivation-cursor
 
-       @state/fairshare-material-derivation-cursor
-       @state/fairshare-co2e-derivation-cursor
+       @state/fairshare-derivation-material-cursor
+       @state/fairshare-derivation-co2e-cursor
 
        @state/ace-furniture-counts-derivation-orig-cursor
        @state/ace-furniture-counts-derivation-category-trends-cursor

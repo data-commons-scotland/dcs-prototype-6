@@ -45,4 +45,4 @@
 
 (defn root []
       [charts
-       @state/fairshare-material-derivation-cursor])
+       @state/fairshare-derivation-material-cursor])

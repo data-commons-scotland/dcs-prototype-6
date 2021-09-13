@@ -24,8 +24,8 @@
                        :stirling-community-food-tonnes-derivation   {:tonnes nil
                                                                      :flow   nil}
                        :stirling-community-food-footfall-derivation nil
-                       :fairshare-material-derivation               nil
-                       :fairshare-co2e-derivation                   nil
+                       :fairshare-derivation                        {:material nil
+                                                                     :co2e     nil}
                        :ace-furniture-counts-derivation             {:orig            nil
                                                                      :category-trends nil
                                                                      :item-trends     nil}
@@ -65,8 +65,8 @@
 (defonce stirling-community-food-tonnes-derivation-flow-cursor (r/cursor root [:stirling-community-food-tonnes-derivation :flow]))
 (defonce stirling-community-food-footfall-derivation-cursor (r/cursor root [:stirling-community-food-footfall-derivation]))
 
-(defonce fairshare-material-derivation-cursor (r/cursor root [:fairshare-material-derivation]))
-(defonce fairshare-co2e-derivation-cursor (r/cursor root [:fairshare-co2e-derivation]))
+(defonce fairshare-derivation-material-cursor (r/cursor root [:fairshare-derivation :material]))
+(defonce fairshare-derivation-co2e-cursor (r/cursor root [:fairshare-derivation :co2e]))
 
 (defonce ace-furniture-counts-derivation-orig-cursor (r/cursor root [:ace-furniture-counts-derivation :orig]))
 (defonce ace-furniture-counts-derivation-category-trends-cursor (r/cursor root [:ace-furniture-counts-derivation :category-trends]))
@@ -89,8 +89,7 @@
 (defonce stirling-bin-collection-holder (atom nil))
 (defonce stirling-community-food-tonnes-holder (atom nil))
 (defonce stirling-community-food-footfall-holder (atom nil))
-(defonce fairshare-material-holder (atom nil))
-(defonce fairshare-co2e-holder (atom nil))
+(defonce fairshare-holder (atom nil))
 (defonce ace-furniture-counts-holder (atom nil))
 (defonce ace-furniture-weights-holder (atom nil))
 (defonce ace-furniture-to-waste-streams-holder (atom nil))

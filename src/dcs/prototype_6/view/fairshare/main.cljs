@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.view.fairshare.main
-  (:require [dcs.prototype-6.view.fairshare.cars-worth :as cars-worth]
+  (:require [reitit.frontend.easy :as rfe]
+            [dcs.prototype-6.view.fairshare.cars-worth :as cars-worth]
             [dcs.prototype-6.view.fairshare.per-material :as per-material]
             [dcs.prototype-6.view.fairshare.per-quarter :as per-quarter]))
 
@@ -18,8 +19,9 @@
         [:div.content.has-text-primary-light
          [:p "The Fair Share" [:sup "a"] " is a university based, reuse store."
           " It accepts donations of second-hand books, clothes, kitchenware, electricals, etc. and sells these to students."]
-         [:p "The Fair Share is in the process of publishing its data as " [:b "open data"] "."
-          " This article is based on an draft of that work."]]
+         [:p "The Fair Share is in the process of publishing "
+          [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "fairshare"})} "its data"] " as " [:b "open data"] "."
+          " This article is based on a draft of that work."]]
           [:div.content.is-small.has-text-info
            [:ol.is-lower-alpha
             [:li [:a {:href "https://www.stirlingstudentsunion.com/sustainability/fairshare/" :target "_blank"} "The Fair Share"]

@@ -295,34 +295,27 @@
         (js/console.log (str "Calculating stirling-community-food-footfall-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 
-(defn maybe-calc-fairshare-material-derivations 
+(defn maybe-calc-fairshare-derivations 
   []
-  (let [raw @state/fairshare-material-holder]
+  (let [raw @state/fairshare-holder]
 
     (when (some? raw)
-      (js/console.log "Calculating fairshare-material-derivations")
+      (js/console.log "Calculating fairshare-derivations")
 
       (let [start-time (util/now)
 
-            derivation raw]                            ;; no transformation required
+            derivation-material (map (fn [m] (-> m
+                                                 (assoc :tonnes (:tonnes-weight m))
+                                                 (dissoc :tonnes-weight :tonnes-co2e))) 
+                                     raw)
+            derivation-co2e (map (fn [m] (-> m
+                                             (assoc :tonnes (:tonnes-co2e m))
+                                             (dissoc :tonnes-weight :tonnes-co2e)))
+                                 raw)]                            
         
-        (reset! state/fairshare-material-derivation-cursor derivation)
-        (js/console.log (str "Calculating fairshare-material-derivations: secs-taken=" (util/secs-to-now start-time)))))))
-
-
-(defn maybe-calc-fairshare-co2e-derivations 
-  []
-  (let [raw @state/fairshare-co2e-holder]
-
-    (when (some? raw)
-      (js/console.log "Calculating fairshare-co2e-derivations")
-
-      (let [start-time (util/now)
-
-            derivation raw]                            ;; no transformation required
-        
-        (reset! state/fairshare-co2e-derivation-cursor derivation)
-        (js/console.log (str "Calculating fairshare-co2e-derivations: secs-taken=" (util/secs-to-now start-time)))))))
+        (reset! state/fairshare-derivation-material-cursor derivation-material)
+        (reset! state/fairshare-derivation-co2e-cursor derivation-co2e)
+        (js/console.log (str "Calculating fairshare-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 
 (defn maybe-calc-ace-furniture-counts-derivations 
@@ -452,15 +445,10 @@
                (when new-state
                      (maybe-calc-stirling-community-food-footfall-derivations))))
 
-(add-watch state/fairshare-material-holder :fairshare-material-derivations-dependency
+(add-watch state/fairshare-holder :fairshare-derivations-dependency
            (fn [_key _atom _old-state new-state]
                (when new-state
-                     (maybe-calc-fairshare-material-derivations))))
-
-(add-watch state/fairshare-co2e-holder :fairshare-co2e-derivations-dependency
-           (fn [_key _atom _old-state new-state]
-               (when new-state
-                     (maybe-calc-fairshare-co2e-derivations))))
+                     (maybe-calc-fairshare-derivations))))
 
 (add-watch state/ace-furniture-counts-holder :ace-furniture-counts-derivations-dependency
            (fn [_key _atom _old-state new-state]

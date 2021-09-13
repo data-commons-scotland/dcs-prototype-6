@@ -31,14 +31,6 @@
          (fn [stirling-community-food-footfall] (->> stirling-community-food-footfall
                                                      (reset! state/stirling-community-food-footfall-holder))))
 
-  (fetch "fairshare-material.json"
-         (fn [fairshare-material] (->> fairshare-material
-                                       (reset! state/fairshare-material-holder))))
-
-  (fetch "fairshare-co2e.json"
-         (fn [fairshare-co2e] (->> fairshare-co2e
-                                   (reset! state/fairshare-co2e-holder))))
-
   (fetch "ace-furniture-sold-counts.json"
          (fn [ace-furniture-counts] (->> ace-furniture-counts
                                          (reset! state/ace-furniture-counts-holder))))
@@ -107,4 +99,8 @@
 
   (fetch (str util/easier-repo-data "bin-collection.json")
          (fn [stirling-bin-collection] (->> stirling-bin-collection
-                                            (reset! state/stirling-bin-collection-holder)))))
+                                            (reset! state/stirling-bin-collection-holder))))
+  
+  (fetch (str util/easier-repo-data "fairshare.json")
+         (fn [fairshare] (->> fairshare
+                              (reset! state/fairshare-holder)))))

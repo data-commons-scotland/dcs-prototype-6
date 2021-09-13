@@ -102,4 +102,4 @@
 
 (defn root []
       [charts
-       @state/fairshare-co2e-derivation-cursor])
+       @state/fairshare-derivation-co2e-cursor])

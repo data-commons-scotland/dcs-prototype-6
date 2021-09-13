@@ -13,19 +13,19 @@
        :data       {:values data}
        :transform  [{:timeUnit "year" :field "yyyy-MM-dd" :as "year"}
                     {:aggregate [{:op "average" :field "tonnes" :as "avg-tonnes"}]
-                     :groupby ["materialx"]}]
+                     :groupby ["material"]}]
        :mark       {:type "bar"
                     :cornerRadiusTopLeft  3
                     :cornerRadiusTopRight 3}
        :encoding   {:x       {:title "material"
-                              :field "materialx" :type "nominal"
+                              :field "material" :type "nominal"
                               :axis {:labelAngle 60
                                      :labelBound 65}
                               :sort {:field "avg-tonnes" :order "descending"}}
                     :y       {:title "average tonnes per year"
                               :field "avg-tonnes" :type "quantitative"}
                     :color   {:value "#A2CAC1"}
-                    :tooltip [{:title "material" :field "materialx" :type "nominal"}
+                    :tooltip [{:title "material" :field "material" :type "nominal"}
                               {:title "tonnes" :field "avg-tonnes" :type "quantitative"}]}})
 
 
@@ -55,5 +55,5 @@
 
 (defn root []
       [charts
-       @state/fairshare-material-derivation-cursor
-       @state/fairshare-co2e-derivation-cursor])
+       @state/fairshare-derivation-material-cursor
+       @state/fairshare-derivation-co2e-cursor])
