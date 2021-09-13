@@ -366,7 +366,7 @@
                                       (map (fn [{:keys [category item waste-stream]}] [[category item] waste-stream]))
                                       (into {}))
         waste-stream->multiplier (->> co2e-multiplier
-                                      (map (fn [{:keys [waste-stream multiplier]}] [waste-stream multiplier]))
+                                      (map (fn [{:keys [material multiplier]}] [material multiplier]))
                                       (into {}))
         get-co2e-multiplier      (fn [category item]
                                    (->> [category item]
