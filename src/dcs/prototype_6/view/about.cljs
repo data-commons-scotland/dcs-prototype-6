@@ -29,10 +29,11 @@
               :target "_blank"} "funded"] " by the EPSRC)."]]
 
      [:p "The objectives for this website include:"]
-     [:ul
-      [:li "Help its user community discover, learn about and understand the open data about waste management in Scotland."]
+     [:ol.is-lower-roman
+      [:li "Help " [:b "non-experts learn"] " about waste management in Scotland through Open Data."]
+      [:li "Encourage 3rd-sector, " [:b "reuse/recycling organisations to publish"] " their data as Open Data."]
       [:li "Be a demonstrator of the findings from the encompassing research project,
-            and be an archetype for future portals onto other categories of open data."]]
+            and be an archetype for future portals onto other categories of " [:b "Open Data"] "."]]
      
      
        [:div.notification.has-text-primary-light {:style {:backgroundColor "#0f5499"}}

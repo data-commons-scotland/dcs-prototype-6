@@ -64,10 +64,14 @@
 (defn root []
       [:div
 
-       [:section.hero.is-small {:style {:backgroundColor "#f2dfce"}} ;
+       [:section.hero.is-small.has-background.is-primary
+        [:img.hero-background.is-transparent {:src "img/home-page-top-hero.jpg" :alt "intro image"}]
         [:div.hero-body
-         [:div.content.has-text-centered
-          [:h2.subtitle.is-4 {:style {:margin 0}} "Discover and learn from the data about waste in Scotland"]]]]
+         [:div.container
+          [:div.content.has-text-centered
+          [:h2.subtitle.is-5 {:style {:margin 0}} 
+           "Helping non-experts learn about waste management in Scotland through Open Data" 
+           #_"Discover and learn from the data about waste in Scotland"]]]]]
 
 
        [:section.hero {:style {:backgroundColor "#fff1e5"}}
