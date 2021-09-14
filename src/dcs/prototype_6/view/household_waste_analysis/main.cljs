@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.view.household-waste-analysis.main
-  (:require [dcs.prototype-6.view.household-waste-analysis.composition :as composition]
+  (:require [reitit.frontend.easy :as rfe]
+            [dcs.prototype-6.view.household-waste-analysis.composition :as composition]
             [dcs.prototype-6.view.household-waste-analysis.disposal :as disposal]
             [dcs.prototype-6.view.household-waste-analysis.detail :as detail]))
 
@@ -21,7 +22,7 @@
            " and assesses the appropriateness of the disposal decisions"
            " (i.e. " [:em "was it put into the right bin?"] ")."]
           [:p "ZWS is considering publishing this data as " [:b "open data"] "."
-           " This article is based on an anonymised" [:sup "b"] " subset of the data."]
+           " This article is based on an anonymised" [:sup "b"] " " [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "household-waste-analysis"})} "subset of the data"] "."]   
           [:p "But " [:span.has-text-danger [:em "\"What's in " [:b "my"] " bin?\""]] "..."
            " Well, the best that you can do here, with this anonymised subset of the data,"
            " is to select [from the graphs below] the " [:em "household type "] " that most closely matches with yours:"]

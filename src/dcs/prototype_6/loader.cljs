@@ -43,10 +43,6 @@
          (fn [ace-furniture-to-waste-streams] (->> ace-furniture-to-waste-streams
                                                    (reset! state/ace-furniture-to-waste-streams-holder))))
 
-  (fetch "household-waste-analysis.json"
-         (fn [household-waste-analysis] (->> household-waste-analysis
-                                             (reset! state/household-waste-analysis-holder))))
-
   (fetch "geojson.json"
          (fn [geojson] (->> geojson
                             clj->js
@@ -103,4 +99,8 @@
   
   (fetch (str util/easier-repo-data "fairshare.json")
          (fn [fairshare] (->> fairshare
-                              (reset! state/fairshare-holder)))))
+                              (reset! state/fairshare-holder))))
+
+  (fetch (str util/easier-repo-data "household-waste-analysis.json")
+         (fn [household-waste-analysis] (->> household-waste-analysis
+                                             (reset! state/household-waste-analysis-holder)))))
