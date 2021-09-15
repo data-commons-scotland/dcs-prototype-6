@@ -37,7 +37,7 @@
            [:div
             [oz/vega-lite (chart-spec "Carbon impact per person" region household-co2e-derivation-generation'')
              util/vega-embed-opts]
-            [:div#footnote-ref.content.has-text-left.has-text-info "See footnote" (gstring/unescapeEntities "&nbsp;") "b."]
+            [:div#footnote-ref.content.has-text-left.has-text-info "See footnote" (gstring/unescapeEntities "&nbsp;") "[b] about " [:em "Carbon impact"] "."]
             ]))
 
 (defn root []

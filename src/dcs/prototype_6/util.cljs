@@ -20,12 +20,12 @@
 
 (def vega-embed-opts
   ;; hide Vega's 3-dot menu
-  {:actions false}
+  #_{:actions false}
   ;; alternatively, to display Vega's 3-dot menu, uncomment...
-  #_{:actions          {:export   true
-                        :source   true
-                        :compiled false
-                        :editor   true}
+  {:actions          {:export   true
+                      :source   false
+                      :compiled false
+                      :editor   false}
      :downloadFileName "WasteMattersScotland-visualisation"
      :scaleFactor      2})
 

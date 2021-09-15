@@ -34,7 +34,7 @@
                                       :type  "nominal"
                                       :scale {:domain [region "Scotland" "Scot gov target"] 
                                               :range  ["#fdae6b" "#1f77b4" "lightgrey"]}
-                                      :legend {:title nil}}
+                                      :legend {:title nil :orient "bottom" :columns 3}}
                          :opacity    {:condition {:selection "my"
                                                   :value     1}
                                       :value     0.2}
@@ -56,7 +56,7 @@
            [:div
             [oz/vega-lite (chart-spec "Waste generated per person" region household-waste-derivation-generation'')
              util/vega-embed-opts]
-            [:div#footnote-ref.content.has-text-left.has-text-info "See footnote" (gstring/unescapeEntities "&nbsp;") "a."]]))
+            [:div#footnote-ref.content.has-text-left.has-text-info "See footnote" (gstring/unescapeEntities "&nbsp;") "[a] about the " [:em "Scot gov target"] "."]]))
 
 (defn root []
       [chart @state/region-cursor @state/household-waste-derivation-generation-cursor])

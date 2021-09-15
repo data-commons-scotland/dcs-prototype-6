@@ -32,7 +32,7 @@
                                              "#B49531"
                                              "#E27E44"]}
                             :legend {:symbolType "circle"
-                                     :orient "bottom" :columns 3}}
+                                     :orient "bottom" :columns 2}}
                     :tooltip [{:field "outcome" :type "nominal"}
                               {:field "tonnes" :type "quantitative"}]}})
 
@@ -67,7 +67,7 @@
                                                "#B49531"
                                                "#E27E44"
                                                "grey" #_"#B1AB99"]}
-                              :legend {:orient "bottom" :columns 3}}
+                              :legend {:orient "bottom" :columns 2}}
                     :tooltip [{:field "outcome" :type "nominal"}
                               {:field "month" :type "temporal" :format "%b %Y"}
                               {:field "tonnes" :type "quantitative"}]}})
