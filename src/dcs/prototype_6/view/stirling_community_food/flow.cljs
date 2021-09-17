@@ -4,12 +4,14 @@
             [dcs.prototype-6.state :as state]
     #_[dcs.prototype-6.view.stirling-community-food.map :as map]))
 
-(defn chart-config [flow]
+(defn chart-config [flow _title]
   {
    :chart         {:backgroundColor "#980f3d"}
    :navigation    {:buttonOptions {:enabled false}}
-   :title         nil                                       ;{:text "The flow of food material"}
-   :subtitle      nil                                       ;{:text "subtitle does here"}
+   :title         nil #_{:text _title 
+                         :style {:color "white" 
+                                 :fontSize "12px"}}
+   :subtitle      nil
    :accessibility {:point {:valueDescriptionFormat "{index}. {point.from} to {point.to}, {point.weight}."}}
    :tooltip       {:headerFormat nil
                    :pointFormat  "{point.fromNode.name} \u2192 {point.toNode.name}: {point.weight:.2f} tonnes"
@@ -47,7 +49,7 @@
 
 (defn did-mount [this]
       (let [flow (:data (r/props this))]
-        (js/Highcharts.Chart. (rdom/dom-node this) (clj->js (chart-config flow)))))
+        (js/Highcharts.Chart. (rdom/dom-node this) (clj->js (chart-config flow "Graph 1: Flow of food materials" )))))
 
 (defn did-update [this _prev-props]
       (did-mount this)) ;; TODO figure out a more surgical means to update the chart
@@ -76,4 +78,3 @@
            " On the right are the outcomes, broadly: used as food, or not."
            " (Hover over a part to display the tonnes of food material flowing through that part of the process, during the year.)"]
           ]]]])
-

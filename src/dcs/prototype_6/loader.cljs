@@ -23,14 +23,6 @@
   []
   (js/console.log "Loading data files")
 
-  (fetch "stirling-community-food-tonnes.json"
-         (fn [stirling-community-food-tonnes] (->> stirling-community-food-tonnes
-                                                   (reset! state/stirling-community-food-tonnes-holder))))
-
-  (fetch "stirling-community-food-footfall.json"
-         (fn [stirling-community-food-footfall] (->> stirling-community-food-footfall
-                                                     (reset! state/stirling-community-food-footfall-holder))))
-
   (fetch "ace-furniture-sold-counts.json"
          (fn [ace-furniture-counts] (->> ace-furniture-counts
                                          (reset! state/ace-furniture-counts-holder))))
@@ -100,6 +92,14 @@
   (fetch (str util/easier-repo-data "fairshare.json")
          (fn [fairshare] (->> fairshare
                               (reset! state/fairshare-holder))))
+  
+  (fetch (str util/easier-repo-data "stirling-community-food-tonnes.json")
+         (fn [stirling-community-food-tonnes] (->> stirling-community-food-tonnes
+                                                   (reset! state/stirling-community-food-tonnes-holder))))
+
+  (fetch (str util/easier-repo-data "stirling-community-food-footfall.json")
+         (fn [stirling-community-food-footfall] (->> stirling-community-food-footfall
+                                                     (reset! state/stirling-community-food-footfall-holder))))
 
   (fetch (str util/easier-repo-data "household-waste-analysis.json")
          (fn [household-waste-analysis] (->> household-waste-analysis

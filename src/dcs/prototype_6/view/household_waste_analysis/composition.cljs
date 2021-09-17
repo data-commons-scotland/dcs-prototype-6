@@ -8,11 +8,12 @@
 (def stratum-labels ["urban £" "urban ££" "urban £££" "rural £/££" "rural £££"])
 
 (defn chart-spec
-  [chart-data]
+  [chart-data title]
   {:schema     "https://vega.github.io/schema/vega/v5.json"
    :background "#f2dfce"
    :width      400
    :height     250
+   :title      title
    :data       {:values chart-data}
    :transform  [{:aggregate [{:op "sum" :field "kgPerHhPerWk" :as "kgPer2Wks"}]
                  :groupby ["stratum" "material-L1"]}
@@ -36,13 +37,13 @@
   (let [chart-data derivation]
     [:div.columns
      [:column
-      [oz/vega-lite (chart-spec chart-data)
+      [oz/vega-lite (chart-spec chart-data "Graph 1: Materials per household type")
        util/vega-embed-opts]
       ]
      [:column
       [:div.m-4.content
        [:p.has-text-info.has-text-weight-bold "Hover/click on part of the graph to be shown more detail."]
-       [:p "This graph shows that " [:span.has-text-warning "Food wastes"] " and " [:span.has-text-warning "Paper and cardboard"] 
+       [:p "Graph 1 shows that " [:span.has-text-warning "Food wastes"] " and " [:span.has-text-warning "Paper and cardboard"] 
         " form significant components of binned material, across all 5 household types."]
        [:p [:span.has-text-warning "rural £/££"]" households dispose of a lot of fine-grained material," 
         " i.e." (gstring/unescapeEntities "&nbsp;") [:span.has-text-warning "Fines" (gstring/unescapeEntities "&nbsp;") "(<10mm)"] "."

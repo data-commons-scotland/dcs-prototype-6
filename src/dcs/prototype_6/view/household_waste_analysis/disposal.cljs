@@ -8,9 +8,11 @@
 (def stratum-labels ["urban £" "urban ££" "urban £££" "rural £/££" "rural £££"])
 
 (defn chart-spec
-      [chart-data]
+      [chart-data title]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
        :background "#fff1e5"
+       :config {:title {:anchor "center"}}
+       :title      title
        :data       {:values chart-data}
        :transform  [{:calculate "datum.stream + (datum.stream == datum.idealStream ? ' - appropriate' : ' - inappropriate')" :as "stream"}
                     {:aggregate [{:op "sum" :field "kgPerHhPerWk" :as "kgPer2Wks"}]
@@ -48,12 +50,12 @@
   (let [chart-data derivation]
     [:div.columns
      [:column
-      [oz/vega-lite (chart-spec chart-data)
+      [oz/vega-lite (chart-spec chart-data "Graph 2: Disposal decisions per household type")
        util/vega-embed-opts]
       ]
      [:column
       [:div.m-4.content
-        [:p "This graph suggested that the majority of grey bin content should be disposed of via different means:"
+        [:p "Graph 2 suggested that the majority of grey bin content should be disposed of via different means:"
          " compare the relative heights of the " 
          [:span.has-text-warning "grey" (gstring/unescapeEntities "&nbsp;") "bin" (gstring/unescapeEntities "&nbsp;") "-" (gstring/unescapeEntities "&nbsp;") "appropriate"] 
          " vs " 

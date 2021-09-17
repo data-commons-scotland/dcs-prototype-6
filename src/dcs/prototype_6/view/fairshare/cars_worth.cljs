@@ -6,10 +6,11 @@
     [dcs.prototype-6.state :as state]))
 
 (defn chart-spec-cars-worth
-      [data]
+      [data title]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
        :width      300
        :height     450
+       :title      title
        :background "#f2dfce"                                ;  "#980f3d"  "#fff1e5"
        :data       {:values data}
        :transform  [{:calculate "datum.car==1 ? '🚗' : ''" :as "emoji"}
@@ -68,7 +69,7 @@
 
     [:div.columns
      [:column
-      [oz/vega-lite (chart-spec-cars-worth car-co2e)
+      [oz/vega-lite (chart-spec-cars-worth car-co2e "Graph 1: Cars-worth of CO2e avoided per year")
        util/vega-embed-opts]
       ]
      [:column
@@ -77,7 +78,7 @@
         " Pollution is often estimated in terms of CO" [:sub "2"] "e,"
         " and The Fair Share data contains CO" [:sub "2"] "e" [:sup "a"] " values for this avoided waste/pollution."]
        [:p " But by themselves, CO" [:sub "2"] "e values can be difficult to relate to so"
-        " we convert them into in a more relatable measure: " [:em "cars worth"] " of CO" [:sub "2"] "e."]
+        " we convert them into in a more relatable measure: " [:em "cars worth"] " of CO" [:sub "2"] "e (as shown in Graph 1)."]
        [:p "The average cost of using one car for one year is 4.1" [:sup "b"] " tonnes of CO" [:sub "2"] "e."
         " This incorporates as exhaust emissions, fuel supply chain and amortised car material for the average UK car."]
        [:p "So, we divide The Fair Share's CO" [:sub "2"] "e values by 4.1 to yield our " [:em "cars worth"] " of CO" [:sub "2"] "e values"

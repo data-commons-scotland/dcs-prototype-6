@@ -8,10 +8,12 @@
 (def stratum-labels ["urban £" "urban ££" "urban £££" "rural £/££" "rural £££"])
 
 (defn chart-spec
-      [chart-data]
+      [chart-data title]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
        :background "floralwhite"
        :spacing 3
+       :config {:title {:anchor "center"}}
+       :title title
        :data       {:values chart-data}
        :transform  [{:aggregate [{:op "mean" :field "kgPerHhPerWk" :as "kg"}]
                      :groupby ["stratum" "material-L1" "material-L2" "stream" "idealStream"]}]
@@ -58,7 +60,7 @@
     [:div.columns
      [:column
       [:div.m-4.content
-       [:p "This next graph conveys a fair amount of information!"]
+       [:p "Graph 3 [below] conveys a fair amount of information!"]
        [:p.has-text-info "As before, hover/click on a bar in the graph to be shown more detailed information."
         [:br]
         " The bars with a " [:span.has-text-danger.has-text-weight-bold "red"] " outline represent " 
@@ -86,7 +88,7 @@
         " Is that because " [:span.has-text-warning "urban £££"] " households have fewer convenient spaces in which to heap their garden waste!"
         " Perhaps, but it is foolish to make such inferences from data (such as this) which covers a relatively small number of observations."]]
       
-      [oz/vega-lite (chart-spec chart-data)
+      [oz/vega-lite (chart-spec chart-data "Graph 3: Detailed disposal decisions per household type")
        util/vega-embed-opts]
       ]]))
 

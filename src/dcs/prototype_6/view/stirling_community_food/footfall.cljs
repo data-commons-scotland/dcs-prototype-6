@@ -6,13 +6,14 @@
 
 
 (defn chart-spec-per-day
-      [data]
+      [data title]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
        :width      370
        :height     200
        :background "floralwhite"
+       :title title
        :data       {:values data}
-       :transform  [{:aggregate [{:op "sum" :field "footfall" :as "footfall"}]
+       :transform  [{:aggregate [{:op "sum" :field "count" :as "footfall"}]
                      :groupby ["day"]}]
        :mark       {:type "bar"
                     :cornerRadiusTopLeft  3
@@ -28,14 +29,15 @@
                               {:field "footfall" :type "quantitative"}]}})
 
 (defn chart-spec-per-month
-      [data]
+      [data title]
   {:schema     "https://vega.github.io/schema/vega/v5.json"
    :width      370
    :height     200
    :background "floralwhite"
+   :title title
    :data       {:values data}
    :transform  [{:timeUnit "yearmonth" :field "yyyy-MM-dd" :as "month"}
-                {:aggregate [{:op "sum" :field "footfall" :as "footfall"}]
+                {:aggregate [{:op "sum" :field "count" :as "footfall"}]
                  :groupby ["month"]}]
    :mark       {:type "line"
                 :point {:filled false :fill "floralwhite"}}
@@ -49,14 +51,15 @@
                           {:field "footfall" :type "quantitative"}]}})
 
 (defn chart-spec-day-per-month
-      [data]
+      [data title]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
        :width      370
        :height     200
        :background "floralwhite"
+       :title title
        :data       {:values data}
        :transform  [{:timeUnit "yearmonth" :field "yyyy-MM-dd" :as "month"}
-                    {:aggregate [{:op "sum" :field "footfall" :as "footfall"}]
+                    {:aggregate [{:op "sum" :field "count" :as "footfall"}]
                      :groupby ["month" "day"]}]
        :mark       {:type "line"
                     :point {:filled false :fill "floralwhite"}}
@@ -83,13 +86,13 @@
              [:div.tile.is-vertical.is-parent
 
               [:div.tile.is-child
-               [oz/vega-lite (chart-spec-per-day chart-data)
+               [oz/vega-lite (chart-spec-per-day chart-data "Graph 8: Footfall per day-of-the-week")
                 util/vega-embed-opts]]
               [:div.tile.is-child.content
-               [:p "The graph above, shows that there is
+               [:p "Graph 8 shows that there is
                no significant differences in footfall between days of the week."]
-               [:p "The next graph provides a month-by-month breakdown of footfall."]
-               [:p "The graph after that, provides a month-by-month breakdown
+               [:p "Graph 9 provides a month-by-month breakdown of footfall."]
+               [:p "Graph 10 provides a month-by-month breakdown
                of the footfall per day-of-the-week. There is no discernible
                correlation between a day-of-the-week and a month-of-the-year."]]]]
 
@@ -97,10 +100,10 @@
              [:div.tile.is-vertical.is-parent
 
               [:div.tile.is-child
-               [oz/vega-lite (chart-spec-per-month chart-data)
+               [oz/vega-lite (chart-spec-per-month chart-data "Graph 9: Footfall per month")
                 util/vega-embed-opts]]
               [:div.tile.is-child
-               [oz/vega-lite (chart-spec-day-per-month chart-data)
+               [oz/vega-lite (chart-spec-day-per-month chart-data "Graph 10: Footfall per day-of-the-week, per month")
                 util/vega-embed-opts]]]]]))
 
 (defn root []

@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.view.stirling-community-food.main
-  (:require [dcs.prototype-6.view.stirling-community-food.flow :as flow]
+  (:require [reitit.frontend.easy :as rfe]
+            [dcs.prototype-6.view.stirling-community-food.flow :as flow]
             [dcs.prototype-6.view.stirling-community-food.received :as received]
             [dcs.prototype-6.view.stirling-community-food.outcomes :as outcomes]
             [dcs.prototype-6.view.stirling-community-food.footfall :as footfall]))
@@ -19,7 +20,12 @@
            " collecting (from supermarkets & aggregators) excess and near-sell-by-date food,"
            " routing it away from waste bins, and making it available (for free) to the community."]
           [:p "Stirling Community Food are working on publishing their data as "
-           [:b "open data"] ". The following graphs have been generated from their 2020-21 tonnage and footfall datasets."]
+           [:b "open data"] ". The following graphs have been generated from their 2020-21 "
+           [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "stirling-community-food-tonnes"})} "tonnage"]
+           " and "
+           [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "stirling-community-food-footfall"})} "footfall"]
+           " datasets."]
+          
           [:div.content.is-small.has-text-info
            [:ol
             [:li [:a {:href "https://www.transitionstirling.org.uk/community-food" :target "_blank"} "Stirling Community Food"]

@@ -6,13 +6,15 @@
 
 
 (defn chart-spec-per-outcome
-      [data]
+      [data title]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
        :width      370
        :height     200
        :background "#f2dfce"
+       :title title
        :data       {:values data}
-       :transform  [{:aggregate [{:op "sum" :field "tonnes" :as "tonnes"}]
+       :transform  [{:calculate "datum['counter-party']" :as "outcome"}
+                    {:aggregate [{:op "sum" :field "tonnes" :as "tonnes"}]
                      :groupby ["outcome"]}]
        :mark       {:type "bar"
                     :cornerRadiusTopLeft  3
@@ -37,13 +39,15 @@
                               {:field "tonnes" :type "quantitative"}]}})
 
 (defn chart-spec-per-month
-      [data]
+      [data title]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
        :width      370
        :height     200
        :background "#f2dfce"
+       :title title
        :data       {:values data}
-       :transform  [{:timeUnit "yearmonth" :field "yyyy-MM-dd" :as "month"}
+       :transform  [{:calculate "datum['counter-party']" :as "outcome"}
+                    {:timeUnit "yearmonth" :field "yyyy-MM-dd" :as "month"}
                     {:aggregate [{:op "sum" :field "tonnes" :as "tonnes"}]
                      :groupby ["month" "outcome"]}]
        :mark       {:type "line"
@@ -73,22 +77,27 @@
                               {:field "tonnes" :type "quantitative"}]}})
 
 (defn chart-spec-per-month-logarithmic
-      [data]
-      (-> (chart-spec-per-month data)
+      [data title]
+      (-> (chart-spec-per-month data title)
         (assoc-in [:encoding :y :scale] {:type "log"})
           (assoc-in [:encoding :color :legend] nil)))
 
 
 (defn charts [derivation-tonnes]
       (let [chart-data (->> derivation-tonnes
-                            (filter #(= "out" (:io-direction %)))
-                            (map #(assoc % :outcome (:counter-party %))))
+                            (filter #(= "out" (:io-direction %))))
+            total-received (->> derivation-tonnes
+                                     (filter #(= "in" (:io-direction %)))
+                                     (group-by :yyyy-MM-dd)
+                                     (map (fn [[yyyy-MM-dd coll]] {:yyyy-MM-dd    yyyy-MM-dd
+                                                                   :counter-party "Total received"
+                                                                   :tonnes        (->> coll
+                                                                                       (map :tonnes)
+                                                                                       (apply +))})))
             chart-data-plus (concat
                                   chart-data
                                   ;; for comparison, include the total received
-                                  (->> derivation-tonnes
-                                       (filter #(= "in" (:io-direction %)))
-                                       (map #(assoc % :outcome "Total received"))))]
+                                  total-received)]
 
            [:div.tile.is-ancestor
 
@@ -96,20 +105,20 @@
              [:div.tile.is-vertical.is-parent
 
               [:div.tile.is-child
-               [oz/vega-lite (chart-spec-per-outcome chart-data)
+               [oz/vega-lite (chart-spec-per-outcome chart-data "Graph 5: Outgoing amount per destination")
                 util/vega-embed-opts]]
               [:div.tile.is-child
                [:div.tile.is-child.content
-                [:p "The graph above, shows that Stirling Community Food has
+                [:p "Graph 5 shows that Stirling Community Food has
                 provided (for free) to the community during the year:"]
                  [:ul
-                  [:li "73.7 tonnes of food to people"]
+                  [:li "71.5 tonnes of food to people"]
                   [:li "3.7 tonnes of waste food to Stirling council (for compost) and to Energen (for biogas and fertiliser)"]
                   [:li "2 tonnes of food to an animal sanctuary"]
                   [:li "1.4 tonnes to individuals for compost"]
                   ]
-                [:p "The next graphs, provide a month-by-month breakdown
-               (with the second one using a non-linear scale to make differences more obvious).
+                [:p "Graphs 6 & 7 provide month-by-month breakdowns, 
+               with Graph 7 using a non-linear scale to make differences more obvious.
                Changes in amounts outgoing coincide with the changes in amounts received "
                [:span.has-text-grey "(depicted by the dashed grey line the next graph)"] "."]]]]]
 
@@ -117,10 +126,10 @@
              [:div.tile.is-vertical.is-parent
 
               [:div.tile.is-child
-               [oz/vega-lite (chart-spec-per-month chart-data-plus)
+               [oz/vega-lite (chart-spec-per-month chart-data-plus "Graph 6: Outgoing amounts per month")
                 util/vega-embed-opts]]
               [:div.tile.is-child
-               [oz/vega-lite (chart-spec-per-month-logarithmic chart-data)
+               [oz/vega-lite (chart-spec-per-month-logarithmic chart-data "Graph 7: Outgoing amounts per month (non-linear)")
                 util/vega-embed-opts]]]]]))
 
 (defn root []

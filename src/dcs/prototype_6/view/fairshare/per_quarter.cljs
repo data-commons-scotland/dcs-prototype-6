@@ -5,11 +5,12 @@
     [dcs.prototype-6.state :as state]))
 
 (defn chart-spec-per-season
-      [data]
+      [data title]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
        :width      370
        :height     200
        :background "#f2dfce"
+       :title      title
        :data       {:values data}
        :transform  [{:timeUnit "yearquarter" :field "yyyy-MM-dd" :as "quarter"}
                     {:aggregate [{:op "sum" :field "tonnes" :as "tonnes"}]
@@ -31,7 +32,7 @@
 (defn charts [material]
   [:div.columns
    [:column
-    [oz/vega-lite (chart-spec-per-season material)
+    [oz/vega-lite (chart-spec-per-season material "Graph 4: Donations per quarter")
      util/vega-embed-opts]]
    [:column
     [:div.m-4.content
@@ -40,7 +41,7 @@
       " So the high Q3 donations are likely to be the results of students donating possessions before leaving for the summer."]
      [:p "For the period Q2 2013 to Q1 2014 the data has less date resolution which partially accounts for the irregular donation pattern during this period."
       " The other factor in this was, the unusually large donation of textiles"
-      " (duvet covers, sheets, pillowcases) from the student halls of residence [also evident in this page's first graph]."]]]]
+      " (duvet covers, sheets, pillowcases) from the student halls of residence [also evident in Graph 1]."]]]]
   )
 
 (defn root []
