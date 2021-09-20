@@ -38,17 +38,28 @@
   [route metas]
   (let [target (some-> route :parameters :query :target)]
     ;(js/console.log (str "target=" target))
-    (when target (r/after-render (util/scroll-fn target)))
+    (if target 
+      (r/after-render (util/scroll-fn target))
+      (r/after-render (util/scroll-fn)))
 
     [:div
+     
+     [:section.hero.is-small.has-background {:style {:backgroundColor "#fff1e5"}}
+      [:img.hero-background.is-transparent {:src "img/home-page-top-hero.jpg"
+                                            :alt "Datasets image"}]
+      [:div.hero-body
+       [:div.container
+        [:div.content.has-text-centered
+         [:h1.title.is-5 {:style {:margin 0}}
+          [:span "The " (count metas)
+           " " [:a {:href (rfe/href :dcs.prototype-6.router/easier-open-data-view)} [:em "easier"]]
+           " datasets that are used on this site"]]]]]]
 
      [:section.hero {:style {:backgroundColor "#fff1e5"}}
       [:div.hero-body
 
        [:div.content.has-text-centered
-        [:h1.title.is-5 [:span "The " (count metas) 
-                         " " [:a {:href (rfe/href :dcs.prototype-6.router/easier-open-data-view)} [:em "easier"]]
-                         " datasets that are used on this site"]]]
+        ]
 
        [:div.container
         [:div.content
@@ -74,10 +85,14 @@
            [:tr {:id "zip-bundles"}
             [:td]
             [:td [:em "(handy ZIP bundles)"]]
-            [:td [:a {:href (str util/easier-repo-data "all-csv.zip") :target "_blank"} "ZIP"]]
-            [:td [:a {:href (str util/easier-repo-data "all-json.zip") :target "_blank"} "ZIP"]]
-            [:td [:a {:href (str util/easier-repo-data "all-turtle.zip") :target "_blank"} "ZIP"]]
-            [:td [:a {:href (str util/easier-repo-data "all-csvw.zip") :target "_blank"} "ZIP"]]
+            [:td [:a {:href   (str util/easier-repo-data "all-csv.zip")
+                      :target "_blank"} "ZIP"]]
+            [:td [:a {:href   (str util/easier-repo-data "all-json.zip")
+                      :target "_blank"} "ZIP"]]
+            [:td [:a {:href   (str util/easier-repo-data "all-turtle.zip")
+                      :target "_blank"} "ZIP"]]
+            [:td [:a {:href   (str util/easier-repo-data "all-csvw.zip")
+                      :target "_blank"} "ZIP"]]
             [:td]
             [:td]
             [:td]]]]]]]]]))

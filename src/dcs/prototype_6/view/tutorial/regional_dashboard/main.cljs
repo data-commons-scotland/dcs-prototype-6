@@ -1,5 +1,7 @@
 (ns dcs.prototype-6.view.tutorial.regional-dashboard.main
-(:require [dcs.prototype-6.state :as state]
+(:require [reagent.core :as r]
+          [dcs.prototype-6.util :as util]
+          [dcs.prototype-6.state :as state]
           [dcs.prototype-6.view.regional-dashboard.region-position :as region-position]
           [dcs.prototype-6.view.regional-dashboard.household-waste-derivation-generation :as hw-gen]
           [dcs.prototype-6.view.regional-dashboard.household-waste-derivation-composition :as hw-comp]
@@ -13,11 +15,21 @@
    household-waste-derivation-percent-recycled-positions
    household-co2e-derivation-generation-positions]
   
-  [:div.section
+  [:div 
+   
+   [:section.hero.is-small.has-background
+    [:img.hero-background.is-transparent {:src "img/home-page-top-hero.jpg"
+                                          :alt "About the regional dashboard image"}]
+    [:div.hero-body
+     [:div.container
+      [:div.content.has-text-centered
+       [:h1.title.is-5 "Reading the " [:em "Regional Dashboard"] " page"]
+       [:h2.subtitle.is-6.has-text-info "What the graphs show and what to look out for"]]]]]
 
-   [:div.content.has-text-centered
-    [:h1.title.is-5 "Reading the " [:em "Regional Dashboard"] " page"]
-    [:h2.subtitle.is-6.has-text-info "What the graphs show and what to look out for"]]
+   
+   [:div.section
+
+   
 
    [:div.container
     [:div.content
@@ -139,9 +151,11 @@
          "Stirling"
          household-waste-derivation-management]]]]
      
-     ]]])
+     ]]]])
 
 (defn root []
+  (r/after-render (util/scroll-fn))
+
   [ele
    @state/household-waste-derivation-generation-cursor
    @state/household-waste-derivation-composition-cursor

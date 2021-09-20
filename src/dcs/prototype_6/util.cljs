@@ -50,17 +50,20 @@
 
 
 (defn scroll-fn
-  [id]
-  (fn []
-    (when-let [ele (.getElementById js/document id)]
-      (.scrollIntoView ele true)
-      (.add (.-classList ele) "is-selected")
+  ([id]
+   (fn []
+     (when-let [ele (.getElementById js/document id)]
+       (.scrollIntoView ele true)
+       (.add (.-classList ele) "is-selected")
       ;; a hacky way of de-selecting
-      (letfn [(mousedown-handler [_e]
-                (.remove (.-classList ele) "is-selected")
-                (.removeEventListener js/document "mousedown" mousedown-handler))]
-        (.addEventListener js/document "mousedown" mousedown-handler))
+       (letfn [(mousedown-handler [_e]
+                 (.remove (.-classList ele) "is-selected")
+                 (.removeEventListener js/document "mousedown" mousedown-handler))]
+         (.addEventListener js/document "mousedown" mousedown-handler))
       ;; allow for the navbar area when scrolling-into-view a specific element
-      (when-let [scrolledY (.-scrollY js/window)]
-        (.scroll js/window 0 (- scrolledY 65))))))
+       (when-let [scrolledY (.-scrollY js/window)]
+         (.scroll js/window 0 (- scrolledY 65))))))
+  ([]
+   (fn []
+     (.scroll js/window 0 0))))
 

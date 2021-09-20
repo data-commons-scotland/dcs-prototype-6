@@ -20,16 +20,23 @@
   [route metas]
   (let [target (some-> route :parameters :query :target)]
            ;(js/console.log (str "target=" target))
-    (when target (r/after-render (util/scroll-fn target)))
+    (if target
+      (r/after-render (util/scroll-fn target))
+      (r/after-render (util/scroll-fn)))
 
     [:div
+     
+     [:section.hero.is-small.has-background
+      [:img.hero-background.is-transparent {:src "img/home-page-top-hero.jpg"
+                                            :alt "About the easier open data image"}]
+      [:div.hero-body
+       [:div.container
+        [:div.content.has-text-centered.has-text-weight-bold
+         [:h1.title.is-6 "About the data on this site"]
+         [:h2.subtitle.is-5.has-text-danger [:span [:em "Easier"] " open data about waste in Scotland"]]]]]]
 
      [:section.hero
       [:div.hero-body
-
-       [:div.content.has-text-centered
-        [:h1.title.is-6 "About the data on this site"]
-        [:h2.subtitle.is-5.has-text-danger [:span [:em "Easier"] " open data about waste in Scotland"]]]
 
        [:div.container
         [:div.content
