@@ -38,7 +38,7 @@
       
      ;; Map column & household column, reversed-in
       [:div.columns.is-vcentered.is-flex-direction-row-reverse
-       [:div.column.is-one-third
+       [:div.column.is-two-fifths
         [map/root]]
        [:div.column
         [:div.columns

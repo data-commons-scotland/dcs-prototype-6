@@ -14,11 +14,11 @@
      
      [:section.hero.is-small.has-background
       [:img.hero-background.is-transparent {:src "img/home-page-top-hero.jpg"
-                                            :alt "Waste through time image"}]
+                                            :alt "Waste through the decade image"}]
       [:div.hero-body
        [:div.container
         [:div.content.has-text-centered
-         [:h1.title.is-5 "Waste amounts through time"]
+         [:h1.title.is-5 "Waste through the decade"]
          [:h2.subtitle.is-6.has-text-info
           [:span "Discover how waste, recycling and CO" [:sub "2"] "e amounts have been changing across Scotland through the last 10 years"]]]]]]
 

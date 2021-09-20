@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.view.regional-dashboard.waste-site-derivation
-  (:require [dcs.prototype-6.state :as state]))
+  (:require [reitit.frontend.easy :as rfe]
+            [dcs.prototype-6.state :as state]))
 
 
 (defn ele [region
@@ -9,15 +10,16 @@
                    (filter #(= region (:region %)))
                    first)]
 
-           [:div
-            [:table#league-table.table.is-hoverable
-             [:tbody
-              [:tr
-               [:td "Sites accepting household waste"]
-               [:td (:household m)]]
-              [:tr
-               [:td "Other waste sites"]
-               [:td (:non-household m)]]]]]))
+        [:div
+         [:table#league-table.table.is-hoverable
+          [:tbody
+           [:tr
+            [:td "Sites accepting household waste"]
+            [:td (:household m)]]
+           [:tr
+            [:td "Other waste sites"]
+            [:td (:non-household m)]]]]
+         [:span.content.is-size-7.has-text-left.has-text-info "See also, the " [:a {:href (rfe/href :dcs.prototype-6.router/waste-sites-map-view)} "Waste sites tool"] "."]]))
 
 
 (defn root []
