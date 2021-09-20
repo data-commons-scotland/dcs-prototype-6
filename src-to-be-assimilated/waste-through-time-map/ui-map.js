@@ -60,7 +60,6 @@ function createUiMap(geoJson, getUiDetail, setHighlightedFeature){
     //var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'); // Not as nice as stadiamaps (below) but no account needed for non-localhost serving
     //var tiles = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {maxZoom: 20}); // Nice but needs an account for non-localhost serving
     var tiles = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 20}); 
-    var tiles = L.tileLayer('', {maxZoom: 20});
     tiles.addTo(uiMap);
 
     // KEEP for now

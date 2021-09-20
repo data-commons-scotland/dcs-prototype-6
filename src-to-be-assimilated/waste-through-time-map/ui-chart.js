@@ -25,7 +25,7 @@ function setOptionsObjMakerFns(chartType, maxValue, colours){
                         width: (multiplier * quantities.reduce(sumThem, 0))};
             };
     } else { // assume it is a bar chart
-        let multiplier = 700 / maxValue;
+        let multiplier = 500 / maxValue;
         optionsObjMakerForConstructor =
             quantities => {
                 return {data: quantities,
