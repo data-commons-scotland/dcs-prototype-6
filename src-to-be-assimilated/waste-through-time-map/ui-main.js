@@ -43,7 +43,7 @@ uiControlOps.createUiSwapper(["Household waste", "Household CO2 equivalent", "Ho
 function addUiSwappables(wasteData, config){
     let yearMin = wasteData.minYear;
     let yearMax = wasteData.maxYear;
-    let yearInitial = yearMax;
+    let yearInitial = yearMin;
 
     let getYear = () => {
         let ele = document.getElementById('year');
