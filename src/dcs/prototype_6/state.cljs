@@ -26,12 +26,12 @@
                        :stirling-community-food-footfall-derivation nil
                        :fairshare-derivation                        {:material nil
                                                                      :co2e     nil}
-                       :ace-furniture-counts-derivation             {:orig            nil
-                                                                     :category-trends nil
-                                                                     :item-trends     nil}
-                       :ace-furniture-weights-derivation            {:orig          nil
-                                                                     :flights-worth {:per-category nil
-                                                                                     :per-item     nil}}}))
+                       :ace-furniture-derivation                    {:count                      nil
+                                                                     :category-trends            nil
+                                                                     :item-trends                nil
+                                                                     :weight                     nil
+                                                                     :flights-worth-per-category nil
+                                                                     :flights-worth-per-item     nil}}))
 
 (defonce route-match-cursor (r/cursor root [:route-match]))
 
@@ -68,12 +68,12 @@
 (defonce fairshare-derivation-material-cursor (r/cursor root [:fairshare-derivation :material]))
 (defonce fairshare-derivation-co2e-cursor (r/cursor root [:fairshare-derivation :co2e]))
 
-(defonce ace-furniture-counts-derivation-orig-cursor (r/cursor root [:ace-furniture-counts-derivation :orig]))
-(defonce ace-furniture-counts-derivation-category-trends-cursor (r/cursor root [:ace-furniture-counts-derivation :category-trends]))
-(defonce ace-furniture-counts-derivation-item-trends-cursor (r/cursor root [:ace-furniture-counts-derivation :item-trends]))
-(defonce ace-furniture-weights-derivation-orig-cursor (r/cursor root [:ace-furniture-weights-derivation :orig]))
-(defonce ace-furniture-weights-derivation-flights-per-category-cursor (r/cursor root [:ace-furniture-weights-derivation :flights-worth :per-category]))
-(defonce ace-furniture-weights-derivation-flights-per-item-cursor (r/cursor root [:ace-furniture-weights-derivation :flights-worth :per-item]))
+(defonce ace-furniture-derivation-count-cursor (r/cursor root [:ace-furniture-derivation :count]))
+(defonce ace-furniture-derivation-category-trends-cursor (r/cursor root [:ace-furniture-derivation :category-trends]))
+(defonce ace-furniture-derivation-item-trends-cursor (r/cursor root [:ace-furniture-derivation :item-trends]))
+(defonce ace-furniture-derivation-weight-cursor (r/cursor root [:ace-furniture-derivation :weight]))
+(defonce ace-furniture-derivation-flights-per-category-cursor (r/cursor root [:ace-furniture-derivation :flights-worth-per-category]))
+(defonce ace-furniture-derivation-flights-per-item-cursor (r/cursor root [:ace-furniture-derivation :flights-worth-per-item]))
 
 (defonce household-waste-analysis-derivation-cursor (r/cursor root [:household-waste-analysis-derivation]))
 
@@ -90,7 +90,7 @@
 (defonce stirling-community-food-tonnes-holder (atom nil))
 (defonce stirling-community-food-footfall-holder (atom nil))
 (defonce fairshare-holder (atom nil))
-(defonce ace-furniture-counts-holder (atom nil))
-(defonce ace-furniture-weights-holder (atom nil))
-(defonce ace-furniture-to-waste-streams-holder (atom nil))
+(defonce ace-furniture-count-holder (atom nil))
+(defonce ace-furniture-avg-weight-holder (atom nil))
+(defonce ace-furniture-to-scottishCarbonMetric-holder (atom nil))
 (defonce household-waste-analysis-holder (atom nil))

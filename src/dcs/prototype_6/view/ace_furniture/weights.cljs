@@ -87,4 +87,4 @@
 
 (defn root []
       [tabbed-area
-       @state/ace-furniture-weights-derivation-orig-cursor])
+       @state/ace-furniture-derivation-weight-cursor])

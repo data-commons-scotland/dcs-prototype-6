@@ -132,5 +132,5 @@
 
 (defn root []
       [tabbed-area
-       @state/ace-furniture-counts-derivation-category-trends-cursor
-       @state/ace-furniture-counts-derivation-item-trends-cursor])
+       @state/ace-furniture-derivation-category-trends-cursor
+       @state/ace-furniture-derivation-item-trends-cursor])

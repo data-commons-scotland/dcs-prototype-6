@@ -76,7 +76,7 @@
       " These multipliers can be found in " 
       [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "co2e-multiplier"})} "The Scottish Carbon Metric multiplier table"] "."
       " Also, we have to " [:em "map"] " ACE's item categories to records in that table,"
-      " and this is done via " [:a {:href "ace-furniture-to-waste-streams.csv" :target "_blank"} "this mapping table"] "."]
+      " and this is done via " [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "ace-furniture-to-scottishCarbonMetric"})} "this mapping table"] "."]
      [:p " But by themselves, CO" [:sub "2"] "e values can be difficult to relate to so"
       " we convert them into in a more relatable measure: " [:em "flights worth"] " of CO" [:sub "2"] "e..."
       " The average cost of taking a one-way flight from Glasgow to Berlin is 202.5 kgs of CO" [:sub "2"] "e."
@@ -101,7 +101,7 @@
 
 (defn root []
       [tabbed-area
-       @state/ace-furniture-weights-derivation-flights-per-category-cursor
-       @state/ace-furniture-weights-derivation-flights-per-item-cursor])
+       @state/ace-furniture-derivation-flights-per-category-cursor
+       @state/ace-furniture-derivation-flights-per-item-cursor])
 
 

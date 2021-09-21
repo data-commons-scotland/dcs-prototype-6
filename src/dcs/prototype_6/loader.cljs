@@ -23,18 +23,14 @@
   []
   (js/console.log "Loading data files")
 
-  (fetch "ace-furniture-sold-counts.json"
-         (fn [ace-furniture-counts] (->> ace-furniture-counts
-                                         (reset! state/ace-furniture-counts-holder))))
+  (fetch "ace-furniture-count.json"
+         (fn [ace-furniture-count] (->> ace-furniture-count
+                                         (reset! state/ace-furniture-count-holder))))
 
-  (fetch "ace-furniture-sold-weights.json"
-         (fn [ace-furniture-weights] (->> ace-furniture-weights
-                                          (reset! state/ace-furniture-weights-holder))))
+  (fetch "ace-furniture-avg-weight.json"
+         (fn [ace-furniture-avg-weight] (->> ace-furniture-avg-weight
+                                          (reset! state/ace-furniture-avg-weight-holder))))
   
-  (fetch "ace-furniture-to-waste-streams.json"
-         (fn [ace-furniture-to-waste-streams] (->> ace-furniture-to-waste-streams
-                                                   (reset! state/ace-furniture-to-waste-streams-holder))))
-
   (fetch "geojson.json"
          (fn [geojson] (->> geojson
                             clj->js
@@ -100,6 +96,10 @@
   (fetch (str util/easier-repo-data "stirling-community-food-footfall.json")
          (fn [stirling-community-food-footfall] (->> stirling-community-food-footfall
                                                      (reset! state/stirling-community-food-footfall-holder))))
+
+  (fetch (str util/easier-repo-data "ace-furniture-to-scottishCarbonMetric.json")
+         (fn [ace-furniture-to-scottishCarbonMetric] (->> ace-furniture-to-scottishCarbonMetric
+                                                   (reset! state/ace-furniture-to-scottishCarbonMetric-holder))))
 
   (fetch (str util/easier-repo-data "household-waste-analysis.json")
          (fn [household-waste-analysis] (->> household-waste-analysis

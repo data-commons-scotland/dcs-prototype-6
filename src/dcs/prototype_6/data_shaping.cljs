@@ -361,17 +361,17 @@
 
 ;; Calculate for the ACE furniture sold weights,
 ;;   the flights-worth-of-CO2e for each category/item.
-(defn calc-ace-furniture-flights-worth [sold-weights furniture-to-waste-streams co2e-multiplier]
-  (let [furniture->waste-stream  (->> furniture-to-waste-streams
-                                      (map (fn [{:keys [category item waste-stream]}] [[category item] waste-stream]))
+(defn calc-ace-furniture-flights-worth [sold-weights furniture-to-scottishCarbonMetric co2e-multiplier]
+  (let [furniture->material  (->> furniture-to-scottishCarbonMetric
+                                      (map (fn [{:keys [category item material]}] [[category item] material]))
                                       (into {}))
-        waste-stream->multiplier (->> co2e-multiplier
+        material->multiplier (->> co2e-multiplier
                                       (map (fn [{:keys [material multiplier]}] [material multiplier]))
                                       (into {}))
         get-co2e-multiplier      (fn [category item]
                                    (->> [category item]
-                                        (get furniture->waste-stream)
-                                        (get waste-stream->multiplier)))
+                                        (get furniture->material)
+                                        (get material->multiplier)))
         sold-weights-with-co2es  (->> sold-weights
                                       (map (fn [{:keys [category item weight]
                                                  :as   m}]

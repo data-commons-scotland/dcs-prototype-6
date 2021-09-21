@@ -318,44 +318,46 @@
         (js/console.log (str "Calculating fairshare-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 
-(defn maybe-calc-ace-furniture-counts-derivations 
+(defn maybe-calc-ace-furniture-derivations 
   []
-  (let [raw @state/ace-furniture-counts-holder]
-
-    (when (some? raw)
-      (js/console.log "Calculating ace-furniture-counts-derivations")
-
-      (let [start-time                    (util/now)
-
-            orig                          raw                            ;; no transformation required
-            [category-trends item-trends] (data-shaping/calc-ace-furniture-trends raw)]
-
-        (reset! state/ace-furniture-counts-derivation-orig-cursor orig)
-        (reset! state/ace-furniture-counts-derivation-category-trends-cursor category-trends)
-        (reset! state/ace-furniture-counts-derivation-item-trends-cursor item-trends)
-        (js/console.log (str "Calculating ace-furniture-counts-derivations: secs-taken=" (util/secs-to-now start-time)))))))
-
-
-(defn maybe-calc-ace-furniture-weights-derivations 
-  []
-  (let [raw-weights @state/ace-furniture-weights-holder
-        furniture-to-waste-streams @state/ace-furniture-to-waste-streams-holder
+  (let [counts @state/ace-furniture-count-holder
+        avg-weights @state/ace-furniture-avg-weight-holder
+        furniture-to-scottishCarbonMetric @state/ace-furniture-to-scottishCarbonMetric-holder
         co2e-multiplier @state/co2e-multiplier-holder]
 
-    (when (and (some? raw-weights)
-               (some? furniture-to-waste-streams)
+    (when (and (some? counts)
+               (some? avg-weights)
+               (some? furniture-to-scottishCarbonMetric)
                (some? co2e-multiplier))
-      (js/console.log "Calculating ace-furniture-weights-derivations")
+      (js/console.log "Calculating ace-furniture-derivations")
       
       (let [start-time      (util/now)
+            
+            ;; calc count trends
+            [category-trends item-trends] (data-shaping/calc-ace-furniture-trends counts)
 
-            orig raw-weights                      ; no transformation required
-            [flights-per-category flights-per-item] (data-shaping/calc-ace-furniture-flights-worth raw-weights furniture-to-waste-streams co2e-multiplier)]
+            ;; calc weights
+            avg-weights-lookup-map (group-by (juxt :category :item) avg-weights)
+            lookup-avg-weight (fn [category item]
+                                (->> [category item]
+                                     (get avg-weights-lookup-map)
+                                     first
+                                     :avg-kg))
+            weights (->> counts
+                         (map (fn [{:keys [category item count]
+                                    :as   m}]
+                                (assoc m :weight (* (lookup-avg-weight category item) count)))))
+
+            ;; calc flights-worths
+            [flights-per-category flights-per-item] (data-shaping/calc-ace-furniture-flights-worth weights furniture-to-scottishCarbonMetric co2e-multiplier)]
         
-        (reset! state/ace-furniture-weights-derivation-orig-cursor orig)
-        (reset! state/ace-furniture-weights-derivation-flights-per-category-cursor flights-per-category)
-        (reset! state/ace-furniture-weights-derivation-flights-per-item-cursor flights-per-item)
-        (js/console.log (str "Calculating ace-furniture-weights-derivations: secs-taken=" (util/secs-to-now start-time)))))))
+        (reset! state/ace-furniture-derivation-count-cursor counts)
+        (reset! state/ace-furniture-derivation-category-trends-cursor category-trends)
+        (reset! state/ace-furniture-derivation-item-trends-cursor item-trends)
+        (reset! state/ace-furniture-derivation-weight-cursor weights)
+        (reset! state/ace-furniture-derivation-flights-per-category-cursor flights-per-category)
+        (reset! state/ace-furniture-derivation-flights-per-item-cursor flights-per-item)
+        (js/console.log (str "Calculating ace-furniture-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 
 (defn maybe-calc-household-waste-analysis-derivations 
@@ -450,25 +452,25 @@
                (when new-state
                      (maybe-calc-fairshare-derivations))))
 
-(add-watch state/ace-furniture-counts-holder :ace-furniture-counts-derivations-dependency
+(add-watch state/ace-furniture-count-holder :ace-furniture-count-derivations-dependency
            (fn [_key _atom _old-state new-state]
                (when new-state
-                     (maybe-calc-ace-furniture-counts-derivations))))
+                     (maybe-calc-ace-furniture-derivations))))
 
-(add-watch state/ace-furniture-weights-holder :ace-furniture-weights-derivations-dependency
+(add-watch state/ace-furniture-avg-weight-holder :ace-furniture-avg-weight-derivations-dependency
            (fn [_key _atom _old-state new-state]
                (when new-state
-                     (maybe-calc-ace-furniture-weights-derivations))))
+                     (maybe-calc-ace-furniture-derivations))))
 
-(add-watch state/ace-furniture-to-waste-streams-holder :ace-furniture-weights-derivations-dependency
+(add-watch state/ace-furniture-to-scottishCarbonMetric-holder :ace-furniture-avg-weight-derivations-dependency
            (fn [_key _atom _old-state new-state]
              (when new-state
-               (maybe-calc-ace-furniture-weights-derivations))))
+               (maybe-calc-ace-furniture-derivations))))
 
-(add-watch state/co2e-multiplier-holder :ace-furniture-weights-derivations-dependency
+(add-watch state/co2e-multiplier-holder :ace-furniture-avg-weight-derivations-dependency
            (fn [_key _atom _old-state new-state]
              (when new-state
-               (maybe-calc-ace-furniture-weights-derivations))))
+               (maybe-calc-ace-furniture-derivations))))
 
 (add-watch state/household-waste-analysis-holder :household-waste-analysis-derivations-dependency
            (fn [_key _atom _old-state new-state]

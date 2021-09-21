@@ -89,4 +89,4 @@
 
 (defn root []
       [tabbed-area
-       @state/ace-furniture-counts-derivation-orig-cursor])
+       @state/ace-furniture-derivation-count-cursor])

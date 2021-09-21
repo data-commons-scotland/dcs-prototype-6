@@ -47,11 +47,11 @@
        @state/fairshare-derivation-material-cursor
        @state/fairshare-derivation-co2e-cursor
 
-       @state/ace-furniture-counts-derivation-orig-cursor
-       @state/ace-furniture-counts-derivation-category-trends-cursor
-       @state/ace-furniture-counts-derivation-item-trends-cursor
-       @state/ace-furniture-weights-derivation-orig-cursor
-       @state/ace-furniture-weights-derivation-flights-per-category-cursor
-       @state/ace-furniture-weights-derivation-flights-per-item-cursor
+       @state/ace-furniture-derivation-count-cursor
+       @state/ace-furniture-derivation-category-trends-cursor
+       @state/ace-furniture-derivation-item-trends-cursor
+       @state/ace-furniture-derivation-weight-cursor
+       @state/ace-furniture-derivation-flights-per-category-cursor
+       @state/ace-furniture-derivation-flights-per-item-cursor
 
        @state/household-waste-analysis-derivation-cursor])
