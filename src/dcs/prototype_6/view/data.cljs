@@ -7,23 +7,38 @@
 
 (defn dataset-row
   [{:keys [name description #_record-count #_attribute-count creator supplier supply-url licence licence-url]}]
-  [:tr {:id name}
-   [:td.has-text-weight-bold name]
-   [:td description]
-   #_[:td record-count " x " attribute-count]
-   [:td [:a {:href   (str util/easier-repo-data (str name ".csv"))
-             :target "_blank"} "CSV"]]
-   [:td [:a {:href   (str util/easier-repo-data (str name ".json"))
-             :target "_blank"} "JSON"]]
-   [:td [:a {:href   (str util/easier-repo-data (str name ".ttl"))
-             :target "_blank"} "Turtle"]]
-   [:td [:a {:href   (str util/easier-repo-data (str name "-metadata.json"))
-             :target "_blank"} "CSVW"]]
-   [:td creator]
-   [:td [:a {:href   supply-url
-             :target "_blank"} supplier]]
-   [:td [:a {:href   licence-url
-             :target "_blank"} licence]]])
+  (if (contains? #{"ace-furniture-count" "ace-furniture-avg-weight"} name) ;; temporary hack until we release/publish these
+    [:tr {:id name}
+     [:td.has-text-weight-bold name]
+     [:td description]
+     #_[:td record-count " x " attribute-count]
+     [:td "t.b.d."]
+     [:td "t.b.d."]
+     [:td "t.b.d."]
+     [:td [:a {:href   (str util/easier-repo-data (str name "-metadata.json"))
+               :target "_blank"} "CSVW"]]
+     [:td creator]
+     [:td [:a {:href   supply-url
+               :target "_blank"} supplier]]
+     [:td [:a {:href   licence-url
+               :target "_blank"} licence]]] 
+    [:tr {:id name}
+     [:td.has-text-weight-bold name]
+     [:td description]
+     #_[:td record-count " x " attribute-count]
+     [:td [:a {:href   (str util/easier-repo-data (str name ".csv"))
+               :target "_blank"} "CSV"]]
+     [:td [:a {:href   (str util/easier-repo-data (str name ".json"))
+               :target "_blank"} "JSON"]]
+     [:td [:a {:href   (str util/easier-repo-data (str name ".ttl"))
+               :target "_blank"} "Turtle"]]
+     [:td [:a {:href   (str util/easier-repo-data (str name "-metadata.json"))
+               :target "_blank"} "CSVW"]]
+     [:td creator]
+     [:td [:a {:href   supply-url
+               :target "_blank"} supplier]]
+     [:td [:a {:href   licence-url
+               :target "_blank"} licence]]]))
 
 
 (defn- tooltip

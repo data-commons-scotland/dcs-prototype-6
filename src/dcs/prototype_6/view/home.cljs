@@ -117,7 +117,7 @@
         
         (leaf-tile "Local reuse organisation data"
                    "#fdae6b"
-                   "ACE Furniture"
+                   "ACE furniture"
                    [:span "Find out about the amounts and types of furniture that are being reused because of this initiative."]
                    (rfe/href :dcs.prototype-6.router/ace-furniture-view)
                    "img/ace-furniture.png")

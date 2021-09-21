@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.view.ace-furniture.main
-  (:require [reagent.core :as r]
+  (:require [reitit.frontend.easy :as rfe]
+            [reagent.core :as r]
             [dcs.prototype-6.util :as util]
             [dcs.prototype-6.view.ace-furniture.counts :as counts]
             [dcs.prototype-6.view.ace-furniture.weights :as weights]
@@ -27,7 +28,8 @@
 
       [:div.content
        [:p "The ACE" [:sup.has-text-danger "a"] " furniture reuse initiative has been running since 1984(!), helping prevent furniture from becoming waste."]
-       [:p "ACE is in the process of publishing its data as open data."
+       [:p "ACE is in the process of publishing " 
+        [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "ace-furniture-count"})} [:span.has-text-link-dark "its data"]] " as " [:b "open data"] "."
         " This article is based on an draft of that work."]]
       [:div.content.is-small.has-text-danger
        [:ol.is-lower-alpha
