@@ -6,7 +6,7 @@
             [dcs.prototype-6.util :as util]))
 
 (defn dataset-row
-  [{:keys [name description #_record-count #_attribute-count creator supplier supply-url licence licence-url]}]
+  [{:keys [name description #_record-count #_attribute-count creator max-date-in-data supplier supplied-date supply-url licence licence-url]}]
   (if (contains? #{"ace-furniture-count" "ace-furniture-avg-weight"} name) ;; temporary hack until we release/publish these
     [:tr {:id name}
      [:td.has-text-weight-bold name]
@@ -18,8 +18,10 @@
      [:td [:a {:href   (str util/easier-repo-data (str name "-metadata.json"))
                :target "_blank"} "CSVW"]]
      [:td creator]
+     [:td max-date-in-data]
      [:td [:a {:href   supply-url
                :target "_blank"} supplier]]
+     [:td supplied-date]
      [:td [:a {:href   licence-url
                :target "_blank"} licence]]] 
     [:tr {:id name}
@@ -35,8 +37,10 @@
      [:td [:a {:href   (str util/easier-repo-data (str name "-metadata.json"))
                :target "_blank"} "CSVW"]]
      [:td creator]
+     [:td max-date-in-data]
      [:td [:a {:href   supply-url
                :target "_blank"} supplier]]
+     [:td supplied-date]
      [:td [:a {:href   licence-url
                :target "_blank"} licence]]]))
 
@@ -82,14 +86,16 @@
           [:thead
            [:tr.has-text-left
             [:th.has-text-danger {:col-span 6} [:span "dataset"]]
-            [:th.has-text-danger {:col-span 3} [:span "source"]]]
+            [:th.has-text-danger {:col-span 5} [:span "source"]]]
            [:tr.has-text-left
             [:th.has-text-danger {:row-span 2} "name"]
             [:th.has-text-danger {:row-span 2} "description"]
             [:th.has-text-danger {:col-span 3} [:span "the data" " " [:span "(3" (gstring/unescapeEntities "&nbsp;") "formats)"]]]
             [:th.has-text-danger {:row-span 2} (tooltip [:span "its spec"] "a machine-oriented description of the data's: entity URI; column names, types, references; etc.")]
             [:th.has-text-danger "creator"]
+            [:th.has-text-danger "max date in data"]
             [:th.has-text-danger "supplier"]
+            [:th.has-text-danger "supplied when"]
             [:th.has-text-danger "licence"]]
            [:tr.has-text-left
             [:th.has-text-danger (tooltip "CSV" " a simple tabular, human-oriented format")]
@@ -108,6 +114,8 @@
                       :target "_blank"} "ZIP"]]
             [:td [:a {:href   (str util/easier-repo-data "all-csvw.zip")
                       :target "_blank"} "ZIP"]]
+            [:td]
+            [:td]
             [:td]
             [:td]
             [:td]]]]]]]]]))
