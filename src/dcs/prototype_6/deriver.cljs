@@ -378,16 +378,16 @@
 
 (defn maybe-calc-meta-derivations
   []
-  (let [meta       @state/meta-holder
-        #_"TODO the others"]
+  (let [meta       @state/meta-holder]
 
     (when (some? meta)
-           #_"TODO 'and' the others"
+      
       (js/console.log "Calculating meta-derivations")
 
       (let [start-time (util/now)
             
-            derivation (map #(assoc % :record-count -1 :attribute-count -1) meta)]                            
+            derivation meta ;; just use as is
+            ]                            
         
         (reset! state/meta-derivation-cursor derivation)
         (js/console.log (str "Calculating meta-derivations: secs-taken=" (util/secs-to-now start-time)))))))
@@ -477,7 +477,6 @@
                (when new-state
                      (maybe-calc-household-waste-analysis-derivations))))
 
-;;TODO also watch all of the other that this derivation depends on
 (add-watch state/meta-holder :meta-derivations-dependency
            (fn [_key _atom _old-state new-state]
              (when new-state
