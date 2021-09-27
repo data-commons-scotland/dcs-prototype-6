@@ -88,7 +88,9 @@
                               " Looking at Fife's business waste data, there is a big change in the amount of " [:em "Combustion wastes"] " between 2015 and 2017, with"
                               " this category going from the biggest contributor to business waste to one of the smallest.  Is this the result of the closure of"
                               " Longannet power station in 2016?"
-                              [:div [:span.has-text-info "Related: "] "the Fife region in " [:a {:href (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hvb"})} "Waste through the decade"]]]
+                              [:div [:span.has-text-info "Related: "] 
+                               "the Fife region in " [:a {:href (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hvb"})} "Waste through the decade"]
+                               " | " [:a {:href (rfe/href :dcs.prototype-6.router/pivot-drilldown-and-plot-view {:preset "preset1"})} "Fife's four largest business wastes"] "."]]
          "Glasgow City"      [:div.content
                               [:span.has-text-danger "Glasgow City's recycling rates for household waste are low, and there's no sign of any increase."]
                               " In recent years, there has been an increase in the amount of waste sent to " [:em "Other diversion"] " - which could be energy generation,"
