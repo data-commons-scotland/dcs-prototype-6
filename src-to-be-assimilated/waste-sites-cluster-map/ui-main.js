@@ -13,9 +13,9 @@ var geojson,
     markerclusters = L.markerClusterGroup({
       singleMarkerMode: true,
       maxClusterRadius: 2*rmax,
-      iconCreateFunction: defineClusterIcon //this is where the magic happens
+      iconCreateFunction: defineClusterIcon // Where the magic happens
     }),
-    map = L.map('map').setView([56.12, -3.87], 7); //X Centre on Polmaise!
+    map = L.map('map').setView([56.12, -3.87], 7); // Centre on Polmaise!
 
     addControlPositionings(map);
     createUiTitle().addTo(map);
@@ -281,7 +281,7 @@ function renderLegend() {
 
 // Generate a legend with the same categories as in the clusterPie.
 function createUiLegend(){
-    var uiLegend = L.control({position: 'topright'});
+    var uiLegend = L.control({position: 'middleright'});
 
     uiLegend.onAdd = function(uiMap){
         this._div = L.DomUtil.create('div', 'info legend');
