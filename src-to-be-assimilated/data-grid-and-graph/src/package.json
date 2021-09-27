@@ -1,5 +1,5 @@
 {
-  "name": "wcs-prototype-2",
+  "name": "wcs-prototype-4",
   "description": "Demos a multi dimension data table that supports pivot, drilldown & export functionality, with a supporting chart.\n",
   "dependencies": {
     "react-dom": "16",

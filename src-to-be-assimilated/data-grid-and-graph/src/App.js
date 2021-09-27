@@ -32,9 +32,7 @@ const searchStr = window.location.search;
 //console.log("searchStr=" + searchStr);
 var preset = null;
 if (searchStr.includes("preset1")) preset = "preset1";
-else if (searchStr.includes("preset2")) preset = "preset2"
-else if (searchStr.includes("preset3")) preset = "preset3"
-else if (searchStr.includes("preset4")) preset = "preset4"
+if (searchStr.includes("preset2")) preset = "preset2";
 
 class App extends React.Component {
 
@@ -79,7 +77,7 @@ class App extends React.Component {
                     </CommonSeriesSettings>
                     <AdaptiveLayout  width={0} height={0} />
                     <Margin bottom={10} />
-                    <ChartExport enabled={true} fileName="household-waste" margin={3} />
+                    <ChartExport enabled={true} fileName="waste-data" margin={3} />
                     <ZoomAndPan
                       valueAxis="both"
                       argumentAxis="both"
@@ -102,7 +100,7 @@ class App extends React.Component {
                       </CommonSeriesSettings>
                       <AdaptiveLayout  width={0} height={0} />
                       <Margin bottom={10} />
-                      <ChartExport enabled={true} fileName="household-waste" margin={3} />
+                      <ChartExport enabled={true} fileName="waste-data" margin={3} />
                     </Chart>);
     }
  */
@@ -114,7 +112,7 @@ class App extends React.Component {
       <React.Fragment>
 
         <div className="block title">
-            <h1>Household waste in Scotland</h1>
+            <h1>Waste from businesses in Scotland</h1>
         </div>
         <center>{description}</center>
 
@@ -148,7 +146,7 @@ class App extends React.Component {
         >
           <FieldChooser enabled={true} />
           <Scrolling mode="virtual" />
-          <Export enabled={true} allowExportSelectedData={true} fileName="household-waste" />
+          <Export enabled={true} allowExportSelectedData={true} fileName="waste-data" />
         </PivotGrid>
 
         <Popup
@@ -163,46 +161,19 @@ class App extends React.Component {
           >
             <Column dataField="year" dataType="year" />
             <Column dataField="area" />
-            <Column dataField="endState" />
-            <Column dataField="material" />
+            <Column dataField="waste-category" />
+            <Column dataField="economic-sector" />
+            <Column dataField="generator" />
+            <Column dataField="top-selector" />
             <Column dataField="tonnes" dataType="number" format="decimal" />
-            <Column dataField="tonnesPerCitizen" dataType="number" format="decimal" />
-            <Column dataField="tonnesPerHousehold" dataType="number" format="decimal" />
           </DataGrid>
         </Popup>
 
         <div>
         <h5>Sources</h5>
             <ol>
-                <li>
-                "Generation and Management of Household Waste",
-                created by SEPA on 31st August 2020,
-                downloaded from <a
-                    href="http://statistics.gov.scot/data/household-waste"
-                    target="_blank">http://statistics.gov.scot/data/household-waste</a> on
-                    26th October 2020.
-                </li>
-                <li>
-                "Carbon footprint",
-                created by SEPA in 2019,
-                downloaded from  Wikidata (property P5991 on instances of Q15060255) on 26th October 2020.
-                </li>
-                <li>
-                "Population Estimates (Current Geographic Boundaries)",
-                created by NRS on 1st May 2020,
-                downloaded from <a
-                    href="http://statistics.gov.scot/data/population-estimates-current-geographic-boundaries"
-                    target="_blank">http://statistics.gov.scot/data/population-estimates-current-geographic-boundaries</a> on
-                    26th October 2020.
-                </li>
-                <li>
-                "Mid-Year Household Estimates",
-                created by NRS on 23rd June 2020,
-                downloaded from <a
-                    href="http://statistics.gov.scot/data/mid-year-household-estimates"
-                    target="_blank">http://statistics.gov.scot/data/mid-year-household-estimates</a> on
-                    26th October 2020.
-                </li>
+                <li>"Generation and Management of Household Waste", created by SEPA in 2020.</li>
+                <li>"Business Waste Data Tables", created by SEPA in 2019.</li>
             </ol>
         <h5>"Presets"</h5>
         <ol start="0">
@@ -213,22 +184,12 @@ class App extends React.Component {
             </li>
             <li>
                 <a href="index.html?preset1">
-                How does Aberdeen City compare with Dundee (and Scotland as a whole) for the amounts of household waste per citizen that it landfills?
+                Fife's four largest, business wastes vs their averages
                 </a>
             </li>
             <li>
                 <a href="index.html?preset2">
-                How many tonnes of each household waste material ended up recycled, landfilled, etc. in Stirling in 2018?
-                </a>
-            </li>
-            <li>
-                <a href="index.html?preset3">
-                What proportion of a tonne of household waste has ended up recycled, landfilled, etc. in Edinburgh through the years?
-                </a>
-            </li>
-            <li>
-                <a href="index.html?preset4">
-                What does the correlation look like between the amounts of household waste solids and their calculated carbon impacts?
+                Business combustion wastes by sector
                 </a>
             </li>
         </ol>
@@ -272,95 +233,51 @@ class App extends React.Component {
 }
 
 var fieldsConfig = [{
+                 caption: 'Selection',
+                 width: 90,
+                 dataField: 'top-selector',
+                 filterType: 'exclude',
+                 filterValues: ['by-sector']
+               }, {
                  caption: 'Area',
                  width: 90,
                  dataField: 'area',
                  area: 'row',
                  filterType: 'exclude',
-                 filterValues: [
-                   'Scotland'
-                 ]
-               },
-               {
-                 caption: 'End state',
+                 filterValues: []
+               }, {
+                 caption: 'Waste generator',
+                 dataField: 'generator',
                  width: 90,
-                 dataField: 'endState',
                  area: 'row',
                  filterType: 'exclude',
-                 filterValues: [
-                   'Waste Generated',
-                   'Other Diversion (pre 2014 method)',
-                   'Recycled (pre 2014 method)'
-                 ]
+                 filterValues: []
                }, {
                  caption: 'Material',
-                 dataField: 'material',
+                 dataField: 'waste-category',
                  width: 90,
                  area: 'row',
                  filterType: 'exclude',
-                 filterValues: [
-                   'Total Waste'
-                 ]
+                 filterValues: []
+               }, {
+                 caption: 'Business sector',
+                 dataField: 'economic-sector',
+                 width: 90,
+                 filterType: 'exclude',
+                 filterValues: []
                }, {
                  dataField: 'year',
                  dataType: 'year',
                  area: 'column',
                  filterType: 'exclude',
-                 filterValues: [ 2011, 2012, 2013 ]
+                 filterValues: [ ]
                }, {
-                 caption: 'Tonnes of solids',
+                 caption: 'Tonnes of waste',
                  dataField: 'tonnes',
+                 area: 'data',
                  dataType: 'number',
                  summaryType: 'sum',
                  format: 'decimal'
-               },
-               {
-                 caption: 'Tonnes of solids per citizen',
-                 dataField: 'tonnesPerCitizen',
-                 dataType: 'number',
-                 summaryType: 'sum',
-                 format: {
-                   precision: 5,
-                   type: "fixedPoint"
-                 },
-                 area: 'data'
-               },
-               {
-                 caption: 'Tonnes of solids per household',
-                 dataField: 'tonnesPerHousehold',
-                 dataType: 'number',
-                 summaryType: 'sum',
-                 format: {
-                   precision: 5,
-                   type: "fixedPoint"
-                 }
-               },
-               {
-                 caption: 'Tonnes of CO2e',
-                 dataField: 'co2e',
-                 dataType: 'number',
-                 summaryType: 'sum',
-                 format: 'decimal'
-               },
-               {
-                 caption: 'Tonnes of CO2e per citizen',
-                 dataField: 'co2ePerCitizen',
-                 dataType: 'number',
-                 summaryType: 'sum',
-                 format: {
-                   precision: 5,
-                   type: "fixedPoint"
-                 }
-               },
-               {
-                 caption: 'Tonnes of CO2e per household',
-                 dataField: 'co2ePerHousehold',
-                 dataType: 'number',
-                 summaryType: 'sum',
-                 format: {
-                   precision: 5,
-                   type: "fixedPoint"
-                 }
                }];
 
 var description = "";
@@ -368,114 +285,88 @@ var description = "";
 var chartType = "line";
 
 switch(preset){
-    case("preset1"): // compare tonnes landfilled per Aberdeen City/Dundee/Scottish citizen per year
+    case("preset1"): // Fife's four largest, business wastes vs their averages
         fieldsConfig = fieldsConfig
             .map(o => {
-                if (o.dataField==="area") {
+                if (o.dataField==="top-selector") {
                     o.filterType = 'include'
-                    o.filterValues = ['Aberdeen City', 'Dundee City', 'Scotland'];
+                    o.filterValues = ['by-area'];
                     o.expanded = true;
                 }
                 return o; })
             .map(o => {
-                if (o.dataField==="endState") {
+                if (o.dataField==="area") {
                     o.filterType = 'include'
-                    o.filterValues = ['Landfilled'];
+                    o.filterValues = ['Fife', 'average'];
+                    o.expanded = true;
+                }
+                return o; })
+            .map(o => {
+                if (o.dataField==="waste-category") {
+                    o.filterType = 'include'
+                    o.filterValues = ['Animal faeces, urine and manure',
+                                      'Combustion wastes',
+                                      'Household and similar wastes',
+                                      'Metallic wastes, ferrous'];
+                    o.expanded = true;
+                }
+                return o; })
+            .map(o => {
+                if (o.dataField==="generator") {
+                    o.filterType = 'include'
+                    o.filterValues = ['business'];
+                    o.expanded = true;
                 }
                 return o; });
-        description = "How does Aberdeen City compare with Dundee (and Scotland as a whole) for the amounts of household waste per citizen that it landfills?";
+        description = "Fife's four largest, business wastes vs their averages";
         break;
-    case("preset2"): // tonnes per end-state per material for Stirling in 2018
-            fieldsConfig = fieldsConfig
-                .map(o => {
-                    if (o.dataField==="tonnes") {
-                        o.area = "data";
-                    }
-                    return o; })
-                .map(o => {
-                    if (o.dataField==="tonnesPerCitizen") {
-                        o.area = null;
-                    }
-                    return o; })
-                .map(o => {
-                    if (o.dataField==="area") {
-                        o.filterType = 'include'
-                        o.filterValues = ['Stirling'];
-                        o.expanded = true;
-                    }
-                    return o; })
-                .map(o => {
-                    if (o.dataField==="endState") {
-                        o.filterType = 'include'
-                        o.filterValues = ['Recycled', 'Other Diversion', 'Landfilled'];
-                        o.expanded = true;
-                    }
-                    return o; })
-                .map(o => {
-                    if (o.dataField==="year") {
-                        o.filterType = 'include'
-                        o.filterValues = [2018];
-                     }
-                     return o; });
-            chartType = "bar";
-            description = "How many tonnes of each household waste material ended up recycled, landfilled, etc. in Stirling in 2018?";
-            break;
-    case("preset3"): // proportion per end-state for Edinburgh
-            fieldsConfig = fieldsConfig
-                .map(o => {
-                    if (o.dataField==="tonnes") {
-                        o.area = "data";
-                    }
-                    return o; })
-                .map(o => {
-                    if (o.dataField==="tonnesPerCitizen") {
-                        o.area = null;
-                    }
-                    return o; })
-                .map(o => {
-                    if (o.dataField==="area") {
-                        o.filterType = 'include'
-                        o.filterValues = ['City of Edinburgh'];
-                        o.expanded = true;
-                    }
-                    return o; })
-                .map(o => {
-                    if (o.dataField==="endState") {
-                        o.filterType = 'include'
-                        o.filterValues = ['Recycled', 'Other Diversion', 'Landfilled'];
-                    }
-                    return o; })
-                .map(o => {
-                    if (o.dataField==="year") {
-                        o.filterType = 'exclude'
-                        o.filterValues = [];
-                     }
-                     return o; });
-            chartType = "fullstackedbar";
-            description = "What proportion of a tonne of household waste has ended up recycled, landfilled, etc. in Edinburgh through the years?";
-            break;
-    case("preset4"): // correlations between solids and carbon impact
-            fieldsConfig = fieldsConfig
-                .map(o => {
-                    if (o.dataField==="co2ePerCitizen") {
-                        o.area = 'data';
-                    }
-                    return o; })
-                .map(o => {
-                    if (o.dataField==="area") {
-                        o.filterType = 'include'
-                        o.filterValues = ['Scotland'];
-                    }
-                    return o; })
-                .map(o => {
-                    if (o.dataField==="year") {
-                        o.filterType = 'include'
-                        o.filterValues = [2017, 2018];
-                     }
-                     return o; });
-            chartType="area";
-            description = "What does the correlation look like between the amounts of household waste solids and their calculated carbon impacts?";
-            break;
+    case("preset2"): // Business combustion wastes by sector
+        fieldsConfig = fieldsConfig
+            .map(o => {
+                if (o.dataField==="top-selector") {
+                    o.filterType = 'include'
+                    o.filterValues = ['by-economic-sector'];
+                    o.expanded = true;
+                }
+                return o; })
+            .map(o => {
+                if (o.dataField==="waste-category") {
+                    o.filterType = 'include'
+                    o.filterValues = ['Combustion wastes'];
+                    o.expanded = true;
+                }
+                return o; })
+            .map(o => {
+                if (o.dataField==="economic-sector") {
+                    o.filterType = 'include' // I couldn't exclude the 'blanks' so, for now, explicitly including...
+                    o.filterValues = ["Agriculture, forestry and fishing",
+                                      "Commerce",
+                                      "Manufacture of chemicals, plastics and pharmaceuticals",
+                                      "Manufacture of food and beverage products",
+                                      "Manufacture of wood products",
+                                      "Mining and quarrying",
+                                      "Other manufacturing",
+                                      "Power industry",
+                                      "Waste management",
+                                      "Water industry"];
+                    o.expanded = true;
+                    o.area = 'row';
+                }
+                return o; })
+            .map(o => {
+                if (o.dataField==="generator") {
+                    o.area = null;
+                    o.visible = false;
+                }
+                return o; })
+            .map(o => {
+                if (o.dataField==="area") {
+                    o.area = null;
+                    o.visible = false;
+                }
+                return o; });
+        description = "Business combustion wastes by sector";
+        break;
     default:
         // no op
 }
