@@ -25,7 +25,7 @@
                                    :value     0.2}
                          :tooltip [{:field "region" :type "nominal" :title "subject"}
                                    {:field "year" :type "temporal"}
-                                   {:field "tonnes" :type "quantitative"}]}}))
+                                   {:field "tonnes" :type "quantitative" :format ".3f"}]}}))
 
 (defn chart [region household-co2e-derivation-generation]
       (let [;; filter

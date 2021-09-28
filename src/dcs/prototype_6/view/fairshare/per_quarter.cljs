@@ -26,7 +26,7 @@
                     :y       {:field "tonnes" :type "quantitative"}
                     :color   {:value "#A2CAC1"}
                     :tooltip [{:title "year quarter" :field "quarter" :type "temporal" :format "Q%q %Y"}
-                              {:field "tonnes" :type "quantitative"}]}})
+                              {:field "tonnes" :type "quantitative" :format ".3f"}]}})
 
 
 (defn charts [material]

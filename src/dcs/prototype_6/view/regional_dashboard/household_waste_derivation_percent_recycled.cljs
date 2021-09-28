@@ -38,7 +38,7 @@
                                    :value     0.2}
                          :tooltip [{:field "region" :type "nominal" :title "subject"}
                                    {:field "year" :type "temporal"}
-                                   {:field "percentage" :type "quantitative"}]}}))
+                                   {:field "percentage" :type "quantitative" :format ".3f"}]}}))
 
 (def explain-scotGovTarget-percentageRecycled 
   [:span "By 2025, the Scottish Government aims to recycle 70% of waste."])

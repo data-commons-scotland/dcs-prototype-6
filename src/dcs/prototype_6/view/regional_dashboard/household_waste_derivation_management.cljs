@@ -30,7 +30,7 @@
                                    :value     0.2}
                          :tooltip [{:field "management" :type "nominal"}
                                    {:field "year" :type "temporal"}
-                                   {:field "tonnes" :type "quantitative"}]}}))
+                                   {:field "tonnes" :type "quantitative" :format ".3f"}]}}))
 
 (defn chart [region household-waste-derivation-management]
       (let [;; filter

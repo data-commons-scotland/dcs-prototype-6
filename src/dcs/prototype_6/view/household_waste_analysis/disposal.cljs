@@ -42,7 +42,7 @@
                                        :legend {:title "disposal"}}
                                :tooltip     [{:field "stratum" :type "nominal" :title "house type (location & CTax)"}
                                              {:field "stream" :type "nominal" :title "disposal"}
-                                             {:field "kg" :type "quantitative" :title "avg kg per household per wk"}]}}})
+                                             {:field "kg" :type "quantitative" :format ".3f" :title "avg kg per household per wk"}]}}})
 
 
 

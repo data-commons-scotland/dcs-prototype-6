@@ -51,7 +51,8 @@
                 :tooltip [{:field "source"
                            :type  "nominal"}
                           {:field "tonnes"
-                           :type  "quantitative"}]}})
+                           :type  "quantitative"
+                           :format ".3f"}]}})
 
 (defn chart-spec-per-month
   [data title]
@@ -88,7 +89,7 @@
                                                :legend nil #_{:orient "bottom" :columns 4}}
                                      :tooltip [{:field "source" :type "nominal"}
                                                {:field "month" :type "temporal" :format "%b %Y"}
-                                               {:field "tonnes" :type "quantitative"}]}})
+                                               {:field "tonnes" :type "quantitative" :format ".3f"}]}})
 
 (defn chart-spec-per-month-logarithmic
       [data title]

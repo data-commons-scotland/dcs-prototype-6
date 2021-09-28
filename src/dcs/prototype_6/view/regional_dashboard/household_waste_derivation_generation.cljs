@@ -14,7 +14,8 @@
             :height     100
             :background "floralwhite"
             :data       {:values data }
-            :mark       {:type "line" :point {:filled true}}
+            :mark       {:type  "line"
+                         :point {:filled true}}
             :selection  {:my {:type   "multi"
                               :fields ["region"]
                               :bind   "legend"}}
@@ -30,11 +31,13 @@
                          :strokeDash {:condition {:test  "datum.region == 'Scot gov target'"
                                                   :value [3 3]}
                                       :value     [0]}
-                         :color      {:field "region"
-                                      :type  "nominal"
-                                      :scale {:domain [region "Scotland" "Scot gov target"] 
-                                              :range  ["#fdae6b" "#1f77b4" "lightgrey"]}
-                                      :legend {:title nil :orient "bottom" :columns 3}}
+                         :color      {:field  "region"
+                                      :type   "nominal"
+                                      :scale  {:domain [region "Scotland" "Scot gov target"] 
+                                               :range  ["#fdae6b" "#1f77b4" "lightgrey"]}
+                                      :legend {:title   nil
+                                               :orient  "bottom"
+                                               :columns 3}}
                          :opacity    {:condition {:selection "my"
                                                   :value     1}
                                       :value     0.2}
@@ -44,7 +47,8 @@
                                       {:field "year"
                                        :type  "temporal"}
                                       {:field "tonnes"
-                                       :type  "quantitative"}]}}))
+                                       :type  "quantitative"
+                                       :format ".3f"}]}}))
 
 (defn chart [region household-waste-derivation-generation]
       (let [;; filter

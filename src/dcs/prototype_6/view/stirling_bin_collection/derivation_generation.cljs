@@ -34,7 +34,7 @@
                                    :value     0.2}
                          :tooltip [{:field "region" :type "nominal" :title "category"}
                                    {:field "date" :type "temporal" }
-                                   {:field "tonnes" :type "quantitative" :title "tonnes per citizen"}]}}))
+                                   {:field "tonnes" :type "quantitative" :format ".3f" :title "tonnes per citizen"}]}}))
 
 (defn chart [stirling-bin-collection-derivation-generation household-waste-derivation-generation]
       (let [;; min year to be used to filter the context data is 1 year less than the min year of the Stirling bin collection data

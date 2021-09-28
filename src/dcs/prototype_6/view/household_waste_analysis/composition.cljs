@@ -31,7 +31,7 @@
                         :legend {:title "material (high level)"}}
                 :tooltip [{:field "stratum" :type "nominal" :title "house type (location & CTax)"}
                           {:field "material-L1" :type "nominal" :title "material (high level)"}
-                          {:field "kg" :type "quantitative" :title "avg kg per household per wk"}]}})
+                          {:field "kg" :type "quantitative" :format ".3f" :title "avg kg per household per wk"}]}})
 
 (defn charts [derivation]
   (let [chart-data derivation]

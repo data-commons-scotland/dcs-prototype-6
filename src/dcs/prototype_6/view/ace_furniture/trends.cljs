@@ -41,8 +41,8 @@
                                           :tooltip [{:title "category" :field "category" :type "nominal"}
                                                     {:title "period" :field "period" :type "nominal"}
                                                     {:title "total count for the period" :field "period-count" :type "quantitative"}
-                                                    {:title "avg count per month" :field "avg-count" :type "quantitative"}
-                                                    {:title "trend" :field "trend" :type "quantitative"}]}
+                                                    {:title "avg count per month" :field "avg-count" :type "quantitative" :format ".3f"}
+                                                    {:title "trend" :field "trend" :type "quantitative" :format ".3f"}]}
 
                              }]
                     }
@@ -85,8 +85,8 @@
                                                     {:title "sub-category" :field "item" :type "nominal"}
                                                     {:title "period" :field "period" :type "nominal"}
                                                     {:title "total count for the period" :field "period-count" :type "quantitative"}
-                                                    {:title "avg count per month" :field "avg-count" :type "quantitative"}
-                                                    {:title "trend" :field "trend" :type "quantitative"}]}
+                                                    {:title "avg count per month" :field "avg-count" :type "quantitative" :format ".3f"}
+                                                    {:title "trend" :field "trend" :type "quantitative" :format ".3f"}]}
 
                              }]
                     }

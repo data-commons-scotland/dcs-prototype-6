@@ -37,7 +37,7 @@
                                             {:field "material-L2" :type "nominal" :title "material (in detail)"}
                                             {:field "stream" :type "nominal" :title "(actual) disposal"}
                                             {:field "idealStream" :type "nominal" :title "ideal disposal"}
-                                            {:field "kg" :type "quantitative" :title "kg per household per week"}]}}
+                                            {:field "kg" :type "quantitative" :format ".4f" :title "kg per household per week"}]}}
                       {:mark "bar"
                        :transform [{:filter "(datum.kg > 0) && (datum.stream != datum.idealStream)"}],
                        :encoding {:x {:field "kg" :type "quantitative" :scale {:type "sqrt"} :axis {:title "avg kg/hh/wk"}}
@@ -53,7 +53,7 @@
                                             {:field "material-L2" :type "nominal" :title "material (detailed level)"}
                                             {:field "stream" :type "nominal" :title "(actual) disposal"}
                                             {:field "idealStream" :type "nominal" :title "ideal disposal"}
-                                            {:field "kg" :type "quantitative" :title "avg kg per household per wk"}]}}]}})
+                                            {:field "kg" :type "quantitative" :format ".4f" :title "avg kg per household per wk"}]}}]}})
 
 (defn charts [derivation]
   (let [chart-data derivation]

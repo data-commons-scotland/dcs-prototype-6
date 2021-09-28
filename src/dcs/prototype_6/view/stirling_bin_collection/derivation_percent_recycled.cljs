@@ -32,7 +32,7 @@
                                    :value     0.2}
                          :tooltip [{:field "region" :type "nominal" :title "category"}
                                    {:field "date" :type "temporal"}
-                                   {:field "percentage" :type "quantitative"}]}}))
+                                   {:field "percentage" :type "quantitative" :format ".3f"}]}}))
 
 (defn chart [stirling-bin-collection-derivation-percent-recycled household-waste-derivation-percent-recycled]
       (let [;; min year to be used to filter the context data is 1 year less than the min year of the Stirling bin collection data

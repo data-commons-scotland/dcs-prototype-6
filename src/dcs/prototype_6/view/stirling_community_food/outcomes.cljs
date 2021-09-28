@@ -36,7 +36,7 @@
                             :legend {:symbolType "circle"
                                      :orient "bottom" :columns 2}}
                     :tooltip [{:field "outcome" :type "nominal"}
-                              {:field "tonnes" :type "quantitative"}]}})
+                              {:field "tonnes" :type "quantitative" :format ".3f"}]}})
 
 (defn chart-spec-per-month
       [data title]
@@ -74,7 +74,7 @@
                               :legend {:orient "bottom" :columns 2}}
                     :tooltip [{:field "outcome" :type "nominal"}
                               {:field "month" :type "temporal" :format "%b %Y"}
-                              {:field "tonnes" :type "quantitative"}]}})
+                              {:field "tonnes" :type "quantitative" :format ".3f"}]}})
 
 (defn chart-spec-per-month-logarithmic
       [data title]

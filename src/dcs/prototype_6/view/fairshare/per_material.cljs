@@ -38,7 +38,8 @@
                                :type  "nominal"}
                               {:title "tonnes"
                                :field "avg-tonnes"
-                               :type  "quantitative"}]}})
+                               :type  "quantitative"
+                               :format ".3f"}]}})
 
 
 

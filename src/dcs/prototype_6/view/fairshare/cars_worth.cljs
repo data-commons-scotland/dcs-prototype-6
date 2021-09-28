@@ -30,7 +30,7 @@
                     :text    {:field "emoji" :type "nominal"}
                     :size    {:value 15}
                     :tooltip [{:title "year" :field "date" :type "temporal" :format "%Y"}
-                              {:title "tonnes of CO2e" :field "year-co2e" :type "quantitative"}
+                              {:title "tonnes of CO2e" :field "year-co2e" :type "quantitative" :format ".3f"}
                               {:title "equivalent number of cars" :field "year-cars" :type "quantitative"}]}
        :config     {
                     :axisX {:grid false}}})

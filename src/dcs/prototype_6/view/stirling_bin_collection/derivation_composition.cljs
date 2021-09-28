@@ -34,7 +34,7 @@
                                    :value     0.2}
                          :tooltip [{:field "material" :type "nominal"}
                                    {:field "date" :type "temporal"}
-                                   {:field "tonnes" :type "quantitative" :title "tonnes per citizen"}]}})
+                                   {:field "tonnes" :type "quantitative" :format ".4f" :title "tonnes per citizen"}]}})
 
 (defn chart [derivation-composition]
       (let [;; construct a date field for Vega
