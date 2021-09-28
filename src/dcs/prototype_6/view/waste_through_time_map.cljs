@@ -30,8 +30,8 @@
        [:div.columns.is-centered
 
           ;; map
-        [:div.column.is-three-fifths
-         [:figure.image.is-3by4
+        [:div.column.is-two-thirds
+         [:figure.image.is-4by5
           [:iframe.has-ratio
            {:src         (str webapp-ctx "waste-through-time-map/index.html?preset=" preset)
             :scrolling   "no"

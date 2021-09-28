@@ -98,7 +98,7 @@
                    "Waste by region"
                    "How is waste in your region? Explore and compare regional waste amounts."
                    (rfe/href :dcs.prototype-6.router/dashboard-view)
-                   "img/regional-dashboard.png")
+                   #_"img/regional-dashboard.png" "img/regional-dashboard-animation.gif")
         
         (leaf-tile "Local reuse organisation data"
                    "#fdae6b"
@@ -142,7 +142,7 @@
                    "Waste through the decade"
                    [:span "Discover how waste, recycling and CO" [:sub "2"] "e amounts have been changing across Scotland over the last 10 years"]
                    (rfe/href :dcs.prototype-6.router/waste-through-time-map-view {:preset "hw-mgmt"})
-                   "img/map-mgmt.gif")
+                   #_"img/map-mgmt.gif" "img/hvb-animation.gif")
         
         (leaf-tile-blank)
         ]

@@ -28,8 +28,8 @@
      [:div.columns.is-centered
 
           ;; map
-      [:div.column.is-three-fifths
-       [:figure.image.is-3by4
+      [:div.column.is-two-thirds
+       [:figure.image.is-4by5
         [:iframe.has-ratio
          {:src         (str webapp-ctx "waste-sites-cluster-map/")
           :scrolling   "no"
@@ -65,7 +65,7 @@
           "Depicts an aggregation of 26 waste sites."]]
         [:div.columns.is-flex.is-vcentered
          [:column
-          [:figure.image.is-inline-block.is-32x32
+          [:figure.image.is-inline-block.is-48x48
            [:img {:src "https://github.com/data-commons-scotland/dcs-shorts/raw/master/cluster-map-of-materials-incoming/no-pie.png"}]]]
          [:column
           "(I.e. a number without a surrounding pie chart) depicts a waste site with no incoming materials (probably because the site was not operational during 2019)."]]
@@ -98,7 +98,7 @@
      [:div.columns.is-centered
 
           ;; intro
-      [:div.column.is-three-fifths
+      [:div.column.is-two-thirds
        [:div.content
 
         [:h3.subtitle.is-6.has-text-danger "An introduction to this data"]
