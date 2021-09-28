@@ -103,12 +103,12 @@
 
         [:h3.subtitle.is-6.has-text-danger "An introduction to this data"]
         [:p "SEPA publish a "
-         [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "waste-site-io"})} "Site returns"]
+         [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "waste-site-material-io"})} "Site returns"]
          " dataset that says:"]
         [:ul
          [:li "how many tonnes"]
          [:li "of each ("
-          [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "ewc-coding"})} "EWC coded"]
+          [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "ewc-code"})} "EWC coded"]
           ") waste material"]
          [:li "was moved in or out"]
          [:li "of each authorised waste site in Scotland."]]
@@ -133,7 +133,7 @@
          " Specifically, its name, council area, waste processing activities, client types,"
          " and (of course!) location."]
         [:p "SEPA holds that additional information about waste sites, in a second dataset: "
-         [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "waste-site"})} "Waste sites and capacity summary"] "."
+         [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "waste-site-io"})} "Waste sites and capacity summary"] "."
          " Our map tool uses the Permit/Licence codes to cross-reference between the 2 SEPA datasets."]]]
 
       [:div.column]]]]])

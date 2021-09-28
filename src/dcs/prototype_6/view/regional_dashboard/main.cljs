@@ -17,10 +17,9 @@
 
 
 (defn root [route]
-  (r/after-render (util/scroll-fn))
+  ;; (r/after-render (util/scroll-fn)) don't jump to the top of this view
 
   (let [region (some-> route :parameters :query :region)]
-    ;;(js/console.log (str "region=" region))
     (reset! state/region-cursor region)
 
     [:div
