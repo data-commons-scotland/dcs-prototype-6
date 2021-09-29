@@ -42,13 +42,12 @@
       ]
      [:column
       [:div.m-4.content
-       [:p.has-text-info.has-text-weight-bold "Hover/click on part of the graph to be shown more detail."]
-       [:p "Graph 1 shows that " [:span.has-text-warning "Food wastes"] " and " [:span.has-text-warning "Paper and cardboard"] 
+       [:p "Graph 1 shows that " [:span.has-text-warning "Food wastes"] " and " [:span.has-text-warning "Paper and cardboard"]
         " form significant components of binned material, across all 5 household types."]
-       [:p [:span.has-text-warning "rural £/££"]" households dispose of a lot of fine-grained material," 
+       [:p.has-text-info.has-text-weight-bold "Hover/click on part of the graph to be shown more detail."]
+       [:p [:span.has-text-warning "rural £/££"] " households dispose of a lot of fine-grained material,"
         " i.e." (gstring/unescapeEntities "&nbsp;") [:span.has-text-warning "Fines" (gstring/unescapeEntities "&nbsp;") "(<10mm)"] "."
-        " ...What is it? ...Soil/dust/dirt?"]
-       ]]]))
+        " ...What is it? ...Soil/dust/dirt?"]]]]))
 
 (defn root []
       [charts

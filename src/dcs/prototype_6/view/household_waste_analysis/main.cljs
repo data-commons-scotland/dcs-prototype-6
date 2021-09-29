@@ -33,10 +33,10 @@
        " (i.e. " [:em "was it put into the right bin?"] ")."]
       [:p "ZWS is considering publishing this data as " [:b "open data"] "."
        " This article is based on an anonymised" [:sup "b"] " " [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "household-waste-analysis"})} "subset of the data"] "."]   
-      [:p "But " [:span.has-text-danger [:em "\"What's in " [:b "my"] " bin?\""]] "..."
+      [:p "But " [:span.has-text-danger [:em "\"what are my neighbours putting into their bins?\""]] "..."
        " Well, the best that you can do here, with this anonymised subset of the data,"
-       " is to select [from the graphs below] the " [:em "household type "] " that most closely matches with yours:"]
-      [:ul
+       " is to select [from the graphs below] the " [:em "household type "] " that is the closest match for your area:"]
+      [:ul 
        [:li "Your property's location?"
         [:ul
          [:li [:span.has-text-warning "urban"]]
@@ -54,7 +54,8 @@
                   :target "_blank"} "ZWS"]
          " - Zero Waste Scotland - a not-for-profit environmental organisation, funded by the Scottish Government and European Regional Development Fund."]
         [:li "This subset of the data comes from one, anonymised council region;"
-         " and to bins that it collected across the 2 periods of Nov/Dec 2013 and Mar 2014."]]]
+         " and to bins that it collected across the 2 periods of Nov/Dec 2013 and Mar 2014."
+         [:br] " ZWS is coordinating a new, similar survey for the autumn of 2021."]]]
       
           ;; ...Does that provide a good enough introduction to what it is that we're trying to convey through this page?
           ;; It would be nice to provide an additional, easier to understand "what's in just my bin" perspective with simplier info-graphics.

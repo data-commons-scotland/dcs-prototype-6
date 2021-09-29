@@ -68,7 +68,7 @@
   
   [:div
 
-   [:section.hero.is-small.has-background.is-primary
+   [:section.hero.is-small.has-background.is-info
     [:img.hero-background.is-transparent {:src "img/home-page-top-hero.jpg"
                                           :alt "The Fair Share image"}]
     [:div.hero-body
