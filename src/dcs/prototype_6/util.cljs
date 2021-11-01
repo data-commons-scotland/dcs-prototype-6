@@ -26,8 +26,14 @@
                       :source   false
                       :compiled false
                       :editor   false}
-     :downloadFileName "WasteMattersScotland-visualisation"
-     :scaleFactor      2})
+   :downloadFileName "WasteMattersScotland-visualisation"
+   :scaleFactor      2
+   ;; experiment to access and use Vega's View API, requires metasoarous/oz 1.6.0-alpha35-SNAPSHOT (or later)
+   #_:view-callback #_(fn [view]
+                    (js/console.log "executing view-callback option to oz/vega-lite component")
+                    (js/console.log "view object" view)
+                    (.addEventListener view "click" (fn [_event item] (js/console.log item))))
+   })
 
 ;; For dcs-easier-open-data URLs I want to use the stem
 ;;   https://github.com/data-commons-scotland/dcs-easier-open-data/raw/v1.0-beta/data/
