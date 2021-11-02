@@ -29,7 +29,7 @@
    :downloadFileName "WasteMattersScotland-visualisation"
    :scaleFactor      2
    ;; experiment to access and use Vega's View API, requires metasoarous/oz 1.6.0-alpha35-SNAPSHOT (or later)
-   #_:view-callback #_(fn [view]
+   :view-callback (fn [view]
                     (js/console.log "executing view-callback option to oz/vega-lite component")
                     (js/console.log "view object" view)
                     (.addEventListener view "click" (fn [_event item] (js/console.log item))))

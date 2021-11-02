@@ -7,6 +7,32 @@
 
 (def stratum-labels ["urban £" "urban ££" "urban £££" "rural £/££" "rural £££"])
 
+(def layer-normal {:mark "bar"
+                 :encoding {:x {:field "kg" :type "quantitative" :scale {:type "sqrt"} :axis {:title "avg kg/hh/wk"}}
+                            :y {:field "stream" :type "nominal" :axis {:title ""}}
+                            :color {:field "material-L2" :type "nominal"
+                                    :scale {:scheme "tableau20"}
+                                    :legend nil}
+                            :fillOpacity {:value 0.5}
+                            :tooltip [{:field "stratum" :type "nominal" :title "house type (location & CTax)"}
+                                      {:field "material-L1" :type "nominal" :title "material (high level)"}
+                                      {:field "material-L2" :type "nominal" :title "material (in detail)"}
+                                      {:field "stream" :type "nominal" :title "(actual) disposal"}
+                                      {:field "idealStream" :type "nominal" :title "ideal disposal"}
+                                      {:field "kg" :type "quantitative" :format ".4f" :title "kg per household per week"}]}})
+(def layer-red-outlines (-> layer-normal
+                            (assoc :transform [{:filter "(datum.kg > 0) && (datum.stream != datum.idealStream)"}])
+                            (assoc-in [:encoding :fillOpacity :value] 0)
+                            (assoc-in [:encoding :stroke :value] "red")
+                            (assoc-in [:encoding :strokeWidth :value] 1)))
+(def layer-annotations (-> layer-normal
+                         (assoc :transform [{:filter "datum.annotation != null"}])
+                         (assoc-in [:encoding :fillOpacity :value] 1)
+                         (assoc :mark {:type "text" :align "left" :dx 10 #_:baseline #_"bottom" :fontWeight "bold" :fontSize 14})
+                         (assoc-in [:encoding :text :field] "annotation")
+                         (assoc-in [:encoding :tooltip #_6] {:field "annotation-text" :type "nominal"})
+                         (assoc-in [:encoding :href] {:field "annotation-url" :type "nominal"})))
+
 (defn chart-spec
       [chart-data title]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
@@ -16,7 +42,7 @@
        :title title
        :data       {:values chart-data}
        :transform  [{:aggregate [{:op "mean" :field "kgPerHhPerWk" :as "kg"}]
-                     :groupby ["stratum" "material-L1" "material-L2" "stream" "idealStream"]}]
+                     :groupby ["stratum" "material-L1" "material-L2" "stream" "idealStream" "annotation" "annotation-text" "annotation-url"]}]
        :facet     {:column {:field "stratum" :type "nominal"
                             :sort stratum-labels
                             :header {:title "household type (location type & council tax band)"}}
@@ -25,38 +51,47 @@
                          :sort {:field "kg" :op "max" :order "descending"}}}
        :spec {:width 130
               :height 20
-              :layer [{:mark "bar"
-                       :encoding {:x {:field "kg" :type "quantitative" :scale {:type "sqrt"} :axis {:title "avg kg/hh/wk"}}
-                                  :y {:field "stream" :type "nominal" :axis {:title ""}}
-                                  :color {:field "material-L2" :type "nominal"
-                                          :scale {:scheme "tableau20"}
-                                          :legend nil}
-                                  :fillOpacity {:value 0.5}
-                                  :tooltip [{:field "stratum" :type "nominal" :title "house type (location & CTax)"}
-                                            {:field "material-L1" :type "nominal" :title "material (high level)"}
-                                            {:field "material-L2" :type "nominal" :title "material (in detail)"}
-                                            {:field "stream" :type "nominal" :title "(actual) disposal"}
-                                            {:field "idealStream" :type "nominal" :title "ideal disposal"}
-                                            {:field "kg" :type "quantitative" :format ".4f" :title "kg per household per week"}]}}
-                      {:mark "bar"
-                       :transform [{:filter "(datum.kg > 0) && (datum.stream != datum.idealStream)"}],
-                       :encoding {:x {:field "kg" :type "quantitative" :scale {:type "sqrt"} :axis {:title "avg kg/hh/wk"}}
-                                  :y {:field "stream" :type "nominal" :axis {:title ""}}
-                                  :color {:field "material-L2" :type "nominal"
-                                          :scale {:scheme "tableau20"}
-                                          :legend nil}
-                                  :fillOpacity {:value 0}
-                                  :stroke {:value "red"}
-                                  :strokeWidth {:value 1}
-                                  :tooltip [{:field "stratum" :type "nominal" :title "house type (location & CTax)"}
-                                            {:field "material-L1" :type "nominal" :title "material (high level)"}
-                                            {:field "material-L2" :type "nominal" :title "material (detailed level)"}
-                                            {:field "stream" :type "nominal" :title "(actual) disposal"}
-                                            {:field "idealStream" :type "nominal" :title "ideal disposal"}
-                                            {:field "kg" :type "quantitative" :format ".4f" :title "avg kg per household per wk"}]}}]}})
+              :layer [layer-normal
+                      layer-red-outlines
+                      layer-annotations]}})
+
+(defn find-indexes [coll pred]
+  (keep-indexed #(if (pred %2) %1 nil) coll))
+
+(def annotations [{:text "We can see that rural £/££ households dispose of a lot of fine-grained material, i.e. Fines (<10mm). 
+                        Also, they dispose of a sizable portion of it inappropriately in recycling bins."
+                 :pred #(and (= "Fines (<10mm)" (:material-L2 %))
+                             (= "rural £/££" (:stratum %))
+                             (= "recycling bin" (:stream %)))}
+                {:text "Urban £££ households dispose of a lot of Green garden waste inappropriately in comparison to their rural £££ peers. 
+                        Is that because urban £££ households have fewer convenient spaces in which to heap their garden waste! 
+                        Perhaps, but it is foolish to make such inferences from data (such as this) which covers a relatively small number of observations."
+                 :pred #(and (= "Green garden waste" (:material-L2 %)) 
+                             (= "urban £££" (:stratum %)) 
+                             (= "grey bin" (:stream %)))}])
+
+(defn add-annotation [data-vector {:keys [text pred]}]
+  (let [indexes (find-indexes data-vector pred)]
+    (loop [indexes-todo indexes
+           data-vector-updated data-vector]
+      (if (empty? indexes-todo)
+        data-vector-updated
+        (recur (rest indexes-todo)
+               (let [ix (first indexes-todo)]
+                 (-> data-vector-updated
+                   (assoc-in [ix :annotation] "ℹ️")
+                   (assoc-in [ix :annotation-text] text)
+                   (assoc-in [ix :annotation-url] "#/household-waste-analysis") ;;TODO maybe replace with View API click event listener
+                   )))))))
 
 (defn charts [derivation]
-  (let [chart-data derivation]
+  (let [chart-data (loop [annotations-todo annotations
+                          data-with-annotations derivation]
+                     (if (empty? annotations-todo)
+                       data-with-annotations
+                       (recur (rest annotations-todo)
+                              (add-annotation data-with-annotations (first annotations-todo)))))] 
+    
     [:div.columns
      [:column
       [:div.m-4.content
