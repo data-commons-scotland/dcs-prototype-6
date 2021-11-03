@@ -3,6 +3,7 @@
    [oz.core :as oz]
    [goog.string :as gstring]
    [dcs.prototype-6.util :as util]
+   [dcs.prototype-6.annotation :as anno]
    [dcs.prototype-6.state :as state]))
 
 (def stratum-labels ["urban £" "urban ££" "urban £££" "rural £/££" "rural £££"])
@@ -25,13 +26,9 @@
                             (assoc-in [:encoding :fillOpacity :value] 0)
                             (assoc-in [:encoding :stroke :value] "red")
                             (assoc-in [:encoding :strokeWidth :value] 1)))
-(def layer-annotations (-> layer-normal
-                         (assoc :transform [{:filter "datum.annotation != null"}])
-                         (assoc-in [:encoding :fillOpacity :value] 1)
-                         (assoc :mark {:type "text" :align "left" :dx 10 #_:baseline #_"bottom" :fontWeight "bold" :fontSize 14})
-                         (assoc-in [:encoding :text :field] "annotation")
-                         (assoc-in [:encoding :tooltip #_6] {:field "annotation-text" :type "nominal"})
-                         (assoc-in [:encoding :href] {:field "annotation-url" :type "nominal"})))
+(def layer-annotations (-> anno/layer-annotations
+                           (assoc-in [:encoding :x] (-> layer-normal :encoding :x))
+                           (assoc-in [:encoding :y] (-> layer-normal :encoding :y))))
 
 (defn chart-spec
       [chart-data title]
@@ -55,42 +52,8 @@
                       layer-red-outlines
                       layer-annotations]}})
 
-(defn find-indexes [coll pred]
-  (keep-indexed #(if (pred %2) %1 nil) coll))
-
-(def annotations [{:text "We can see that rural £/££ households dispose of a lot of fine-grained material, i.e. Fines (<10mm). 
-                        Also, they dispose of a sizable portion of it inappropriately in recycling bins."
-                 :pred #(and (= "Fines (<10mm)" (:material-L2 %))
-                             (= "rural £/££" (:stratum %))
-                             (= "recycling bin" (:stream %)))}
-                {:text "Urban £££ households dispose of a lot of Green garden waste inappropriately in comparison to their rural £££ peers. 
-                        Is that because urban £££ households have fewer convenient spaces in which to heap their garden waste! 
-                        Perhaps, but it is foolish to make such inferences from data (such as this) which covers a relatively small number of observations."
-                 :pred #(and (= "Green garden waste" (:material-L2 %)) 
-                             (= "urban £££" (:stratum %)) 
-                             (= "grey bin" (:stream %)))}])
-
-(defn add-annotation [data-vector {:keys [text pred]}]
-  (let [indexes (find-indexes data-vector pred)]
-    (loop [indexes-todo indexes
-           data-vector-updated data-vector]
-      (if (empty? indexes-todo)
-        data-vector-updated
-        (recur (rest indexes-todo)
-               (let [ix (first indexes-todo)]
-                 (-> data-vector-updated
-                   (assoc-in [ix :annotation] "ℹ️")
-                   (assoc-in [ix :annotation-text] text)
-                   (assoc-in [ix :annotation-url] "#/household-waste-analysis") ;;TODO maybe replace with View API click event listener
-                   )))))))
-
 (defn charts [derivation]
-  (let [chart-data (loop [annotations-todo annotations
-                          data-with-annotations derivation]
-                     (if (empty? annotations-todo)
-                       data-with-annotations
-                       (recur (rest annotations-todo)
-                              (add-annotation data-with-annotations (first annotations-todo)))))] 
+  (let [chart-data (anno/add-annotations (vec derivation))] 
     
     [:div.columns
      [:column

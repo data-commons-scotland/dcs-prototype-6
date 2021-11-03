@@ -29,10 +29,17 @@
    :downloadFileName "WasteMattersScotland-visualisation"
    :scaleFactor      2
    ;; experiment to access and use Vega's View API, requires metasoarous/oz 1.6.0-alpha35-SNAPSHOT (or later)
-   :view-callback (fn [view]
+   #_:view-callback #_(fn [view]
                     (js/console.log "executing view-callback option to oz/vega-lite component")
                     (js/console.log "view object" view)
-                    (.addEventListener view "click" (fn [_event item] (js/console.log item))))
+                    (.addEventListener view "mouseover" (fn [event item]
+                                                          (js/console.log "item: " item)
+                                                          (when (some-> item .-datum .-annotation)
+                                                            (js/console.log "It's an annotation")
+                                                            (let [datum (.-datum item)]
+                                                              (js/console.log "datum: " datum))
+                                                            (.preventDefault event) ;; hmmm, does this do anything?
+                                                            ))))
    })
 
 ;; For dcs-easier-open-data URLs I want to use the stem
