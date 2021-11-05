@@ -2,7 +2,7 @@
   (:require
    [oz.core :as oz]
    [dcs.prototype-6.util :as util]
-   [dcs.prototype-6.annotation :as anno]
+   [dcs.prototype-6.annotation-mech :as anno-mech]
    [dcs.prototype-6.state :as state]))
 
 
@@ -28,7 +28,7 @@
                                    :tooltip [{:field "region" :type "nominal" :title "subject"}
                                              {:field "year" :type "temporal"}
                                              {:field "percentage" :type "quantitative" :format ".3f"}]}}
-        layer-annotations (-> anno/layer-annotations
+        layer-annotations (-> anno-mech/layer-annotations
                               (assoc-in [:encoding :x] (-> layer-normal :encoding :x))
                               (assoc-in [:encoding :y] (-> layer-normal :encoding :y))
                               (assoc-in [:mark :dy] -8)
@@ -54,7 +54,7 @@
                                                            household-waste-derivation-percent-recycled')
 
         ;; add annotation data
-        household-waste-derivation-percent-recycled''' (anno/add-annotations (vec household-waste-derivation-percent-recycled'') :household-waste-derivation-percent-recycled)]
+        household-waste-derivation-percent-recycled''' (anno-mech/add-annotations (vec household-waste-derivation-percent-recycled'') :household-waste-derivation-percent-recycled)]
 
     [:div
      [oz/vega-lite (chart-spec "% recycled" region household-waste-derivation-percent-recycled''')

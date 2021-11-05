@@ -3,7 +3,7 @@
    [oz.core :as oz]
    [goog.string :as gstring]
    [dcs.prototype-6.util :as util]
-   [dcs.prototype-6.annotation :as anno]
+   [dcs.prototype-6.annotation-mech :as anno-mech]
    [dcs.prototype-6.state :as state]))
 
 
@@ -38,7 +38,7 @@
                                                 {:field "tonnes"
                                                  :type  "quantitative"
                                                  :format ".3f"}]}}
-        layer-annotations (-> anno/layer-annotations
+        layer-annotations (-> anno-mech/layer-annotations
                               (assoc-in [:encoding :x] (-> layer-normal :encoding :x))
                               (assoc-in [:encoding :y] (-> layer-normal :encoding :y))
                               (assoc-in [:mark :dy] -8)
@@ -61,7 +61,7 @@
                                                      household-waste-derivation-generation')
 
         ;; add annotation data
-        household-waste-derivation-generation''' (anno/add-annotations (vec household-waste-derivation-generation'') :household-waste-derivation-generation)]
+        household-waste-derivation-generation''' (anno-mech/add-annotations (vec household-waste-derivation-generation'') :household-waste-derivation-generation)]
 
     [:div
      [oz/vega-lite (chart-spec "Waste generated per person" region household-waste-derivation-generation''')

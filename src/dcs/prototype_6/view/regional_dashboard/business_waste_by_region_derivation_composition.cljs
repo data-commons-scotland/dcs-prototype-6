@@ -2,7 +2,7 @@
   (:require
     [oz.core :as oz]
     [dcs.prototype-6.util :as util]
-    [dcs.prototype-6.annotation :as anno]
+    [dcs.prototype-6.annotation-mech :as anno-mech]
     [dcs.prototype-6.state :as state]))
 
 
@@ -18,7 +18,7 @@
                                      :tooltip [{:field "material" :type "nominal"}
                                                {:field "year" :type "temporal"}
                                                {:field "tonnes" :type "quantitative"}]}}
-          layer-annotations (-> anno/layer-annotations
+          layer-annotations (-> anno-mech/layer-annotations
                                 (assoc-in [:encoding :x] (-> layer-normal :encoding :x))
                                 (assoc-in [:encoding :y] (-> layer-normal :encoding :y))
                                 (assoc-in [:mark :dy] -50)
@@ -42,8 +42,8 @@
                                                                    business-waste-by-region-derivation-composition')
             
             ;; add annotation data
-            business-waste-by-region-derivation-composition''' (anno/add-annotations (vec business-waste-by-region-derivation-composition''))]
-
+            business-waste-by-region-derivation-composition''' (anno-mech/add-annotations (vec business-waste-by-region-derivation-composition'') :business-waste-by-region-derivation-composition)]
+ 
         [:div
          [oz/vega-lite (chart-spec "Composition" region business-waste-by-region-derivation-composition''')
           util/vega-embed-opts]]))

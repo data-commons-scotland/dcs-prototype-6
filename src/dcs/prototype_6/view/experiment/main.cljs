@@ -1,9 +1,9 @@
 (ns dcs.prototype-6.view.experiment.main
   (:require [reagent.core :as r]
             [dcs.prototype-6.util :as util]
+            [dcs.prototype-6.annotation-mech :as anno-mech]
             #_[dcs.prototype-6.view.experiment.map :as map]
             [dcs.prototype-6.view.experiment.region-title :as region-title]))
-
 
 (defn root []
   (r/after-render (util/scroll-fn))
@@ -38,5 +38,19 @@
      "Blah, blah, blah."]]
 
    [region-title/root]
+
+
+   [:div.content
+
+    [:p "Here's an annotation"
+     [:span.has-tooltip-right.has-tooltip-multiline
+      {:data-tooltip "Humpty-dumpty sat on a wall, Humpty-dumpty had a great fall...."}
+      "👋98"]]
+
+    [:p
+     (anno-mech/vega-like-tooltip "👋99" "Lot's of interesting information about the data point.")]
+    
+   ]
+   
    ])
 

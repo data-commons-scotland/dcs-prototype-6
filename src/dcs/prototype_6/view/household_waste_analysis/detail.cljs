@@ -3,7 +3,7 @@
    [oz.core :as oz]
    [goog.string :as gstring]
    [dcs.prototype-6.util :as util]
-   [dcs.prototype-6.annotation :as anno]
+   [dcs.prototype-6.annotation-mech :as anno-mech]
    [dcs.prototype-6.state :as state]))
 
 (def stratum-labels ["urban £" "urban ££" "urban £££" "rural £/££" "rural £££"])
@@ -26,7 +26,7 @@
                             (assoc-in [:encoding :fillOpacity :value] 0)
                             (assoc-in [:encoding :stroke :value] "red")
                             (assoc-in [:encoding :strokeWidth :value] 1)))
-(def layer-annotations (-> anno/layer-annotations
+(def layer-annotations (-> anno-mech/layer-annotations
                            (assoc-in [:encoding :x] (-> layer-normal :encoding :x))
                            (assoc-in [:encoding :y] (-> layer-normal :encoding :y))))
 
@@ -53,7 +53,7 @@
                       layer-annotations]}})
 
 (defn charts [derivation]
-  (let [chart-data (anno/add-annotations (vec derivation))] 
+  (let [chart-data (anno-mech/add-annotations (vec derivation) :household-waste-analysis-derivation)] 
     
     [:div.columns
      [:column
