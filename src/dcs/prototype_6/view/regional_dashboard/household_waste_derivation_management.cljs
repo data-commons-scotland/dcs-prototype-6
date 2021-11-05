@@ -44,7 +44,7 @@
                                                      household-waste-derivation-management')
 
         ;; add annotation data
-        household-waste-derivation-management''' (anno-mech/add-annotations (vec household-waste-derivation-management'') :household-waste-derivation-management)]
+        household-waste-derivation-management''' (anno-mech/apply-annotations household-waste-derivation-management'' :household-waste-derivation-management)]
 
     [:div
      [oz/vega-lite (chart-spec "Management" region household-waste-derivation-management''')

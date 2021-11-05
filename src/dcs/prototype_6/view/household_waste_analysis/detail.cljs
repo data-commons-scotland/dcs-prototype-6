@@ -53,7 +53,7 @@
                       layer-annotations]}})
 
 (defn charts [derivation]
-  (let [chart-data (anno-mech/add-annotations (vec derivation) :household-waste-analysis-derivation)] 
+  (let [chart-data (anno-mech/apply-annotations derivation :household-waste-analysis-derivation)] 
     
     [:div.columns
      [:column

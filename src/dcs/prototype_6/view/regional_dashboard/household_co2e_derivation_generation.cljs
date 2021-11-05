@@ -39,7 +39,7 @@
                                                     household-co2e-derivation-generation')
 
             ;; add annotation data
-        household-co2e-derivation-generation''' (anno-mech/add-annotations (vec household-co2e-derivation-generation'') :household-co2e-derivation-generation)]
+        household-co2e-derivation-generation''' (anno-mech/apply-annotations household-co2e-derivation-generation'' :household-co2e-derivation-generation)]
 
     [:div
      [oz/vega-lite (chart-spec "Carbon impact per person" region household-co2e-derivation-generation''')

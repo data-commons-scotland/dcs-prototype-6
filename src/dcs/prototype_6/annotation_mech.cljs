@@ -26,41 +26,68 @@
                                    }})
 
 
-(defn find-indexes [coll pred]
-  (->> coll
-       (keep-indexed #(if (pred %2) %1 nil))
-       (remove nil?)))
-
 
 ;; 👋  ✋  ❗  ⁉️  🟢  ℹ️  🔍  📍 📈 📉 📊  ✅  ❌  👎  👍  🤔 🤨 🚩 💬  
 (def annotation-symbol "👋")
 
-(defn add-annotation [data-vector {:keys [id text pred]}]
-  (let [indexes (find-indexes data-vector pred)]
-    (loop [indexes-todo indexes
-           data-vector-updated data-vector]
-      (if (empty? indexes-todo)
-        data-vector-updated
-        (recur (rest indexes-todo)
-               (let [ix (first indexes-todo)]
-                 (-> data-vector-updated
-                   
-                   (assoc-in [ix :annotation] (str annotation-symbol id)) 
-                   (assoc-in [ix :annotation-text] text)
-                   (assoc-in [ix :annotation-url] "#") ;;TODO maybe replace with View API click event listener
-                   )))))))
+
+(defn datapoint-matches? [criteria datapoint]
+  (every? true?
+         (map (fn [[k v]]
+                (= v
+                   (k datapoint))) 
+              criteria)))
 
 
-(defn add-annotations
-  ([data-vector]
-   (loop [annotations-todo anno-data/ANNOTATIONS
-          data-vector-with-annotations data-vector]
+(defn apply-annotation [data-coll [id {:keys [applications text]}]]
+  (loop [applications-todo applications
+         data-coll-updated data-coll]
+    (if (empty? applications-todo)
+      data-coll-updated
+      (recur (rest applications-todo)
+             (let [application        (first applications-todo)
+                   datapoint-criteria (:datapoint application)
+                     ;;:dx (:dx application)
+                     ;;:dy (:dy application)
+                   ]
+               (map (fn [datapoint]
+                      (if (datapoint-matches? datapoint-criteria datapoint)
+                        (-> datapoint
+                            (assoc :annotation (str annotation-symbol id))
+                            (assoc :annotation-text text)
+                            (assoc :annotation-url "#") ;;TODO maybe replace with View API click event listener
+                            )
+                        datapoint)) 
+                    data-coll))))))
+
+
+
+(defn apply-annotations
+  ([data-coll]
+   (loop [annotations-todo (map-indexed vector anno-data/ANNOTATIONS) ;; use an annotation's index as its ID
+          data-coll-with-annotations data-coll]
      (if (empty? annotations-todo)
-       data-vector-with-annotations
+       data-coll-with-annotations
        (recur (rest annotations-todo)
-              (add-annotation data-vector-with-annotations (first annotations-todo))))))
-  ([data-coll record-type]
-   (add-annotations (vec (map #(assoc % :record-type record-type) data-coll)))))
+              (apply-annotation data-coll-with-annotations (first annotations-todo))))))
+  ([data-coll record-type] 
+   (apply-annotations (->> data-coll
+                           (map #(assoc % :record-type record-type)) ;; decorate each data point with the given record-type
+                           ))))
+
+
+
+(defn first-annotation-whose-datapoint-criteria-matches [datapoint]
+  (->> anno-data/ANNOTATIONS
+       (map-indexed vector)
+       (filter (fn [[_ix annotation]]
+                 (some true?
+                       (map (fn [datapoint-criteria]
+                              (datapoint-matches? datapoint-criteria datapoint))
+                            (map :datapoint
+                                 (:applications annotation))))))
+       first))
+
 
 
 (defn vega-like-tooltip [anchor text]

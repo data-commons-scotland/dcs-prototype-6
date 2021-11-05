@@ -1,7 +1,6 @@
 (ns dcs.prototype-6.view.regional-dashboard.region-position
   (:require [clojure.string :as str]
             [goog.string :as gstring]
-            [dcs.prototype-6.annotation-data :as anno-data]
             [dcs.prototype-6.annotation-mech :as anno-mech]
             [dcs.prototype-6.state :as state]))
 
@@ -50,15 +49,14 @@
                                    (filter #(= region (:region %)))
                                    first
                                    :position)
-               annotation (->> anno-data/ANNOTATIONS
-                               (filter #((:pred %) {:record-type :household-waste-derivation-generation-positions
-                                                    :region region}))
-                               first)]
+               ix-anno (anno-mech/first-annotation-whose-datapoint-criteria-matches 
+                                    {:record-type :household-waste-derivation-generation-positions
+                                     :region region})]
               [:tr [:td "Reduce waste generation"]
                [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]
                [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
-               [:td (when annotation
-                      (anno-mech/vega-like-tooltip (str anno-mech/annotation-symbol (:id annotation)) (:text annotation)))]])
+               [:td (when ix-anno
+                      (anno-mech/vega-like-tooltip (str anno-mech/annotation-symbol (first ix-anno)) (:text (second ix-anno))))]])
 
          (let [latest-position (->> household-co2e-derivation-generation-positions
                                     :latest-positions
@@ -71,15 +69,14 @@
                                    (filter #(= region (:region %)))
                                    first
                                    :position)
-               annotation (->> anno-data/ANNOTATIONS
-                               (filter #((:pred %) {:record-type :household-co2e-derivation-generation-positions
-                                                    :region region}))
-                               first)]
+               ix-anno (anno-mech/first-annotation-whose-datapoint-criteria-matches
+                        {:record-type :household-co2e-derivation-generation-positions
+                         :region region})]
               [:tr [:td "Reduce carbon impact"]
                [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]
                [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
-               [:td (when annotation
-                      (anno-mech/vega-like-tooltip (str anno-mech/annotation-symbol (:id annotation)) (:text annotation)))]])
+               [:td (when ix-anno
+                      (anno-mech/vega-like-tooltip (str anno-mech/annotation-symbol (first ix-anno)) (:text (second ix-anno))))]])
 
          (let [latest-position (->> household-waste-derivation-percent-recycled-positions
                                     :latest-positions
@@ -91,15 +88,14 @@
                                    (filter #(= region (:region %)))
                                    first
                                    :position)
-               annotation (->> anno-data/ANNOTATIONS
-                               (filter #((:pred %) {:record-type :household-waste-derivation-percent-recycled-positions
-                                                    :region region}))
-                               first)]
+               ix-anno (anno-mech/first-annotation-whose-datapoint-criteria-matches
+                        {:record-type :household-waste-derivation-percent-recycled-positions
+                         :region region})]
               [:tr [:td "Increase percentage recycled"]
                [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]
                [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
-               [:td (when annotation
-                      (anno-mech/vega-like-tooltip (str anno-mech/annotation-symbol (:id annotation)) (:text annotation)))]])]]])
+               [:td (when ix-anno
+                      (anno-mech/vega-like-tooltip (str anno-mech/annotation-symbol (first ix-anno)) (:text (second ix-anno))))]])]]])
 
 
 (defn root []

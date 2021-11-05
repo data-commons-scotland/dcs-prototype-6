@@ -42,7 +42,7 @@
                                                                    business-waste-by-region-derivation-composition')
             
             ;; add annotation data
-            business-waste-by-region-derivation-composition''' (anno-mech/add-annotations (vec business-waste-by-region-derivation-composition'') :business-waste-by-region-derivation-composition)]
+            business-waste-by-region-derivation-composition''' (anno-mech/apply-annotations business-waste-by-region-derivation-composition'' :business-waste-by-region-derivation-composition)]
  
         [:div
          [oz/vega-lite (chart-spec "Composition" region business-waste-by-region-derivation-composition''')

@@ -61,7 +61,7 @@
                                                      household-waste-derivation-generation')
 
         ;; add annotation data
-        household-waste-derivation-generation''' (anno-mech/add-annotations (vec household-waste-derivation-generation'') :household-waste-derivation-generation)]
+        household-waste-derivation-generation''' (anno-mech/apply-annotations household-waste-derivation-generation'' :household-waste-derivation-generation)]
 
     [:div
      [oz/vega-lite (chart-spec "Waste generated per person" region household-waste-derivation-generation''')

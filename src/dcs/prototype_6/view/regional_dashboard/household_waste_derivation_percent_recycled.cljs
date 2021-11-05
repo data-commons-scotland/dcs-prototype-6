@@ -54,7 +54,7 @@
                                                            household-waste-derivation-percent-recycled')
 
         ;; add annotation data
-        household-waste-derivation-percent-recycled''' (anno-mech/add-annotations (vec household-waste-derivation-percent-recycled'') :household-waste-derivation-percent-recycled)]
+        household-waste-derivation-percent-recycled''' (anno-mech/apply-annotations household-waste-derivation-percent-recycled'' :household-waste-derivation-percent-recycled)]
 
     [:div
      [oz/vega-lite (chart-spec "% recycled" region household-waste-derivation-percent-recycled''')
