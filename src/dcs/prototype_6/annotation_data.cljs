@@ -14,6 +14,89 @@
                                 :region      "Scot gov target"
                                 :year        "2019"}}]
     :text         "By 2025, the Scottish Government aims to recycle 70% of remaining waste."}
+   
+   {:applications [{:datapoint {:record-type :household-waste-derivation-percent-recycled-positions
+                                :region      "Aberdeen City"}}
+                   {:datapoint {:record-type :household-waste-derivation-percent-recycled
+                                :region      "Aberdeen City"
+                                :year "2016"}}]
+    :text         "Aberdeen City in 2016, increased the percentage of recycled household waste. 
+                   What has caused this change? 
+                   Is it something other regions can learn from, such as changes to waste collections or public awareness and education campaigns?"}
+   
+   {:applications [{:datapoint {:record-type :household-waste-derivation-percent-recycled
+                                :region      "Aberdeen City"
+                                :year "2017"}}]
+    :text         "In 2017/18 the fraction of household waste that went to recycling overtook the Scottish average. 
+                   However, it still has a way to go before it reaches the Government's goal of 70% recycling, which is set for 2025."}
+   
+   {:applications [{:datapoint {:record-type :household-waste-derivation-management
+                                :region      "Aberdeen City"
+                                :year        "2017"
+                                :management  "Other Diversion"}}]
+    :text         "In 2017, a significant proportion of Aberdeen City's household waste that was previously going to landfill was instead managed through Other Diversion. 
+                   We might ask, what is happening to this waste - is it going to, e.g. energy generation, or is it simply being incinerated?"}
+
+   {:applications [{:datapoint {:record-type :household-waste-derivation-generation-positions
+                                :region      "Aberdeenshire"}}
+                   {:datapoint {:record-type :household-waste-derivation-generation
+                                :region      "Aberdeenshire"
+                                :year "2019"}}]
+    :text         "Aberdeenshire's household waste data show what the region has been achieving in terms of waste generated per person since 2011. 
+                   It is now approaching the Scottish average, although the rate of this reduction will need to increase further if it is going to meet the Government's overall target by 2025."}
+   
+   {:applications [{:datapoint {:record-type :business-waste-by-region-derivation-composition
+                                :region      "Aberdeenshire"
+                                :year        "2012"
+                                :material    "Animal and mixed food waste"}}]
+    :text "Aberdeenshire's business waste has been increasing since around 2012. 
+           This increase seems to be largely driven by increases in waste in the Vegetal and Animal and mixed food waste categories."}
+   
+   {:applications [{:datapoint {:record-type :household-waste-derivation-management
+                                :region      "Aberdeenshire"
+                                :year "2016"
+                                :management  "Recycled"}}]
+    :text         "Both the total amount of domestic waste going to recycling and the fraction of all waste being managed has remained fairly static for the past few years. 
+                   This raises some intersting questions. 
+                   Aberdeenshire is a rich farming area, which may account for the significant contributions of Vegetal and Animal and mixed food waste to the business waste figures. 
+                   So, could a reduction in business waste be achieved by targeting the agricultural sector? 
+                   And what can be done to increase the fraction of domestic waste going to recycling, to help aberdeenshire head towards the Government's targets? 
+                   Is it simply a matter of education, or do we need to accept that some regions have contextual factors such as geography, access to recycling facilities, etc., and make the targets more sensitive to these factors?"}
+
+   {:applications [{:datapoint {:record-type :household-waste-derivation-generation-positions
+                                :region      "City of Edinburgh"}}
+                   {:datapoint {:record-type :household-waste-derivation-generation
+                                :region      "City of Edinburgh"
+                                :year "2019"}}]
+    :text         "The City of Edinburgh has consistently produced less household waste per person than the Scottish average, 
+                   and is on track to be below the Government's target in 2025."}
+   
+   {:applications [{:datapoint {:record-type :household-waste-derivation-percent-recycled-positions
+                                :region      "City of Edinburgh"}}
+                   {:datapoint {:record-type :household-waste-derivation-percent-recycled
+                                :region      "City of Edinburgh"
+                                :year        "2019"}}]
+    :text         "The City of Edinburgh's fraction of waste going to recycling is below both the average and the Government's target. 
+                   Recycling in Edinburgh will have to increase substantially if that target is to be met by 2025."}
+   
+   {:applications [{:datapoint {:record-type :household-waste-derivation-composition
+                                :region      "City of Edinburgh"
+                                :year        "2019"
+                                :material    "Combustion wastes"}}
+                   {:datapoint {:record-type :household-waste-derivation-management
+                                :region      "City of Edinburgh"
+                                :year        "2019"
+                                :management  "Other Diversion"}}]
+    :text         "In 2019, Combustable wastes in household waste spiked - as did waste management by Other Diversion (i.e. through incineration, bio gas generation, etc.). 
+                   Will that increase be maintained in 2020 and 2021?"}
+   
+   {:applications [{:datapoint {:record-type :business-waste-by-region-derivation-composition
+                                :region      "City of Edinburgh"
+                                :year        "2014"
+                                :material    "Soils"}}]
+    :text         "The amount of business waste seems to vary quite a lot between different years!"}
+
+  ;; ----- HERE ------
 
    {:applications [{:datapoint {:record-type :household-waste-derivation-management
                                 :region      "Angus"

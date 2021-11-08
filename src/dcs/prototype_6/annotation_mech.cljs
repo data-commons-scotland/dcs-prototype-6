@@ -58,7 +58,7 @@
                             (assoc :annotation-url "#") ;;TODO maybe replace with View API click event listener
                             )
                         datapoint)) 
-                    data-coll))))))
+                    data-coll-updated))))))
 
 
 
