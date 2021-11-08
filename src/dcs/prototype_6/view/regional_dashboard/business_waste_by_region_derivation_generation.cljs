@@ -2,59 +2,63 @@
   (:require
    [oz.core :as oz]
    [dcs.prototype-6.util :as util]
+   [dcs.prototype-6.annotation-mech :as anno-mech]
    [dcs.prototype-6.state :as state]))
 
 
 (defn chart-spec [title region data]
-      (let [year-count (count (group-by :year data))]
-           {:schema     "https://vega.github.io/schema/vega/v5.json"
-            :title      title
-            :width      200
-            :height     100
-            :background "floralwhite"
-            :data       {:values data}
-            :mark       {:type "line" :point {:filled true #_:fill #_"floralwhite" }}
-            :selection  {:my {:type   "multi"
-                              :fields ["region"]
-                              :bind   "legend"}}
-            :encoding   {:x          {:field    "year"
-                                      :type     "temporal"
-                                      :timeUnit "year"
-                                      :axis     {:tickCount year-count
-                                                 :title     "year"}}
-                         :y          {:field "tonnes"
-                                      :type  "quantitative"
-                                      :scale {:zero false}
-                                      :axis  {:title "tonnes"}}
-                         :strokeDash {:condition {:test  "datum.region == 'Scot gov target'"
-                                                  :value [5 10]}
-                                      :value     [0]}
-                         :color      {:field "region"
-                                      :type  "nominal"
-                                      :scale {:domain [region #_"Scotland average" #_"Scot gov target"]
-                                              :range  ["#fdae6b" #_"#1f77b4" #_"lightgrey"]}
-                                      :legend nil}
-                         :opacity    {:condition {:selection "my"
-                                                  :value     1}
-                                      :value     0.2}
-                         :tooltip    [{:field "region"
-                                       :type  "nominal"}
-                                      {:field "year"
-                                       :type  "temporal"}
-                                      {:field "tonnes"
-                                       :type  "quantitative"}]}}))
+  (let [year-count (count (group-by :year data))
+        layer-normal {:mark       {:type "line" :point {:filled true #_:fill #_"floralwhite"}}
+                      :encoding   {:x       {:field    "year"
+                                             :type     "temporal"
+                                             :timeUnit "year"
+                                             :axis     {:tickCount year-count
+                                                        :title     "year"}}
+                                   :y       {:field "tonnes"
+                                             :type  "quantitative"
+                                             :scale {:zero false}
+                                             :axis  {:title "tonnes"}}
+                                   :color   {:field  "region"
+                                             :type   "nominal"
+                                             :scale  {:domain [region #_"Scotland average" #_"Scot gov target"]
+                                                      :range  ["#fdae6b" #_"#1f77b4" #_"lightgrey"]}
+                                             :legend nil}
+                                   :tooltip [{:field "region"
+                                              :type  "nominal"}
+                                             {:field "year"
+                                              :type  "temporal"}
+                                             {:field "tonnes"
+                                              :type  "quantitative"}]}}
+
+        layer-annotations (-> anno-mech/layer-annotations
+                              (assoc-in [:encoding :x] (-> layer-normal :encoding :x))
+                              (assoc-in [:encoding :y] (-> layer-normal :encoding :y))
+                              (assoc-in [:mark :dy] -8)
+                              (assoc-in [:mark :dx] 0))]
+    {:schema     "https://vega.github.io/schema/vega/v5.json"
+     :title      title
+     :width      200
+     :height     100
+     :background "floralwhite"
+     :data       {:values data}
+     :layer [layer-normal
+             layer-annotations]}))
 
 (defn chart [region business-waste-by-region-derivation-generation]
-      (let [;; filter
+  (let [;; filter
             ;;   Decided to comment-out the "Scotland average" (and "Scot gov target") because averaging business waste over the regions isn't so useful.
-            business-waste-by-region-derivation-generation' (filter #(contains? #{region #_"Scotland average" #_"Scot gov target" } (:region %)) business-waste-by-region-derivation-generation)
+        business-waste-by-region-derivation-generation' (filter #(contains? #{region #_"Scotland average" #_"Scot gov target"} (:region %)) business-waste-by-region-derivation-generation)
 
             ;; stringify the year for Vega
-            business-waste-by-region-derivation-generation'' (map #(assoc % :year (str (:year %)))
-                                                                  business-waste-by-region-derivation-generation')]
-           [:div
-            [oz/vega-lite (chart-spec "Total waste generated by business" region business-waste-by-region-derivation-generation'')
-             util/vega-embed-opts]]))
+        business-waste-by-region-derivation-generation'' (map #(assoc % :year (str (:year %)))
+                                                              business-waste-by-region-derivation-generation')
+
+            ;; add annotation data
+        business-waste-by-region-derivation-generation''' (anno-mech/apply-annotations business-waste-by-region-derivation-generation'' :business-waste-by-region-derivation-generation)]
+
+    [:div
+     [oz/vega-lite (chart-spec "Total waste generated by business" region business-waste-by-region-derivation-generation''')
+      util/vega-embed-opts]]))
 
 (defn root []
-      [chart @state/region-cursor @state/business-waste-by-region-derivation-generation-cursor])
+  [chart @state/region-cursor @state/business-waste-by-region-derivation-generation-cursor])
