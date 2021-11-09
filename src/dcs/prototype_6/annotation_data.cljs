@@ -297,40 +297,63 @@
                    and although the decreasing trend broadly follows the national average trend, 
                    there is qiute a way to go if the Government's target is to be reached in 2025."}
 
-    {:applications [{:datapoint {:record-type :household-waste-derivation-percent-recycled-positions
-                                 :region      "Perth and Kinross"}}
-                    {:datapoint {:record-type :household-waste-derivation-percent-recycled
-                                 :region      "Perth and Kinross"
-                                 :year        "2019"}}]
-     :text         "Perth and Kinross This region has consistently recycled between 50% and 55% of its household waste 
+   {:applications [{:datapoint {:record-type :household-waste-derivation-percent-recycled-positions
+                                :region      "Perth and Kinross"}}
+                   {:datapoint {:record-type :household-waste-derivation-percent-recycled
+                                :region      "Perth and Kinross"
+                                :year        "2019"}}]
+    :text         "Perth and Kinross This region has consistently recycled between 50% and 55% of its household waste 
                     - it is ahead of other regions in this respect, but the trend needs to be for even more recycling 
                     if the Government's target is going to be met."}
 
-    {:applications [{:datapoint {:record-type :business-waste-by-region-derivation-generation
-                                 :region      "Perth and Kinross"
-                                 :year        "2016"}}]
-     :text         "Perth and Kinross has some interesting features in its business waste data, 
+   {:applications [{:datapoint {:record-type :business-waste-by-region-derivation-generation
+                                :region      "Perth and Kinross"
+                                :year        "2016"}}]
+    :text         "Perth and Kinross has some interesting features in its business waste data, 
                     with what seems to be an underling decreasing in the amount generated interrupted by two big spikes in 2016 and 2018. 
                     Are these real increases, or is this a result of e.g. the timing of the reporting of some waste, 
                     so that 2016 and 2018 are artificailly high and perhaps 2015 and 2017 are artificially low?"}
    
-   ;; ----- HERE ------
-   
-
-
-   {:applications [{:datapoint {:record-type :business-waste-by-region-derivation-composition
-                                :region      "Stirling"
+   {:applications [{:datapoint {:record-type :household-waste-derivation-composition
+                                :region      "Renfrewshire"
                                 :year        "2015"
-                                :material    "Soils"}}]
-    :text         "There are some fluctuations in Stirling's business waste, including an interesting change in the Soils category which almost entirely disappears from 2015 onwards."}
+                                :material    "Mixed and undifferentiated materials"}}]
+    :text         "Since 2015, there seems to have been a reduction in the amount of waste in the category 'Household and similar wastes' 
+                   but this has largely been compensated for by an increase in 'Mixed and undifferentiated materials'. 
+                   Perhaps this change in the data is a result of a change in the way collections are organised or the types of bins people have access to 
+                   - or perhaps it is due to a change to the waste management services procured by the local authority."}
+   
+   {:applications [{:datapoint {:record-type :household-waste-derivation-management
+                                :region      "Renfrewshire"
+                                :year        "2013"
+                                :management  "Recycled"}}
+                   {:datapoint {:record-type :household-waste-derivation-percent-recycled
+                                :region      "Renfrewshire"
+                                :year        "2012"}}]
+    :text         "The fraction of household waste going to recycling is above the Scottish averge and has broadly been increasing since 2012. 
+                    There has also been a sustained decrease in the amount of waste going to landfill
+                    which appears to be the result of an increase in the amount of waste going to'Other diversion'."}
 
+   {:applications [{:datapoint {:record-type :business-waste-by-region-derivation-generation
+                                :region      "Renfrewshire"
+                                :year        "2014"}}]
+    :text         "This region also seems to have quite large fluctuations in the amounts of business waste being reported.
+                    Between 2011 and 2019, business waste has varied between just under 60,000 tonnes and just over 100,000 tonnes.
+                    Why?"}
+
+   
    {:applications [{:datapoint {:record-type :household-waste-derivation-percent-recycled
                                 :region      "Stirling"
                                 :year        "2019"}}]
     :text         "Stirling has been doing consistently better than average in terms of the fraction of household waste going to recycling 
            - but like most other regions, even more is going to need to be achieved if the Government's target is going to be met by 2025."}
 
-
+   {:applications [{:datapoint {:record-type :business-waste-by-region-derivation-composition
+                                :region      "Stirling"
+                                :year        "2015"
+                                :material    "Soils"}}]
+    :text         "There are some fluctuations in Stirling's business waste, including an interesting change in the Soils category which almost entirely disappears from 2015 onwards."}
+   
    {:applications [{:datapoint {:record-type :household-waste-analysis-derivation
                                 :stratum     "rural £/££"
                                 :stream      "recycling bin"
@@ -344,4 +367,7 @@
                                 :material-L2 "Green garden waste"}}]
     :text         "Urban £££ households dispose of a lot of Green garden waste inappropriately in comparison to their rural £££ peers.
                    Is that because urban £££ households have fewer convenient spaces in which to heap their garden waste!
-                   Perhaps, but it is foolish to make such inferences from data (such as this) which covers a relatively small number of observations."}])
+                   Perhaps, but it is foolish to make such inferences from data (such as this) which covers a relatively small number of observations."}
+   
+   
+   ])
