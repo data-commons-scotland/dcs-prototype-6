@@ -30,7 +30,7 @@
      :layer [layer-normal
              layer-annotations]}))
 
-(defn chart [region household-co2e-derivation-generation]
+(defn chart [region household-co2e-derivation-generation annotations]
   (let [;; filter
         household-co2e-derivation-generation' (filter #(contains? #{"Scotland" region} (:region %)) household-co2e-derivation-generation)
 
@@ -39,7 +39,7 @@
                                                     household-co2e-derivation-generation')
 
             ;; add annotation data
-        household-co2e-derivation-generation''' (anno-mech/apply-annotations household-co2e-derivation-generation'' :household-co2e-derivation-generation)]
+        household-co2e-derivation-generation''' (anno-mech/apply-annotations annotations household-co2e-derivation-generation'' :household-co2e-derivation-generation)]
 
     [:div
      [oz/vega-lite (chart-spec "Carbon impact per person" region household-co2e-derivation-generation''')
@@ -47,4 +47,4 @@
      [:div#footnote-ref.content.has-text-left.has-text-info "See footnote" (gstring/unescapeEntities "&nbsp;") "[b] about " [:em "Carbon impact"] "."]]))
 
 (defn root []
-  [chart @state/region-cursor @state/household-co2e-derivation-generation-cursor])
+  [chart @state/region-cursor @state/household-co2e-derivation-generation-cursor @state/annotations-derivation-cursor])

@@ -22,7 +22,8 @@
 (defn ele [region
            household-waste-derivation-generation-positions
            household-waste-derivation-percent-recycled-positions
-           household-co2e-derivation-generation-positions]
+           household-co2e-derivation-generation-positions
+           annotations]
 
       [:div
        [:table#league-table.table.is-hoverable
@@ -49,14 +50,14 @@
                                    (filter #(= region (:region %)))
                                    first
                                    :position)
-               ix-anno (anno-mech/first-annotation-whose-datapoint-criteria-matches 
-                                    {:record-type :household-waste-derivation-generation-positions
-                                     :region region})]
+               anno (anno-mech/first-annotation-whose-record-criteria-matches annotations
+                                                                              {:record-type :household-waste-derivation-generation-positions
+                                                                               :region      region})]
               [:tr [:td "Reduce waste generation"]
                [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]
                [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
-               [:td (when ix-anno
-                      (anno-mech/vega-like-tooltip (str anno-mech/annotation-symbol (first ix-anno)) (:text (second ix-anno))))]])
+               [:td (when anno
+                      (anno-mech/vega-like-tooltip (get anno :emoji anno-mech/default-annotation-symbol) (:text anno)))]])
 
          (let [latest-position (->> household-co2e-derivation-generation-positions
                                     :latest-positions
@@ -69,14 +70,14 @@
                                    (filter #(= region (:region %)))
                                    first
                                    :position)
-               ix-anno (anno-mech/first-annotation-whose-datapoint-criteria-matches
-                        {:record-type :household-co2e-derivation-generation-positions
-                         :region region})]
+               anno (anno-mech/first-annotation-whose-record-criteria-matches annotations
+                                                                              {:record-type :household-co2e-derivation-generation-positions
+                                                                               :region      region})]
               [:tr [:td "Reduce carbon impact"]
                [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]
                [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
-               [:td (when ix-anno
-                      (anno-mech/vega-like-tooltip (str anno-mech/annotation-symbol (first ix-anno)) (:text (second ix-anno))))]])
+               [:td (when anno
+                      (anno-mech/vega-like-tooltip (get anno :emoji anno-mech/default-annotation-symbol) (:text anno)))]])
 
          (let [latest-position (->> household-waste-derivation-percent-recycled-positions
                                     :latest-positions
@@ -88,14 +89,14 @@
                                    (filter #(= region (:region %)))
                                    first
                                    :position)
-               ix-anno (anno-mech/first-annotation-whose-datapoint-criteria-matches
-                        {:record-type :household-waste-derivation-percent-recycled-positions
-                         :region region})]
+               anno (anno-mech/first-annotation-whose-record-criteria-matches annotations
+                                                                              {:record-type :household-waste-derivation-percent-recycled-positions
+                                                                               :region      region})]
               [:tr [:td "Increase percentage recycled"]
                [:td {:class (colour trend-position)} (str trend-position (suffix trend-position))]
                [:td {:class (colour latest-position)} (str latest-position (suffix latest-position))]
-               [:td (when ix-anno
-                      (anno-mech/vega-like-tooltip (str anno-mech/annotation-symbol (first ix-anno)) (:text (second ix-anno))))]])]]])
+               [:td (when anno
+                      (anno-mech/vega-like-tooltip (get anno :emoji anno-mech/default-annotation-symbol) (:text anno)))]])]]])
 
 
 (defn root []
@@ -103,5 +104,6 @@
        @state/region-cursor
        @state/household-waste-derivation-generation-positions-cursor
        @state/household-waste-derivation-percent-recycled-positions-cursor
-       @state/household-co2e-derivation-generation-positions-cursor])
+       @state/household-co2e-derivation-generation-positions-cursor
+       @state/annotations-derivation-cursor])
 

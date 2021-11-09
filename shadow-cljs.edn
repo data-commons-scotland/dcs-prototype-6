@@ -15,7 +15,8 @@
   [cljsjs/vega-lite "4.17.0-0"]
   [kixi/stats "0.5.4"]
   [metosin/reitit-frontend "0.5.12"]
-  [metosin/reitit-spec "0.5.12"]]
+  [metosin/reitit-spec "0.5.12"]
+  [testdouble/clojurescript.csv "0.5.1"]]
 
  :builds
  {:app

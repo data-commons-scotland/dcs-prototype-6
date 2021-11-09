@@ -31,7 +31,8 @@
                                                                      :item-trends                nil
                                                                      :weight                     nil
                                                                      :flights-worth-per-category nil
-                                                                     :flights-worth-per-item     nil}}))
+                                                                     :flights-worth-per-item     nil}
+                       :annotations                                 nil}))
 
 (defonce route-match-cursor (r/cursor root [:route-match]))
 
@@ -77,7 +78,11 @@
 
 (defonce household-waste-analysis-derivation-cursor (r/cursor root [:household-waste-analysis-derivation]))
 
+(defonce annotations-derivation-cursor (r/cursor root [:annotations]))
+
 ;; -----------------
+
+
 
 (defonce meta-holder (atom nil))
 (defonce population-holder (atom nil))
@@ -94,3 +99,6 @@
 (defonce ace-furniture-avg-weight-holder (atom nil))
 (defonce ace-furniture-to-scottishCarbonMetric-holder (atom nil))
 (defonce household-waste-analysis-holder (atom nil))
+(defonce regional-dashboard-annotations-holder (atom nil))
+(defonce household-waste-analysis-annotations-holder (atom nil))
+

@@ -32,7 +32,7 @@
      :layer [layer-normal
              layer-annotations]}))
 
-(defn chart [region household-waste-derivation-composition]
+(defn chart [region household-waste-derivation-composition annotations]
   (let [;; filter
         household-waste-derivation-composition'   (filter #(= region (:region %)) household-waste-derivation-composition)
 
@@ -41,11 +41,11 @@
                                                        household-waste-derivation-composition')
         
         ;; add annotation data
-        household-waste-derivation-composition''' (anno-mech/apply-annotations household-waste-derivation-composition'' :household-waste-derivation-composition)]
+        household-waste-derivation-composition''' (anno-mech/apply-annotations annotations household-waste-derivation-composition'' :household-waste-derivation-composition)]
     
     [:div
      [oz/vega-lite (chart-spec "Composition" region household-waste-derivation-composition''')
       util/vega-embed-opts]]))
 
 (defn root []
-      [chart @state/region-cursor @state/household-waste-derivation-composition-cursor])
+      [chart @state/region-cursor @state/household-waste-derivation-composition-cursor @state/annotations-derivation-cursor])

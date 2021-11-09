@@ -45,7 +45,7 @@
 (def explain-scotGovTarget-percentageRecycled
   [:span "By 2025, the Scottish Government aims to recycle 70% of waste."])
 
-(defn chart [region household-waste-derivation-percent-recycled]
+(defn chart [region household-waste-derivation-percent-recycled annotations]
   (let [;; filter
         household-waste-derivation-percent-recycled' (filter #(contains? #{region "Scotland" "Scot gov target"} (:region %)) household-waste-derivation-percent-recycled)
 
@@ -54,11 +54,11 @@
                                                            household-waste-derivation-percent-recycled')
 
         ;; add annotation data
-        household-waste-derivation-percent-recycled''' (anno-mech/apply-annotations household-waste-derivation-percent-recycled'' :household-waste-derivation-percent-recycled)]
+        household-waste-derivation-percent-recycled''' (anno-mech/apply-annotations annotations household-waste-derivation-percent-recycled'' :household-waste-derivation-percent-recycled)]
 
     [:div
      [oz/vega-lite (chart-spec "% recycled" region household-waste-derivation-percent-recycled''')
       util/vega-embed-opts]]))
 
 (defn root []
-  [chart @state/region-cursor @state/household-waste-derivation-percent-recycled-cursor])
+  [chart @state/region-cursor @state/household-waste-derivation-percent-recycled-cursor @state/annotations-derivation-cursor])

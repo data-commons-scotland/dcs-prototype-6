@@ -33,7 +33,7 @@
                layer-annotations]}))
 
 
-(defn chart [region business-waste-by-region-derivation-composition]
+(defn chart [region business-waste-by-region-derivation-composition annotations]
       (let [;; filter
             business-waste-by-region-derivation-composition' (filter #(= region (:region %)) business-waste-by-region-derivation-composition)
 
@@ -42,11 +42,11 @@
                                                                    business-waste-by-region-derivation-composition')
             
             ;; add annotation data
-            business-waste-by-region-derivation-composition''' (anno-mech/apply-annotations business-waste-by-region-derivation-composition'' :business-waste-by-region-derivation-composition)]
+            business-waste-by-region-derivation-composition''' (anno-mech/apply-annotations annotations business-waste-by-region-derivation-composition'' :business-waste-by-region-derivation-composition)]
  
         [:div
          [oz/vega-lite (chart-spec "Composition" region business-waste-by-region-derivation-composition''')
           util/vega-embed-opts]]))
 
 (defn root []
-      [chart @state/region-cursor @state/business-waste-by-region-derivation-composition-cursor])
+      [chart @state/region-cursor @state/business-waste-by-region-derivation-composition-cursor @state/annotations-derivation-cursor])

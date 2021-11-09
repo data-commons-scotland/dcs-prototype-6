@@ -1,8 +1,8 @@
 (ns dcs.prototype-6.status
   (:require [dcs.prototype-6.state :as state]))
 
-(defn ele [a b c d e f g h i j k l m n o p q r s t u v w x y z a2 b2 c2]
-      (let [num (->> [a b c d e f g h i j k l m n o p q r s t u v w x y z a2 b2 c2]
+(defn ele [a b c d e f g h i j k l m n o p q r s t u v w x y z a2 b2 c2 d2]
+      (let [num (->> [a b c d e f g h i j k l m n o p q r s t u v w x y z a2 b2 c2 d2]
                      (filter nil?)
                      count)
             s (if (= 0 num)
@@ -54,4 +54,6 @@
        @state/ace-furniture-derivation-flights-per-category-cursor
        @state/ace-furniture-derivation-flights-per-item-cursor
 
-       @state/household-waste-analysis-derivation-cursor])
+       @state/household-waste-analysis-derivation-cursor
+       
+       @state/annotations-derivation-cursor])

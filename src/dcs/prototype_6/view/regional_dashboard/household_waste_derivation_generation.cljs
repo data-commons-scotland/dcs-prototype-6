@@ -52,7 +52,7 @@
      :layer [layer-normal
              layer-annotations]}))
 
-(defn chart [region household-waste-derivation-generation]
+(defn chart [region household-waste-derivation-generation annotations]
   (let [;; filter
         household-waste-derivation-generation' (filter #(contains? #{region "Scotland" "Scot gov target"} (:region %)) household-waste-derivation-generation)
 
@@ -61,7 +61,7 @@
                                                      household-waste-derivation-generation')
 
         ;; add annotation data
-        household-waste-derivation-generation''' (anno-mech/apply-annotations household-waste-derivation-generation'' :household-waste-derivation-generation)]
+        household-waste-derivation-generation''' (anno-mech/apply-annotations annotations household-waste-derivation-generation'' :household-waste-derivation-generation)]
 
     [:div
      [oz/vega-lite (chart-spec "Waste generated per person" region household-waste-derivation-generation''')
@@ -69,4 +69,4 @@
      [:div#footnote-ref.content.has-text-left.has-text-info "See footnote" (gstring/unescapeEntities "&nbsp;") "[a] about the " [:em "Scot gov target"] "."]]))
 
 (defn root []
-  [chart @state/region-cursor @state/household-waste-derivation-generation-cursor])
+  [chart @state/region-cursor @state/household-waste-derivation-generation-cursor @state/annotations-derivation-cursor])

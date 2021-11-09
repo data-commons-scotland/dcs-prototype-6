@@ -1,5 +1,6 @@
 (ns dcs.prototype-6.deriver
-  (:require [dcs.prototype-6.util :as util]
+  (:require [clojure.string :as str]
+            [dcs.prototype-6.util :as util]
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.data-shaping :as data-shaping]))
 
@@ -393,6 +394,50 @@
         (js/console.log (str "Calculating meta-derivations: secs-taken=" (util/secs-to-now start-time)))))))
 
 
+(defn maybe-calc-annotations-derivations
+  []
+  (let [regional-dashboard-annotations       @state/regional-dashboard-annotations-holder
+        household-waste-analysis-annotations @state/household-waste-analysis-annotations-holder]
+
+    (when (and (some? regional-dashboard-annotations)
+               (some? household-waste-analysis-annotations))
+
+      (js/console.log "Calculating annotations-derivations")
+
+      (let [start-time (util/now)
+
+            derivation (flatten
+                        (for [annotations-rows [regional-dashboard-annotations household-waste-analysis-annotations]]
+                          (let [ks (->> annotations-rows 
+                                        first 
+                                        (map keyword))]
+                            (->> annotations-rows
+                                 rest
+                                 (map (fn [row]
+                                        (apply assoc {} 
+                                               (interleave ks row))))
+                                 
+                                 (map (fn [m] 
+                                        (apply dissoc m
+                                               (for [[k v] m
+                                                     :when (str/blank? v)] k))))
+                                 (map (fn [m]
+                                        (assoc m 
+                                               :record-type (keyword (:record-type m)))))))))
+            ]
+        
+        (let [x (first derivation)]
+          (js/console.log "deriver x " (str x))
+          (js/console.log "deriver x raw" x)
+          (js/console.log "deriver x type" (str (type x)))
+          (js/console.log "deriver x :record-type" (str (:record-type x)))
+          (js/console.log "deriver x :text" (str (:text x)))
+          (js/console.log "deriver x with :text dissoc" (str (dissoc x :text))))
+
+        (reset! state/annotations-derivation-cursor derivation)
+        (js/console.log (str "Calculating annotations-derivations: secs-taken=" (util/secs-to-now start-time)))))))
+
+
 ;; -------------------
 
 ;; Watch for data updates
@@ -481,3 +526,13 @@
            (fn [_key _atom _old-state new-state]
              (when new-state
                (maybe-calc-meta-derivations))))
+
+(add-watch state/regional-dashboard-annotations-holder :annotations-dependency
+           (fn [_key _atom _old-state new-state]
+             (when new-state
+               (maybe-calc-annotations-derivations))))
+
+(add-watch state/household-waste-analysis-annotations-holder :annotations-dependency
+           (fn [_key _atom _old-state new-state]
+             (when new-state
+               (maybe-calc-annotations-derivations))))

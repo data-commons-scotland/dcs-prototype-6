@@ -1,6 +1,8 @@
 (ns dcs.prototype-6.loader
-  (:require [cljs-http.client :as http]
+  (:require [clojure.string :as str]
+            [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]
+            [testdouble.cljs.csv :as csv]
             [dcs.prototype-6.util :as util]
             [dcs.prototype-6.state :as state]
             [dcs.prototype-6.data-shaping :as data-shaping])
@@ -14,28 +16,38 @@
                 response (<! (http/get url {:with-credentials? false}))]
                  (js/console.log (str "Response from " url ": status=" (:status response) " success=" (:success response) " secs-taken=" (util/secs-to-now start-time)))
                  (let [body (:body response)
-                       clj-body (if (string? body)
-                                  (js->clj (.parse js/JSON body) :keywordize-keys true) ;; probably a text/plain response that we'll have to explicitly convert to Clojure data
-                                  body)] ;; probably an application/json response causing cljs-http to have aleady auto converted the JSON to Clojure data
+                       clj-body (cond
+                                  (str/ends-with? url ".csv") (csv/read-csv (str/replace body "\r" "")) ;; parse as CSV (and remove \r chars since they're troublesome with this CSV lib in this context)
+                                  (string? body) (js->clj (.parse js/JSON body) :keywordize-keys true) ;; probably a text/plain response that we'll have to explicitly convert to Clojure data
+                                  :else body ;; probably an application/json response causing cljs-http to have aleady auto converted the JSON to Clojure data
+                                  )] 
                       (body-handler clj-body)))))
 
 (defn load-data
   []
   (js/console.log "Loading data files")
-
+  
   (fetch "ace-furniture-count.json"
          (fn [ace-furniture-count] (->> ace-furniture-count
-                                         (reset! state/ace-furniture-count-holder))))
+                                        (reset! state/ace-furniture-count-holder))))
 
   (fetch "ace-furniture-avg-weight.json"
          (fn [ace-furniture-avg-weight] (->> ace-furniture-avg-weight
-                                          (reset! state/ace-furniture-avg-weight-holder))))
+                                             (reset! state/ace-furniture-avg-weight-holder))))
   
   (fetch "geojson.json"
          (fn [geojson] (->> geojson
                             clj->js
                             (reset! state/geojson-cursor))))
   
+  (fetch "regional-dashboard-annotations.csv"
+         (fn [regional-dashboard-annotations] (->> regional-dashboard-annotations
+                                                   (reset! state/regional-dashboard-annotations-holder))))
+  
+  (fetch "household-waste-analysis-annotations.csv"
+         (fn [household-waste-analysis-annotations] (->> household-waste-analysis-annotations
+                                                         (reset! state/household-waste-analysis-annotations-holder))))
+
   (fetch (str util/easier-repo-data "meta.json")
          (fn [meta] (->> meta
                          (reset! state/meta-holder))))
@@ -99,7 +111,7 @@
 
   (fetch (str util/easier-repo-data "ace-furniture-to-scottishCarbonMetric.json")
          (fn [ace-furniture-to-scottishCarbonMetric] (->> ace-furniture-to-scottishCarbonMetric
-                                                   (reset! state/ace-furniture-to-scottishCarbonMetric-holder))))
+                                                          (reset! state/ace-furniture-to-scottishCarbonMetric-holder))))
 
   (fetch (str util/easier-repo-data "household-waste-analysis.json")
          (fn [household-waste-analysis] (->> household-waste-analysis

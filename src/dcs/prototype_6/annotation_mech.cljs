@@ -1,5 +1,4 @@
-(ns dcs.prototype-6.annotation-mech
-  (:require [dcs.prototype-6.annotation-data :as anno-data]))
+(ns dcs.prototype-6.annotation-mech)
 
 
 (def layer-annotations {:transform [{:filter "datum.annotation != null"}]
@@ -18,7 +17,7 @@
                         :encoding {:text {:field "annotation"}
                                    :tooltip [{:field "annotation"
                                               :type  "nominal"
-                                              :title "id"}
+                                              :title "emoji"}
                                              {:field "annotation-text"
                                               :type  "nominal"
                                               :title "info"}]
@@ -28,64 +27,52 @@
 
 
 ;; 👋  ✋  ❗  ⁉️  🟢  ℹ️  🔍  📍 📈 📉 📊  ✅  ❌  👎  👍  🤔 🤨 🚩 💬  
-(def annotation-symbol "👋")
+(def default-annotation-symbol "📍")
 
 
-(defn datapoint-matches? [criteria datapoint]
+(defn record-matches? [criteria record]
   (every? true?
          (map (fn [[k v]]
                 (= v
-                   (k datapoint))) 
+                   (k record))) 
               criteria)))
 
+(def non-coord-keys [:emoji :text])
 
-(defn apply-annotation [data-coll [id {:keys [applications text]}]]
-  (loop [applications-todo applications
-         data-coll-updated data-coll]
-    (if (empty? applications-todo)
-      data-coll-updated
-      (recur (rest applications-todo)
-             (let [application        (first applications-todo)
-                   datapoint-criteria (:datapoint application)
-                     ;;:dx (:dx application)
-                     ;;:dy (:dy application)
-                   ]
-               (map (fn [datapoint]
-                      (if (datapoint-matches? datapoint-criteria datapoint)
-                        (-> datapoint
-                            (assoc :annotation (str annotation-symbol id))
-                            (assoc :annotation-text text)
-                            (assoc :annotation-url "#") ;;TODO maybe replace with View API click event listener
-                            )
-                        datapoint)) 
-                    data-coll-updated))))))
+(apply dissoc {:x 1 :y 2 :emoji "x" :z 7 :text "hi"} non-coord-keys)
 
+(defn apply-annotation [annotation target-coll]
+  (let [criteria (apply dissoc annotation non-coord-keys)] ;; ignore anything that isn't contributing to the specification of datapoint coordinates 
+    (map (fn [record]
+           (if (record-matches? criteria record)
+             (-> record
+                 (assoc :annotation (get annotation :emoji default-annotation-symbol))
+                 (assoc :annotation-text (:text annotation))
+                 (assoc :annotation-url "#") ;;TODO maybe replace with View API click event listener
+                 )
+             record))
+         target-coll)))
 
 
 (defn apply-annotations
-  ([data-coll]
-   (loop [annotations-todo (map-indexed vector anno-data/ANNOTATIONS) ;; use an annotation's index as its ID
-          data-coll-with-annotations data-coll]
+  ([annotations target-coll]
+   (loop [annotations-todo    annotations
+          target-coll-updated target-coll]
      (if (empty? annotations-todo)
-       data-coll-with-annotations
+       target-coll-updated
        (recur (rest annotations-todo)
-              (apply-annotation data-coll-with-annotations (first annotations-todo))))))
-  ([data-coll record-type] 
-   (apply-annotations (->> data-coll
-                           (map #(assoc % :record-type record-type)) ;; decorate each data point with the given record-type
-                           ))))
+              (apply-annotation (first annotations-todo) target-coll-updated)))))
+  ([annotations target-coll record-type] 
+   (apply-annotations annotations (->> target-coll
+                                       (map #(assoc % :record-type record-type)) ;; decorate each data point with the given record-type
+                                       ))))
 
 
 
-(defn first-annotation-whose-datapoint-criteria-matches [datapoint]
-  (->> anno-data/ANNOTATIONS
-       (map-indexed vector)
-       (filter (fn [[_ix annotation]]
-                 (some true?
-                       (map (fn [datapoint-criteria]
-                              (datapoint-matches? datapoint-criteria datapoint))
-                            (map :datapoint
-                                 (:applications annotation))))))
+(defn first-annotation-whose-record-criteria-matches [annotations record]
+  (->> annotations
+       (filter (fn [annotation]
+                 (record-matches? (apply dissoc annotation non-coord-keys) record)))
        first))
 
 
