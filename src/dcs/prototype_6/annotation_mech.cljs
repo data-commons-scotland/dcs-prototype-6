@@ -4,7 +4,7 @@
 (def layer-annotations {:transform [{:filter "datum.annotation != null"}]
                         :mark {:type "text"
                                :align "left"
-                               :dx 10
+                               ;; :dx 0
                                ;; :dy -5
                                ;; _:baseline "bottom"
                                :fontWeight "bold"
@@ -15,18 +15,16 @@
                                :strokeOpacity 0
                                :strokeWidth 5}
                         :encoding {:text {:field "annotation"}
-                                   :tooltip [{:field "annotation"
-                                              :type  "nominal"
-                                              :title "emoji"}
-                                             {:field "annotation-text"
-                                              :type  "nominal"
-                                              :title "info"}]
+                                   :tooltip [{:field "annotation-text" ;; tooltip's tabular format is nicer
+                                              :type  "nominal"         
+                                              :title ":"}]             ;; make the title fairly unnoticable
                                    ;;:href {:field "annotation-url" :type "nominal"}
                                    }})
 
 
-
-;; 👋  ✋  ❗  ⁉️  🟢  ℹ️  🔍  📍 📈 📉 📊  ✅  ❌  👎  👍  🤔 🤨 🚩 💬  
+;;
+;; 👋  ✋  ❗  ⁉️  🟢  ℹ️  🔍  📍 📌 📈 📉 📊  ✅  ❌  👎  👍  🤔 🤨  😕  🚩 💬  🎯 🧭 🥇 🥈 🥉 ⚠️
+;;
 (def default-annotation-symbol "📍")
 
 
@@ -39,15 +37,13 @@
 
 (def non-coord-keys [:emoji :text])
 
-(apply dissoc {:x 1 :y 2 :emoji "x" :z 7 :text "hi"} non-coord-keys)
-
 (defn apply-annotation [annotation target-coll]
   (let [criteria (apply dissoc annotation non-coord-keys)] ;; ignore anything that isn't contributing to the specification of datapoint coordinates 
     (map (fn [record]
            (if (record-matches? criteria record)
              (-> record
                  (assoc :annotation (get annotation :emoji default-annotation-symbol))
-                 (assoc :annotation-text (:text annotation))
+                 (assoc :annotation-text (str (get annotation :emoji default-annotation-symbol) " " (:text annotation)))
                  (assoc :annotation-url "#") ;;TODO maybe replace with View API click event listener
                  )
              record))
@@ -86,8 +82,5 @@
      [:table
       [:tbody
        [:tr
-        [:td.key "id:"]
-        [:td.value anchor]]
-       [:tr
-        [:td.key "info:"]
-        [:td.value text]]]]]]])
+        [:td.key "::"]
+        [:td.value (str anchor " " text)]]]]]]])

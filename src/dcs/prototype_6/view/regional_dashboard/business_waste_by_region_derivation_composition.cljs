@@ -21,8 +21,9 @@
           layer-annotations (-> anno-mech/layer-annotations
                                 (assoc-in [:encoding :x] (-> layer-normal :encoding :x))
                                 (assoc-in [:encoding :y] (-> layer-normal :encoding :y))
-                                (assoc-in [:mark :dy] -10)
-                                (assoc-in [:mark :dx] 0))]
+                                (assoc-in [:encoding :color] (-> layer-normal :encoding :color))
+                                (assoc-in [:mark :dy] -30)
+                                #_(assoc-in [:mark :dx] 0))]
       {:schema     "https://vega.github.io/schema/vega/v5.json"
        :title      title
        :width      200
