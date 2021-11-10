@@ -9,6 +9,9 @@
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
 
+(def DEV-DATA-REPO "https://raw.githubusercontent.com/data-commons-scotland/dcs-dev-data/main/")
+
+
 (defn fetch
       [url body-handler]
       (js/console.log (str "Fetching " url))
@@ -40,11 +43,11 @@
                             clj->js
                             (reset! state/geojson-cursor))))
   
-  (fetch "regional-dashboard-annotations.csv"
+  (fetch (str DEV-DATA-REPO "regional-dashboard-annotations.csv")
          (fn [regional-dashboard-annotations] (->> regional-dashboard-annotations
                                                    (reset! state/regional-dashboard-annotations-holder))))
   
-  (fetch "household-waste-analysis-annotations.csv"
+  (fetch (str DEV-DATA-REPO "household-waste-analysis-annotations.csv")
          (fn [household-waste-analysis-annotations] (->> household-waste-analysis-annotations
                                                          (reset! state/household-waste-analysis-annotations-holder))))
 
