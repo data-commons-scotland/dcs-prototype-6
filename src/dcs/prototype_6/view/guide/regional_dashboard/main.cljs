@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.view.tutorial.regional-dashboard.main
+(ns dcs.prototype-6.view.guide.regional-dashboard.main
 (:require [reagent.core :as r]
           [dcs.prototype-6.util :as util]
           [dcs.prototype-6.state :as state]

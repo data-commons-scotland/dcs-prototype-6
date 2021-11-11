@@ -425,14 +425,6 @@
                                         (assoc m 
                                                :record-type (keyword (:record-type m)))))))))
             ]
-        
-        (let [x (first derivation)]
-          (js/console.log "deriver x " (str x))
-          (js/console.log "deriver x raw" x)
-          (js/console.log "deriver x type" (str (type x)))
-          (js/console.log "deriver x :record-type" (str (:record-type x)))
-          (js/console.log "deriver x :text" (str (:text x)))
-          (js/console.log "deriver x with :text dissoc" (str (dissoc x :text))))
 
         (reset! state/annotations-derivation-cursor derivation)
         (js/console.log (str "Calculating annotations-derivations: secs-taken=" (util/secs-to-now start-time)))))))

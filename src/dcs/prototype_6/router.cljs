@@ -11,7 +11,6 @@
             [dcs.prototype-6.view.fairshare.main :as fairshare-view]
             [dcs.prototype-6.view.ace-furniture.main :as ace-furniture-view]
             [dcs.prototype-6.view.household-waste-analysis.main :as household-waste-analysis-view]
-            [dcs.prototype-6.view.easier-open-data.main :as easier-open-data-view]
             [dcs.prototype-6.view.experiment.main :as experiment-view]
             [dcs.prototype-6.view.todo :as todo-view]
             [dcs.prototype-6.view.data :as data-view]
@@ -19,7 +18,8 @@
             [dcs.prototype-6.view.waste-sites-map :as waste-sites-map-view]
             [dcs.prototype-6.view.waste-through-time-map :as waste-through-time-map-view]
             [dcs.prototype-6.view.pivot-drilldown-and-plot :as pivot-drilldown-and-plot-view]
-            [dcs.prototype-6.view.tutorial.regional-dashboard.main :as regional-dashboard-tutorial-view]))
+            [dcs.prototype-6.view.guide.easier-open-data.main :as easier-open-data-view]
+            [dcs.prototype-6.view.guide.regional-dashboard.main :as regional-dashboard-tutorial-view]))
 
 (def routes
   [["/"
@@ -47,10 +47,6 @@
    ["/household-waste-analysis"
     {:name ::household-waste-analysis-view
      :view household-waste-analysis-view/root}]
-   ["/easier-open-data"
-     {:name ::easier-open-data-view
-      :view easier-open-data-view/root
-      :parameters {:query {(ds/opt :target) string?}}}]
    ["/waste-sites-map"
     {:name ::waste-sites-map-view
      :view waste-sites-map-view/root}]
@@ -62,7 +58,11 @@
     {:name ::pivot-drilldown-and-plot-view
      :view pivot-drilldown-and-plot-view/root
      :parameters {:path {:preset string?}}}]
-   ["/tutorial/regional-dashboard"
+   ["/guide/easier-open-data"
+    {:name ::easier-open-data-view
+     :view easier-open-data-view/root
+     :parameters {:query {(ds/opt :target) string?}}}]
+   ["/guide/regional-dashboard"
     {:name ::regional-dashboard-tutorial-view
      :view regional-dashboard-tutorial-view/root}]
    ["/data"

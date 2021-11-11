@@ -1,4 +1,4 @@
-(ns dcs.prototype-6.view.easier-open-data.main
+(ns dcs.prototype-6.view.guide.easier-open-data.main
   (:require [reitit.frontend.easy :as rfe]
             [reagent.core :as r]
             [dcs.prototype-6.state :as state]
