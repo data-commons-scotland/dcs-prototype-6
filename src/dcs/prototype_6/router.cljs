@@ -19,7 +19,8 @@
             [dcs.prototype-6.view.waste-through-time-map :as waste-through-time-map-view]
             [dcs.prototype-6.view.pivot-drilldown-and-plot :as pivot-drilldown-and-plot-view]
             [dcs.prototype-6.view.guide.easier-open-data.main :as easier-open-data-view]
-            [dcs.prototype-6.view.guide.regional-dashboard.main :as regional-dashboard-tutorial-view]))
+            [dcs.prototype-6.view.guide.regional-dashboard.main :as regional-dashboard-tutorial-view]
+            [dcs.prototype-6.view.guide.include-notebook-experiment.main :as include-notebook-experiment-view]))
 
 (def routes
   [["/"
@@ -61,6 +62,10 @@
    ["/guide/easier-open-data"
     {:name ::easier-open-data-view
      :view easier-open-data-view/root
+     :parameters {:query {(ds/opt :target) string?}}}]
+   ["/guide/include-notebook-experiment"
+    {:name ::include-notebook-experiment-view
+     :view include-notebook-experiment-view/root
      :parameters {:query {(ds/opt :target) string?}}}]
    ["/guide/regional-dashboard"
     {:name ::regional-dashboard-tutorial-view

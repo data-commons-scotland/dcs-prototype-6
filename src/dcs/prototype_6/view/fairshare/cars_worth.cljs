@@ -7,33 +7,45 @@
 
 (defn chart-spec-cars-worth
       [data title]
-      {:schema     "https://vega.github.io/schema/vega/v5.json"
-       :width      300
-       :height     450
-       :title      title
-       :background "#f2dfce"                                ;  "#980f3d"  "#fff1e5"
-       :data       {:values data}
-       :transform  [{:calculate "datum.car==1 ? '🚗' : ''" :as "emoji"}
-                    {:window  [{:op "sum" :field "car" :as "cars"}]
-                     :groupby ["date"]}]
-       :mark       {:type  "text"
-                    :align "center"}
-       :encoding   {:x       {:title "year"
-                              :field "date" :type "temporal"
-                              :axis  {:format     "%Y"
-                                      :labelAngle 45
-                                      :labelBound 50
-                                      }}
-                    :y       {:field "cars"
-                              :type  "quantitative"
-                              :axis  {:title "equivalent number of cars"}}
-                    :text    {:field "emoji" :type "nominal"}
-                    :size    {:value 15}
-                    :tooltip [{:title "year" :field "date" :type "temporal" :format "%Y"}
-                              {:title "tonnes of CO2e" :field "year-co2e" :type "quantitative" :format ".3f"}
-                              {:title "equivalent number of cars" :field "year-cars" :type "quantitative"}]}
-       :config     {
-                    :axisX {:grid false}}})
+      (let [layer-normal {:transform [{:calculate "datum.car==1 ? '🚗' : ''"
+                                       :as        "emoji"}
+                                      {:window  [{:op    "sum"
+                                                  :field "car"
+                                                  :as    "cars"}]
+                                       :groupby ["date"]}]
+                          :mark      {:type  "text"
+                                      :align "center"}
+                          :encoding  {:x       {:title "year"
+                                                :field "date"
+                                                :type  "temporal"
+                                                :axis  {:format     "%Y"
+                                                        :labelAngle 45
+                                                        :labelBound 50}}
+                                      :y       {:field "cars"
+                                                :type  "quantitative"
+                                                :axis  {:title "equivalent number of cars"}}
+                                      :text    {:field "emoji"
+                                                :type  "nominal"}
+                                      :size    {:value 15}
+                                      :tooltip [{:title  "year"
+                                                 :field  "date"
+                                                 :type   "temporal"
+                                                 :format "%Y"}
+                                                {:title  "tonnes of CO2e"
+                                                 :field  "year-co2e"
+                                                 :type   "quantitative"
+                                                 :format ".3f"}
+                                                {:title "equivalent number of cars"
+                                                 :field "year-cars"
+                                                 :type  "quantitative"}]}}]
+        {:schema     "https://vega.github.io/schema/vega/v5.json"
+         :width      300
+         :height     450
+         :title      title
+         :background "#f2dfce"  ;  "#980f3d"  "#fff1e5"
+         :data       {:values data}
+         :layer      [layer-normal]
+         :config     {:axisX {:grid false}}}))
 
 
 (defn charts [co2e]
@@ -62,7 +74,7 @@
                              :year-co2e 0
                              :year-cars 0
                              :car       0})
-                      (cons {:date      "2020-01-01"
+                      (cons {:date      "2022-01-01"
                              :year-co2e 0
                              :year-cars 0
                              :car       0}))]

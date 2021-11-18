@@ -46,7 +46,7 @@
 ;;   https://github.com/data-commons-scotland/dcs-easier-open-data/raw/v1.0-beta/data/
 ;; but it results in a "redirect"+"cross site restriction" problem.
 ;; So, instead use the "more direct" stem:
-(def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/v1.5-beta/")
+(def easier-repo "https://raw.githubusercontent.com/data-commons-scotland/dcs-easier-open-data/master/") ;; TODO !!!!!! change this to a tag (e.g. v1.6-beta) before making it 'live'
 (def easier-repo-data (str easier-repo "data/"))
 
 
