@@ -397,17 +397,19 @@
 (defn maybe-calc-annotations-derivations
   []
   (let [regional-dashboard-annotations       @state/regional-dashboard-annotations-holder
-        household-waste-analysis-annotations @state/household-waste-analysis-annotations-holder]
+        household-waste-analysis-annotations @state/household-waste-analysis-annotations-holder
+        fairshare-annotations                @state/fairshare-annotations-holder]
 
     (when (and (some? regional-dashboard-annotations)
-               (some? household-waste-analysis-annotations))
+               (some? household-waste-analysis-annotations)
+               (some? fairshare-annotations))
 
       (js/console.log "Calculating annotations-derivations")
 
       (let [start-time (util/now)
 
             derivation (flatten
-                        (for [annotations-rows [regional-dashboard-annotations household-waste-analysis-annotations]]
+                        (for [annotations-rows [regional-dashboard-annotations household-waste-analysis-annotations fairshare-annotations]]
                           (let [ks (->> annotations-rows 
                                         first 
                                         (map keyword))]
@@ -525,6 +527,11 @@
                (maybe-calc-annotations-derivations))))
 
 (add-watch state/household-waste-analysis-annotations-holder :annotations-dependency
+           (fn [_key _atom _old-state new-state]
+             (when new-state
+               (maybe-calc-annotations-derivations))))
+
+(add-watch state/fairshare-annotations-holder :annotations-dependency
            (fn [_key _atom _old-state new-state]
              (when new-state
                (maybe-calc-annotations-derivations))))

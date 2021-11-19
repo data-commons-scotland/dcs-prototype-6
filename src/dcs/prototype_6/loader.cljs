@@ -47,6 +47,10 @@
   (fetch "household-waste-analysis-annotations.csv"
          (fn [household-waste-analysis-annotations] (->> household-waste-analysis-annotations
                                                          (reset! state/household-waste-analysis-annotations-holder))))
+  
+  (fetch "fairshare-annotations.csv"
+         (fn [fairshare-annotations] (->> fairshare-annotations
+                                          (reset! state/fairshare-annotations-holder))))
 
   (fetch (str util/easier-repo-data "meta.json")
          (fn [meta] (->> meta

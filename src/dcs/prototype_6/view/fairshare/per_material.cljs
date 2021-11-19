@@ -52,7 +52,7 @@
           ]
          [:column
           [:div.m-4.content
-           [:p "Graph 2 depicts the (average) tonnes per year of each (category of) material reused."
+           [:p "Graph 2 depicts the (all years average) tonnes per year of each (category of) material reused."
             " Textiles & footwear is by far the highest, followed by books then aggregates."]]
           ]]
         [:div.columns

@@ -1,19 +1,14 @@
 (ns dcs.prototype-6.view.fairshare.cars-worth
   (:require
-    [reitit.frontend.easy :as rfe]
-    [oz.core :as oz]
-    [dcs.prototype-6.util :as util]
-    [dcs.prototype-6.state :as state]))
+   [reitit.frontend.easy :as rfe]
+   [oz.core :as oz]
+   [dcs.prototype-6.util :as util]
+   [dcs.prototype-6.annotation-mech :as anno-mech]
+   [dcs.prototype-6.state :as state]))
 
 (defn chart-spec-cars-worth
       [data title]
-      (let [layer-normal {:transform [{:calculate "datum.car==1 ? '🚗' : ''"
-                                       :as        "emoji"}
-                                      {:window  [{:op    "sum"
-                                                  :field "car"
-                                                  :as    "cars"}]
-                                       :groupby ["date"]}]
-                          :mark      {:type  "text"
+      (let [layer-normal {:mark      {:type  "text"
                                       :align "center"}
                           :encoding  {:x       {:title "year"
                                                 :field "date"
@@ -37,51 +32,70 @@
                                                  :format ".3f"}
                                                 {:title "equivalent number of cars"
                                                  :field "year-cars"
-                                                 :type  "quantitative"}]}}]
+                                                 :type  "quantitative"}]}}
+            layer-annotations (-> anno-mech/layer-annotations
+                                  (assoc-in [:encoding :x] (-> layer-normal :encoding :x))
+                                  (assoc-in [:encoding :y] (-> layer-normal :encoding :y))
+                                  (assoc-in [:mark :dy] 53)
+                                  (assoc-in [:mark :dx] -7))]
         {:schema     "https://vega.github.io/schema/vega/v5.json"
          :width      300
          :height     450
          :title      title
          :background "#f2dfce"  ;  "#980f3d"  "#fff1e5"
          :data       {:values data}
-         :layer      [layer-normal]
+         :transform [{:calculate "datum.car==1 ? '🚗' : ''"
+                      :as        "emoji"}
+                     {:window  [{:op    "sum"
+                                 :field "car"
+                                 :as    "cars"}]
+                      :groupby ["date" "annotation" "annotation-text" "annotation-url"]}]
+         :layer      [layer-normal
+                      layer-annotations]
          :config     {:axisX {:grid false}}}))
 
 
-(defn charts [co2e]
-  (let [car-co2e (->> co2e
-                          ;; roll-up to per-year
-                      (group-by :year)
-                      (map (fn [[year coll]]
-                             {:year year
-                              :co2e (apply + (map :tonnes coll))}))
-                          ;; and calcuate the avoided CO2e in terms of cars
-                          ;; 4.9 = average tonnes of CO2e per car per year (incorporates exhaust emissions, fuel supply chain, car material)
-                      (map (fn [{:keys [year co2e]}]
-                             {:year year
-                              :co2e co2e
-                              :cars (int (Math/round (/ co2e 4.1)))}))
-                          ;; for a Vega emoji representation, create a record per car
-                      (map (fn [{:keys [year co2e cars]}]
-                             (repeat cars
-                                     {:date      (str year "-01-01")
-                                      :year-co2e co2e
-                                      :year-cars cars
-                                      :car       1})))
-                      flatten
-                          ;; workaround a Vega rendering issue by delimiting the year range with empty valued records
-                      (cons {:date      "2012-01-01"
-                             :year-co2e 0
-                             :year-cars 0
-                             :car       0})
-                      (cons {:date      "2022-01-01"
-                             :year-co2e 0
-                             :year-cars 0
-                             :car       0}))]
+(defn charts [co2e annotations]
+  (let [fairshare-derivation-co2e-cars (->> co2e
+                                            ;; roll-up to per-year
+                                            (group-by :year)
+                                            (map (fn [[year coll]]
+                                                   {:year year
+                                                    :co2e (apply + (map :tonnes coll))}))
+                                            ;; and calcuate the avoided CO2e in terms of cars
+                                            ;; 4.1 = average tonnes of CO2e per car per year (incorporates exhaust emissions, fuel supply chain, car material)
+                                            (map (fn [{:keys [year co2e]}]
+                                                   {:year year
+                                                    :co2e co2e
+                                                    :cars (int (Math/round (/ co2e 4.1)))}))
+                                            ;; for a Vega emoji representation, create a record per car
+                                            (map (fn [{:keys [year co2e cars]}]
+                                                   (cons {:date      (str year "-01-01")
+                                                          :year-co2e co2e
+                                                          :year-cars cars
+                                                          :car       "0"}
+                                                         (repeat cars
+                                                           {:date      (str year "-01-01")
+                                                            :year-co2e co2e
+                                                            :year-cars cars
+                                                            :car       1}))))
+                                            flatten
+                                            ;; workaround a Vega rendering issue by delimiting the year range with empty valued records
+                                            (cons {:date      "2012-01-01"
+                                                   :year-co2e 0
+                                                   :year-cars 0
+                                                   :car       0})
+                                            (cons {:date      "2022-01-01"
+                                                   :year-co2e 0
+                                                   :year-cars 0
+                                                   :car       0}))
+                             
+        ;; add annotation data
+        fairshare-derivation-co2e-cars' (anno-mech/apply-annotations annotations fairshare-derivation-co2e-cars :fairshare-derivation-co2e-cars)]
 
     [:div.columns
      [:column
-      [oz/vega-lite (chart-spec-cars-worth car-co2e "Graph 1: Cars-worth of CO2e avoided per year")
+      [oz/vega-lite (chart-spec-cars-worth fairshare-derivation-co2e-cars' "Graph 1: Cars-worth of CO2e avoided per year")
        util/vega-embed-opts]
       ]
      [:column
@@ -96,8 +110,9 @@
        [:p "So, we divide The Fair Share's CO" [:sub "2"] "e values by 4.1 to yield our " [:em "cars worth"] " of CO" [:sub "2"] "e values"
         " then use these to plot this graph."]
        [:p.has-text-success "This small store has enabled an impressive amount of CO" [:sub "2"] "e avoidance."]
-       [:p.has-text-grey "The 2014 spike was caused by an unusually large donation of textiles" [:sup "c"] " (duvet covers, sheets, pillowcases)"
+       [:p.has-text-grey "📈 The 2014 spike was caused by an unusually large donation of textiles" [:sup "c"] " (duvet covers, sheets, pillowcases)"
         " from the student halls of residence."]
+       [:p.has-text-grey "📉 During 2020 and for most of 2021, the store's normal operation was suspended due to Covid-19."]
        [:div.content.is-small.has-text-info
         [:ol.is-lower-alpha
          [:li "The Fair Share have calculated their CO" [:sub "2"] "e values using "
@@ -114,5 +129,6 @@
           [:a {:href (rfe/href :dcs.prototype-6.router/data-view nil {:target "co2e-multiplier"})} "The Scottish Carbon Metric multiplier table"] "."]]]]]]))
 
 (defn root []
-      [charts
-       @state/fairshare-derivation-co2e-cursor])
+  [charts
+   @state/fairshare-derivation-co2e-cursor
+   @state/annotations-derivation-cursor])

@@ -101,4 +101,5 @@
 (defonce household-waste-analysis-holder (atom nil))
 (defonce regional-dashboard-annotations-holder (atom nil))
 (defonce household-waste-analysis-annotations-holder (atom nil))
+(defonce fairshare-annotations-holder (atom nil))
 

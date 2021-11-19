@@ -1,6 +1,14 @@
 (ns dcs.prototype-6.annotation-mech)
 
 
+;; Note:
+;;   * Annotation coordinates (from the CSV files) are just string values
+;;       - (no smart type conversion occurs) 
+;;         so will only match against coord values that are themselves strings.
+;;   * Annotations won't match (an be applied) against datapoints which don't exist
+;;       - so can't directly annotate a missing datapoint.
+
+
 (def layer-annotations {:transform [{:filter "datum.annotation != null"}]
                         :mark {:type "text"
                                :align "left"
