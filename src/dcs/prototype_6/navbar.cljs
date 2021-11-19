@@ -135,7 +135,11 @@
            (navbar-clickable "About the regional dashboard page"
                              [:span "How to understand the graphs"
                               [:br] "on the " [:em "regional dashboard"] " page"]
-                             (rfe/href :dcs.prototype-6.router/regional-dashboard-tutorial-view))]]
+                             (rfe/href :dcs.prototype-6.router/regional-dashboard-tutorial-view))
+           (navbar-clickable "Exploring Scotland's business waste data"
+                             [:span "A walk-through on how to extract information"
+                              [:br] "from the data about business waste in Scotland"]
+                             (rfe/href :dcs.prototype-6.router/exploring-business-waste-view))]]
 
          ;; Data
          [:a.navbar-item

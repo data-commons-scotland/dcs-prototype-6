@@ -178,3 +178,21 @@ div.vg-tooltip table tbody tr td.value {
     max-height: 12em !important;
 }
 
+
+/* Hack to size the iframe that pulls a static HTML page that was output by the literal programming tool. */
+.iframe-row-container {
+    display: flex; 
+    width: 100%; 
+    height: 100%; 
+    flex-direction: column; 
+    overflow: hidden;
+}
+.non-iframe-row {
+    background-color: grey; 
+}
+.iframe-row { 
+    flex-grow: 1; 
+    border: none; 
+    margin: 0; 
+    padding: 0; 
+}
