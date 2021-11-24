@@ -139,7 +139,11 @@
            (navbar-clickable "Exploring Scotland's business waste data"
                              [:span "A walk-through on how to extract information"
                               [:br] "from the data about business waste in Scotland"]
-                             (rfe/href :dcs.prototype-6.router/exploring-business-waste-view))]]
+                             (rfe/href :dcs.prototype-6.router/exploring-business-waste-view))
+           (navbar-clickable "Household-vs-business wastes in Scotland"
+                             [:span "A walk-through on how to build a graph"
+                              [:br] "that provides at-a-glance-comparison"]
+                             (rfe/href :dcs.prototype-6.router/household-vs-business-waste-view))]]
 
          ;; Data
          [:a.navbar-item
